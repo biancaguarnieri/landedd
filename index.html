@@ -5,51 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Landedd — Stop applying. Start landing.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --green: #0BDA8A;
-  --green-dark: #07A866;
-  --green-dim: rgba(11,218,138,0.12);
-  --green-glow: rgba(11,218,138,0.25);
-  --bg: #080C0A;
-  --bg2: #0E1510;
-  --bg3: #131A14;
-  --surface: #1A231B;
-  --surface2: #222D23;
-  --border: rgba(255,255,255,0.07);
-  --border-green: rgba(11,218,138,0.2);
-  --text: #F0F4F1;
-  --text-muted: #8A9E8C;
-  --text-dim: #4A5E4C;
-  --purple: #A78BFA;
-  --amber: #FBB040;
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --green-dim: rgba(11,218,138,0.08);
+  --green-border: rgba(11,218,138,0.18);
+  --bg: #F7F6F2;
+  --bg2: #EFEDE7;
+  --bg3: #E8E5DE;
+  --surface: #FFFFFF;
+  --border: rgba(0,0,0,0.07);
+  --border-md: rgba(0,0,0,0.12);
+  --text: #0F0F0D;
+  --text-muted: #6B6860;
+  --text-dim: #B0AEA8;
+  --purple: #5B4FCF;
+  --amber: #D4870A;
+  --red: #C0392B;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Geist', sans-serif;
+  --radius: 12px;
+  --radius-lg: 20px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
-}
-
-/* ── NOISE TEXTURE ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.6;
 }
 
 /* ── NAV ── */
@@ -57,24 +46,25 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 0 2rem;
-  height: 64px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(8,12,10,0.8);
-  backdrop-filter: blur(20px);
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  background: rgba(247,246,242,0.92);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
 
 .logo {
   font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 600;
   color: var(--text);
   letter-spacing: -0.5px;
+  font-style: italic;
 }
-.logo span { color: var(--green); }
+.logo em { color: var(--green); font-style: normal; }
 
 .nav-links {
   display: flex;
@@ -91,38 +81,25 @@ nav {
 }
 .nav-links a:hover { color: var(--text); }
 
-.nav-cta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.nav-right { display: flex; gap: 10px; align-items: center; }
 
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 8px 18px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-ghost:hover { border-color: var(--border-green); color: var(--green); }
-
-.btn-primary {
-  background: var(--green);
+.btn-nav {
+  background: var(--text);
+  color: var(--bg);
   border: none;
-  color: #040A06;
-  padding: 9px 20px;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 8px 18px;
+  border-radius: 99px;
+  font-size: 13px;
   font-weight: 500;
   font-family: var(--font-body);
   cursor: pointer;
   transition: all 0.2s;
 }
-.btn-primary:hover { background: #0FF5A0; transform: translateY(-1px); }
+.btn-nav:hover { background: #2a2a2a; }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
 
 /* ── HERO ── */
 .hero {
@@ -132,1197 +109,1089 @@ nav {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8rem 2rem 4rem;
-  position: relative;
-  overflow: hidden;
+  padding: 8rem clamp(1.5rem, 5vw, 4rem) 5rem;
 }
 
-.hero-glow {
-  position: absolute;
-  width: 800px;
-  height: 800px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(11,218,138,0.07) 0%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -60%);
-  pointer-events: none;
-}
-
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(11,218,138,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11,218,138,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 0%, transparent 100%);
-  pointer-events: none;
-}
-
-.hero-tag {
+.hero-kicker {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--green-dim);
-  border: 1px solid var(--border-green);
+  background: var(--surface);
+  border: 1px solid var(--border-md);
   border-radius: 99px;
   padding: 6px 16px;
-  font-size: 13px;
-  color: var(--green);
-  margin-bottom: 2rem;
-  animation: fadeUp 0.6s ease both;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.3px;
 }
-
-.hero-tag-dot {
+.kicker-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--green);
   animation: pulse 2s infinite;
 }
-
 @keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.4; transform:scale(0.7); }
 }
 
 .hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(44px, 7vw, 88px);
-  font-weight: 800;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 300;
   line-height: 1.0;
   letter-spacing: -2px;
   margin-bottom: 1.5rem;
-  animation: fadeUp 0.6s 0.1s ease both;
+  max-width: 800px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--green);
 }
 
-.hero h1 .accent { color: var(--green); }
-.hero h1 .accent2 { color: var(--text-muted); font-weight: 400; }
-
 .hero-sub {
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(15px, 2vw, 18px);
   color: var(--text-muted);
-  max-width: 560px;
+  max-width: 480px;
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 2.5rem;
-  animation: fadeUp 0.6s 0.2s ease both;
 }
 
 .hero-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 3rem;
-  animation: fadeUp 0.6s 0.3s ease both;
 }
 
-.btn-hero {
-  background: var(--green);
-  color: #040A06;
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
   border: none;
-  padding: 14px 32px;
-  border-radius: 10px;
-  font-size: 16px;
+  padding: 13px 28px;
+  border-radius: 99px;
+  font-size: 15px;
   font-weight: 500;
   font-family: var(--font-body);
   cursor: pointer;
   transition: all 0.2s;
 }
-.btn-hero:hover { background: #0FF5A0; transform: translateY(-2px); }
+.btn-primary:hover { background: #2a2a2a; transform: translateY(-1px); }
 
-.btn-hero-ghost {
+.btn-secondary {
   background: transparent;
   color: var(--text-muted);
-  border: 1px solid var(--border);
-  padding: 14px 32px;
-  border-radius: 10px;
-  font-size: 16px;
+  border: 1px solid var(--border-md);
+  padding: 13px 28px;
+  border-radius: 99px;
+  font-size: 15px;
   font-family: var(--font-body);
   cursor: pointer;
   transition: all 0.2s;
 }
-.btn-hero-ghost:hover { border-color: var(--border-green); color: var(--green); }
+.btn-secondary:hover { color: var(--text); border-color: rgba(0,0,0,0.25); }
 
-.hero-social-proof {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  animation: fadeUp 0.6s 0.4s ease both;
+/* ── FEATURES STRIP ── */
+.features-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem clamp(1.5rem, 5vw, 4rem);
 }
 
-.avatars {
-  display: flex;
+.features-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
 }
-.avatar {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  border: 2px solid var(--bg);
-  margin-left: -8px;
-  font-size: 12px;
-  font-weight: 600;
+
+.feature { text-align: center; }
+.feature-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 18px;
+}
+.feature h3 {
   font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
 }
-.avatar:first-child { margin-left: 0; }
-.av1 { background: #7C3AED; color: #fff; }
-.av2 { background: #DB2777; color: #fff; }
-.av3 { background: #059669; color: #fff; }
-.av4 { background: #D97706; color: #fff; }
+.feature p { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
 
-.proof-text {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-.proof-text strong { color: var(--text); font-weight: 500; }
-
-/* ── TRACK CARDS ── */
-.tracks {
-  padding: 6rem 2rem;
-  max-width: 1100px;
+/* ── TRACKS ── */
+.tracks-section {
+  padding: 6rem clamp(1.5rem, 5vw, 4rem);
+  max-width: 960px;
   margin: 0 auto;
 }
 
-.section-label {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2px;
+.section-eyebrow {
+  font-size: 11px;
   text-transform: uppercase;
-  color: var(--green);
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  font-weight: 500;
   margin-bottom: 1rem;
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1px;
-  margin-bottom: 1rem;
-}
-
-.section-sub {
-  color: var(--text-muted);
-  font-size: 17px;
+  font-size: clamp(28px, 4vw, 44px);
   font-weight: 300;
-  max-width: 520px;
+  line-height: 1.15;
+  letter-spacing: -1px;
   margin-bottom: 3rem;
 }
 
 .tracks-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 16px;
 }
 
 .track-card {
-  background: var(--bg2);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s, transform 0.3s;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: pointer;
 }
-.track-card:hover {
-  border-color: var(--border-green);
-  transform: translateY(-4px);
-}
+.track-card:hover { border-color: var(--border-md); transform: translateY(-2px); }
 
-.track-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--green), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.track-card:hover::before { opacity: 1; }
-
-.track-card-glow {
-  position: absolute;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  top: -100px; right: -100px;
-  pointer-events: none;
-}
-.glow-green { background: radial-gradient(circle, rgba(11,218,138,0.08) 0%, transparent 70%); }
-.glow-purple { background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%); }
-
-.track-pill {
+.track-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border-radius: 99px;
-  padding: 5px 14px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-bottom: 1.25rem;
 }
-.pill-green { background: var(--green-dim); color: var(--green); border: 1px solid var(--border-green); }
-.pill-purple { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+.tag-green { background: var(--green-dim); color: #0a7a4e; border: 1px solid var(--green-border); }
+.tag-purple { background: rgba(91,79,207,0.08); color: var(--purple); border: 1px solid rgba(91,79,207,0.18); }
 
 .track-card h3 {
   font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 400;
   margin-bottom: 8px;
   letter-spacing: -0.5px;
 }
+.track-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 300; margin-bottom: 1.5rem; }
 
-.track-card p {
-  color: var(--text-muted);
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.track-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 2rem;
-}
-.track-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--text-muted);
-}
-.feat-dot {
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 10px;
-}
-.fd-green { background: var(--green-dim); color: var(--green); }
-.fd-purple { background: rgba(167,139,250,0.1); color: var(--purple); }
+.track-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+.track-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); }
+.feat-check { width: 16px; height: 16px; border-radius: 50%; background: var(--green-dim); border: 1px solid var(--green-border); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #0a7a4e; flex-shrink: 0; }
 
 .track-btn {
   width: 100%;
-  padding: 13px;
-  border-radius: 10px;
-  font-size: 15px;
+  padding: 11px;
+  border-radius: 99px;
+  font-size: 14px;
   font-weight: 500;
   font-family: var(--font-body);
   cursor: pointer;
   transition: all 0.2s;
   border: none;
 }
-.track-btn-green { background: var(--green); color: #040A06; }
-.track-btn-green:hover { background: #0FF5A0; }
-.track-btn-purple { background: rgba(167,139,250,0.15); color: var(--purple); border: 1px solid rgba(167,139,250,0.3); }
-.track-btn-purple:hover { background: rgba(167,139,250,0.25); }
-
-/* ── HOW IT WORKS ── */
-.how {
-  padding: 6rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.step {
-  background: var(--bg2);
-  padding: 2.5rem;
-  position: relative;
-}
-
-.step-num {
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 800;
-  color: var(--text-dim);
-  line-height: 1;
-  margin-bottom: 1rem;
-}
-
-.step h4 {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.step p {
-  font-size: 14px;
-  color: var(--text-muted);
-  font-weight: 300;
-  line-height: 1.6;
-}
-
-/* ── STATS ── */
-.stats-bar {
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 4rem 2rem;
-}
-
-.stats-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  text-align: center;
-}
-
-.stat-val {
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 800;
-  color: var(--green);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: var(--text-muted);
-  font-weight: 300;
-}
-
-/* ── TESTIMONIALS ── */
-.testimonials {
-  padding: 6rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.testi-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.testi-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.75rem;
-  transition: border-color 0.3s;
-}
-.testi-card:hover { border-color: var(--border-green); }
-
-.testi-stars {
-  color: var(--amber);
-  font-size: 13px;
-  margin-bottom: 12px;
-  letter-spacing: 2px;
-}
-
-.testi-text {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 1.25rem;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.testi-author {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.testi-avatar {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-}
-
-.testi-name { font-size: 14px; font-weight: 500; }
-.testi-role { font-size: 12px; color: var(--text-muted); }
+.tbtn-green { background: var(--text); color: var(--bg); }
+.tbtn-green:hover { background: #2a2a2a; }
+.tbtn-purple { background: rgba(91,79,207,0.08); color: var(--purple); border: 1px solid rgba(91,79,207,0.2); }
+.tbtn-purple:hover { background: rgba(91,79,207,0.14); }
 
 /* ── PRICING ── */
-.pricing {
-  padding: 6rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
+.pricing-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6rem clamp(1.5rem, 5vw, 4rem);
 }
+
+.pricing-inner { max-width: 960px; margin: 0 auto; }
 
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  align-items: start;
+  margin-top: 3rem;
 }
 
 .price-card {
-  background: var(--bg2);
+  background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
 }
-
 .price-card.featured {
-  border-color: var(--green);
-  background: var(--bg3);
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
 }
 
-.price-card.featured::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--green), transparent);
-}
-
-.price-tag {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.popular-badge {
-  background: var(--green-dim);
-  color: var(--green);
-  border: 1px solid var(--border-green);
-  border-radius: 99px;
-  padding: 2px 10px;
-  font-size: 10px;
-  letter-spacing: 0.5px;
-}
+.price-name { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); font-weight: 500; margin-bottom: 1rem; }
+.price-card.featured .price-name { color: rgba(247,246,242,0.5); }
 
 .price-amount {
   font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 800;
+  font-size: 44px;
+  font-weight: 300;
   line-height: 1;
   margin-bottom: 4px;
+  letter-spacing: -1px;
 }
-.price-amount span { font-size: 18px; font-weight: 400; color: var(--text-muted); }
+.price-amount sup { font-size: 18px; vertical-align: top; margin-top: 8px; display: inline-block; }
+.price-period { font-size: 12px; color: var(--text-dim); margin-bottom: 1.25rem; }
+.price-card.featured .price-period { color: rgba(247,246,242,0.4); }
 
-.price-period {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-}
+.price-divider { height: 1px; background: var(--border); margin-bottom: 1.25rem; }
+.price-card.featured .price-divider { background: rgba(247,246,242,0.12); }
 
-.price-desc {
-  font-size: 14px;
-  color: var(--text-muted);
-  font-weight: 300;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.price-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 2rem;
-}
-.price-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--text-muted);
-}
-.pf-check {
-  color: var(--green);
-  font-size: 13px;
-  flex-shrink: 0;
-}
-.pf-x {
-  color: var(--text-dim);
-  font-size: 13px;
-  flex-shrink: 0;
-}
+.price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+.price-features li { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.price-card.featured .price-features li { color: rgba(247,246,242,0.7); }
+.pf-on { color: var(--green); font-size: 13px; }
+.pf-off { color: var(--text-dim); font-size: 13px; }
 
 .price-btn {
   width: 100%;
-  padding: 13px;
-  border-radius: 10px;
-  font-size: 15px;
+  padding: 11px;
+  border-radius: 99px;
+  font-size: 14px;
   font-weight: 500;
   font-family: var(--font-body);
   cursor: pointer;
   transition: all 0.2s;
-  border: none;
-}
-.price-btn-outline {
+  border: 1px solid var(--border-md);
   background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
+  color: var(--text);
 }
-.price-btn-outline:hover { border-color: var(--border-green); color: var(--green); }
-.price-btn-filled {
-  background: var(--green);
-  color: #040A06;
-}
-.price-btn-filled:hover { background: #0FF5A0; transform: translateY(-1px); }
+.price-btn:hover { background: var(--bg2); }
+.price-btn.featured-btn { background: var(--green); color: #040A06; border-color: var(--green); }
+.price-btn.featured-btn:hover { background: #09f09a; }
 
 /* ── BUILT BY ── */
-.built-by {
-  padding: 4rem 2rem;
-  max-width: 900px;
+.built-section {
+  padding: 6rem clamp(1.5rem, 5vw, 4rem);
+  max-width: 700px;
   margin: 0 auto;
   text-align: center;
 }
 
-.built-card {
-  background: var(--bg2);
-  border: 1px solid var(--border-green);
-  border-radius: 24px;
-  padding: 3rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.built-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--green), transparent);
-}
-
-.built-avatar {
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  background: var(--green-dim);
-  border: 2px solid var(--border-green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.built-section blockquote {
   font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--green);
-  margin: 0 auto 1.5rem;
-}
-
-.built-card h3 {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  letter-spacing: -0.5px;
-}
-
-.built-card p {
-  font-size: 16px;
-  color: var(--text-muted);
+  font-size: clamp(20px, 3vw, 28px);
   font-weight: 300;
-  line-height: 1.7;
-  max-width: 560px;
-  margin: 0 auto 1.5rem;
+  font-style: italic;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  margin-bottom: 2rem;
 }
 
 .built-creds {
   display: flex;
   justify-content: center;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 8px;
 }
+.cred { font-size: 12px; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 99px; padding: 5px 14px; }
 
-.cred-pill {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 99px;
-  padding: 6px 16px;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* ── CTA SECTION ── */
+/* ── CTA ── */
 .cta-section {
-  padding: 6rem 2rem;
+  padding: 6rem clamp(1.5rem, 5vw, 4rem);
   text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-glow {
-  position: absolute;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(11,218,138,0.06) 0%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+  background: var(--text);
+  color: var(--bg);
 }
 
 .cta-section h2 {
   font-family: var(--font-display);
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 800;
-  line-height: 1.1;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 300;
   letter-spacing: -1.5px;
   margin-bottom: 1rem;
+  font-style: italic;
 }
-
-.cta-section p {
-  font-size: 18px;
-  color: var(--text-muted);
-  font-weight: 300;
-  margin-bottom: 2.5rem;
-}
-
-.cta-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+.cta-section h2 em { color: var(--green); font-style: normal; }
+.cta-section p { font-size: 15px; color: rgba(247,246,242,0.55); margin-bottom: 2rem; font-weight: 300; }
 
 .btn-cta {
   background: var(--green);
   color: #040A06;
   border: none;
-  padding: 16px 40px;
-  border-radius: 12px;
-  font-size: 17px;
+  padding: 14px 36px;
+  border-radius: 99px;
+  font-size: 16px;
   font-weight: 500;
   font-family: var(--font-body);
   cursor: pointer;
   transition: all 0.2s;
 }
-.btn-cta:hover { background: #0FF5A0; transform: translateY(-2px); }
+.btn-cta:hover { background: #09f09a; transform: translateY(-1px); }
 
 /* ── FOOTER ── */
 footer {
+  padding: 2rem clamp(1.5rem, 5vw, 4rem);
   border-top: 1px solid var(--border);
-  padding: 3rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
 }
+.footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 600; font-style: italic; }
+.footer-logo em { color: var(--green); font-style: normal; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 12px; color: var(--text-dim); }
 
-.footer-logo {
+/* ── APP PAGE ── */
+.app-page {
+  min-height: 100vh;
+  padding: 80px clamp(1rem, 4vw, 3rem) 3rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.app-header { margin-bottom: 2rem; }
+.app-header h2 {
   font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--text);
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  font-style: italic;
+  margin-bottom: 4px;
 }
-.footer-logo span { color: var(--green); }
+.app-header p { font-size: 13px; color: var(--text-muted); font-weight: 300; }
 
-.footer-links {
-  display: flex;
-  gap: 1.5rem;
-  list-style: none;
-}
-.footer-links a {
-  font-size: 13px;
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--green); }
-
-.footer-copy {
-  font-size: 13px;
-  color: var(--text-dim);
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── APP PREVIEW ── */
-.app-preview {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-top: 3rem;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.app-preview-bar {
-  background: var(--surface);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F56; }
-.dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FFBD2E; }
-.dot-g { width: 10px; height: 10px; border-radius: 50%; background: #27C93F; }
-
-.url-bar {
-  flex: 1;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 4px 12px;
-  font-size: 12px;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-.app-preview-inner {
-  padding: 2rem;
+/* TRACK TOGGLE */
+.track-toggle {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 10px;
+  margin-bottom: 1.5rem;
 }
-
-.preview-panel {
+.toggle-btn {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.25rem;
+  border-radius: var(--radius);
+  padding: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  font-family: var(--font-body);
 }
+.toggle-btn.active-g { border-color: #0a7a4e; background: var(--green-dim); }
+.toggle-btn.active-p { border-color: var(--purple); background: rgba(91,79,207,0.06); }
+.toggle-btn-name { font-size: 14px; font-weight: 500; color: var(--text); display: block; margin-bottom: 2px; }
+.toggle-btn-desc { font-size: 12px; color: var(--text-muted); font-weight: 300; }
 
-.preview-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-dim);
-  margin-bottom: 12px;
-  font-weight: 500;
+/* TOOL TABS */
+.tool-tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.tool-tab {
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid var(--border-md);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  transition: all 0.2s;
 }
+.tool-tab.tg { background: var(--text); color: var(--bg); border-color: var(--text); }
+.tool-tab.tp { background: var(--purple); color: #fff; border-color: var(--purple); }
 
-.preview-input-fake {
-  background: var(--bg2);
+/* INPUT METHOD */
+.method-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 500; margin-bottom: 8px; }
+.method-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 1.25rem; }
+.method-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+}
+.method-btn:hover { border-color: var(--border-md); }
+.method-btn.sel-g { border-color: #0a7a4e; background: var(--green-dim); }
+.method-btn.sel-p { border-color: var(--purple); background: rgba(91,79,207,0.06); }
+.method-icon { font-size: 16px; margin-bottom: 4px; }
+.method-name { font-size: 12px; font-weight: 500; color: var(--text); display: block; margin-bottom: 1px; }
+.method-hint { font-size: 11px; color: var(--text-dim); }
+
+/* CARD */
+.acard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; margin-bottom: 10px; }
+.acard-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; display: block; margin-bottom: 6px; }
+
+/* INPUTS */
+textarea, input[type=text], input[type=url] {
+  width: 100%;
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 12px;
-  color: var(--text-dim);
-  margin-bottom: 8px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--text);
+  transition: border-color 0.2s;
   line-height: 1.5;
 }
+textarea { resize: vertical; min-height: 80px; }
+textarea:focus, input:focus { outline: none; border-color: rgba(0,0,0,0.25); }
 
-.preview-btn-fake {
-  background: var(--green);
-  color: #040A06;
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 13px;
-  font-weight: 500;
+/* UPLOAD */
+.upload-zone {
+  border: 1.5px dashed var(--border-md);
+  border-radius: var(--radius);
+  padding: 1.5rem;
   text-align: center;
-  margin-top: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
 }
+.upload-zone:hover { border-color: var(--green); background: var(--green-dim); }
+.upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+.upload-hint { font-size: 11px; color: var(--text-dim); }
+.upload-ok { display: none; align-items: center; gap: 8px; background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #0a7a4e; margin-top: 8px; }
 
-.score-display {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 12px;
+/* LINKEDIN */
+.li-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(0,119,181,0.08); color: #0077B5; border: 1px solid rgba(0,119,181,0.2); border-radius: 99px; padding: 2px 10px; font-size: 11px; }
+.li-hint { font-size: 11px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+
+/* BUTTONS */
+.btn-run {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 4px;
 }
+.btn-run-g { background: var(--text); color: var(--bg); }
+.btn-run-g:hover { background: #2a2a2a; }
+.btn-run-p { background: var(--purple); color: #fff; }
+.btn-run-p:hover { background: #4a3fbe; }
+.btn-run:disabled { background: var(--bg3); color: var(--text-dim); cursor: not-allowed; }
 
-.score-circle-big {
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  background: var(--green-dim);
-  border: 2px solid var(--border-green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--green);
-  flex-shrink: 0;
-}
+/* RESULT */
+.result-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; font-size: 13px; line-height: 1.75; color: var(--text-muted); white-space: pre-wrap; margin-top: 10px; }
+.pro-nudge { display: flex; align-items: center; gap: 8px; background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #0a7a4e; margin-top: 8px; }
 
-.score-label { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+/* SCORE */
+.score-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.score-ring { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 22px; font-weight: 400; flex-shrink: 0; }
+.sr-h { background: var(--green-dim); border: 2px solid var(--green-border); color: #0a7a4e; }
+.sr-m { background: rgba(212,135,10,0.1); border: 2px solid rgba(212,135,10,0.25); color: var(--amber); }
+.sr-l { background: rgba(192,57,43,0.1); border: 2px solid rgba(192,57,43,0.2); color: var(--red); }
+.score-label { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
 .score-sub { font-size: 12px; color: var(--text-muted); }
+.fix-row { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-muted); }
+.fix-row:last-child { border-bottom: none; }
+.fdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.fd-r { background: var(--red); } .fd-a { background: var(--amber); } .fd-g { background: var(--green); }
 
-.fix-row-fake {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-  color: var(--text-muted);
-}
-.fix-row-fake:last-child { border-bottom: none; }
+/* EXPERIENCE COACH */
+.exp-entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 10px; }
+.exp-entry.coaching { border-color: rgba(212,135,10,0.3); }
+.exp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.field-grp { display: flex; flex-direction: column; gap: 5px; }
+.field-grp.full { grid-column: 1/-1; }
+.field-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; }
+.coaching-box { background: rgba(212,135,10,0.06); border: 1px solid rgba(212,135,10,0.2); border-radius: 8px; padding: 1rem; margin-top: 10px; }
+.coaching-hd { font-size: 11px; font-weight: 500; color: var(--amber); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.coaching-prompt { font-size: 12px; color: var(--text-muted); padding: 4px 0 4px 10px; border-left: 2px solid rgba(212,135,10,0.25); margin-bottom: 4px; line-height: 1.5; }
+.coaching-prompt strong { color: var(--amber); font-weight: 500; }
+.impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 10px; }
+.impact-field { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; }
+.impact-field-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.impact-field input { background: transparent; border: none; padding: 0; font-size: 13px; color: var(--text); width: 100%; font-family: var(--font-body); }
+.impact-field input:focus { outline: none; }
+.weak-warn { display: none; align-items: center; gap: 6px; background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.18); border-radius: 8px; padding: 7px 10px; font-size: 12px; color: var(--red); margin-top: 6px; }
+.add-exp { width: 100%; padding: 11px; background: transparent; border: 1.5px dashed var(--border-md); border-radius: var(--radius); color: var(--text-muted); font-size: 13px; font-family: var(--font-body); cursor: pointer; transition: all 0.2s; margin-bottom: 1rem; }
+.add-exp:hover { border-color: var(--green); color: #0a7a4e; }
 
-.fix-dot-r { width: 6px; height: 6px; border-radius: 50%; background: #E24B4A; flex-shrink: 0; margin-top: 4px; }
-.fix-dot-a { width: 6px; height: 6px; border-radius: 50%; background: #EF9F27; flex-shrink: 0; margin-top: 4px; }
-.fix-dot-g { width: 6px; height: 6px; border-radius: 50%; background: #27C93F; flex-shrink: 0; margin-top: 4px; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .tracks-grid, .steps-grid, .testi-grid, .pricing-grid { grid-template-columns: 1fr; }
-  .stats-inner { grid-template-columns: 1fr 1fr; }
-  .app-preview-inner { grid-template-columns: 1fr; }
-  nav .nav-links { display: none; }
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .tracks-grid, .pricing-grid, .features-inner, .track-toggle { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
   footer { flex-direction: column; text-align: center; }
+  .exp-row, .impact-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ANIMATIONS */
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.hidden { display: none; }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="logo" style="color:#0BDA8A">Landedd</div>
+  <div class="logo">Land<em>edd</em></div>
   <ul class="nav-links">
-    <li><a href="#tracks">How it works</a></li>
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#testimonials">Stories</a></li>
   </ul>
-  <div class="nav-cta">
-    <button class="btn-ghost">Log in</button>
-    <button class="btn-primary">Start free</button>
+  <div class="nav-right">
+    <button class="btn-nav" onclick="showPage('app')">Start free</button>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-grid"></div>
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
 
-  <div class="hero-tag">
-    <div class="hero-tag-dot"></div>
-    Built by a Fortune 500 recruiter who knows what gets you hired
-  </div>
-
-  <h1>
-    Stop applying.<br>
-    Start <span class="accent">landing.</span>
-  </h1>
-
-  <p class="hero-sub">
-    AI-powered resume tools built with real recruiter insight — not guesswork.
-    Whether you're just starting out or targeting your next move, Landedd gets you there.
-  </p>
-
-  <div class="hero-actions">
-    <button class="btn-hero" onclick="document.getElementById('tracks').scrollIntoView({behavior:'smooth'})">Get started free</button>
-    <button class="btn-hero-ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
-  </div>
-
-  <div class="hero-social-proof">
-    <div class="avatars">
-      <div class="avatar av1">JL</div>
-      <div class="avatar av2">MR</div>
-      <div class="avatar av3">TK</div>
-      <div class="avatar av4">AS</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-kicker">
+      <div class="kicker-dot"></div>
+      Built by a Fortune 500 talent acquisition manager
     </div>
-    <p class="proof-text"><strong>2,400+ job seekers</strong> landed interviews this month</p>
-  </div>
-
-  <!-- APP PREVIEW -->
-  <div class="app-preview reveal" style="width:100%">
-    <div class="app-preview-bar">
-      <div class="dot-r"></div>
-      <div class="dot-y"></div>
-      <div class="dot-g"></div>
-      <div class="url-bar">landedd.com</div>
+    <h1>Stop applying.<br><em>Start landing.</em></h1>
+    <p class="hero-sub">AI resume tools built with real recruiter insight. Whether you're just starting out or targeting your next move — Landedd gets you there.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="showPage('app')">Get started free</button>
+      <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
     </div>
-    <div class="app-preview-inner">
-      <div class="preview-panel">
-        <div class="preview-label">Resume tailor</div>
-        <div class="preview-input-fake">Paste your resume here...</div>
-        <div class="preview-input-fake">Paste the job description...</div>
-        <div class="preview-btn-fake">Tailor my resume ↗</div>
+  </section>
+
+  <!-- FEATURES -->
+  <div class="features-strip" id="how">
+    <div class="features-inner">
+      <div class="feature fade-up">
+        <div class="feature-icon">&#9998;</div>
+        <h3>Resume tailor</h3>
+        <p>Paste a job description and your resume. Get a rewritten version that speaks directly to what the recruiter needs.</p>
       </div>
-      <div class="preview-panel">
-        <div class="preview-label">Fit scanner</div>
-        <div class="score-display">
-          <div class="score-circle-big">87</div>
-          <div>
-            <div class="score-label">Strong match</div>
-            <div class="score-sub">3 quick fixes to hit 95+</div>
+      <div class="feature fade-up">
+        <div class="feature-icon">&#9650;</div>
+        <h3>Fit scanner</h3>
+        <p>Get a real ATS match score with specific fixes — not vague advice. Know exactly what to change before you apply.</p>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">&#9733;</div>
+        <h3>Impact coach</h3>
+        <p>Turn "responsible for sales" into "$1.2B in annual revenue." Our experience coach turns duties into achievements.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACKS -->
+  <section class="tracks-section">
+    <p class="section-eyebrow fade-up">Two tracks, one goal</p>
+    <h2 class="section-title fade-up">Built for where<br>you are right now</h2>
+    <div class="tracks-grid">
+      <div class="track-card fade-up" onclick="showPage('app')">
+        <div class="track-tag tag-green">Early career</div>
+        <h3>Build It</h3>
+        <p>Starting from scratch? Answer a few questions and we'll build a polished, ATS-ready resume — even if your only experience is part-time jobs and class projects.</p>
+        <ul class="track-features">
+          <li><div class="feat-check">✓</div>Guided resume builder</li>
+          <li><div class="feat-check">✓</div>Gap finder with 30-day action plan</li>
+          <li><div class="feat-check">✓</div>Upload, LinkedIn, or answer questions</li>
+        </ul>
+        <button class="track-btn tbtn-green">Start building</button>
+      </div>
+      <div class="track-card fade-up" onclick="showPage('app')">
+        <div class="track-tag tag-purple">Experienced</div>
+        <h3>Target It</h3>
+        <p>Already have experience? Tailor your resume to specific roles, score your ATS fit, and rewrite your bullets to match what senior hiring managers look for.</p>
+        <ul class="track-features">
+          <li><div class="feat-check">✓</div>Resume tailor for specific roles</li>
+          <li><div class="feat-check">✓</div>ATS fit score with exact fixes</li>
+          <li><div class="feat-check">✓</div>LinkedIn headline rewrite (Pro)</li>
+        </ul>
+        <button class="track-btn tbtn-purple">Start targeting</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-inner">
+      <p class="section-eyebrow fade-up">Transparent pricing</p>
+      <h2 class="section-title fade-up">Start free.<br>Upgrade when ready.</h2>
+      <div class="pricing-grid">
+        <div class="price-card fade-up">
+          <div class="price-name">Free</div>
+          <div class="price-amount">$0</div>
+          <div class="price-period">forever</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="pf-on">✓</span>3 resume tailors/month</li>
+            <li><span class="pf-on">✓</span>3 fit scans/month</li>
+            <li><span class="pf-on">✓</span>Resume builder (basic)</li>
+            <li><span class="pf-off">–</span>PDF download</li>
+            <li><span class="pf-off">–</span>Cover letter</li>
+          </ul>
+          <button class="price-btn" onclick="showPage('app')">Get started</button>
+        </div>
+        <div class="price-card featured fade-up">
+          <div class="price-name">Starter Pro</div>
+          <div class="price-amount"><sup>$</sup>9</div>
+          <div class="price-period">per month · cancel anytime</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="pf-on">✓</span>Unlimited resume builds</li>
+            <li><span class="pf-on">✓</span>Unlimited gap finding</li>
+            <li><span class="pf-on">✓</span>PDF download</li>
+            <li><span class="pf-on">✓</span>Cover letter generator</li>
+            <li><span class="pf-on">✓</span>30-day action plans</li>
+          </ul>
+          <button class="price-btn featured-btn" onclick="showPage('app')">Start Starter Pro</button>
+        </div>
+        <div class="price-card fade-up">
+          <div class="price-name">Pro</div>
+          <div class="price-amount"><sup>$</sup>19</div>
+          <div class="price-period">per month · cancel anytime</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="pf-on">✓</span>Everything in Starter Pro</li>
+            <li><span class="pf-on">✓</span>Unlimited tailoring & scanning</li>
+            <li><span class="pf-on">✓</span>Keyword gap analysis</li>
+            <li><span class="pf-on">✓</span>LinkedIn headline rewrite</li>
+            <li><span class="pf-on">✓</span>Priority AI responses</li>
+          </ul>
+          <button class="price-btn" onclick="showPage('app')">Start Pro</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILT BY -->
+  <section class="built-section">
+    <blockquote class="fade-up">"I've reviewed thousands of resumes. Most get rejected before a human reads them — not because the candidate isn't qualified, but because the resume doesn't speak the right language. Landedd fixes that."</blockquote>
+    <div class="built-creds fade-up">
+      <span class="cred">Fortune 500 TA Manager</span>
+      <span class="cred">Thousands of resumes reviewed</span>
+      <span class="cred">Real ATS expertise</span>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Your next job is<br><em>one scan away.</em></h2>
+    <p>No credit card needed. Start in 30 seconds.</p>
+    <button class="btn-cta" onclick="showPage('app')">Get Landedd — it's free</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Land<em>edd</em></div>
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Landedd</div>
+  </footer>
+
+</div>
+
+<!-- APP PAGE -->
+<div id="page-app" class="page">
+  <div class="app-page">
+    <div class="app-header">
+      <h2>Let's get you <em style="color:var(--green);font-style:italic">Landedd.</em></h2>
+      <p>Choose your track and the tool you need. Paste, upload, or use LinkedIn — your call.</p>
+    </div>
+
+    <!-- TRACK TOGGLE -->
+    <div class="track-toggle">
+      <button class="toggle-btn active-g" id="tt-build" onclick="setTrack('build')">
+        <span class="toggle-btn-name">&#9733; Build It</span>
+        <span class="toggle-btn-desc">Early career — build from scratch</span>
+      </button>
+      <button class="toggle-btn" id="tt-target" onclick="setTrack('target')">
+        <span class="toggle-btn-name">&#9654; Target It</span>
+        <span class="toggle-btn-desc">Experienced — tailor &amp; score</span>
+      </button>
+    </div>
+
+    <!-- BUILD IT -->
+    <div id="sec-build">
+      <div class="tool-tabs">
+        <button class="tool-tab tg" onclick="setBuildTool('builder',this)">Resume builder</button>
+        <button class="tool-tab" onclick="setBuildTool('gap',this)">Gap finder</button>
+        <button class="tool-tab" onclick="setBuildTool('coach',this)">Experience coach</button>
+      </div>
+
+      <!-- BUILDER -->
+      <div id="bt-builder">
+        <div class="method-label">How do you want to share your background?</div>
+        <div class="method-grid">
+          <div class="method-btn sel-g" id="bm-guided" onclick="setBuildMethod('guided')"><div class="method-icon">&#9998;</div><span class="method-name">Answer questions</span><span class="method-hint">Step by step</span></div>
+          <div class="method-btn" id="bm-upload" onclick="setBuildMethod('upload')"><div class="method-icon">&#128196;</div><span class="method-name">Upload resume</span><span class="method-hint">PDF or Word</span></div>
+          <div class="method-btn" id="bm-linkedin" onclick="setBuildMethod('linkedin')"><div class="method-icon">&#128101;</div><span class="method-name">LinkedIn URL</span><span class="method-hint">Paste your profile</span></div>
+        </div>
+
+        <div id="bm-guided-in">
+          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="g-role" placeholder="e.g. Marketing coordinator, software engineer..."></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="acard"><span class="acard-label">Your top skills</span><textarea id="g-skills" placeholder="e.g. Excel, Canva, customer service..."></textarea></div>
+            <div class="acard"><span class="acard-label">Experience (jobs, clubs, volunteering)</span><textarea id="g-exp" placeholder="e.g. Barista at Starbucks, marketing club president..."></textarea></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="acard"><span class="acard-label">Education</span><input type="text" id="g-edu" placeholder="e.g. B.S. Communications, Michigan State 2024"></div>
+            <div class="acard"><span class="acard-label">Certifications or projects</span><input type="text" id="g-certs" placeholder="e.g. Google Analytics cert, built a Shopify store..."></div>
           </div>
         </div>
-        <div class="fix-row-fake"><div class="fix-dot-r"></div>Add "stakeholder management" to your summary</div>
-        <div class="fix-row-fake"><div class="fix-dot-a"></div>Quantify your Q3 revenue impact</div>
-        <div class="fix-row-fake"><div class="fix-dot-g"></div>Your leadership experience is strong</div>
+        <div id="bm-upload-in" class="hidden">
+          <div class="acard"><span class="acard-label">Upload your resume</span>
+            <div class="upload-zone"><input type="file" accept=".pdf,.doc,.docx,.txt" onchange="handleUpload(this,'builder')"><div class="upload-title">Drop your resume here</div><div class="upload-hint">PDF, Word, or plain text</div></div>
+            <div class="upload-ok" id="uo-builder"><span>&#10003;</span><span id="uo-builder-name"></span></div>
+          </div>
+          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="up-role" placeholder="e.g. Product manager, data analyst..."></div>
+        </div>
+        <div id="bm-linkedin-in" class="hidden">
+          <div class="acard"><span class="acard-label">LinkedIn profile URL</span><input type="url" id="li-url-b" placeholder="https://linkedin.com/in/yourname"><div class="li-hint"><span class="li-badge">&#128101; LinkedIn</span> &nbsp;Go to your LinkedIn profile → Share → Copy link</div></div>
+          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="li-role-b" placeholder="e.g. Marketing manager..."></div>
+        </div>
+        <button class="btn-run btn-run-g" onclick="runBuilder()">Build my resume</button>
+        <div id="builder-result" class="hidden"><div class="result-box" id="builder-out"></div><div class="pro-nudge">&#128274; <strong>Pro:</strong> Download as PDF + matching cover letter</div></div>
+      </div>
+
+      <!-- GAP FINDER -->
+      <div id="bt-gap" class="hidden">
+        <div class="acard"><span class="acard-label">Job description you're targeting</span><textarea id="gap-jd" placeholder="Paste the full job posting here..."></textarea></div>
+        <div class="acard"><span class="acard-label">Your background</span><textarea id="gap-profile" placeholder="Describe your skills, experience, and education..."></textarea></div>
+        <button class="btn-run btn-run-g" onclick="runGap()">Find my gaps</button>
+        <div id="gap-result" class="hidden"><div class="result-box" id="gap-out"></div><div class="pro-nudge">&#128274; <strong>Pro:</strong> Personalized 30-day plan to close every gap</div></div>
+      </div>
+
+      <!-- EXPERIENCE COACH -->
+      <div id="bt-coach" class="hidden">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;font-weight:300">Don't list what you were <em>responsible for</em> — show what you <em>achieved</em>. Add your experiences below and we'll transform them into impact-first bullets.</div>
+        <div id="exp-list"></div>
+        <button class="add-exp" onclick="addExp()">+ Add experience</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="coach-role" placeholder="e.g. VP of Sales, UX Designer..."></div>
+          <div class="acard"><span class="acard-label">Industry</span><input type="text" id="coach-industry" placeholder="e.g. SaaS, Healthcare, Finance..."></div>
+        </div>
+        <button class="btn-run btn-run-g" onclick="runCoach()">Generate impact resume</button>
+        <div id="coach-result" class="hidden"><div class="result-box" id="coach-out"></div><div class="pro-nudge">&#128274; <strong>Pro:</strong> Download as PDF + tailored cover letter</div></div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="reveal">
-      <div class="stat-val">3x</div>
-      <div class="stat-label">more interview callbacks on average</div>
+    <!-- TARGET IT -->
+    <div id="sec-target" class="hidden">
+      <div class="tool-tabs">
+        <button class="tool-tab tp" onclick="setTargetTool('tailor',this)">Resume tailor</button>
+        <button class="tool-tab" onclick="setTargetTool('scanner',this)">Fit scanner</button>
+      </div>
+
+      <!-- TAILOR -->
+      <div id="tt-tailor">
+        <div class="method-label">How do you want to share your resume?</div>
+        <div class="method-grid">
+          <div class="method-btn sel-p" id="tm-paste" onclick="setTailorMethod('paste')"><div class="method-icon">&#9998;</div><span class="method-name">Paste text</span><span class="method-hint">Copy &amp; paste</span></div>
+          <div class="method-btn" id="tm-upload" onclick="setTailorMethod('upload')"><div class="method-icon">&#128196;</div><span class="method-name">Upload resume</span><span class="method-hint">PDF or Word</span></div>
+          <div class="method-btn" id="tm-linkedin" onclick="setTailorMethod('linkedin')"><div class="method-icon">&#128101;</div><span class="method-name">LinkedIn URL</span><span class="method-hint">Paste your profile</span></div>
+        </div>
+        <div class="acard"><span class="acard-label">Job description</span><textarea id="t-jd" placeholder="Paste the full job posting here..."></textarea></div>
+        <div id="tm-paste-in"><div class="acard"><span class="acard-label">Your resume</span><textarea id="t-resume" placeholder="Paste your resume text here..."></textarea></div></div>
+        <div id="tm-upload-in" class="hidden"><div class="acard"><span class="acard-label">Upload resume</span><div class="upload-zone"><input type="file" accept=".pdf,.doc,.docx,.txt" onchange="handleUpload(this,'tailor')"><div class="upload-title">Drop your resume here</div><div class="upload-hint">PDF, Word, or plain text</div></div><div class="upload-ok" id="uo-tailor"><span>&#10003;</span><span id="uo-tailor-name"></span></div></div></div>
+        <div id="tm-linkedin-in" class="hidden"><div class="acard"><span class="acard-label">LinkedIn URL</span><input type="url" id="li-url-t" placeholder="https://linkedin.com/in/yourname"><div class="li-hint"><span class="li-badge">&#128101; LinkedIn</span> &nbsp;Go to your LinkedIn profile → Share → Copy link</div></div></div>
+        <button class="btn-run btn-run-p" onclick="runTailor()">Tailor my resume</button>
+        <div id="tailor-result" class="hidden"><div class="result-box" id="tailor-out"></div><div class="pro-nudge" style="background:rgba(91,79,207,0.06);border-color:rgba(91,79,207,0.2);color:var(--purple)">&#128274; <strong>Pro:</strong> PDF download + cover letter + LinkedIn headline rewrite</div></div>
+      </div>
+
+      <!-- SCANNER -->
+      <div id="tt-scanner" class="hidden">
+        <div class="method-label">How do you want to share your resume?</div>
+        <div class="method-grid">
+          <div class="method-btn sel-p" id="sm-paste" onclick="setScannerMethod('paste')"><div class="method-icon">&#9998;</div><span class="method-name">Paste text</span><span class="method-hint">Copy &amp; paste</span></div>
+          <div class="method-btn" id="sm-upload" onclick="setScannerMethod('upload')"><div class="method-icon">&#128196;</div><span class="method-name">Upload resume</span><span class="method-hint">PDF or Word</span></div>
+          <div class="method-btn" id="sm-linkedin" onclick="setScannerMethod('linkedin')"><div class="method-icon">&#128101;</div><span class="method-name">LinkedIn URL</span><span class="method-hint">Paste your profile</span></div>
+        </div>
+        <div class="acard"><span class="acard-label">Job description</span><textarea id="s-jd" placeholder="Paste the full job posting here..."></textarea></div>
+        <div id="sm-paste-in"><div class="acard"><span class="acard-label">Your resume</span><textarea id="s-resume" placeholder="Paste your resume text here..."></textarea></div></div>
+        <div id="sm-upload-in" class="hidden"><div class="acard"><span class="acard-label">Upload resume</span><div class="upload-zone"><input type="file" accept=".pdf,.doc,.docx,.txt" onchange="handleUpload(this,'scanner')"><div class="upload-title">Drop your resume here</div><div class="upload-hint">PDF, Word, or plain text</div></div><div class="upload-ok" id="uo-scanner"><span>&#10003;</span><span id="uo-scanner-name"></span></div></div></div>
+        <div id="sm-linkedin-in" class="hidden"><div class="acard"><span class="acard-label">LinkedIn URL</span><input type="url" id="li-url-s" placeholder="https://linkedin.com/in/yourname"><div class="li-hint"><span class="li-badge">&#128101; LinkedIn</span> &nbsp;Go to your LinkedIn profile → Share → Copy link</div></div></div>
+        <button class="btn-run btn-run-p" onclick="runScanner()">Scan my fit</button>
+        <div id="scanner-result" class="hidden"><div class="acard" id="score-card"></div><div class="pro-nudge" style="background:rgba(91,79,207,0.06);border-color:rgba(91,79,207,0.2);color:var(--purple)">&#128274; <strong>Pro:</strong> Full keyword gap report + bullet rewrite suggestions</div></div>
+      </div>
     </div>
-    <div class="reveal">
-      <div class="stat-val">87%</div>
-      <div class="stat-label">of users improve their ATS score in one session</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-val">2 min</div>
-      <div class="stat-label">average time to tailor a full resume</div>
-    </div>
-    <div class="reveal">
-      <div class="stat-val">$0</div>
-      <div class="stat-label">to get started — no credit card needed</div>
-    </div>
+
   </div>
 </div>
 
-<!-- TRACKS -->
-<section class="tracks" id="tracks">
-  <p class="section-label reveal">Two tracks, one goal</p>
-  <h2 class="section-title reveal">Built for where<br>you are right now</h2>
-  <p class="section-sub reveal">Not every job seeker is the same. Landedd meets you at your level and gets you to the next one.</p>
-
-  <div class="tracks-grid">
-    <div class="track-card reveal">
-      <div class="track-card-glow glow-green"></div>
-      <div class="track-pill pill-green">
-        <span>&#9733;</span> Early career
-      </div>
-      <h3>Build It</h3>
-      <p>Just starting out? Don't let a blank page hold you back. Answer a few questions and we'll build a polished, ATS-ready resume from scratch — even if your experience is mostly school projects and part-time jobs.</p>
-      <ul class="track-features">
-        <li><div class="feat-dot fd-green">✓</div>Guided resume builder from scratch</li>
-        <li><div class="feat-dot fd-green">✓</div>Gap finder — know exactly what you're missing</li>
-        <li><div class="feat-dot fd-green">✓</div>30-day action plan to close gaps</li>
-        <li><div class="feat-dot fd-green">✓</div>Entry-level ATS optimization</li>
-      </ul>
-      <button class="track-btn track-btn-green">Start building my resume</button>
-    </div>
-
-    <div class="track-card reveal">
-      <div class="track-card-glow glow-purple"></div>
-      <div class="track-pill pill-purple">
-        <span>&#9654;</span> Experienced professional
-      </div>
-      <h3>Target It</h3>
-      <p>You've got the experience. Now get it in front of the right people. Tailor your resume to specific roles, score your ATS fit, and rewrite your bullets to match exactly what senior hiring managers look for.</p>
-      <ul class="track-features">
-        <li><div class="feat-dot fd-purple">✓</div>Resume tailor for specific job postings</li>
-        <li><div class="feat-dot fd-purple">✓</div>ATS fit score with specific fixes</li>
-        <li><div class="feat-dot fd-purple">✓</div>Keyword gap analysis</li>
-        <li><div class="feat-dot fd-purple">✓</div>LinkedIn headline rewrite (Pro)</li>
-      </ul>
-      <button class="track-btn track-btn-purple">Start targeting roles</button>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <p class="section-label reveal">Simple by design</p>
-  <h2 class="section-title reveal">Three steps to<br>your next interview</h2>
-  <p class="section-sub reveal">No fluff. No complicated onboarding. Just paste, scan, and apply with confidence.</p>
-
-  <div class="steps-grid reveal">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h4>Pick your track</h4>
-      <p>Choose "Build It" if you're starting from scratch, or "Target It" if you already have a resume and want to tailor it for a specific role.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h4>Paste your info</h4>
-      <p>Add the job description and your resume (or answer our guided questions). Landedd analyzes everything in seconds — no signup required to start.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h4>Apply with confidence</h4>
-      <p>Get your tailored resume, ATS score, and a clear list of exactly what to fix. Download, apply, and land the interview.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <p class="section-label reveal">Real results</p>
-  <h2 class="section-title reveal">Stories that<br>hit different</h2>
-
-  <div class="testi-grid">
-    <div class="testi-card reveal">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"I graduated in May with zero callbacks. Used Landedd's Build It track, tailored my resume to 5 roles in one afternoon. Got 3 interviews the following week. I literally cried."</p>
-      <div class="testi-author">
-        <div class="testi-avatar" style="background:#7C3AED20;color:#7C3AED">JL</div>
-        <div>
-          <div class="testi-name">Jordan L.</div>
-          <div class="testi-role">Marketing grad → now at HubSpot</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"Been in finance for 11 years. Thought my resume was solid. Landedd scored me a 52 against the job I wanted. Fixed it to a 91 in 20 minutes. Got the offer 2 weeks later."</p>
-      <div class="testi-author">
-        <div class="testi-avatar" style="background:#05966920;color:#059669">MR</div>
-        <div>
-          <div class="testi-name">Marcus R.</div>
-          <div class="testi-role">Finance director → promoted to VP</div>
-        </div>
-      </div>
-    </div>
-    <div class="testi-card reveal">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"As someone switching from teaching to tech, I had no idea how to translate my skills. The gap finder told me exactly what certifications to get. Changed my life fr."</p>
-      <div class="testi-author">
-        <div class="testi-avatar" style="background:#D9770620;color:#D97706">TK</div>
-        <div>
-          <div class="testi-name">Taylor K.</div>
-          <div class="testi-role">Teacher → UX researcher at Google</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <p class="section-label reveal">Transparent pricing</p>
-  <h2 class="section-title reveal">Start free.<br>Upgrade when you're ready.</h2>
-  <p class="section-sub reveal">No credit card needed to get started. Upgrade when you see the value — and you will.</p>
-
-  <div class="pricing-grid">
-    <div class="price-card reveal">
-      <div class="price-tag">Free</div>
-      <div class="price-amount">$0</div>
-      <div class="price-period">forever</div>
-      <p class="price-desc">Perfect for testing the waters. Get a feel for what Landedd can do.</p>
-      <ul class="price-features">
-        <li><span class="pf-check">✓</span>3 resume tailors/month</li>
-        <li><span class="pf-check">✓</span>3 fit scans/month</li>
-        <li><span class="pf-check">✓</span>Resume builder (basic)</li>
-        <li><span class="pf-check">✓</span>Gap finder (1 use)</li>
-        <li><span class="pf-x">✗</span>PDF download</li>
-        <li><span class="pf-x">✗</span>Cover letter generator</li>
-      </ul>
-      <button class="price-btn price-btn-outline">Get started free</button>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-tag">
-        Starter Pro
-        <span class="popular-badge">Most popular</span>
-      </div>
-      <div class="price-amount">$9<span>/mo</span></div>
-      <div class="price-period">billed monthly · cancel anytime</div>
-      <p class="price-desc">For early-career job seekers who are serious about landing their first real role.</p>
-      <ul class="price-features">
-        <li><span class="pf-check">✓</span>Unlimited resume builds</li>
-        <li><span class="pf-check">✓</span>Unlimited gap finding</li>
-        <li><span class="pf-check">✓</span>PDF download</li>
-        <li><span class="pf-check">✓</span>Cover letter generator</li>
-        <li><span class="pf-check">✓</span>30-day action plans</li>
-        <li><span class="pf-x">✗</span>Keyword gap analysis</li>
-      </ul>
-      <button class="price-btn price-btn-filled">Start Starter Pro</button>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-tag">Pro</div>
-      <div class="price-amount">$19<span>/mo</span></div>
-      <div class="price-period">billed monthly · cancel anytime</div>
-      <p class="price-desc">For experienced professionals who want to target roles with precision and confidence.</p>
-      <ul class="price-features">
-        <li><span class="pf-check">✓</span>Unlimited tailoring & scanning</li>
-        <li><span class="pf-check">✓</span>Full keyword gap analysis</li>
-        <li><span class="pf-check">✓</span>LinkedIn headline rewrite</li>
-        <li><span class="pf-check">✓</span>Bullet rewrite suggestions</li>
-        <li><span class="pf-check">✓</span>Priority AI responses</li>
-        <li><span class="pf-check">✓</span>Everything in Starter Pro</li>
-      </ul>
-      <button class="price-btn price-btn-outline" style="border-color:rgba(167,139,250,0.4);color:#A78BFA" onmouseover="this.style.background='rgba(167,139,250,0.1)'" onmouseout="this.style.background='transparent'">Start Pro</button>
-    </div>
-  </div>
-</section>
-
-<!-- BUILT BY -->
-<section style="padding: 2rem 2rem 6rem;">
-  <div class="built-card reveal">
-    <div class="built-avatar">TA</div>
-    <h3>Built by someone who's sat on the other side of your resume</h3>
-    <p>Landedd was created by a Talent Acquisition Manager at a Fortune 500 company — someone who has reviewed thousands of resumes and knows exactly why most get rejected before a human even reads them. This isn't generic AI advice. It's insider knowledge, automated.</p>
-    <div class="built-creds">
-      <span class="cred-pill">Fortune 500 TA Manager</span>
-      <span class="cred-pill">Thousands of resumes reviewed</span>
-      <span class="cred-pill">Real ATS experience</span>
-      <span class="cred-pill">Knows what gets you hired</span>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-glow"></div>
-  <h2>Your next job<br>is <span style="color:var(--green)">one scan away.</span></h2>
-  <p>Join thousands of job seekers who stopped guessing — and started getting Landedd.</p>
-  <div class="cta-actions">
-    <button class="btn-cta">Get Landedd — it's free</button>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo" style="color:#0BDA8A">Landedd</div>
-  <ul class="footer-links">
-    <li><a href="#">Privacy</a></li>
-    <li><a href="#">Terms</a></li>
-    <li><a href="#">Contact</a></li>
-    <li><a href="#">Blog</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 Landedd. All rights reserved.</div>
-</footer>
-
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-    }
-  });
-}, { threshold: 0.1 });
+const uploads = {};
+let expCount = 0;
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// PAGE NAV
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// TRACK
+function setTrack(t) {
+  ['build','target'].forEach(x => {
+    document.getElementById('tt-'+x).className = 'toggle-btn';
+    document.getElementById('sec-'+x).classList.toggle('hidden', x !== t);
+  });
+  document.getElementById('tt-'+t).classList.add(t==='build'?'active-g':'active-p');
+}
+
+// BUILD TOOLS
+function setBuildTool(tool, el) {
+  document.querySelectorAll('#sec-build .tool-tabs .tool-tab').forEach(t => t.className='tool-tab');
+  el.classList.add('tg');
+  ['builder','gap','coach'].forEach(t => document.getElementById('bt-'+t).classList.toggle('hidden', t!==tool));
+}
+
+// TARGET TOOLS
+function setTargetTool(tool, el) {
+  document.querySelectorAll('#sec-target .tool-tabs .tool-tab').forEach(t => t.className='tool-tab');
+  el.classList.add('tp');
+  ['tailor','scanner'].forEach(t => document.getElementById('tt-'+t).classList.toggle('hidden', t!==tool));
+}
+
+// INPUT METHODS
+function selectMethod(prefix, method, color) {
+  ['guided','upload','linkedin','paste'].forEach(m => {
+    const b = document.getElementById(prefix+'-'+m); if(b) b.className='method-btn';
+    const i = document.getElementById(prefix+'-'+m+'-in'); if(i) i.classList.add('hidden');
+  });
+  const sel = document.getElementById(prefix+'-'+method);
+  if(sel) sel.classList.add('sel-'+color);
+  const inp = document.getElementById(prefix+'-'+method+'-in');
+  if(inp) inp.classList.remove('hidden');
+}
+function setBuildMethod(m) { selectMethod('bm',m,'g'); }
+function setTailorMethod(m) { selectMethod('tm',m,'p'); }
+function setScannerMethod(m) { selectMethod('sm',m,'p'); }
+
+// FILE UPLOAD
+function handleUpload(input, ctx) {
+  const file = input.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    uploads[ctx] = { name: file.name, content: e.target.result };
+    const ok = document.getElementById('uo-'+ctx);
+    const nm = document.getElementById('uo-'+ctx+'-name');
+    if(ok && nm) { nm.textContent = file.name + ' ready'; ok.style.display = 'flex'; }
+  };
+  r.readAsText(file);
+}
+
+// CLAUDE API
+async function callClaude(system, user, btn, label) {
+  if(btn) { btn.disabled=true; btn.textContent=label||'Working...'; }
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system, messages:[{role:'user',content:user}] })
+    });
+    const d = await r.json();
+    return d.content.map(b=>b.text||'').join('');
+  } catch(e) { alert('Something went wrong. Please try again.'); return null; }
+  finally { if(btn) { btn.disabled=false; btn.textContent=btn.dataset.orig||'Try again'; } }
+}
+
+// BUILDER
+async function runBuilder() {
+  const btn = event.target; btn.dataset.orig = btn.textContent;
+  const method = document.getElementById('bm-upload').classList.contains('sel-g')?'upload':document.getElementById('bm-linkedin').classList.contains('sel-g')?'linkedin':'guided';
+  let content = '';
+  if(method==='guided') {
+    const role=document.getElementById('g-role').value.trim();
+    const skills=document.getElementById('g-skills').value.trim();
+    if(!role||!skills){alert('Please fill in your target role and skills.');return;}
+    content=`Target role: ${role}\nSkills: ${skills}\nExperience: ${document.getElementById('g-exp').value}\nEducation: ${document.getElementById('g-edu').value}\nCertifications: ${document.getElementById('g-certs').value}`;
+  } else if(method==='upload') {
+    if(!uploads['builder']){alert('Please upload your resume first.');return;}
+    content=`Target role: ${document.getElementById('up-role').value||'general'}\nResume:\n${uploads['builder'].content}`;
+  } else {
+    const url=document.getElementById('li-url-b').value.trim();
+    if(!url){alert('Please paste your LinkedIn URL.');return;}
+    content=`Target role: ${document.getElementById('li-role-b').value||'general'}\nLinkedIn: ${url}`;
+  }
+  const text = await callClaude(
+    `You are an expert resume writer specializing in early-career candidates. Write a polished, ATS-friendly resume including: a strong 2-3 sentence professional summary, skills section, experience bullets using action verbs that quantify impact, and education. Make it professional even with limited experience. Format clearly with section headers.`,
+    content, btn, 'Building your resume...'
+  );
+  if(text) { document.getElementById('builder-out').textContent=text; document.getElementById('builder-result').classList.remove('hidden'); }
+}
+
+// GAP FINDER
+async function runGap() {
+  const btn=event.target; btn.dataset.orig=btn.textContent;
+  const jd=document.getElementById('gap-jd').value.trim();
+  const profile=document.getElementById('gap-profile').value.trim();
+  if(!jd||!profile){alert('Please fill in both fields.');return;}
+  const text = await callClaude(
+    `You are a career coach. Compare a candidate's background to a job description. Be honest and encouraging. Structure your response with three clear sections:\n1) WHAT YOU ALREADY HAVE — matching strengths\n2) WHAT'S MISSING — honest gaps\n3) YOUR 30-DAY PLAN — specific, actionable steps to close the gaps`,
+    `Job description:\n${jd}\n\nBackground:\n${profile}`, btn, 'Analyzing your gaps...'
+  );
+  if(text) { document.getElementById('gap-out').textContent=text; document.getElementById('gap-result').classList.remove('hidden'); }
+}
+
+// EXPERIENCE COACH
+const WEAK = ['responsible for','in charge of','helped with','assisted','worked on','duties included','tasked with'];
+const PROMPTS = {
+  sales: ['<strong>Revenue:</strong> What was your annual/quarterly sales total? (e.g. $1.2B pipeline)','<strong>Growth:</strong> By what % did you grow your territory or team?','<strong>Ranking:</strong> Where did you rank? (e.g. #1 of 120 reps)','<strong>Accounts:</strong> How many accounts? Any enterprise logos?'],
+  marketing: ['<strong>Reach:</strong> What was the audience, list size, or campaign reach?','<strong>Conversion:</strong> What ROI or conversion rate did your campaigns achieve?','<strong>Growth:</strong> By how much did you grow followers, traffic, or leads?','<strong>Budget:</strong> How large was the budget you managed?'],
+  engineering: ['<strong>Scale:</strong> How many users or requests did your system serve?','<strong>Performance:</strong> What did you improve? (e.g. reduced load time 60%)','<strong>Delivery:</strong> How many features or products shipped?','<strong>Team:</strong> How many engineers did you lead?'],
+  hr: ['<strong>Volume:</strong> How many hires per year?','<strong>Speed:</strong> What was your time-to-fill or offer acceptance rate?','<strong>Retention:</strong> Did you improve retention? By how much?','<strong>Programs:</strong> What programs did you build?'],
+  default: ['<strong>Numbers:</strong> Can you quantify with a $, %, or volume?','<strong>Outcome:</strong> What changed because of your work?','<strong>Scale:</strong> How large was the team, budget, or project?','<strong>Recognition:</strong> Were you promoted, awarded, or recognized?']
+};
+function detectRole(t) {
+  t=t.toLowerCase();
+  if(t.match(/sales|account|revenue|quota/)) return 'sales';
+  if(t.match(/market|brand|content|growth/)) return 'marketing';
+  if(t.match(/engineer|developer|software|tech/)) return 'engineering';
+  if(t.match(/hr|human res|talent|recruit/)) return 'hr';
+  return 'default';
+}
+function addExp() {
+  const id=++expCount;
+  const div=document.createElement('div');
+  div.className='exp-entry'; div.id='exp-'+id;
+  div.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <span style="font-size:14px;font-weight:500" id="ed-${id}">Experience ${id}</span>
+      <button onclick="document.getElementById('exp-${id}').remove()" style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--text-dim)">Remove</button>
+    </div>
+    <div class="exp-row">
+      <div class="field-grp"><span class="field-label">Job title</span><input type="text" id="jt-${id}" placeholder="e.g. Sales Manager, Software Engineer..." oninput="updateCoach(${id})"></div>
+      <div class="field-grp"><span class="field-label">Company</span><input type="text" id="co-${id}" placeholder="e.g. Salesforce, Google..." oninput="document.getElementById('ed-${id}').textContent=this.value||'Experience ${id}'"></div>
+    </div>
+    <div class="exp-row">
+      <div class="field-grp"><span class="field-label">Start year</span><input type="text" id="sy-${id}" placeholder="2020"></div>
+      <div class="field-grp"><span class="field-label">End year</span><input type="text" id="ey-${id}" placeholder="2024 or Present"></div>
+    </div>
+    <div class="field-grp full" style="margin-bottom:6px"><span class="field-label">What were you responsible for? (raw — don't worry about wording)</span><textarea id="du-${id}" placeholder="e.g. Managed a sales team, ran quarterly campaigns..." oninput="checkWeak(this.value,${id})"></textarea><div class="weak-warn" id="ww-${id}"><span>&#9888;</span><span>Phrases like "responsible for" are weak. The coaching prompts below will help you reframe this as impact.</span></div></div>
+    <div class="coaching-box hidden" id="cb-${id}">
+      <div class="coaching-hd" id="ch-${id}">Impact coaching</div>
+      <div id="cp-${id}"></div>
+    </div>
+    <div style="margin-top:10px"><span class="field-label" style="display:block;margin-bottom:6px">Impact numbers <span style="color:var(--text-dim);font-size:10px;text-transform:none;letter-spacing:0">(fill in what applies)</span></span>
+    <div class="impact-grid">
+      <div class="impact-field"><div class="impact-field-label">Revenue / volume</div><input type="text" id="ir-${id}" placeholder="e.g. $1.2B"></div>
+      <div class="impact-field"><div class="impact-field-label">Growth / improvement</div><input type="text" id="ig-${id}" placeholder="e.g. 40% YoY"></div>
+      <div class="impact-field"><div class="impact-field-label">Team size</div><input type="text" id="it-${id}" placeholder="e.g. 12 reports"></div>
+      <div class="impact-field"><div class="impact-field-label">Budget managed</div><input type="text" id="ib-${id}" placeholder="e.g. $5M"></div>
+      <div class="impact-field"><div class="impact-field-label">Ranking</div><input type="text" id="irk-${id}" placeholder="e.g. #1 of 80"></div>
+      <div class="impact-field"><div class="impact-field-label">Cost saved</div><input type="text" id="is-${id}" placeholder="e.g. $200K/yr"></div>
+    </div></div>`;
+  document.getElementById('exp-list').appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function checkWeak(text,id) {
+  const found=WEAK.some(w=>text.toLowerCase().includes(w));
+  const el=document.getElementById('ww-'+id);
+  if(el) el.style.display=found?'flex':'none';
+}
+function updateCoach(id) {
+  const title=document.getElementById('jt-'+id)?.value.trim();
+  const cb=document.getElementById('cb-'+id);
+  if(!cb) return;
+  if(!title){cb.classList.add('hidden');document.getElementById('exp-'+id).classList.remove('coaching');return;}
+  const key=detectRole(title);
+  const prompts=PROMPTS[key];
+  document.getElementById('ch-'+id).textContent=key.charAt(0).toUpperCase()+key.slice(1)+' impact prompts';
+  document.getElementById('cp-'+id).innerHTML=prompts.map(p=>`<div class="coaching-prompt">${p}</div>`).join('');
+  cb.classList.remove('hidden');
+  document.getElementById('exp-'+id).classList.add('coaching');
+}
+async function runCoach() {
+  const btn=event.target; btn.dataset.orig=btn.textContent;
+  const role=document.getElementById('coach-role').value.trim();
+  const industry=document.getElementById('coach-industry').value.trim();
+  let exps=[];
+  for(let i=1;i<=expCount;i++){
+    const el=document.getElementById('exp-'+i); if(!el) continue;
+    const title=document.getElementById('jt-'+i)?.value.trim(); if(!title) continue;
+    exps.push({title,company:document.getElementById('co-'+i)?.value,period:`${document.getElementById('sy-'+i)?.value}–${document.getElementById('ey-'+i)?.value}`,duties:document.getElementById('du-'+i)?.value,rev:document.getElementById('ir-'+i)?.value,growth:document.getElementById('ig-'+i)?.value,team:document.getElementById('it-'+i)?.value,budget:document.getElementById('ib-'+i)?.value,rank:document.getElementById('irk-'+i)?.value,save:document.getElementById('is-'+i)?.value});
+  }
+  if(!exps.length){alert('Please add at least one experience.');return;}
+  const expText=exps.map((e,i)=>`EXPERIENCE ${i+1}: ${e.title} at ${e.company} (${e.period})\nDuties: ${e.duties}\nMetrics: Revenue=${e.rev}, Growth=${e.growth}, Team=${e.team}, Budget=${e.budget}, Rank=${e.rank}, Savings=${e.save}`).join('\n\n');
+  const text=await callClaude(
+    `You are an elite resume writer and Fortune 500 talent acquisition expert. Transform raw experience into powerful, impact-first resume bullets. NEVER write "responsible for", "in charge of", "helped with", or "managed" as the start of a bullet. ALWAYS lead with a strong action verb (Drove, Generated, Scaled, Built, Launched, Delivered, Achieved, Grew, Secured, Reduced). ALWAYS embed the quantified impact numbers provided. Each experience gets 3-4 punchy bullets. Write a 2-sentence professional summary at the top.\nCandidate goal: ${role||'next role'} in ${industry||'their field'}.`,
+    `Transform these experiences:\n${expText}`, btn, 'Generating your impact resume...'
+  );
+  if(text){document.getElementById('coach-out').textContent=text;document.getElementById('coach-result').classList.remove('hidden');}
+}
+
+// TAILOR
+async function runTailor() {
+  const btn=event.target; btn.dataset.orig=btn.textContent;
+  const jd=document.getElementById('t-jd').value.trim(); if(!jd){alert('Please paste the job description.');return;}
+  const method=document.getElementById('tm-upload').classList.contains('sel-p')?'upload':document.getElementById('tm-linkedin').classList.contains('sel-p')?'linkedin':'paste';
+  let resume='';
+  if(method==='paste') resume=document.getElementById('t-resume').value.trim();
+  else if(method==='upload') resume=uploads['tailor']?.content||'';
+  else resume=`LinkedIn: ${document.getElementById('li-url-t').value.trim()}`;
+  if(!resume){alert('Please share your resume.');return;}
+  const text=await callClaude(
+    `You are an expert recruiter and resume strategist with 15+ years at Fortune 500 companies. Rewrite the resume summary and key bullet points to align with the job description. Use keywords naturally, match seniority tone, highlight transferable impact. Output: TAILORED SUMMARY, KEY BULLETS TO UPDATE, KEYWORDS TO ADD.`,
+    `Job description:\n${jd}\n\nResume:\n${resume}`, btn, 'Tailoring your resume...'
+  );
+  if(text){document.getElementById('tailor-out').textContent=text;document.getElementById('tailor-result').classList.remove('hidden');}
+}
+
+// SCANNER
+async function runScanner() {
+  const btn=event.target; btn.dataset.orig=btn.textContent;
+  const jd=document.getElementById('s-jd').value.trim(); if(!jd){alert('Please paste the job description.');return;}
+  const method=document.getElementById('sm-upload').classList.contains('sel-p')?'upload':document.getElementById('sm-linkedin').classList.contains('sel-p')?'linkedin':'paste';
+  let resume='';
+  if(method==='paste') resume=document.getElementById('s-resume').value.trim();
+  else if(method==='upload') resume=uploads['scanner']?.content||'';
+  else resume=`LinkedIn: ${document.getElementById('li-url-s').value.trim()}`;
+  if(!resume){alert('Please share your resume.');return;}
+  const raw=await callClaude(
+    `You are a Fortune 500 recruiter. Score resume fit against job description. Respond ONLY in this exact JSON, no extra text: {"score":<0-100>,"verdict":"<one line>","fixes":[{"priority":"high","text":"<fix>"},{"priority":"high","text":"<fix>"},{"priority":"medium","text":"<fix>"},{"priority":"low","text":"<fix>"}]}`,
+    `Job:\n${jd}\n\nResume:\n${resume}`, btn, 'Scanning your fit...'
+  );
+  if(!raw) return;
+  try {
+    const p=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    const sc=p.score;
+    const rc=sc>=70?'sr-h':sc>=45?'sr-m':'sr-l';
+    const vt=sc>=70?'Strong match':sc>=45?'Partial match':'Needs work';
+    const fixes=p.fixes.map(f=>{const dc=f.priority==='high'?'fd-r':f.priority==='medium'?'fd-a':'fd-g';return`<div class="fix-row"><div class="fdot ${dc}"></div><div>${f.text}</div></div>`;}).join('');
+    document.getElementById('score-card').innerHTML=`<div class="score-wrap"><div class="score-ring ${rc}">${sc}</div><div><div class="score-label">${vt}</div><div class="score-sub">${p.verdict}</div></div></div><div style="border-top:1px solid var(--border);padding-top:8px"><div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Suggested fixes</div>${fixes}</div>`;
+    document.getElementById('scanner-result').classList.remove('hidden');
+  } catch(e){alert('Could not parse score. Please try again.');}
+}
+
+// SCROLL ANIMATIONS
+const obs=new IntersectionObserver(entries=>entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);}),{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// INIT
+addExp();
+document.getElementById('tt-scanner').classList.add('hidden');
 </script>
 </body>
 </html>
