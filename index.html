@@ -1,1218 +1,925 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Landedd — Stop applying. Start landing.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --green: #0BDA8A;
-  --green-dim: rgba(11,218,138,0.08);
-  --green-border: rgba(11,218,138,0.18);
-  --bg: #F7F6F2;
-  --bg2: #EFEDE7;
-  --bg3: #E8E5DE;
-  --surface: #FFFFFF;
-  --border: rgba(0,0,0,0.07);
-  --border-md: rgba(0,0,0,0.12);
-  --text: #0F0F0D;
-  --text-muted: #6B6860;
-  --text-dim: #B0AEA8;
-  --purple: #5B4FCF;
-  --amber: #D4870A;
-  --red: #C0392B;
-  --font-display: 'Fraunces', serif;
-  --font-body: 'Geist', sans-serif;
-  --radius: 12px;
-  --radius-lg: 20px;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landedd — Stop applying. Start landing.</title>
+  <meta name="description" content="The only AI resume tool built from the recruiter's chair. Tailor your resume, scan ATS fit, and turn duties into achievements." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+    :root {
+      --brand: #1a1a2e;
+      --accent: #e94560;
+      --accent2: #0f3460;
+      --bg: #ffffff;
+      --bg2: #f8f8fc;
+      --bg3: #f0f0f8;
+      --text: #1a1a2e;
+      --text2: #555;
+      --text3: #888;
+      --border: #e0e0ee;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 2px 20px rgba(26,26,46,0.08);
+      --shadow-lg: 0 8px 40px rgba(26,26,46,0.12);
+      --pro-color: #7c3aed;
+      --pro-bg: #f5f0ff;
+      --success: #16a34a;
+      --success-bg: #f0fdf4;
+    }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
 
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 clamp(1.5rem, 5vw, 4rem);
-  background: rgba(247,246,242,0.92);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-}
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo { font-size: 1.3rem; font-weight: 800; color: var(--brand); text-decoration: none; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav a { text-decoration: none; color: var(--text2); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+    .nav-cta { background: var(--accent); color: white !important; padding: 8px 20px; border-radius: 20px; transition: background 0.2s !important; }
+    .nav-cta:hover { background: #c73652 !important; }
 
-.logo {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.5px;
-  font-style: italic;
-  text-decoration: none;
-  cursor: pointer;
-}
-.logo:hover { opacity: 0.75; }
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 5% 64px;
+      text-align: center;
+      max-width: 860px; margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900; line-height: 1.1; letter-spacing: -1.5px;
+      color: var(--brand); margin-bottom: 24px;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero p { font-size: 1.15rem; color: var(--text2); max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: white; border: none;
+      padding: 14px 32px; border-radius: 24px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: #c73652; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(233,69,96,0.3); }
+    .btn-secondary {
+      background: transparent; color: var(--text); border: 1.5px solid var(--border);
+      padding: 14px 32px; border-radius: 24px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  list-style: none;
-}
-.nav-links a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 400;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--text); }
+    /* ── FEATURES ── */
+    .features {
+      padding: 20px 5% 80px;
+      display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+      max-width: 960px; margin: 0 auto;
+    }
+    .feature-chip {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px 24px; flex: 1; min-width: 220px; max-width: 300px;
+    }
+    .feature-chip .icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .feature-chip h3 { font-size: 0.95rem; font-weight: 700; color: var(--brand); margin-bottom: 6px; }
+    .feature-chip p { font-size: 0.85rem; color: var(--text2); line-height: 1.5; }
 
-.nav-right { display: flex; gap: 10px; align-items: center; }
+    /* ── TRACKS ── */
+    .tracks-section {
+      background: var(--bg2); padding: 80px 5%;
+    }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .section-header h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 900; color: var(--brand); letter-spacing: -1px; }
+    .tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+    .track-card {
+      background: white; border-radius: var(--radius); border: 1.5px solid var(--border);
+      padding: 32px; transition: all 0.2s;
+    }
+    .track-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .track-badge { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 12px; margin-bottom: 16px; }
+    .badge-early { background: #e0f2fe; color: #0369a1; }
+    .badge-exp { background: #fce7f3; color: #9d174d; }
+    .track-card h3 { font-size: 1.4rem; font-weight: 900; color: var(--brand); margin-bottom: 8px; }
+    .track-card .tagline { font-size: 0.9rem; color: var(--text2); margin-bottom: 20px; line-height: 1.5; }
+    .track-features { list-style: none; margin-bottom: 28px; }
+    .track-features li { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--text2); padding: 5px 0; }
+    .track-features li::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; }
+    .btn-track {
+      width: 100%; padding: 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; border: none;
+    }
+    .btn-build { background: var(--brand); color: white; }
+    .btn-build:hover { background: #0f3460; }
+    .btn-target { background: var(--accent); color: white; }
+    .btn-target:hover { background: #c73652; }
 
-.btn-nav {
-  background: var(--text);
-  color: var(--bg);
-  border: none;
-  padding: 8px 18px;
-  border-radius: 99px;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-nav:hover { background: #2a2a2a; }
+    /* ── PRICING ── */
+    .pricing-section { padding: 80px 5%; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+    .price-card {
+      background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+      padding: 32px; position: relative; transition: all 0.2s;
+    }
+    .price-card.popular { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+    .popular-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: white; font-size: 0.75rem; font-weight: 700;
+      padding: 4px 14px; border-radius: 12px; white-space: nowrap;
+    }
+    .price-name { font-size: 0.85rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+    .price-amount { font-size: 2.8rem; font-weight: 900; color: var(--brand); line-height: 1; margin-bottom: 4px; }
+    .price-amount span { font-size: 1rem; font-weight: 400; color: var(--text3); }
+    .price-period { font-size: 0.8rem; color: var(--text3); margin-bottom: 24px; }
+    .price-features { list-style: none; margin-bottom: 28px; }
+    .price-features li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.875rem; padding: 5px 0; }
+    .price-features li .check { color: var(--success); font-weight: 700; margin-top: 1px; flex-shrink: 0; }
+    .price-features li .dash { color: #ccc; flex-shrink: 0; }
+    .price-features li.muted { color: var(--text3); }
+    .btn-price {
+      width: 100%; padding: 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--border); background: white; color: var(--text);
+    }
+    .btn-price:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-price.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn-price.primary:hover { background: #c73652; }
 
-/* ── PAGES ── */
-.page { display: none; }
-.page.active { display: block; }
+    /* ── TESTIMONIAL ── */
+    .testimonial {
+      background: var(--brand); color: white; padding: 64px 5%; text-align: center;
+    }
+    .testimonial blockquote { font-size: 1.2rem; line-height: 1.7; max-width: 680px; margin: 0 auto 24px; font-style: italic; opacity: 0.9; }
+    .testimonial cite { font-size: 0.875rem; opacity: 0.6; font-style: normal; }
 
-/* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 8rem clamp(1.5rem, 5vw, 4rem) 5rem;
-}
+    /* ── CTA BOTTOM ── */
+    .cta-bottom { padding: 80px 5%; text-align: center; }
+    .cta-bottom h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--brand); margin-bottom: 16px; letter-spacing: -1px; }
+    .cta-bottom h2 em { color: var(--accent); font-style: normal; }
+    .cta-bottom p { font-size: 0.95rem; color: var(--text3); margin-bottom: 32px; }
 
-.hero-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--surface);
-  border: 1px solid var(--border-md);
-  border-radius: 99px;
-  padding: 6px 16px;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 2.5rem;
-  letter-spacing: 0.3px;
-}
-.kicker-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity:1; transform:scale(1); }
-  50% { opacity:0.4; transform:scale(0.7); }
-}
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 32px 5%; text-align: center;
+      font-size: 0.875rem; color: var(--text3);
+    }
+    footer a { color: var(--text3); text-decoration: none; margin: 0 12px; }
+    footer a:hover { color: var(--accent); }
 
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(48px, 8vw, 96px);
-  font-weight: 300;
-  line-height: 1.0;
-  letter-spacing: -2px;
-  margin-bottom: 1.5rem;
-  max-width: 800px;
-}
-.hero h1 em {
-  font-style: italic;
-  color: var(--green);
-}
+    /* ── MODAL / APP PANEL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      align-items: flex-end; justify-content: center;
+    }
+    .modal-overlay.show { display: flex; }
+    @media (min-width: 640px) { .modal-overlay { align-items: center; } }
 
-.hero-sub {
-  font-size: clamp(15px, 2vw, 18px);
-  color: var(--text-muted);
-  max-width: 480px;
-  font-weight: 300;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-}
+    .app-panel {
+      background: white; width: 100%; max-width: 680px;
+      border-radius: 20px 20px 0 0; max-height: 90vh; overflow-y: auto;
+      padding: 0 0 32px; position: relative;
+      animation: slideUp 0.3s ease;
+    }
+    @media (min-width: 640px) { .app-panel { border-radius: 20px; max-height: 85vh; } }
+    @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-.hero-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    .panel-header {
+      position: sticky; top: 0; background: white; z-index: 10;
+      border-bottom: 1px solid var(--border); padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .panel-title { font-size: 1.1rem; font-weight: 800; color: var(--brand); }
+    .panel-close {
+      width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border);
+      background: transparent; cursor: pointer; font-size: 1.1rem; display: flex;
+      align-items: center; justify-content: center; color: var(--text2); transition: all 0.2s;
+    }
+    .panel-close:hover { background: var(--bg2); }
+    .panel-body { padding: 24px; }
 
-.btn-primary {
-  background: var(--text);
-  color: var(--bg);
-  border: none;
-  padding: 13px 28px;
-  border-radius: 99px;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-primary:hover { background: #2a2a2a; transform: translateY(-1px); }
+    /* Track selector */
+    .track-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .track-btn {
+      padding: 16px 12px; border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+      cursor: pointer; text-align: left; background: white; transition: all 0.2s;
+    }
+    .track-btn.active { border-color: var(--accent); background: #fff5f7; }
+    .track-btn .tb-icon { font-size: 1.2rem; margin-bottom: 6px; }
+    .track-btn .tb-name { font-size: 0.875rem; font-weight: 700; color: var(--brand); }
+    .track-btn .tb-desc { font-size: 0.75rem; color: var(--text3); margin-top: 2px; line-height: 1.4; }
 
-.btn-secondary {
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid var(--border-md);
-  padding: 13px 28px;
-  border-radius: 99px;
-  font-size: 15px;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-secondary:hover { color: var(--text); border-color: rgba(0,0,0,0.25); }
+    /* Tool tabs */
+    .tool-tabs { display: flex; gap: 6px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 2px; }
+    .tool-tab {
+      padding: 7px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+      border: 1.5px solid var(--border); cursor: pointer; background: white;
+      color: var(--text2); white-space: nowrap; transition: all 0.2s;
+    }
+    .tool-tab.active { background: var(--brand); color: white; border-color: var(--brand); }
 
-/* ── FEATURES STRIP ── */
-.features-strip {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 4rem clamp(1.5rem, 5vw, 4rem);
-}
+    /* Input method selector */
+    .input-methods { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+    .method-btn {
+      padding: 7px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+      border: 1.5px solid var(--border); cursor: pointer; background: white;
+      color: var(--text2); transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+    }
+    .method-btn.active { background: var(--brand); color: white; border-color: var(--brand); }
 
-.features-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-}
+    /* Form fields */
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .field textarea, .field input[type=text], .field input[type=url], .field select {
+      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 0.9rem; font-family: inherit;
+      color: var(--text); background: white; transition: border-color 0.2s; resize: vertical;
+    }
+    .field textarea:focus, .field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
+    .field textarea { min-height: 120px; }
 
-.feature { text-align: center; }
-.feature-icon {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  background: var(--green-dim);
-  border: 1px solid var(--green-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  font-size: 18px;
-}
-.feature h3 {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 400;
-  margin-bottom: 6px;
-  letter-spacing: -0.3px;
-}
-.feature p { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 300; }
+    /* Drop zone */
+    .drop-zone {
+      border: 2px dashed var(--border); border-radius: var(--radius-sm);
+      padding: 32px; text-align: center; cursor: pointer;
+      transition: all 0.2s; background: var(--bg2);
+    }
+    .drop-zone:hover, .drop-zone.dragover { border-color: var(--accent); background: #fff5f7; }
+    .drop-zone .dz-icon { font-size: 2rem; margin-bottom: 8px; }
+    .drop-zone p { font-size: 0.875rem; color: var(--text3); }
+    .drop-zone p strong { color: var(--text2); }
+    .drop-zone input[type=file] { display: none; }
+    .drop-zone.has-file { border-color: var(--success); background: var(--success-bg); }
+    .drop-zone.has-file p { color: var(--success); }
 
-/* ── TRACKS ── */
-.tracks-section {
-  padding: 6rem clamp(1.5rem, 5vw, 4rem);
-  max-width: 960px;
-  margin: 0 auto;
-}
+    /* Pro lock */
+    .pro-lock {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: var(--pro-color); background: var(--pro-bg);
+      padding: 6px 12px; border-radius: 8px; margin-top: 8px; font-weight: 600;
+    }
 
-.section-eyebrow {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--text-dim);
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
+    /* Experience rows */
+    .exp-row { background: var(--bg2); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 10px; position: relative; }
+    .exp-row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .exp-row-title { font-size: 0.8rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.04em; }
+    .exp-row-remove { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 1.1rem; line-height: 1; }
+    .exp-row-remove:hover { color: var(--accent); }
+    .exp-row .field { margin-bottom: 10px; }
+    .exp-row .field:last-child { margin-bottom: 0; }
+    .btn-add-exp {
+      width: 100%; padding: 10px; border: 1.5px dashed var(--border); border-radius: var(--radius-sm);
+      background: transparent; cursor: pointer; font-size: 0.875rem; color: var(--text3);
+      font-weight: 600; transition: all 0.2s; margin-bottom: 16px;
+    }
+    .btn-add-exp:hover { border-color: var(--accent); color: var(--accent); }
 
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -1px;
-  margin-bottom: 3rem;
-}
+    /* Run button */
+    .btn-run {
+      width: 100%; padding: 14px; border-radius: var(--radius-sm); border: none;
+      background: var(--accent); color: white; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-run:hover:not(:disabled) { background: #c73652; transform: translateY(-1px); }
+    .btn-run:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-.tracks-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
+    /* Result area */
+    .result-area {
+      margin-top: 20px; display: none;
+    }
+    .result-area.show { display: block; }
+    .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .result-title { font-size: 0.9rem; font-weight: 700; color: var(--brand); }
+    .btn-copy {
+      padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+      border: 1.5px solid var(--border); background: white; cursor: pointer; color: var(--text2); transition: all 0.2s;
+    }
+    .btn-copy:hover { border-color: var(--brand); color: var(--brand); }
+    .btn-copy.copied { background: var(--success-bg); border-color: var(--success); color: var(--success); }
+    .result-content {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 20px; font-size: 0.9rem; line-height: 1.7; color: var(--text);
+      white-space: pre-wrap; word-wrap: break-word; max-height: 400px; overflow-y: auto;
+    }
+    .result-content.loading { color: var(--text3); font-style: italic; }
 
-.track-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  transition: border-color 0.2s, transform 0.2s;
-  cursor: pointer;
-}
-.track-card:hover { border-color: var(--border-md); transform: translateY(-2px); }
+    /* Free limit notice */
+    .limit-notice {
+      background: var(--pro-bg); border: 1px solid #d8b4fe; border-radius: var(--radius-sm);
+      padding: 12px 16px; margin-top: 12px; font-size: 0.85rem; color: var(--pro-color); display: none;
+    }
+    .limit-notice a { color: var(--pro-color); font-weight: 700; }
 
-.track-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 99px;
-  margin-bottom: 1.25rem;
-}
-.tag-green { background: var(--green-dim); color: #0a7a4e; border: 1px solid var(--green-border); }
-.tag-purple { background: rgba(91,79,207,0.08); color: var(--purple); border: 1px solid rgba(91,79,207,0.18); }
-
-.track-card h3 {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  margin-bottom: 8px;
-  letter-spacing: -0.5px;
-}
-.track-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 300; margin-bottom: 1.5rem; }
-
-.track-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-.track-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); }
-.feat-check { width: 16px; height: 16px; border-radius: 50%; background: var(--green-dim); border: 1px solid var(--green-border); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #0a7a4e; flex-shrink: 0; }
-
-.track-btn {
-  width: 100%;
-  padding: 11px;
-  border-radius: 99px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-}
-.tbtn-green { background: var(--text); color: var(--bg); }
-.tbtn-green:hover { background: #2a2a2a; }
-.tbtn-purple { background: rgba(91,79,207,0.08); color: var(--purple); border: 1px solid rgba(91,79,207,0.2); }
-.tbtn-purple:hover { background: rgba(91,79,207,0.14); }
-
-/* ── PRICING ── */
-.pricing-section {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 6rem clamp(1.5rem, 5vw, 4rem);
-}
-
-.pricing-inner { max-width: 960px; margin: 0 auto; }
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 3rem;
-}
-
-.price-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
-}
-.price-card.featured {
-  background: var(--text);
-  border-color: var(--text);
-  color: var(--bg);
-}
-
-.price-name { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dim); font-weight: 500; margin-bottom: 1rem; }
-.price-card.featured .price-name { color: rgba(247,246,242,0.5); }
-
-.price-amount {
-  font-family: var(--font-display);
-  font-size: 44px;
-  font-weight: 300;
-  line-height: 1;
-  margin-bottom: 4px;
-  letter-spacing: -1px;
-}
-.price-amount sup { font-size: 18px; vertical-align: top; margin-top: 8px; display: inline-block; }
-.price-period { font-size: 12px; color: var(--text-dim); margin-bottom: 1.25rem; }
-.price-card.featured .price-period { color: rgba(247,246,242,0.4); }
-
-.price-divider { height: 1px; background: var(--border); margin-bottom: 1.25rem; }
-.price-card.featured .price-divider { background: rgba(247,246,242,0.12); }
-
-.price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-.price-features li { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
-.price-card.featured .price-features li { color: rgba(247,246,242,0.7); }
-.pf-on { color: var(--green); font-size: 13px; }
-.pf-off { color: var(--text-dim); font-size: 13px; }
-
-.price-btn {
-  width: 100%;
-  padding: 11px;
-  border-radius: 99px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-  border: 1px solid var(--border-md);
-  background: transparent;
-  color: var(--text);
-}
-.price-btn:hover { background: var(--bg2); }
-.price-btn.featured-btn { background: var(--green); color: #040A06; border-color: var(--green); }
-.price-btn.featured-btn:hover { background: #09f09a; }
-
-/* ── BUILT BY ── */
-.built-section {
-  padding: 6rem clamp(1.5rem, 5vw, 4rem);
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.built-section blockquote {
-  font-family: var(--font-display);
-  font-size: clamp(20px, 3vw, 28px);
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.4;
-  letter-spacing: -0.5px;
-  color: var(--text);
-  margin-bottom: 2rem;
-}
-
-.built-creds {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.cred { font-size: 12px; color: var(--text-muted); background: var(--surface); border: 1px solid var(--border); border-radius: 99px; padding: 5px 14px; }
-
-/* ── CTA ── */
-.cta-section {
-  padding: 6rem clamp(1.5rem, 5vw, 4rem);
-  text-align: center;
-  background: var(--text);
-  color: var(--bg);
-}
-
-.cta-section h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 300;
-  letter-spacing: -1.5px;
-  margin-bottom: 1rem;
-  font-style: italic;
-}
-.cta-section h2 em { color: var(--green); font-style: normal; }
-.cta-section p { font-size: 15px; color: rgba(247,246,242,0.55); margin-bottom: 2rem; font-weight: 300; }
-
-.btn-cta {
-  background: var(--green);
-  color: #040A06;
-  border: none;
-  padding: 14px 36px;
-  border-radius: 99px;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-cta:hover { background: #09f09a; transform: translateY(-1px); }
-
-/* ── FOOTER ── */
-footer {
-  padding: 2rem clamp(1.5rem, 5vw, 4rem);
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 600; font-style: italic; color: var(--text); text-decoration: none; }
-.footer-logo:hover { opacity: 0.75; }
-.footer-links { display: flex; gap: 1.5rem; list-style: none; }
-.footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
-.footer-links a:hover { color: var(--text); }
-.footer-copy { font-size: 12px; color: var(--text-dim); }
-
-/* ── APP PAGE ── */
-.app-page {
-  min-height: 100vh;
-  padding: 80px clamp(1rem, 4vw, 3rem) 3rem;
-  max-width: 760px;
-  margin: 0 auto;
-}
-
-.app-header { margin-bottom: 2rem; }
-.app-header h2 {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 300;
-  letter-spacing: -0.5px;
-  font-style: italic;
-  margin-bottom: 4px;
-}
-.app-header p { font-size: 13px; color: var(--text-muted); font-weight: 300; }
-
-/* TRACK TOGGLE */
-.track-toggle {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 1.5rem;
-}
-.toggle-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1rem;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s;
-  font-family: var(--font-body);
-}
-.toggle-btn.active-g { border-color: #0a7a4e; background: var(--green-dim); }
-.toggle-btn.active-p { border-color: var(--purple); background: rgba(91,79,207,0.06); }
-.toggle-btn-name { font-size: 14px; font-weight: 500; color: var(--text); display: block; margin-bottom: 2px; }
-.toggle-btn-desc { font-size: 12px; color: var(--text-muted); font-weight: 300; }
-
-/* TOOL TABS */
-.tool-tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-.tool-tab {
-  padding: 6px 16px;
-  border-radius: 99px;
-  font-size: 13px;
-  cursor: pointer;
-  border: 1px solid var(--border-md);
-  background: transparent;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  transition: all 0.2s;
-}
-.tool-tab.tg { background: var(--text); color: var(--bg); border-color: var(--text); }
-.tool-tab.tp { background: var(--purple); color: #fff; border-color: var(--purple); }
-
-/* INPUT METHOD */
-.method-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 500; margin-bottom: 8px; }
-.method-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 1.25rem; }
-.method-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 10px 8px;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.2s;
-  font-family: var(--font-body);
-}
-.method-btn:hover { border-color: var(--border-md); }
-.method-btn.sel-g { border-color: #0a7a4e; background: var(--green-dim); }
-.method-btn.sel-p { border-color: var(--purple); background: rgba(91,79,207,0.06); }
-.method-icon { font-size: 16px; margin-bottom: 4px; }
-.method-name { font-size: 12px; font-weight: 500; color: var(--text); display: block; margin-bottom: 1px; }
-.method-hint { font-size: 11px; color: var(--text-dim); }
-
-/* CARD */
-.acard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; margin-bottom: 10px; }
-.acard-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; display: block; margin-bottom: 6px; }
-
-/* INPUTS */
-textarea, input[type=text], input[type=url] {
-  width: 100%;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 9px 12px;
-  font-size: 13px;
-  font-family: var(--font-body);
-  color: var(--text);
-  transition: border-color 0.2s;
-  line-height: 1.5;
-}
-textarea { resize: vertical; min-height: 80px; }
-textarea:focus, input:focus { outline: none; border-color: rgba(0,0,0,0.25); }
-
-/* UPLOAD */
-.upload-zone {
-  border: 1.5px dashed var(--border-md);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s;
-}
-.upload-zone:hover { border-color: var(--green); background: var(--green-dim); }
-.upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-.upload-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
-.upload-hint { font-size: 11px; color: var(--text-dim); }
-.upload-ok { display: none; align-items: center; gap: 8px; background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #0a7a4e; margin-top: 8px; }
-
-/* LINKEDIN */
-.li-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(0,119,181,0.08); color: #0077B5; border: 1px solid rgba(0,119,181,0.2); border-radius: 99px; padding: 2px 10px; font-size: 11px; }
-.li-hint { font-size: 11px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
-
-/* BUTTONS */
-.btn-run {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 99px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: var(--font-body);
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 4px;
-}
-.btn-run-g { background: var(--text); color: var(--bg); }
-.btn-run-g:hover { background: #2a2a2a; }
-.btn-run-p { background: var(--purple); color: #fff; }
-.btn-run-p:hover { background: #4a3fbe; }
-.btn-run:disabled { background: var(--bg3); color: var(--text-dim); cursor: not-allowed; }
-
-/* RESULT */
-.result-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; font-size: 13px; line-height: 1.75; color: var(--text-muted); white-space: pre-wrap; margin-top: 10px; }
-.pro-nudge { display: flex; align-items: center; gap: 8px; background: var(--green-dim); border: 1px solid var(--green-border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #0a7a4e; margin-top: 8px; }
-
-/* SCORE */
-.score-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
-.score-ring { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 22px; font-weight: 400; flex-shrink: 0; }
-.sr-h { background: var(--green-dim); border: 2px solid var(--green-border); color: #0a7a4e; }
-.sr-m { background: rgba(212,135,10,0.1); border: 2px solid rgba(212,135,10,0.25); color: var(--amber); }
-.sr-l { background: rgba(192,57,43,0.1); border: 2px solid rgba(192,57,43,0.2); color: var(--red); }
-.score-label { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
-.score-sub { font-size: 12px; color: var(--text-muted); }
-.fix-row { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-muted); }
-.fix-row:last-child { border-bottom: none; }
-.fdot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
-.fd-r { background: var(--red); } .fd-a { background: var(--amber); } .fd-g { background: var(--green); }
-
-/* EXPERIENCE COACH */
-.exp-entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 10px; }
-.exp-entry.coaching { border-color: rgba(212,135,10,0.3); }
-.exp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-.field-grp { display: flex; flex-direction: column; gap: 5px; }
-.field-grp.full { grid-column: 1/-1; }
-.field-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; }
-.coaching-box { background: rgba(212,135,10,0.06); border: 1px solid rgba(212,135,10,0.2); border-radius: 8px; padding: 1rem; margin-top: 10px; }
-.coaching-hd { font-size: 11px; font-weight: 500; color: var(--amber); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
-.coaching-prompt { font-size: 12px; color: var(--text-muted); padding: 4px 0 4px 10px; border-left: 2px solid rgba(212,135,10,0.25); margin-bottom: 4px; line-height: 1.5; }
-.coaching-prompt strong { color: var(--amber); font-weight: 500; }
-.impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 10px; }
-.impact-field { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; }
-.impact-field-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-.impact-field input { background: transparent; border: none; padding: 0; font-size: 13px; color: var(--text); width: 100%; font-family: var(--font-body); }
-.impact-field input:focus { outline: none; }
-.weak-warn { display: none; align-items: center; gap: 6px; background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.18); border-radius: 8px; padding: 7px 10px; font-size: 12px; color: var(--red); margin-top: 6px; }
-.add-exp { width: 100%; padding: 11px; background: transparent; border: 1.5px dashed var(--border-md); border-radius: var(--radius); color: var(--text-muted); font-size: 13px; font-family: var(--font-body); cursor: pointer; transition: all 0.2s; margin-bottom: 1rem; }
-.add-exp:hover { border-color: var(--green); color: #0a7a4e; }
-
-/* RESPONSIVE */
-@media (max-width: 640px) {
-  .tracks-grid, .pricing-grid, .features-inner, .track-toggle { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  footer { flex-direction: column; text-align: center; }
-  .exp-row, .impact-grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* ANIMATIONS */
-.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.hidden { display: none; }
-</style>
+    /* Hidden content */
+    .tool-pane { display: none; }
+    .tool-pane.active { display: block; }
+    .input-pane { display: none; }
+    .input-pane.active { display: block; }
+  </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="#" onclick="showPage('home'); return false;">Landedd</a>
-  <ul class="nav-links">
-    <li><a href="#" onclick="showPage('home')">Home</a></li>
+  <a class="logo" href="#"><span>L</span>andedd</a>
+  <ul>
+    <li><a href="#">Home</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
-  <div class="nav-right">
-    <button class="btn-nav" onclick="showPage('app')">Start free</button>
-  </div>
+  <a href="#" class="nav-cta" onclick="openApp(); return false;">Start free</a>
 </nav>
 
-<!-- HOME PAGE -->
-<div id="page-home" class="page active">
-
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Stop applying.<br><em>Start landing.</em></h1>
-    <p class="hero-sub">The only AI resume tool built from the recruiter's chair — so your resume speaks the language that actually gets you hired.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="showPage('app')">Get started free</button>
-      <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <div class="features-strip" id="how">
-    <div class="features-inner">
-      <div class="feature fade-up">
-        <div class="feature-icon">&#9998;</div>
-        <h3>Resume tailor</h3>
-        <p>Paste a job description and your resume. Get a rewritten version that speaks directly to what the recruiter needs.</p>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">&#9650;</div>
-        <h3>Fit scanner</h3>
-        <p>Get a real ATS match score with specific fixes — not vague advice. Know exactly what to change before you apply.</p>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">&#9733;</div>
-        <h3>Impact coach</h3>
-        <p>Turn "responsible for sales" into "$1.2B in annual revenue." Our experience coach turns duties into achievements.</p>
-      </div>
-    </div>
+<!-- HERO -->
+<section class="hero">
+  <h1>Stop applying.<br><em>Start landing.</em></h1>
+  <p>The only AI resume tool built from the recruiter's chair — so your resume speaks the language that actually gets you hired.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="openApp()">Get started free</button>
+    <button class="btn-secondary" onclick="document.querySelector('.tracks-section').scrollIntoView({behavior:'smooth'})">See how it works</button>
   </div>
+</section>
 
-  <!-- TRACKS -->
-  <section class="tracks-section">
-    <p class="section-eyebrow fade-up">Two tracks, one goal</p>
-    <h2 class="section-title fade-up">Built for where<br>you are right now</h2>
-    <div class="tracks-grid">
-      <div class="track-card fade-up" onclick="showPage('app')">
-        <div class="track-tag tag-green">Early career</div>
-        <h3>Build It</h3>
-        <p>Starting from scratch? Answer a few questions and we'll build a polished, ATS-ready resume — even if your only experience is part-time jobs and class projects.</p>
-        <ul class="track-features">
-          <li><div class="feat-check">✓</div>Guided resume builder</li>
-          <li><div class="feat-check">✓</div>Gap finder with 30-day action plan</li>
-          <li><div class="feat-check">✓</div>Upload, LinkedIn, or answer questions</li>
-        </ul>
-        <button class="track-btn tbtn-green">Start building</button>
-      </div>
-      <div class="track-card fade-up" onclick="showPage('app')">
-        <div class="track-tag tag-purple">Experienced</div>
-        <h3>Target It</h3>
-        <p>Already have experience? Tailor your resume to specific roles, score your ATS fit, and rewrite your bullets to match what senior hiring managers look for.</p>
-        <ul class="track-features">
-          <li><div class="feat-check">✓</div>Resume tailor for specific roles</li>
-          <li><div class="feat-check">✓</div>ATS fit score with exact fixes</li>
-          <li><div class="feat-check">✓</div>LinkedIn headline rewrite (Pro)</li>
-        </ul>
-        <button class="track-btn tbtn-purple">Start targeting</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section class="pricing-section" id="pricing">
-    <div class="pricing-inner">
-      <p class="section-eyebrow fade-up">Transparent pricing</p>
-      <h2 class="section-title fade-up">Start free.<br>Upgrade when ready.</h2>
-      <div class="pricing-grid">
-        <div class="price-card fade-up">
-          <div class="price-name">Free</div>
-          <div class="price-amount">$0</div>
-          <div class="price-period">forever</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="pf-on">✓</span>3 resume tailors/month</li>
-            <li><span class="pf-on">✓</span>3 fit scans/month</li>
-            <li><span class="pf-on">✓</span>Resume builder (basic)</li>
-            <li><span class="pf-off">–</span>PDF download</li>
-            <li><span class="pf-off">–</span>Cover letter</li>
-          </ul>
-          <button class="price-btn" onclick="showPage('app')">Get started</button>
-        </div>
-        <div class="price-card featured fade-up">
-          <div class="price-name">Starter Pro</div>
-          <div class="price-amount"><sup>$</sup>9</div>
-          <div class="price-period">per month · cancel anytime</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="pf-on">✓</span>Unlimited resume builds</li>
-            <li><span class="pf-on">✓</span>Unlimited gap finding</li>
-            <li><span class="pf-on">✓</span>PDF download</li>
-            <li><span class="pf-on">✓</span>Cover letter generator</li>
-            <li><span class="pf-on">✓</span>30-day action plans</li>
-          </ul>
-          <button class="price-btn featured-btn" onclick="showPage('app')">Start Starter Pro</button>
-        </div>
-        <div class="price-card fade-up">
-          <div class="price-name">Pro</div>
-          <div class="price-amount"><sup>$</sup>19</div>
-          <div class="price-period">per month · cancel anytime</div>
-          <div class="price-divider"></div>
-          <ul class="price-features">
-            <li><span class="pf-on">✓</span>Everything in Starter Pro</li>
-            <li><span class="pf-on">✓</span>Unlimited tailoring & scanning</li>
-            <li><span class="pf-on">✓</span>Keyword gap analysis</li>
-            <li><span class="pf-on">✓</span>LinkedIn headline rewrite</li>
-            <li><span class="pf-on">✓</span>Priority AI responses</li>
-          </ul>
-          <button class="price-btn" onclick="showPage('app')">Start Pro</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BUILT BY -->
-  <section class="built-section">
-    <blockquote class="fade-up">"I've reviewed thousands of resumes. Most get rejected before a human reads them — not because the candidate isn't qualified, but because the resume doesn't speak the right language. Landedd fixes that."</blockquote>
-    <div class="built-creds fade-up">
-      <span class="cred">Fortune 500 TA Manager</span>
-      <span class="cred">Thousands of resumes reviewed</span>
-      <span class="cred">Real ATS expertise</span>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <h2>Your next job is<br><em>one scan away.</em></h2>
-    <p>No credit card needed. Start in 30 seconds.</p>
-    <button class="btn-cta" onclick="showPage('app')">Get Landedd — it's free</button>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <a class="footer-logo" href="#" onclick="showPage('home'); return false;">Landedd</a>
-    <ul class="footer-links">
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-    <div class="footer-copy">© 2026 Landedd</div>
-  </footer>
-
-</div>
-
-<!-- APP PAGE -->
-<div id="page-app" class="page">
-  <div class="app-page">
-    <div class="app-header">
-      <h2>Let's get you <em style="color:var(--green);font-style:italic">Landedd.</em></h2>
-      <p>Choose your track and the tool you need. Paste, upload, or use LinkedIn — your call.</p>
-      <div style="margin-top:1rem;background:var(--bg2);border:1px solid var(--border-md);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <span style="font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;">🔑 Anthropic API Key</span>
-        <input type="password" id="api-key-input" placeholder="sk-ant-..." style="flex:1;min-width:220px;padding:8px 12px;border:1px solid var(--border-md);border-radius:8px;font-size:13px;font-family:var(--font-body);background:var(--surface);color:var(--text);outline:none;">
-        <span style="font-size:12px;color:var(--text-muted);">Required to run the tools. Get yours at <a href="https://console.anthropic.com" target="_blank" style="color:var(--green);text-decoration:none;">console.anthropic.com</a></span>
-      </div>
-    </div>
-
-    <!-- TRACK TOGGLE -->
-    <div class="track-toggle">
-      <button class="toggle-btn active-g" id="tt-build" onclick="setTrack('build')">
-        <span class="toggle-btn-name">&#9733; Build It</span>
-        <span class="toggle-btn-desc">Early career — build from scratch</span>
-      </button>
-      <button class="toggle-btn" id="tt-target" onclick="setTrack('target')">
-        <span class="toggle-btn-name">&#9654; Target It</span>
-        <span class="toggle-btn-desc">Experienced — tailor &amp; score</span>
-      </button>
-    </div>
-
-    <!-- BUILD IT -->
-    <div id="sec-build">
-      <div class="tool-tabs">
-        <button class="tool-tab tg" onclick="setBuildTool('builder',this)">Resume builder</button>
-        <button class="tool-tab" onclick="setBuildTool('gap',this)">Gap finder</button>
-        <button class="tool-tab" onclick="setBuildTool('coach',this)">Experience coach</button>
-      </div>
-
-      <!-- BUILDER -->
-      <div id="bt-builder">
-        <div class="method-label">How do you want to share your background?</div>
-        <div class="method-grid">
-          <div class="method-btn sel-g" id="bm-guided" onclick="setBuildMethod('guided')"><div class="method-icon">&#9998;</div><span class="method-name">Answer questions</span><span class="method-hint">Step by step</span></div>
-          <div class="method-btn" id="bm-upload" onclick="setBuildMethod('upload')"><div class="method-icon">&#128196;</div><span class="method-name">Upload resume</span><span class="method-hint">PDF or Word</span></div>
-          <div class="method-btn" id="bm-linkedin" onclick="setBuildMethod('linkedin')"><div class="method-icon">&#128101;</div><span class="method-name">LinkedIn URL</span><span class="method-hint">Paste your profile</span></div>
-        </div>
-
-        <div id="bm-guided-in">
-          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="g-role" placeholder="e.g. Marketing coordinator, software engineer..."></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div class="acard"><span class="acard-label">Your top skills</span><textarea id="g-skills" placeholder="e.g. Excel, Canva, customer service..."></textarea></div>
-            <div class="acard"><span class="acard-label">Experience (jobs, clubs, volunteering)</span><textarea id="g-exp" placeholder="e.g. Barista at Starbucks, marketing club president..."></textarea></div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div class="acard"><span class="acard-label">Education</span><input type="text" id="g-edu" placeholder="e.g. B.S. Communications, Michigan State 2024"></div>
-            <div class="acard"><span class="acard-label">Certifications or projects</span><input type="text" id="g-certs" placeholder="e.g. Google Analytics cert, built a Shopify store..."></div>
-          </div>
-        </div>
-        <div id="bm-upload-in" class="hidden">
-          <div class="acard"><span class="acard-label">Upload your resume</span>
-            <div class="upload-zone"><input type="file" accept=".pdf,.doc,.docx,.txt" onchange="handleUpload(this,'builder')"><div class="upload-title">Drop your resume here</div><div class="upload-hint">PDF, Word, or plain text</div></div>
-            <div class="upload-ok" id="uo-builder"><span>&#10003;</span><span id="uo-builder-name"></span></div>
-          </div>
-          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="up-role" placeholder="e.g. Product manager, data analyst..."></div>
-        </div>
-        <div id="bm-linkedin-in" class="hidden">
-          <div class="acard"><span class="acard-label">LinkedIn profile URL</span><input type="url" id="li-url-b" placeholder="https://linkedin.com/in/yourname"><div class="li-hint"><span class="li-badge">&#128101; LinkedIn</span> &nbsp;Go to your LinkedIn profile → Share → Copy link</div></div>
-          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="li-role-b" placeholder="e.g. Marketing manager..."></div>
-        </div>
-        <button class="btn-run btn-run-g" onclick="runBuilder()">Build my resume</button>
-        <div id="builder-result" class="hidden"><div class="result-box" id="builder-out"></div><div class="pro-nudge">&#128274; <strong>Pro:</strong> Download as PDF + matching cover letter</div></div>
-      </div>
-
-      <!-- GAP FINDER -->
-      <div id="bt-gap" class="hidden">
-        <div class="acard"><span class="acard-label">Job description you're targeting</span><textarea id="gap-jd" placeholder="Paste the full job posting here..."></textarea></div>
-        <div class="acard"><span class="acard-label">Your background</span><textarea id="gap-profile" placeholder="Describe your skills, experience, and education..."></textarea></div>
-        <button class="btn-run btn-run-g" onclick="runGap()">Find my gaps</button>
-        <div id="gap-result" class="hidden"><div class="result-box" id="gap-out"></div><div class="pro-nudge">&#128274; <strong>Pro:</strong> Personalized 30-day plan to close every gap</div></div>
-      </div>
-
-      <!-- EXPERIENCE COACH -->
-      <div id="bt-coach" class="hidden">
-        <div style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;font-weight:300">Don't list what you were <em>responsible for</em> — show what you <em>achieved</em>. Add your experiences below and we'll transform them into impact-first bullets.</div>
-        <div id="exp-list"></div>
-        <button class="add-exp" onclick="addExp()">+ Add experience</button>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-          <div class="acard"><span class="acard-label">Target role</span><input type="text" id="coach-role" placeholder="e.g. VP of Sales, UX Designer..."></div>
-          <div class="acard"><span class="acard-label">Industry</span><input type="text" id="coach-industry" placeholder="e.g. SaaS, Healthcare, Finance..."></div>
-        </div>
-        <button class="btn-run btn-run-g" onclick="runCoach()">Generate impact resume</button>
-        <div id="coach-result" class="hidden"><div class="result-box" id="coach-out"></div><div class="pro-nudge">&#128274; <strong>Pro:</strong> Download as PDF + tailored cover letter</div></div>
-      </div>
-    </div>
-
-    <!-- TARGET IT -->
-    <div id="sec-target" class="hidden">
-      <div class="tool-tabs">
-        <button class="tool-tab tp" onclick="setTargetTool('tailor',this)">Resume tailor</button>
-        <button class="tool-tab" onclick="setTargetTool('scanner',this)">Fit scanner</button>
-      </div>
-
-      <!-- TAILOR -->
-      <div id="tt-tailor">
-        <div class="method-label">How do you want to share your resume?</div>
-        <div class="method-grid">
-          <div class="method-btn sel-p" id="tm-paste" onclick="setTailorMethod('paste')"><div class="method-icon">&#9998;</div><span class="method-name">Paste text</span><span class="method-hint">Copy &amp; paste</span></div>
-          <div class="method-btn" id="tm-upload" onclick="setTailorMethod('upload')"><div class="method-icon">&#128196;</div><span class="method-name">Upload resume</span><span class="method-hint">PDF or Word</span></div>
-          <div class="method-btn" id="tm-linkedin" onclick="setTailorMethod('linkedin')"><div class="method-icon">&#128101;</div><span class="method-name">LinkedIn URL</span><span class="method-hint">Paste your profile</span></div>
-        </div>
-        <div class="acard"><span class="acard-label">Job description</span><textarea id="t-jd" placeholder="Paste the full job posting here..."></textarea></div>
-        <div id="tm-paste-in"><div class="acard"><span class="acard-label">Your resume</span><textarea id="t-resume" placeholder="Paste your resume text here..."></textarea></div></div>
-        <div id="tm-upload-in" class="hidden"><div class="acard"><span class="acard-label">Upload resume</span><div class="upload-zone"><input type="file" accept=".pdf,.doc,.docx,.txt" onchange="handleUpload(this,'tailor')"><div class="upload-title">Drop your resume here</div><div class="upload-hint">PDF, Word, or plain text</div></div><div class="upload-ok" id="uo-tailor"><span>&#10003;</span><span id="uo-tailor-name"></span></div></div></div>
-        <div id="tm-linkedin-in" class="hidden"><div class="acard"><span class="acard-label">LinkedIn URL</span><input type="url" id="li-url-t" placeholder="https://linkedin.com/in/yourname"><div class="li-hint"><span class="li-badge">&#128101; LinkedIn</span> &nbsp;Go to your LinkedIn profile → Share → Copy link</div></div></div>
-        <button class="btn-run btn-run-p" onclick="runTailor()">Tailor my resume</button>
-        <div id="tailor-result" class="hidden"><div class="result-box" id="tailor-out"></div><div class="pro-nudge" style="background:rgba(91,79,207,0.06);border-color:rgba(91,79,207,0.2);color:var(--purple)">&#128274; <strong>Pro:</strong> PDF download + cover letter + LinkedIn headline rewrite</div></div>
-      </div>
-
-      <!-- SCANNER -->
-      <div id="tt-scanner" class="hidden">
-        <div class="method-label">How do you want to share your resume?</div>
-        <div class="method-grid">
-          <div class="method-btn sel-p" id="sm-paste" onclick="setScannerMethod('paste')"><div class="method-icon">&#9998;</div><span class="method-name">Paste text</span><span class="method-hint">Copy &amp; paste</span></div>
-          <div class="method-btn" id="sm-upload" onclick="setScannerMethod('upload')"><div class="method-icon">&#128196;</div><span class="method-name">Upload resume</span><span class="method-hint">PDF or Word</span></div>
-          <div class="method-btn" id="sm-linkedin" onclick="setScannerMethod('linkedin')"><div class="method-icon">&#128101;</div><span class="method-name">LinkedIn URL</span><span class="method-hint">Paste your profile</span></div>
-        </div>
-        <div class="acard"><span class="acard-label">Job description</span><textarea id="s-jd" placeholder="Paste the full job posting here..."></textarea></div>
-        <div id="sm-paste-in"><div class="acard"><span class="acard-label">Your resume</span><textarea id="s-resume" placeholder="Paste your resume text here..."></textarea></div></div>
-        <div id="sm-upload-in" class="hidden"><div class="acard"><span class="acard-label">Upload resume</span><div class="upload-zone"><input type="file" accept=".pdf,.doc,.docx,.txt" onchange="handleUpload(this,'scanner')"><div class="upload-title">Drop your resume here</div><div class="upload-hint">PDF, Word, or plain text</div></div><div class="upload-ok" id="uo-scanner"><span>&#10003;</span><span id="uo-scanner-name"></span></div></div></div>
-        <div id="sm-linkedin-in" class="hidden"><div class="acard"><span class="acard-label">LinkedIn URL</span><input type="url" id="li-url-s" placeholder="https://linkedin.com/in/yourname"><div class="li-hint"><span class="li-badge">&#128101; LinkedIn</span> &nbsp;Go to your LinkedIn profile → Share → Copy link</div></div></div>
-        <button class="btn-run btn-run-p" onclick="runScanner()">Scan my fit</button>
-        <div id="scanner-result" class="hidden"><div class="acard" id="score-card"></div><div class="pro-nudge" style="background:rgba(91,79,207,0.06);border-color:rgba(91,79,207,0.2);color:var(--purple)">&#128274; <strong>Pro:</strong> Full keyword gap report + bullet rewrite suggestions</div></div>
-      </div>
-    </div>
-
+<!-- FEATURE CHIPS -->
+<div class="features">
+  <div class="feature-chip">
+    <div class="icon">✎</div>
+    <h3>Resume tailor</h3>
+    <p>Paste a job description and your resume. Get a rewritten version that speaks directly to what the recruiter needs.</p>
+  </div>
+  <div class="feature-chip">
+    <div class="icon">▲</div>
+    <h3>Fit scanner</h3>
+    <p>Get a real ATS match score with specific fixes — not vague advice. Know exactly what to change before you apply.</p>
+  </div>
+  <div class="feature-chip">
+    <div class="icon">★</div>
+    <h3>Impact coach</h3>
+    <p>Turn "responsible for sales" into "$1.2B in annual revenue." Our experience coach turns duties into achievements.</p>
   </div>
 </div>
+
+<!-- TRACKS -->
+<section class="tracks-section">
+  <div class="section-header">
+    <div class="section-label">Two tracks, one goal</div>
+    <h2>Built for where you are right now</h2>
+  </div>
+  <div class="tracks">
+    <div class="track-card">
+      <span class="track-badge badge-early">Early career</span>
+      <h3>Build It</h3>
+      <p class="tagline">Starting from scratch? Answer a few questions and we'll build a polished, ATS-ready resume — even if your only experience is part-time jobs and class projects.</p>
+      <ul class="track-features">
+        <li>Guided resume builder</li>
+        <li>Gap finder with 30-day action plan</li>
+        <li>Upload, LinkedIn, or answer questions</li>
+      </ul>
+      <button class="btn-track btn-build" onclick="openApp('build')">Start building</button>
+    </div>
+    <div class="track-card">
+      <span class="track-badge badge-exp">Experienced</span>
+      <h3>Target It</h3>
+      <p class="tagline">Already have experience? Tailor your resume to specific roles, score your ATS fit, and rewrite your bullets to match what senior hiring managers look for.</p>
+      <ul class="track-features">
+        <li>Resume tailor for specific roles</li>
+        <li>ATS fit score with exact fixes</li>
+        <li>LinkedIn headline rewrite (Pro)</li>
+      </ul>
+      <button class="btn-track btn-target" onclick="openApp('target')">Start targeting</button>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-header">
+    <div class="section-label">Transparent pricing</div>
+    <h2>Start free. Upgrade when ready.</h2>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Free</div>
+      <div class="price-amount">$0 <span></span></div>
+      <div class="price-period">forever</div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> 3 resume tailors/month</li>
+        <li><span class="check">✓</span> 3 fit scans/month</li>
+        <li><span class="check">✓</span> Resume builder (basic)</li>
+        <li class="muted"><span class="dash">–</span> PDF download</li>
+        <li class="muted"><span class="dash">–</span> Cover letter</li>
+      </ul>
+      <button class="btn-price" onclick="openApp()">Get started</button>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-badge">Most popular</div>
+      <div class="price-name">Starter Pro</div>
+      <div class="price-amount">$9 <span>/ mo</span></div>
+      <div class="price-period">per month · cancel anytime</div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> Unlimited resume builds</li>
+        <li><span class="check">✓</span> Unlimited gap finding</li>
+        <li><span class="check">✓</span> PDF download</li>
+        <li><span class="check">✓</span> Cover letter generator</li>
+        <li><span class="check">✓</span> 30-day action plans</li>
+      </ul>
+      <button class="btn-price primary" onclick="openApp()">Start Starter Pro</button>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Pro</div>
+      <div class="price-amount">$19 <span>/ mo</span></div>
+      <div class="price-period">per month · cancel anytime</div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> Everything in Starter Pro</li>
+        <li><span class="check">✓</span> Unlimited tailoring & scanning</li>
+        <li><span class="check">✓</span> Keyword gap analysis</li>
+        <li><span class="check">✓</span> LinkedIn headline rewrite</li>
+        <li><span class="check">✓</span> Priority AI responses</li>
+      </ul>
+      <button class="btn-price" onclick="openApp()">Start Pro</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <blockquote>"I've reviewed thousands of resumes. Most get rejected before a human reads them — not because the candidate isn't qualified, but because the resume doesn't speak the right language. Landedd fixes that."</blockquote>
+  <cite>Fortune 500 TA Manager · Thousands of resumes reviewed · Real ATS expertise</cite>
+</section>
+
+<!-- CTA BOTTOM -->
+<section class="cta-bottom">
+  <h2>Your next job is <em>one scan away.</em></h2>
+  <p>No credit card needed. Start in 30 seconds.</p>
+  <button class="btn-primary" onclick="openApp()">Get Landedd — it's free</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Landedd</strong><br><br>
+  <a href="#">Privacy</a>
+  <a href="#">Terms</a>
+  <a href="#">Contact</a>
+  <br><br>
+  © 2026 Landedd
+</footer>
+
+
+<!-- ─────────────────────────────────────────────
+     APP MODAL PANEL
+───────────────────────────────────────────── -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="app-panel" id="appPanel">
+    <div class="panel-header">
+      <span class="panel-title" id="panelTitle">Let's get you Landedd.</span>
+      <button class="panel-close" onclick="closeApp()" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body">
+
+      <!-- Track selector -->
+      <div class="track-selector" id="trackSelector">
+        <button class="track-btn active" id="trackBtnBuild" onclick="selectTrack('build')">
+          <div class="tb-icon">★</div>
+          <div class="tb-name">Build It</div>
+          <div class="tb-desc">Early career — build from scratch</div>
+        </button>
+        <button class="track-btn" id="trackBtnTarget" onclick="selectTrack('target')">
+          <div class="tb-icon">▶</div>
+          <div class="tb-name">Target It</div>
+          <div class="tb-desc">Experienced — tailor & score</div>
+        </button>
+      </div>
+
+      <!-- ── BUILD IT TRACK ── -->
+      <div class="tool-pane active" id="buildPane">
+        <div class="tool-tabs">
+          <button class="tool-tab active" onclick="switchTool('build','builder')">Resume builder</button>
+          <button class="tool-tab" onclick="switchTool('build','gaps')">Gap finder</button>
+          <button class="tool-tab" onclick="switchTool('build','impact')">Experience coach</button>
+        </div>
+
+        <!-- Builder -->
+        <div class="tool-pane active" id="build-builder">
+          <p style="font-size:0.85rem;color:var(--text3);margin-bottom:16px;">How do you want to share your background?</p>
+          <div class="input-methods">
+            <button class="method-btn active" onclick="switchMethod('builder','questions')">✎ Answer questions</button>
+            <button class="method-btn" onclick="switchMethod('builder','upload')">📄 Upload resume</button>
+            <button class="method-btn" onclick="switchMethod('builder','linkedin')">👥 LinkedIn URL</button>
+          </div>
+
+          <div class="input-pane active" id="builder-questions">
+            <div class="field"><label>Target role</label><input type="text" id="b-role" placeholder="e.g. Marketing Manager, Software Engineer" /></div>
+            <div class="field"><label>Your top skills</label><input type="text" id="b-skills" placeholder="e.g. Python, project management, Canva" /></div>
+            <div class="field"><label>Experience (jobs, clubs, volunteering)</label><textarea id="b-exp" placeholder="e.g. Barista at Starbucks (2 yrs), president of college marketing club, volunteered at food bank"></textarea></div>
+            <div class="field"><label>Education</label><input type="text" id="b-edu" placeholder="e.g. BBA Marketing, University of Chicago, 2024" /></div>
+            <div class="field"><label>Certifications or projects</label><input type="text" id="b-certs" placeholder="e.g. Google Analytics cert, built e-commerce site for local shop" /></div>
+          </div>
+          <div class="input-pane" id="builder-upload">
+            <div class="drop-zone" id="dz-builder" onclick="triggerUpload('dz-builder')" ondragover="handleDrag(event,'dz-builder')" ondragleave="handleDragLeave('dz-builder')" ondrop="handleDrop(event,'dz-builder','builder')">
+              <div class="dz-icon">📄</div>
+              <p><strong>Drop your resume here</strong></p>
+              <p>PDF, Word, or plain text</p>
+              <input type="file" id="file-builder" accept=".pdf,.doc,.docx,.txt" onchange="handleFile(event,'builder')" />
+            </div>
+            <div class="field" style="margin-top:14px;"><label>Target role</label><input type="text" id="b-role-upload" placeholder="e.g. Product Manager" /></div>
+          </div>
+          <div class="input-pane" id="builder-linkedin">
+            <div class="field"><label>LinkedIn profile URL</label><input type="url" id="b-linkedin" placeholder="https://linkedin.com/in/yourname" /></div>
+            <div class="field"><label>Target role</label><input type="text" id="b-role-linkedin" placeholder="e.g. UX Designer" /></div>
+          </div>
+
+          <button class="btn-run" onclick="runTool('builder')">
+            <span id="builder-btn-text">Build my resume</span>
+          </button>
+          <div class="pro-lock">🔒 Pro: Download as PDF + matching cover letter</div>
+          <div class="result-area" id="result-builder"><div class="result-header"><span class="result-title">Your resume</span><button class="btn-copy" onclick="copyResult('result-builder')">Copy</button></div><div class="result-content" id="content-builder"></div></div>
+          <div class="limit-notice" id="limit-builder">You've used your 3 free builds this month. <a href="#pricing" onclick="closeApp()">Upgrade to Pro</a> for unlimited access.</div>
+        </div>
+
+        <!-- Gap finder -->
+        <div class="tool-pane" id="build-gaps">
+          <div class="field"><label>Job description you're targeting</label><textarea id="gap-jd" placeholder="Paste the full job description here..."></textarea></div>
+          <div class="field"><label>Your background</label><textarea id="gap-bg" placeholder="Paste your resume or describe your experience..."></textarea></div>
+          <button class="btn-run" onclick="runTool('gaps')"><span id="gaps-btn-text">Find my gaps</span></button>
+          <div class="pro-lock">🔒 Pro: Personalized 30-day plan to close every gap</div>
+          <div class="result-area" id="result-gaps"><div class="result-header"><span class="result-title">Your gap analysis</span><button class="btn-copy" onclick="copyResult('result-gaps')">Copy</button></div><div class="result-content" id="content-gaps"></div></div>
+          <div class="limit-notice" id="limit-gaps">You've reached your free limit. <a href="#pricing" onclick="closeApp()">Upgrade to Pro</a>.</div>
+        </div>
+
+        <!-- Impact / Experience coach -->
+        <div class="tool-pane" id="build-impact">
+          <p style="font-size:0.85rem;color:var(--text2);margin-bottom:16px;line-height:1.5;">Don't list what you were <em>responsible for</em> — show what you <em>achieved</em>. Add your experiences below and we'll transform them into impact-first bullets.</p>
+          <div id="exp-rows"></div>
+          <button class="btn-add-exp" onclick="addExpRow()">+ Add experience</button>
+          <div class="field"><label>Target role</label><input type="text" id="impact-role" placeholder="e.g. Sales Manager" /></div>
+          <div class="field"><label>Industry</label><input type="text" id="impact-industry" placeholder="e.g. SaaS, Retail, Healthcare" /></div>
+          <button class="btn-run" onclick="runTool('impact')"><span id="impact-btn-text">Generate impact resume</span></button>
+          <div class="pro-lock">🔒 Pro: Download as PDF + tailored cover letter</div>
+          <div class="result-area" id="result-impact"><div class="result-header"><span class="result-title">Your impact bullets</span><button class="btn-copy" onclick="copyResult('result-impact')">Copy</button></div><div class="result-content" id="content-impact"></div></div>
+        </div>
+      </div>
+
+      <!-- ── TARGET IT TRACK ── -->
+      <div class="tool-pane" id="targetPane">
+        <div class="tool-tabs">
+          <button class="tool-tab active" onclick="switchTool('target','tailor')">Resume tailor</button>
+          <button class="tool-tab" onclick="switchTool('target','scanner')">Fit scanner</button>
+        </div>
+
+        <!-- Tailor -->
+        <div class="tool-pane active" id="target-tailor">
+          <p style="font-size:0.85rem;color:var(--text3);margin-bottom:16px;">How do you want to share your resume?</p>
+          <div class="input-methods">
+            <button class="method-btn active" onclick="switchMethod('tailor','paste')">✎ Paste text</button>
+            <button class="method-btn" onclick="switchMethod('tailor','upload')">📄 Upload resume</button>
+            <button class="method-btn" onclick="switchMethod('tailor','linkedin')">👥 LinkedIn URL</button>
+          </div>
+
+          <div class="input-pane active" id="tailor-paste">
+            <div class="field"><label>Job description</label><textarea id="t-jd" placeholder="Paste the full job description..."></textarea></div>
+            <div class="field"><label>Your resume</label><textarea id="t-resume" placeholder="Paste your current resume..."></textarea></div>
+          </div>
+          <div class="input-pane" id="tailor-upload">
+            <div class="field"><label>Job description</label><textarea id="t-jd-upload" placeholder="Paste the full job description..."></textarea></div>
+            <div class="drop-zone" id="dz-tailor" onclick="triggerUpload('dz-tailor')" ondragover="handleDrag(event,'dz-tailor')" ondragleave="handleDragLeave('dz-tailor')" ondrop="handleDrop(event,'dz-tailor','tailor')">
+              <div class="dz-icon">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
+              <input type="file" id="file-tailor" accept=".pdf,.doc,.docx,.txt" onchange="handleFile(event,'tailor')" />
+            </div>
+          </div>
+          <div class="input-pane" id="tailor-linkedin">
+            <div class="field"><label>Job description</label><textarea id="t-jd-linkedin" placeholder="Paste the full job description..."></textarea></div>
+            <div class="field"><label>LinkedIn URL</label><input type="url" id="t-linkedin" placeholder="https://linkedin.com/in/yourname" /></div>
+          </div>
+
+          <button class="btn-run" onclick="runTool('tailor')"><span id="tailor-btn-text">Tailor my resume</span></button>
+          <div class="pro-lock">🔒 Pro: PDF download + cover letter + LinkedIn headline rewrite</div>
+          <div class="result-area" id="result-tailor"><div class="result-header"><span class="result-title">Your tailored resume</span><button class="btn-copy" onclick="copyResult('result-tailor')">Copy</button></div><div class="result-content" id="content-tailor"></div></div>
+          <div class="limit-notice" id="limit-tailor">You've used your 3 free tailors this month. <a href="#pricing" onclick="closeApp()">Upgrade to Pro</a> for unlimited access.</div>
+        </div>
+
+        <!-- Scanner -->
+        <div class="tool-pane" id="target-scanner">
+          <p style="font-size:0.85rem;color:var(--text3);margin-bottom:16px;">How do you want to share your resume?</p>
+          <div class="input-methods">
+            <button class="method-btn active" onclick="switchMethod('scanner','paste')">✎ Paste text</button>
+            <button class="method-btn" onclick="switchMethod('scanner','upload')">📄 Upload resume</button>
+            <button class="method-btn" onclick="switchMethod('scanner','linkedin')">👥 LinkedIn URL</button>
+          </div>
+
+          <div class="input-pane active" id="scanner-paste">
+            <div class="field"><label>Job description</label><textarea id="s-jd" placeholder="Paste the full job description..."></textarea></div>
+            <div class="field"><label>Your resume</label><textarea id="s-resume" placeholder="Paste your current resume..."></textarea></div>
+          </div>
+          <div class="input-pane" id="scanner-upload">
+            <div class="field"><label>Job description</label><textarea id="s-jd-upload" placeholder="Paste the full job description..."></textarea></div>
+            <div class="drop-zone" id="dz-scanner" onclick="triggerUpload('dz-scanner')" ondragover="handleDrag(event,'dz-scanner')" ondragleave="handleDragLeave('dz-scanner')" ondrop="handleDrop(event,'dz-scanner','scanner')">
+              <div class="dz-icon">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
+              <input type="file" id="file-scanner" accept=".pdf,.doc,.docx,.txt" onchange="handleFile(event,'scanner')" />
+            </div>
+          </div>
+          <div class="input-pane" id="scanner-linkedin">
+            <div class="field"><label>Job description</label><textarea id="s-jd-linkedin" placeholder="Paste the full job description..."></textarea></div>
+            <div class="field"><label>LinkedIn URL</label><input type="url" id="s-linkedin" placeholder="https://linkedin.com/in/yourname" /></div>
+          </div>
+
+          <button class="btn-run" onclick="runTool('scanner')"><span id="scanner-btn-text">Scan my fit</span></button>
+          <div class="pro-lock">🔒 Pro: Full keyword gap report + bullet rewrite suggestions</div>
+          <div class="result-area" id="result-scanner"><div class="result-header"><span class="result-title">Your ATS score</span><button class="btn-copy" onclick="copyResult('result-scanner')">Copy</button></div><div class="result-content" id="content-scanner"></div></div>
+          <div class="limit-notice" id="limit-scanner">You've used your 3 free scans this month. <a href="#pricing" onclick="closeApp()">Upgrade to Pro</a> for unlimited access.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <script>
-const uploads = {};
-let expCount = 0;
+// ── STATE ──
+let currentTrack = 'build';
+const activeTools = { build: 'builder', target: 'tailor' };
+const activeMethods = {};
+let fileContents = {};
 
-// PAGE NAV
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  window.scrollTo(0,0);
+// Free usage counters (localStorage-based, honour system for pilot)
+const LIMITS = { tailor: 3, scanner: 3, builder: 10, gaps: 5, impact: 5 };
+function getUsage(tool) { return parseInt(localStorage.getItem('ldd_' + tool) || '0'); }
+function incUsage(tool) { localStorage.setItem('ldd_' + tool, getUsage(tool) + 1); }
+function isAtLimit(tool) { return LIMITS[tool] && getUsage(tool) >= LIMITS[tool]; }
+
+// ── MODAL ──
+function openApp(track) {
+  document.getElementById('modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  if (track) selectTrack(track);
+  if (document.getElementById('exp-rows').children.length === 0) addExpRow();
 }
+function closeApp() {
+  document.getElementById('modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+function handleOverlayClick(e) {
+  if (e.target.id === 'modal') closeApp();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeApp(); });
 
-// TRACK
-function setTrack(t) {
-  ['build','target'].forEach(x => {
-    document.getElementById('tt-'+x).className = 'toggle-btn';
-    document.getElementById('sec-'+x).classList.toggle('hidden', x !== t);
+// ── TRACK ──
+function selectTrack(track) {
+  currentTrack = track;
+  ['build','target'].forEach(t => {
+    document.getElementById('trackBtn' + (t === 'build' ? 'Build' : 'Target')).classList.toggle('active', t === track);
+    document.getElementById(t + 'Pane').classList.toggle('active', t === track);
   });
-  document.getElementById('tt-'+t).classList.add(t==='build'?'active-g':'active-p');
 }
 
-// BUILD TOOLS
-function setBuildTool(tool, el) {
-  document.querySelectorAll('#sec-build .tool-tabs .tool-tab').forEach(t => t.className='tool-tab');
-  el.classList.add('tg');
-  ['builder','gap','coach'].forEach(t => document.getElementById('bt-'+t).classList.toggle('hidden', t!==tool));
-}
-
-// TARGET TOOLS
-function setTargetTool(tool, el) {
-  document.querySelectorAll('#sec-target .tool-tabs .tool-tab').forEach(t => t.className='tool-tab');
-  el.classList.add('tp');
-  ['tailor','scanner'].forEach(t => document.getElementById('tt-'+t).classList.toggle('hidden', t!==tool));
-}
-
-// INPUT METHODS
-function selectMethod(prefix, method, color) {
-  ['guided','upload','linkedin','paste'].forEach(m => {
-    const b = document.getElementById(prefix+'-'+m); if(b) b.className='method-btn';
-    const i = document.getElementById(prefix+'-'+m+'-in'); if(i) i.classList.add('hidden');
+// ── TOOL TABS ──
+function switchTool(track, tool) {
+  activeTools[track] = tool;
+  const pane = document.getElementById(track === 'build' ? 'buildPane' : 'targetPane');
+  pane.querySelectorAll('.tool-tab').forEach((btn, i) => {
+    const tools = track === 'build' ? ['builder','gaps','impact'] : ['tailor','scanner'];
+    btn.classList.toggle('active', tools[i] === tool);
   });
-  const sel = document.getElementById(prefix+'-'+method);
-  if(sel) sel.classList.add('sel-'+color);
-  const inp = document.getElementById(prefix+'-'+method+'-in');
-  if(inp) inp.classList.remove('hidden');
+  pane.querySelectorAll(':scope > .tool-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById(track + '-' + tool).classList.add('active');
 }
-function setBuildMethod(m) { selectMethod('bm',m,'g'); }
-function setTailorMethod(m) { selectMethod('tm',m,'p'); }
-function setScannerMethod(m) { selectMethod('sm',m,'p'); }
 
-// FILE UPLOAD
-function handleUpload(input, ctx) {
-  const file = input.files[0]; if(!file) return;
-  const r = new FileReader();
-  r.onload = e => {
-    uploads[ctx] = { name: file.name, content: e.target.result };
-    const ok = document.getElementById('uo-'+ctx);
-    const nm = document.getElementById('uo-'+ctx+'-name');
-    if(ok && nm) { nm.textContent = file.name + ' ready'; ok.style.display = 'flex'; }
+// ── INPUT METHODS ──
+function switchMethod(tool, method) {
+  activeMethods[tool] = method;
+  const toolEl = document.querySelector(`[id$="-${tool}"]`) || document.getElementById(`${currentTrack}-${tool}`);
+  if (!toolEl) return;
+  toolEl.querySelectorAll('.method-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase().includes(method)));
+  toolEl.querySelectorAll('.input-pane').forEach(p => {
+    p.classList.toggle('active', p.id === `${tool}-${method}`);
+  });
+}
+
+// ── FILE HANDLING ──
+function triggerUpload(dzId) { document.getElementById('file-' + dzId.replace('dz-','')).click(); }
+function handleDrag(e, dzId) { e.preventDefault(); document.getElementById(dzId).classList.add('dragover'); }
+function handleDragLeave(dzId) { document.getElementById(dzId).classList.remove('dragover'); }
+function handleDrop(e, dzId, tool) {
+  e.preventDefault();
+  document.getElementById(dzId).classList.remove('dragover');
+  if (e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0], tool, dzId);
+}
+function handleFile(e, tool) {
+  const file = e.target.files[0];
+  if (file) readFile(file, tool, 'dz-' + tool);
+}
+function readFile(file, tool, dzId) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    fileContents[tool] = ev.target.result;
+    const dz = document.getElementById(dzId);
+    dz.classList.add('has-file');
+    dz.querySelector('p strong').textContent = '✓ ' + file.name;
+    dz.querySelector('p:last-of-type').textContent = 'File loaded';
   };
-  r.readAsText(file);
+  reader.readAsText(file);
 }
 
-// CLAUDE API
-async function callClaude(system, user, btn, label) {
-  const apiKey = document.getElementById('api-key-input')?.value.trim();
-  if (!apiKey) {
-    alert('Please enter your Anthropic API key at the top of the page to use this tool.');
-    return null;
-  }
-  if(btn) { btn.disabled=true; btn.textContent=label||'Working...'; }
-  try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({ model:'claude-3-5-haiku-20241022', max_tokens:1500, system, messages:[{role:'user',content:user}] })
-    });
-    if (!r.ok) {
-      const err = await r.json().catch(() => ({}));
-      const msg = err?.error?.message || `API error ${r.status}`;
-      alert(`Error: ${msg}`);
-      return null;
+// ── EXPERIENCE ROWS ──
+let expCount = 0;
+function addExpRow() {
+  expCount++;
+  const id = expCount;
+  const row = document.createElement('div');
+  row.className = 'exp-row';
+  row.id = 'exp-' + id;
+  row.innerHTML = `
+    <div class="exp-row-header">
+      <span class="exp-row-title">Experience ${id}</span>
+      <button class="exp-row-remove" onclick="removeExp(${id})">✕</button>
+    </div>
+    <div class="field"><label>Job title / Role</label><input type="text" id="exp-title-${id}" placeholder="e.g. Sales Associate, Intern, Team Lead" /></div>
+    <div class="field"><label>Company / Organization</label><input type="text" id="exp-company-${id}" placeholder="e.g. Target, Google, Nonprofit name" /></div>
+    <div class="field"><label>What you did (your own words, as rough as you like)</label><textarea id="exp-duties-${id}" placeholder="e.g. I handled customer complaints, trained new staff, met monthly sales quotas..."></textarea></div>
+  `;
+  document.getElementById('exp-rows').appendChild(row);
+}
+function removeExp(id) {
+  const el = document.getElementById('exp-' + id);
+  if (el) el.remove();
+}
+
+// ── MAIN API CALL ──
+async function callClaude(prompt, toolKey) {
+  const response = await fetch('/api/claude', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1500,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || 'Something went wrong');
+  return data.content?.[0]?.text || '';
+}
+
+// ── PROMPTS ──
+function buildPrompt(tool) {
+  const method = activeMethods[tool] || (tool === 'builder' ? 'questions' : 'paste');
+
+  if (tool === 'builder') {
+    let bg = '';
+    if (method === 'questions') {
+      const role = document.getElementById('b-role').value;
+      const skills = document.getElementById('b-skills').value;
+      const exp = document.getElementById('b-exp').value;
+      const edu = document.getElementById('b-edu').value;
+      const certs = document.getElementById('b-certs').value;
+      if (!role && !exp) throw new Error('Please fill in at least your target role and some experience.');
+      bg = `Target role: ${role}\nSkills: ${skills}\nExperience: ${exp}\nEducation: ${edu}\nCertifications/Projects: ${certs}`;
+    } else if (method === 'upload') {
+      const role = document.getElementById('b-role-upload').value;
+      const file = fileContents['builder'];
+      if (!file) throw new Error('Please upload your resume file first.');
+      bg = `Target role: ${role}\nResume content: ${file}`;
+    } else {
+      const url = document.getElementById('b-linkedin').value;
+      const role = document.getElementById('b-role-linkedin').value;
+      if (!url) throw new Error('Please enter your LinkedIn URL.');
+      bg = `Target role: ${role}\nLinkedIn URL: ${url} (treat as background context)`;
     }
-    const d = await r.json();
-    return d.content.map(b=>b.text||'').join('');
-  } catch(e) { alert('Something went wrong. Check your API key and try again.'); return null; }
-  finally { if(btn) { btn.disabled=false; btn.textContent=btn.dataset.orig||'Try again'; } }
-}
-
-// BUILDER
-async function runBuilder() {
-  const btn = event.target; btn.dataset.orig = btn.textContent;
-  const method = document.getElementById('bm-upload').classList.contains('sel-g')?'upload':document.getElementById('bm-linkedin').classList.contains('sel-g')?'linkedin':'guided';
-  let content = '';
-  if(method==='guided') {
-    const role=document.getElementById('g-role').value.trim();
-    const skills=document.getElementById('g-skills').value.trim();
-    if(!role||!skills){alert('Please fill in your target role and skills.');return;}
-    content=`Target role: ${role}\nSkills: ${skills}\nExperience: ${document.getElementById('g-exp').value}\nEducation: ${document.getElementById('g-edu').value}\nCertifications: ${document.getElementById('g-certs').value}`;
-  } else if(method==='upload') {
-    if(!uploads['builder']){alert('Please upload your resume first.');return;}
-    content=`Target role: ${document.getElementById('up-role').value||'general'}\nResume:\n${uploads['builder'].content}`;
-  } else {
-    const url=document.getElementById('li-url-b').value.trim();
-    if(!url){alert('Please paste your LinkedIn URL.');return;}
-    content=`Target role: ${document.getElementById('li-role-b').value||'general'}\nLinkedIn: ${url}`;
+    return `You are an expert resume writer and talent acquisition professional with 10+ years of experience reviewing resumes at Fortune 500 companies. Build a complete, polished, ATS-optimized resume from the information below.\n\nFormat it clearly with sections: Summary, Skills, Experience, Education, and Certifications/Projects (omit empty sections).\n\nFor each experience, write 2-4 achievement-focused bullet points starting with strong action verbs. Quantify where possible. Avoid passive language like "responsible for".\n\nBackground:\n${bg}\n\nReturn ONLY the formatted resume text, no commentary.`;
   }
-  const text = await callClaude(
-    `You are an expert resume writer specializing in early-career candidates. Write a polished, ATS-friendly resume including: a strong 2-3 sentence professional summary, skills section, experience bullets using action verbs that quantify impact, and education. Make it professional even with limited experience. Format clearly with section headers.`,
-    content, btn, 'Building your resume...'
-  );
-  if(text) { document.getElementById('builder-out').textContent=text; document.getElementById('builder-result').classList.remove('hidden'); }
-}
 
-// GAP FINDER
-async function runGap() {
-  const btn=event.target; btn.dataset.orig=btn.textContent;
-  const jd=document.getElementById('gap-jd').value.trim();
-  const profile=document.getElementById('gap-profile').value.trim();
-  if(!jd||!profile){alert('Please fill in both fields.');return;}
-  const text = await callClaude(
-    `You are a career coach. Compare a candidate's background to a job description. Be honest and encouraging. Structure your response with three clear sections:\n1) WHAT YOU ALREADY HAVE — matching strengths\n2) WHAT'S MISSING — honest gaps\n3) YOUR 30-DAY PLAN — specific, actionable steps to close the gaps`,
-    `Job description:\n${jd}\n\nBackground:\n${profile}`, btn, 'Analyzing your gaps...'
-  );
-  if(text) { document.getElementById('gap-out').textContent=text; document.getElementById('gap-result').classList.remove('hidden'); }
-}
-
-// EXPERIENCE COACH
-const WEAK = ['responsible for','in charge of','helped with','assisted','worked on','duties included','tasked with'];
-const PROMPTS = {
-  sales: ['<strong>Revenue:</strong> What was your annual/quarterly sales total? (e.g. $1.2B pipeline)','<strong>Growth:</strong> By what % did you grow your territory or team?','<strong>Ranking:</strong> Where did you rank? (e.g. #1 of 120 reps)','<strong>Accounts:</strong> How many accounts? Any enterprise logos?'],
-  marketing: ['<strong>Reach:</strong> What was the audience, list size, or campaign reach?','<strong>Conversion:</strong> What ROI or conversion rate did your campaigns achieve?','<strong>Growth:</strong> By how much did you grow followers, traffic, or leads?','<strong>Budget:</strong> How large was the budget you managed?'],
-  engineering: ['<strong>Scale:</strong> How many users or requests did your system serve?','<strong>Performance:</strong> What did you improve? (e.g. reduced load time 60%)','<strong>Delivery:</strong> How many features or products shipped?','<strong>Team:</strong> How many engineers did you lead?'],
-  hr: ['<strong>Volume:</strong> How many hires per year?','<strong>Speed:</strong> What was your time-to-fill or offer acceptance rate?','<strong>Retention:</strong> Did you improve retention? By how much?','<strong>Programs:</strong> What programs did you build?'],
-  default: ['<strong>Numbers:</strong> Can you quantify with a $, %, or volume?','<strong>Outcome:</strong> What changed because of your work?','<strong>Scale:</strong> How large was the team, budget, or project?','<strong>Recognition:</strong> Were you promoted, awarded, or recognized?']
-};
-function detectRole(t) {
-  t=t.toLowerCase();
-  if(t.match(/sales|account|revenue|quota/)) return 'sales';
-  if(t.match(/market|brand|content|growth/)) return 'marketing';
-  if(t.match(/engineer|developer|software|tech/)) return 'engineering';
-  if(t.match(/hr|human res|talent|recruit/)) return 'hr';
-  return 'default';
-}
-function addExp() {
-  const id=++expCount;
-  const div=document.createElement('div');
-  div.className='exp-entry'; div.id='exp-'+id;
-  div.innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
-      <span style="font-size:14px;font-weight:500" id="ed-${id}">Experience ${id}</span>
-      <button onclick="document.getElementById('exp-${id}').remove()" style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--text-dim)">Remove</button>
-    </div>
-    <div class="exp-row">
-      <div class="field-grp"><span class="field-label">Job title</span><input type="text" id="jt-${id}" placeholder="e.g. Sales Manager, Software Engineer..." oninput="updateCoach(${id})"></div>
-      <div class="field-grp"><span class="field-label">Company</span><input type="text" id="co-${id}" placeholder="e.g. Salesforce, Google..." oninput="document.getElementById('ed-${id}').textContent=this.value||'Experience ${id}'"></div>
-    </div>
-    <div class="exp-row">
-      <div class="field-grp"><span class="field-label">Start year</span><input type="text" id="sy-${id}" placeholder="2020"></div>
-      <div class="field-grp"><span class="field-label">End year</span><input type="text" id="ey-${id}" placeholder="2024 or Present"></div>
-    </div>
-    <div class="field-grp full" style="margin-bottom:6px"><span class="field-label">What were you responsible for? (raw — don't worry about wording)</span><textarea id="du-${id}" placeholder="e.g. Managed a sales team, ran quarterly campaigns..." oninput="checkWeak(this.value,${id})"></textarea><div class="weak-warn" id="ww-${id}"><span>&#9888;</span><span>Phrases like "responsible for" are weak. The coaching prompts below will help you reframe this as impact.</span></div></div>
-    <div class="coaching-box hidden" id="cb-${id}">
-      <div class="coaching-hd" id="ch-${id}">Impact coaching</div>
-      <div id="cp-${id}"></div>
-    </div>
-    <div style="margin-top:10px"><span class="field-label" style="display:block;margin-bottom:6px">Impact numbers <span style="color:var(--text-dim);font-size:10px;text-transform:none;letter-spacing:0">(fill in what applies)</span></span>
-    <div class="impact-grid">
-      <div class="impact-field"><div class="impact-field-label">Revenue / volume</div><input type="text" id="ir-${id}" placeholder="e.g. $1.2B"></div>
-      <div class="impact-field"><div class="impact-field-label">Growth / improvement</div><input type="text" id="ig-${id}" placeholder="e.g. 40% YoY"></div>
-      <div class="impact-field"><div class="impact-field-label">Team size</div><input type="text" id="it-${id}" placeholder="e.g. 12 reports"></div>
-      <div class="impact-field"><div class="impact-field-label">Budget managed</div><input type="text" id="ib-${id}" placeholder="e.g. $5M"></div>
-      <div class="impact-field"><div class="impact-field-label">Ranking</div><input type="text" id="irk-${id}" placeholder="e.g. #1 of 80"></div>
-      <div class="impact-field"><div class="impact-field-label">Cost saved</div><input type="text" id="is-${id}" placeholder="e.g. $200K/yr"></div>
-    </div></div>`;
-  document.getElementById('exp-list').appendChild(div);
-  div.scrollIntoView({behavior:'smooth',block:'start'});
-}
-function checkWeak(text,id) {
-  const found=WEAK.some(w=>text.toLowerCase().includes(w));
-  const el=document.getElementById('ww-'+id);
-  if(el) el.style.display=found?'flex':'none';
-}
-function updateCoach(id) {
-  const title=document.getElementById('jt-'+id)?.value.trim();
-  const cb=document.getElementById('cb-'+id);
-  if(!cb) return;
-  if(!title){cb.classList.add('hidden');document.getElementById('exp-'+id).classList.remove('coaching');return;}
-  const key=detectRole(title);
-  const prompts=PROMPTS[key];
-  document.getElementById('ch-'+id).textContent=key.charAt(0).toUpperCase()+key.slice(1)+' impact prompts';
-  document.getElementById('cp-'+id).innerHTML=prompts.map(p=>`<div class="coaching-prompt">${p}</div>`).join('');
-  cb.classList.remove('hidden');
-  document.getElementById('exp-'+id).classList.add('coaching');
-}
-async function runCoach() {
-  const btn=event.target; btn.dataset.orig=btn.textContent;
-  const role=document.getElementById('coach-role').value.trim();
-  const industry=document.getElementById('coach-industry').value.trim();
-  let exps=[];
-  for(let i=1;i<=expCount;i++){
-    const el=document.getElementById('exp-'+i); if(!el) continue;
-    const title=document.getElementById('jt-'+i)?.value.trim(); if(!title) continue;
-    exps.push({title,company:document.getElementById('co-'+i)?.value,period:`${document.getElementById('sy-'+i)?.value}–${document.getElementById('ey-'+i)?.value}`,duties:document.getElementById('du-'+i)?.value,rev:document.getElementById('ir-'+i)?.value,growth:document.getElementById('ig-'+i)?.value,team:document.getElementById('it-'+i)?.value,budget:document.getElementById('ib-'+i)?.value,rank:document.getElementById('irk-'+i)?.value,save:document.getElementById('is-'+i)?.value});
+  if (tool === 'gaps') {
+    const jd = document.getElementById('gap-jd').value;
+    const bg = document.getElementById('gap-bg').value;
+    if (!jd || !bg) throw new Error('Please fill in both the job description and your background.');
+    return `You are a senior talent acquisition manager who reviews hundreds of resumes. Analyze the gap between this candidate's background and the target role.\n\nJob description:\n${jd}\n\nCandidate background:\n${bg}\n\nProvide:\n1. ATS match score (0-100) with brief explanation\n2. Top 5 missing keywords/skills with priority level (High/Medium/Low)\n3. 3 specific, actionable things the candidate can add or change RIGHT NOW\n4. One honest assessment of their overall fit\n\nBe direct and specific. No fluff.`;
   }
-  if(!exps.length){alert('Please add at least one experience.');return;}
-  const expText=exps.map((e,i)=>`EXPERIENCE ${i+1}: ${e.title} at ${e.company} (${e.period})\nDuties: ${e.duties}\nMetrics: Revenue=${e.rev}, Growth=${e.growth}, Team=${e.team}, Budget=${e.budget}, Rank=${e.rank}, Savings=${e.save}`).join('\n\n');
-  const text=await callClaude(
-    `You are an elite resume writer and Fortune 500 talent acquisition expert. Transform raw experience into powerful, impact-first resume bullets. NEVER write "responsible for", "in charge of", "helped with", or "managed" as the start of a bullet. ALWAYS lead with a strong action verb (Drove, Generated, Scaled, Built, Launched, Delivered, Achieved, Grew, Secured, Reduced). ALWAYS embed the quantified impact numbers provided. Each experience gets 3-4 punchy bullets. Write a 2-sentence professional summary at the top.\nCandidate goal: ${role||'next role'} in ${industry||'their field'}.`,
-    `Transform these experiences:\n${expText}`, btn, 'Generating your impact resume...'
-  );
-  if(text){document.getElementById('coach-out').textContent=text;document.getElementById('coach-result').classList.remove('hidden');}
+
+  if (tool === 'impact') {
+    const rows = document.querySelectorAll('.exp-row');
+    if (!rows.length) throw new Error('Please add at least one experience.');
+    let expText = '';
+    rows.forEach((row, i) => {
+      const id = row.id.replace('exp-','');
+      const title = document.getElementById('exp-title-' + id)?.value || '';
+      const company = document.getElementById('exp-company-' + id)?.value || '';
+      const duties = document.getElementById('exp-duties-' + id)?.value || '';
+      if (title || duties) expText += `\nRole ${i+1}: ${title} at ${company}\nDuties: ${duties}\n`;
+    });
+    const role = document.getElementById('impact-role').value;
+    const industry = document.getElementById('impact-industry').value;
+    if (!expText.trim()) throw new Error('Please fill in at least one experience.');
+    return `You are an expert resume writer. Transform these job duties into powerful, achievement-focused resume bullet points.\n\nTarget role: ${role}\nIndustry: ${industry}\nExperiences:${expText}\n\nFor each role, write 3-5 impact-first bullets:\n- Start with a strong action verb (Led, Grew, Reduced, Built, Launched, etc.)\n- Quantify with numbers, percentages, or dollar amounts where plausible\n- Show business impact, not just task completion\n- Avoid "responsible for" and passive language\n\nReturn ONLY the formatted bullet points grouped by role. No commentary.`;
+  }
+
+  if (tool === 'tailor') {
+    const method2 = activeMethods['tailor'] || 'paste';
+    let jd, resume;
+    if (method2 === 'paste') {
+      jd = document.getElementById('t-jd').value;
+      resume = document.getElementById('t-resume').value;
+    } else if (method2 === 'upload') {
+      jd = document.getElementById('t-jd-upload').value;
+      resume = fileContents['tailor'] || '';
+    } else {
+      jd = document.getElementById('t-jd-linkedin').value;
+      resume = 'LinkedIn profile: ' + document.getElementById('t-linkedin').value;
+    }
+    if (!jd || !resume) throw new Error('Please provide both the job description and your resume.');
+    return `You are a senior TA manager who has reviewed thousands of resumes. Rewrite this resume to be laser-targeted to the specific job description below.\n\nJob description:\n${jd}\n\nCurrent resume:\n${resume}\n\nInstructions:\n1. Mirror the exact language and keywords from the job description\n2. Rewrite the summary to directly address what this employer needs\n3. Reorder and rewrite bullet points to match the role's priorities\n4. Add any missing keywords that the candidate likely has but didn't mention\n5. Remove anything irrelevant to this specific role\n\nReturn ONLY the tailored resume. No commentary.`;
+  }
+
+  if (tool === 'scanner') {
+    const method2 = activeMethods['scanner'] || 'paste';
+    let jd, resume;
+    if (method2 === 'paste') {
+      jd = document.getElementById('s-jd').value;
+      resume = document.getElementById('s-resume').value;
+    } else if (method2 === 'upload') {
+      jd = document.getElementById('s-jd-upload').value;
+      resume = fileContents['scanner'] || '';
+    } else {
+      jd = document.getElementById('s-jd-linkedin').value;
+      resume = 'LinkedIn profile: ' + document.getElementById('s-linkedin').value;
+    }
+    if (!jd || !resume) throw new Error('Please provide both the job description and your resume.');
+    return `You are an ATS system AND a senior recruiter. Analyze how well this resume matches the job description.\n\nJob description:\n${jd}\n\nResume:\n${resume}\n\nReturn your analysis in this exact format:\n\n**ATS MATCH SCORE: [X]/100**\n\n**What's working:**\n[2-3 specific strengths]\n\n**Critical missing keywords:**\n[List the top 5 keywords/phrases from the JD not found in the resume]\n\n**Exact fixes to make:**\n[3 specific, concrete edits with before/after examples]\n\n**Recruiter's honest take:**\n[One paragraph, direct assessment of this candidate's chances and what would move the needle most]\n\nBe specific. No generic advice.`;
+  }
+
+  throw new Error('Unknown tool: ' + tool);
 }
 
-// TAILOR
-async function runTailor() {
-  const btn=event.target; btn.dataset.orig=btn.textContent;
-  const jd=document.getElementById('t-jd').value.trim(); if(!jd){alert('Please paste the job description.');return;}
-  const method=document.getElementById('tm-upload').classList.contains('sel-p')?'upload':document.getElementById('tm-linkedin').classList.contains('sel-p')?'linkedin':'paste';
-  let resume='';
-  if(method==='paste') resume=document.getElementById('t-resume').value.trim();
-  else if(method==='upload') resume=uploads['tailor']?.content||'';
-  else resume=`LinkedIn: ${document.getElementById('li-url-t').value.trim()}`;
-  if(!resume){alert('Please share your resume.');return;}
-  const text=await callClaude(
-    `You are an expert recruiter and resume strategist with 15+ years at Fortune 500 companies. Rewrite the resume summary and key bullet points to align with the job description. Use keywords naturally, match seniority tone, highlight transferable impact. Output: TAILORED SUMMARY, KEY BULLETS TO UPDATE, KEYWORDS TO ADD.`,
-    `Job description:\n${jd}\n\nResume:\n${resume}`, btn, 'Tailoring your resume...'
-  );
-  if(text){document.getElementById('tailor-out').textContent=text;document.getElementById('tailor-result').classList.remove('hidden');}
-}
+// ── RUN TOOL ──
+async function runTool(tool) {
+  const btnTextEl = document.getElementById(tool + '-btn-text');
+  const resultArea = document.getElementById('result-' + tool);
+  const contentEl = document.getElementById('content-' + tool);
+  const limitEl = document.getElementById('limit-' + tool);
 
-// SCANNER
-async function runScanner() {
-  const btn=event.target; btn.dataset.orig=btn.textContent;
-  const jd=document.getElementById('s-jd').value.trim(); if(!jd){alert('Please paste the job description.');return;}
-  const method=document.getElementById('sm-upload').classList.contains('sel-p')?'upload':document.getElementById('sm-linkedin').classList.contains('sel-p')?'linkedin':'paste';
-  let resume='';
-  if(method==='paste') resume=document.getElementById('s-resume').value.trim();
-  else if(method==='upload') resume=uploads['scanner']?.content||'';
-  else resume=`LinkedIn: ${document.getElementById('li-url-s').value.trim()}`;
-  if(!resume){alert('Please share your resume.');return;}
-  const raw=await callClaude(
-    `You are a Fortune 500 recruiter. Score resume fit against job description. Respond ONLY in this exact JSON, no extra text: {"score":<0-100>,"verdict":"<one line>","fixes":[{"priority":"high","text":"<fix>"},{"priority":"high","text":"<fix>"},{"priority":"medium","text":"<fix>"},{"priority":"low","text":"<fix>"}]}`,
-    `Job:\n${jd}\n\nResume:\n${resume}`, btn, 'Scanning your fit...'
-  );
-  if(!raw) return;
+  // Check free limit
+  if (isAtLimit(tool) && limitEl) {
+    limitEl.style.display = 'block';
+    return;
+  }
+
+  let prompt;
   try {
-    const p=JSON.parse(raw.replace(/```json|```/g,'').trim());
-    const sc=p.score;
-    const rc=sc>=70?'sr-h':sc>=45?'sr-m':'sr-l';
-    const vt=sc>=70?'Strong match':sc>=45?'Partial match':'Needs work';
-    const fixes=p.fixes.map(f=>{const dc=f.priority==='high'?'fd-r':f.priority==='medium'?'fd-a':'fd-g';return`<div class="fix-row"><div class="fdot ${dc}"></div><div>${f.text}</div></div>`;}).join('');
-    document.getElementById('score-card').innerHTML=`<div class="score-wrap"><div class="score-ring ${rc}">${sc}</div><div><div class="score-label">${vt}</div><div class="score-sub">${p.verdict}</div></div></div><div style="border-top:1px solid var(--border);padding-top:8px"><div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Suggested fixes</div>${fixes}</div>`;
-    document.getElementById('scanner-result').classList.remove('hidden');
-  } catch(e){alert('Could not parse score. Please try again.');}
+    prompt = buildPrompt(tool);
+  } catch (e) {
+    alert(e.message);
+    return;
+  }
+
+  // Loading state
+  const btn = btnTextEl.closest('button');
+  btn.disabled = true;
+  btnTextEl.textContent = 'Working on it…';
+  resultArea.classList.add('show');
+  contentEl.classList.add('loading');
+  contentEl.textContent = 'Analyzing with AI…';
+
+  try {
+    const result = await callClaude(prompt, tool);
+    contentEl.classList.remove('loading');
+    contentEl.textContent = result;
+    incUsage(tool);
+    // Show limit notice if now at limit
+    if (isAtLimit(tool) && limitEl) limitEl.style.display = 'block';
+  } catch (e) {
+    contentEl.classList.remove('loading');
+    contentEl.textContent = '⚠ ' + (e.message || 'Something went wrong. Please try again.');
+  } finally {
+    btn.disabled = false;
+    btnTextEl.textContent = getBtnLabel(tool);
+  }
 }
 
-// SCROLL ANIMATIONS
-const obs=new IntersectionObserver(entries=>entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);}),{threshold:0.1});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+function getBtnLabel(tool) {
+  const labels = { builder: 'Build my resume', gaps: 'Find my gaps', impact: 'Generate impact resume', tailor: 'Tailor my resume', scanner: 'Scan my fit' };
+  return labels[tool] || 'Run';
+}
 
-// INIT
-addExp();
-document.getElementById('tt-scanner').classList.add('hidden');
+// ── COPY ──
+function copyResult(resultId) {
+  const content = document.getElementById('content-' + resultId.replace('result-',''));
+  navigator.clipboard.writeText(content.textContent).then(() => {
+    const btn = document.querySelector(`#${resultId} .btn-copy`);
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
 </script>
+
 </body>
 </html>
-
