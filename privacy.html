@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — Landedd</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.svg">
+  <meta name="theme-color" content="#2d6a4f">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--green:#2d6a4f;--green-mid:#40916c;--green-pale:#d8f3dc;--green-bg:#f0faf4;--gray:#f4f4f4;--gray2:#e8e8e8;--text:#1a1a1a;--text2:#4a4a4a;--text3:#888;--radius:10px}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);background:#fff;line-height:1.7}
+    nav{background:#fff;border-bottom:1px solid var(--gray2);padding:0 6%;display:flex;align-items:center;height:60px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-mark{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .logo-mark svg{width:36px;height:36px;display:block}
+    .logo-text{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-.4px}
+    .content{max-width:720px;margin:0 auto;padding:56px 6% 80px}
+    .page-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:10px}
+    h1{font-size:2rem;font-weight:900;color:var(--text);margin-bottom:8px;letter-spacing:-.5px}
+    .updated{font-size:.85rem;color:var(--text3);margin-bottom:40px}
+    .trust-box{background:var(--green-bg);border:1.5px solid var(--green-pale);border-radius:var(--radius);padding:20px 24px;margin-bottom:40px}
+    .trust-box p{font-size:.95rem;color:var(--green);font-weight:600;margin-bottom:4px}
+    .trust-box span{font-size:.85rem;color:#40916c}
+    h2{font-size:1.1rem;font-weight:800;color:var(--text);margin:36px 0 12px}
+    p{font-size:.95rem;color:var(--text2);margin-bottom:14px}
+    ul{margin:0 0 14px 20px}
+    li{font-size:.95rem;color:var(--text2);margin-bottom:6px}
+    a{color:var(--green);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .highlight{background:var(--green-pale);border-radius:6px;padding:14px 18px;margin:20px 0;font-size:.9rem;color:var(--green)}
+    footer{background:var(--gray);border-top:1px solid var(--gray2);padding:24px 6%;text-align:center;font-size:.82rem;color:var(--text3)}
+    footer a{color:var(--text3);text-decoration:none;margin:0 10px}
+    footer a:hover{color:var(--green)}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">
+    <div class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><line x1="20" y1="30" x2="20" y2="13" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><polyline points="13,21 20,12 27,21" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="31" x2="28" y2="31" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/></svg></div>
+    <span class="logo-text">Landedd</span>
+  </a>
+</nav>
+
+<div class="content">
+  <div class="page-label">Legal</div>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: April 2026 · Beta version</p>
+
+  <div class="trust-box">
+    <p>Your resume data is never stored, sold, or used to train AI.</p>
+    <span>We built Landedd with a simple rule: your career information belongs to you. We process it to help you, then it's gone.</span>
+  </div>
+
+  <h2>What we collect</h2>
+  <p>Landedd is designed to collect as little as possible. Here is everything:</p>
+  <ul>
+    <li><strong>Resume and job description content</strong> — when you use our tools, the text you paste or upload is sent to our AI processor. It is processed in memory to generate your result and is not stored in any database.</li>
+    <li><strong>Feedback submissions</strong> — if you submit feedback through our feedback form, we collect the text of your message and optionally an email address if you provide one. This is stored so we can respond and improve the product.</li>
+    <li><strong>Basic server logs</strong> — our hosting provider (Vercel) automatically records standard server logs including timestamps, IP addresses, and HTTP status codes. We do not log the content of your resume or job descriptions. These logs are retained for up to 30 days for security and debugging purposes.</li>
+  </ul>
+
+  <h2>What we do not collect</h2>
+  <ul>
+    <li>We do not create user accounts or store profile information</li>
+    <li>We do not use cookies for tracking or advertising</li>
+    <li>We do not collect payment information (there is no payment processing during beta)</li>
+    <li>We do not sell, rent, or share your data with third parties for marketing</li>
+    <li>We do not use your data to train any AI model</li>
+  </ul>
+
+  <h2>How your data flows</h2>
+  <p>When you use a Landedd tool, your text travels this path:</p>
+  <ul>
+    <li>Your browser sends your text to our server over HTTPS (encrypted in transit)</li>
+    <li>Our server forwards the text to Anthropic's API to generate the AI response</li>
+    <li>The response is returned to your browser and displayed</li>
+    <li>The content is not written to any database at any point in this process</li>
+  </ul>
+
+  <div class="highlight">
+    Anthropic (the AI provider we use) processes your text under their API terms. Per their policy, API data is not used to train models and is not retained beyond the immediate request. You can review Anthropic's privacy policy at <a href="https://anthropic.com/privacy" target="_blank">anthropic.com/privacy</a>.
+  </div>
+
+  <h2>Feedback data</h2>
+  <p>If you submit feedback through our feedback widget, we store your message and optional email address to review and improve Landedd. We will only use this to contact you about your feedback if you have provided an email address and requested a response. We will not add you to any marketing list.</p>
+
+  <h2>Data security</h2>
+  <p>All data transmitted to and from Landedd is encrypted via HTTPS/TLS. We do not maintain a database of user content, which means there is no database to breach. Our infrastructure runs on Vercel's enterprise-grade platform.</p>
+
+  <h2>Your rights</h2>
+  <p>Since we do not store your resume content, there is nothing to request deletion of for tool usage. For feedback submissions, you can email us at <a href="mailto:privacy@landedd.com">privacy@landedd.com</a> to request deletion of any message you submitted.</p>
+
+  <h2>Children's privacy</h2>
+  <p>Landedd is not directed at children under 13. We do not knowingly collect information from children under 13.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>We will update this page and change the "last updated" date if our practices change. During beta, we may update this policy as we add features. We will not retroactively change how we handle data already collected.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy? Email us at <a href="mailto:privacy@landedd.com">privacy@landedd.com</a> or use our <a href="/contact.html">contact form</a>.</p>
+</div>
+
+<footer>
+  <a href="/">Home</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact</a>
+  <br><br>© 2026 Landedd
+</footer>
+</body>
+</html>
