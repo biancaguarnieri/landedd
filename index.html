@@ -63,8 +63,10 @@ nav {
   color: var(--text);
   letter-spacing: -0.5px;
   font-style: italic;
+  text-decoration: none;
+  cursor: pointer;
 }
-.logo em { color: var(--green); font-style: normal; }
+.logo:hover { opacity: 0.75; }
 
 .nav-links {
   display: flex;
@@ -455,8 +457,8 @@ footer {
   flex-wrap: wrap;
   gap: 1rem;
 }
-.footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 600; font-style: italic; }
-.footer-logo em { color: var(--green); font-style: normal; }
+.footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 600; font-style: italic; color: var(--text); text-decoration: none; }
+.footer-logo:hover { opacity: 0.75; }
 .footer-links { display: flex; gap: 1.5rem; list-style: none; }
 .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
 .footer-links a:hover { color: var(--text); }
@@ -653,7 +655,7 @@ textarea:focus, input:focus { outline: none; border-color: rgba(0,0,0,0.25); }
 
 <!-- NAV -->
 <nav>
-  <div class="logo">Land<em>edd</em></div>
+  <a class="logo" href="#" onclick="showPage('home'); return false;">Landedd</a>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home')">Home</a></li>
     <li><a href="#pricing">Pricing</a></li>
@@ -668,12 +670,8 @@ textarea:focus, input:focus { outline: none; border-color: rgba(0,0,0,0.25); }
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-kicker">
-      <div class="kicker-dot"></div>
-      Built by a Fortune 500 talent acquisition manager
-    </div>
     <h1>Stop applying.<br><em>Start landing.</em></h1>
-    <p class="hero-sub">AI resume tools built with real recruiter insight. Whether you're just starting out or targeting your next move — Landedd gets you there.</p>
+    <p class="hero-sub">The only AI resume tool built from the recruiter's chair — so your resume speaks the language that actually gets you hired.</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="showPage('app')">Get started free</button>
       <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See how it works</button>
@@ -802,7 +800,7 @@ textarea:focus, input:focus { outline: none; border-color: rgba(0,0,0,0.25); }
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Land<em>edd</em></div>
+    <a class="footer-logo" href="#" onclick="showPage('home'); return false;">Landedd</a>
     <ul class="footer-links">
       <li><a href="#">Privacy</a></li>
       <li><a href="#">Terms</a></li>
@@ -819,6 +817,11 @@ textarea:focus, input:focus { outline: none; border-color: rgba(0,0,0,0.25); }
     <div class="app-header">
       <h2>Let's get you <em style="color:var(--green);font-style:italic">Landedd.</em></h2>
       <p>Choose your track and the tool you need. Paste, upload, or use LinkedIn — your call.</p>
+      <div style="margin-top:1rem;background:var(--bg2);border:1px solid var(--border-md);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <span style="font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;">🔑 Anthropic API Key</span>
+        <input type="password" id="api-key-input" placeholder="sk-ant-..." style="flex:1;min-width:220px;padding:8px 12px;border:1px solid var(--border-md);border-radius:8px;font-size:13px;font-family:var(--font-body);background:var(--surface);color:var(--text);outline:none;">
+        <span style="font-size:12px;color:var(--text-muted);">Required to run the tools. Get yours at <a href="https://console.anthropic.com" target="_blank" style="color:var(--green);text-decoration:none;">console.anthropic.com</a></span>
+      </div>
     </div>
 
     <!-- TRACK TOGGLE -->
@@ -1005,15 +1008,32 @@ function handleUpload(input, ctx) {
 
 // CLAUDE API
 async function callClaude(system, user, btn, label) {
+  const apiKey = document.getElementById('api-key-input')?.value.trim();
+  if (!apiKey) {
+    alert('Please enter your Anthropic API key at the top of the page to use this tool.');
+    return null;
+  }
   if(btn) { btn.disabled=true; btn.textContent=label||'Working...'; }
   try {
     const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system, messages:[{role:'user',content:user}] })
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({ model:'claude-3-5-haiku-20241022', max_tokens:1500, system, messages:[{role:'user',content:user}] })
     });
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      const msg = err?.error?.message || `API error ${r.status}`;
+      alert(`Error: ${msg}`);
+      return null;
+    }
     const d = await r.json();
     return d.content.map(b=>b.text||'').join('');
-  } catch(e) { alert('Something went wrong. Please try again.'); return null; }
+  } catch(e) { alert('Something went wrong. Check your API key and try again.'); return null; }
   finally { if(btn) { btn.disabled=false; btn.textContent=btn.dataset.orig||'Try again'; } }
 }
 
@@ -1195,3 +1215,4 @@ document.getElementById('tt-scanner').classList.add('hidden');
 </script>
 </body>
 </html>
+
