@@ -1712,8 +1712,8 @@ function initDshCharts(){
   });
 }
 
-// ── Activate dashboard via URL: landedd.com/?dashboard ──
-if(window.location.search.includes('dashboard')){
+// ── Activate dashboard via URL: landedd.com/dashboard or /?dashboard ──
+if(window.location.search.includes('dashboard') || window.location.pathname.includes('dashboard')){
   document.addEventListener('DOMContentLoaded',()=>openDash());
 }
 
