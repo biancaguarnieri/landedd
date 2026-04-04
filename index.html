@@ -24,7 +24,7 @@
     .beta-bar strong{color:var(--green-pale)}
     nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray2);padding:0 6%;display:flex;align-items:center;justify-content:space-between;height:62px}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .logo-mark{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .logo-mark{width:36px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
     .logo-mark svg{width:36px;height:36px;display:block}
     .logo-text{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-.4px}
     .nav-cta{background:var(--green);color:#fff;padding:8px 22px;border-radius:20px;border:none;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s}
@@ -161,8 +161,6 @@
     .fb-ok{background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--rsm);padding:14px 16px;font-size:.87rem;color:var(--green);display:none;margin-top:12px}
     .fb-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;background:var(--green);color:#fff;writing-mode:vertical-lr;padding:14px 9px;border-radius:8px 0 0 8px;font-size:.76rem;font-weight:700;cursor:pointer;border:none;box-shadow:-2px 0 10px rgba(45,106,79,.15);letter-spacing:.05em;transition:all .2s}
     .fb-tab:hover{background:var(--green-mid)}
-
-    /* RESUME PAGE */
     .resume-page-overlay{display:none;position:fixed;inset:0;z-index:300;background:#e8e8e8;overflow-y:auto}
     .resume-page-overlay.show{display:block}
     .rp-bar{background:#fff;border-bottom:1px solid var(--gray2);padding:11px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.06)}
@@ -183,15 +181,11 @@
     .letter-wrap{max-width:870px;margin:28px auto;padding:0 16px 60px}
     .letter-sheet{background:#fff;padding:72px 80px;min-height:1056px;box-shadow:0 2px 24px rgba(0,0,0,.12);font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.65;color:#1a1a1a}
     @media(max-width:700px){.letter-sheet{padding:32px 20px;min-height:auto}}
-    /* ── ANALYSIS TOOLS: GAP FINDER & FIT SCANNER ── */
     .tool-usage-note{font-size:.75rem;color:var(--text3);margin-bottom:8px;min-height:16px}
     .tool-usage-note.warn{color:#b45309}
     .tool-usage-note.out{color:#991b1b;font-weight:600}
-
     .analysis-result{margin-top:18px;animation:fadeIn .35s ease}
     @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-    /* Score hero */
     .score-hero{display:flex;align-items:center;gap:20px;background:var(--green-bg);border:1.5px solid var(--green-pale);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px}
     .score-ring-wrap{flex-shrink:0}
     .score-ring-svg{width:88px;height:88px}
@@ -208,8 +202,6 @@
     .score-verdict.mid{color:#d97706}
     .score-verdict.low{color:#dc2626}
     .score-summary{font-size:.83rem;color:var(--text2);line-height:1.55}
-
-    /* Section blocks */
     .an-section{background:#fff;border:1px solid var(--gray2);border-radius:var(--rsm);margin-bottom:10px;overflow:hidden}
     .an-section-hdr{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--gray2);background:var(--gray)}
     .an-section-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
@@ -219,12 +211,8 @@
     .an-section-icon.red{background:#fee2e2;color:#991b1b}
     .an-section-title{font-size:.78rem;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.06em}
     .an-section-body{padding:12px 14px}
-
-    /* Strength items */
     .strength-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:.84rem;color:var(--text2);line-height:1.5}
     .strength-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:6px}
-
-    /* Gap items */
     .gap-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--gray2)}
     .gap-item:last-child{border-bottom:none}
     .gap-priority{font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
@@ -232,34 +220,27 @@
     .gap-priority.mid{background:#fef3c7;color:#92400e}
     .gap-priority.low{background:#dbeafe;color:#1e40af}
     .gap-text{font-size:.84rem;color:var(--text2);line-height:1.5}
-
-    /* Action items */
     .action-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--gray2)}
     .action-item:last-child{border-bottom:none}
     .action-num{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
     .action-text{font-size:.84rem;color:var(--text2);line-height:1.5}
-
-    /* Keyword chips */
     .chip-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0}
     .chip{font-size:.74rem;font-weight:600;padding:3px 10px;border-radius:12px;line-height:1.4}
     .chip.present{background:var(--green-pale);color:var(--green)}
     .chip.missing{background:#fee2e2;color:#991b1b}
-
-    /* Edit suggestions */
     .edit-item{padding:8px 0;border-bottom:1px solid var(--gray2);font-size:.83rem}
     .edit-item:last-child{border-bottom:none}
     .edit-before{color:var(--text3);text-decoration:line-through;margin-bottom:3px}
     .edit-after{color:var(--green);font-weight:600}
     .edit-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);margin-bottom:4px}
-
-    /* Recruiter take */
     .recruiter-take{font-size:.85rem;color:var(--text2);line-height:1.65;font-style:italic;padding:2px 0}
-
-    /* Copy row */
     .an-copy-row{display:flex;justify-content:flex-end;padding:10px 14px 0;border-top:1px solid var(--gray2);margin-top:4px}
     .an-copy-btn{font-size:.75rem;font-weight:600;color:var(--text3);background:none;border:1px solid var(--gray2);padding:5px 12px;border-radius:12px;cursor:pointer;transition:all .15s}
     .an-copy-btn:hover{border-color:var(--green);color:var(--green)}
     .an-copy-btn.copied{color:var(--green);border-color:var(--green-light);background:var(--green-bg)}
+    .job-url-optional{background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--rsm);padding:10px 12px;margin-top:10px}
+    .job-url-optional .opt-label{font-size:.72rem;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+    .job-url-optional p{font-size:.76rem;color:var(--text3);margin-top:4px;line-height:1.4}
   </style>
 </head>
 <body>
@@ -270,7 +251,7 @@
 
 <nav>
   <a class="logo" href="/">
-    <div class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><rect x="13" y="6" width="14" height="18" rx="3" fill="#fff"/><path d="M13,6 L20,0 L27,6 Z" fill="#fff"/><circle cx="20" cy="13" r="3" fill="#2d6a4f"/><line x1="13" y1="24" x2="7" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="27" y1="24" x2="33" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="33" x2="11" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="29" y1="33" x2="37" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="5" y1="37" x2="35" y2="37" stroke="#74c69d" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/></svg></div>
+    <div class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
     <span class="logo-text">Landedd</span>
   </a>
   <button class="nav-cta" onclick="openApp()">Try it free</button>
@@ -398,7 +379,7 @@
 
 <footer>
   <div class="footer-logo">
-    <div class="logo-mark" style="width:26px;height:26px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><rect x="13" y="6" width="14" height="18" rx="3" fill="#fff"/><path d="M13,6 L20,0 L27,6 Z" fill="#fff"/><circle cx="20" cy="13" r="3" fill="#2d6a4f"/><line x1="13" y1="24" x2="7" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="27" y1="24" x2="33" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="33" x2="11" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="29" y1="33" x2="37" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="5" y1="37" x2="35" y2="37" stroke="#74c69d" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/></svg></div>
+    <div class="logo-mark" style="width:26px;height:26px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
     <span style="font-weight:700;font-size:.9rem">Landedd</span>
     <span style="color:var(--gray3);font-size:.8rem">Beta</span>
   </div>
@@ -440,21 +421,36 @@
               <button class="imethod active" onclick="swBuildMethod('questions')" id="bm-questions">✎ Answer questions</button>
               <button class="imethod" onclick="swBuildMethod('upload')" id="bm-upload">↑ Upload resume</button>
             </div>
+            <!-- QUESTIONS PANE -->
             <div class="ipane active" id="build-pane-questions">
               <div class="fld"><label>Target role</label><input type="text" id="b-role" placeholder="e.g. Marketing Manager, Software Engineer" /></div>
               <div class="fld"><label>Your top skills</label><input type="text" id="b-skills" placeholder="e.g. Python, project management, Canva" /></div>
               <div class="fld"><label>Experience (jobs, clubs, volunteering)</label><textarea id="b-exp" placeholder="e.g. Barista at Starbucks 2 yrs, president of college marketing club"></textarea></div>
               <div class="fld"><label>Education</label><input type="text" id="b-edu" placeholder="e.g. BBA Marketing, Univ. of Chicago — graduated 2021, or in progress 2025" /></div>
               <div class="fld"><label>Languages, certifications, or achievements</label><input type="text" id="b-extras" placeholder="e.g. Fluent in Spanish, Google Analytics cert, Dean's List" /></div>
+              <!-- ★ NEW: Optional job posting URL -->
+              <div class="job-url-optional">
+                <div class="opt-label">🎯 Optional — tailor to a specific job</div>
+                <input type="url" id="b-job-url" class="url-input" placeholder="https://linkedin.com/jobs/... or any job posting URL" />
+                <p>Drop the link and we'll tune your resume to match what that employer is looking for. Even strong resumes get sharper with a target.</p>
+              </div>
             </div>
+            <!-- UPLOAD PANE -->
             <div class="ipane" id="build-pane-upload">
               <div class="dz" id="dz-builder" onclick="trigUp('builder')" ondragover="onDrag(event,'dz-builder')" ondragleave="offDrag('dz-builder')" ondrop="onDrop(event,'dz-builder','builder')">
                 <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
                 <input type="file" id="file-builder" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'builder')" />
               </div>
               <div class="fld" style="margin-top:11px"><label>Target role</label><input type="text" id="b-role-up" placeholder="e.g. Product Manager" /></div>
+              <!-- ★ NEW: Optional job posting URL (upload mode) -->
+              <div class="job-url-optional">
+                <div class="opt-label">🎯 Optional — tailor to a specific job</div>
+                <input type="url" id="b-job-url-up" class="url-input" placeholder="https://linkedin.com/jobs/... or any job posting URL" />
+                <p>Drop the link and we'll tune your resume to match what that employer is looking for. Even strong resumes get sharper with a target.</p>
+              </div>
             </div>
           </div>
+          <div class="tool-usage-note" id="usage-builder"></div>
           <button class="btn-run" id="run-builder" onclick="run('builder')"><span>Build my resume</span></button>
           <div class="err-box" id="err-builder"></div>
           <div class="result-wrap" id="res-builder">
@@ -512,6 +508,7 @@
           <button class="btn-addexp" onclick="addExp()">+ Add experience</button>
           <div class="fld"><label>Target role</label><input type="text" id="imp-role" placeholder="e.g. Sales Manager" /></div>
           <div class="fld"><label>Industry</label><input type="text" id="imp-ind" placeholder="e.g. SaaS, Retail, Healthcare" /></div>
+          <div class="tool-usage-note" id="usage-impact"></div>
           <button class="btn-run" id="run-impact" onclick="run('impact')"><span>Generate impact bullets</span></button>
           <div class="err-box" id="err-impact"></div>
           <div class="result-wrap" id="res-impact">
@@ -564,6 +561,7 @@
               </div>
             </div>
           </div>
+          <div class="tool-usage-note" id="usage-tailor"></div>
           <button class="btn-run" id="run-tailor" onclick="run('tailor')"><span>Tailor my resume</span></button>
           <div class="err-box" id="err-tailor"></div>
           <div class="result-wrap" id="res-tailor-result">
@@ -641,7 +639,7 @@
 
 <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
 <script>
-// STATE
+// ═══════ STATE ═══════
 let track = 'build';
 const activeTool = { build:'builder', target:'tailor' };
 const fileData = {};
@@ -653,26 +651,14 @@ let gapBgMethod = 'paste';
 let buildMethod = 'questions';
 let rpTool = 'builder';
 
-// DOWNLOAD LIMIT (3 per browser session, tracked in localStorage)
-const DL_KEY = 'ldl';
-const DL_MAX = 3;
-const getDlCount = () => parseInt(localStorage.getItem(DL_KEY)||'0');
-const incDl = () => localStorage.setItem(DL_KEY, getDlCount()+1);
-const dlLeft = () => Math.max(0, DL_MAX - getDlCount());
-function syncDlBadge() {
-  const n = dlLeft();
-  const el = document.getElementById('dl-badge');
-  if (!el) return;
-  el.textContent = n > 0 ? `${n} download${n===1?'':'s'} left` : 'Limit reached — upgrade for more';
-  el.className = 'dl-badge' + (n===0?' out':n===1?' warn':'');
-  ['rp-docx-btn','rp-gdocs-btn'].forEach(id => {
-    const b = document.getElementById(id);
-    if (b) b.disabled = n===0;
-  });
-}
-
-// TOOL USAGE LIMITS (3 runs each, tracked per tool in localStorage)
-const TOOL_KEYS = { gaps:'ldl_gaps', scanner:'ldl_scanner' };
+// ═══════ USAGE LIMITS — 3 runs per tool, ALL tools ═══════
+const TOOL_KEYS = {
+  builder: 'ldl_builder',
+  gaps:    'ldl_gaps',
+  impact:  'ldl_impact',
+  tailor:  'ldl_tailor',
+  scanner: 'ldl_scanner'
+};
 const TOOL_MAX = 3;
 const getToolCount = t => parseInt(localStorage.getItem(TOOL_KEYS[t])||'0');
 const incToolCount = t => localStorage.setItem(TOOL_KEYS[t], getToolCount(t)+1);
@@ -689,25 +675,59 @@ function syncUsageNote(tool) {
     const btn = document.getElementById('run-'+tool);
     if (btn) btn.disabled = true;
   } else {
-    el.textContent = `${n} free run${n===1?'':'s'} remaining`;
+    el.textContent = n + ' free run' + (n===1?'':'s') + ' remaining';
     el.className = 'tool-usage-note warn';
   }
 }
 
+// ═══════ DOWNLOAD LIMIT ═══════
+const DL_KEY = 'ldl';
+const DL_MAX = 3;
+const getDlCount = () => parseInt(localStorage.getItem(DL_KEY)||'0');
+const incDl = () => localStorage.setItem(DL_KEY, getDlCount()+1);
+const dlLeft = () => Math.max(0, DL_MAX - getDlCount());
+function syncDlBadge() {
+  const n = dlLeft();
+  const el = document.getElementById('dl-badge');
+  if (!el) return;
+  el.textContent = n > 0 ? n + ' download' + (n===1?'':'s') + ' left' : 'Limit reached — upgrade for more';
+  el.className = 'dl-badge' + (n===0?' out':n===1?' warn':'');
+  ['rp-docx-btn','rp-gdocs-btn'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = n===0;
+  });
+}
 
+// ═══════ PROMPT INJECTION GUARD ═══════
+// Block users from trying to send arbitrary instructions through structured fields
+function looksLikeInjection(text) {
+  if (!text || text.trim().length < 8) return false;
+  const t = text.toLowerCase().trim();
+  return (
+    /^(ignore|forget|disregard|override|bypass).{0,30}(above|previous|instruction|rule|prompt)/i.test(t) ||
+    /^(you are|act as|pretend|roleplay|your new role|from now on)/i.test(t) ||
+    /^(system|assistant|user)\s*:/i.test(t) ||
+    /^(write me a|generate a|create a|make me a).{0,30}(story|poem|code|script|email to|letter to)/i.test(t)
+  );
+}
+function validateField(text, fieldName) {
+  if (looksLikeInjection(text)) {
+    throw new Error('Heads up — the ' + fieldName + ' field should contain your actual ' + fieldName.toLowerCase() + '. Fill in your info and we\'ll handle the rest.');
+  }
+}
+
+// ═══════ OPEN / CLOSE ═══════
 function openApp(t) {
   document.getElementById('modal').classList.add('show');
   document.body.style.overflow = 'hidden';
   if (t) selTrack(t);
   if (!document.getElementById('expRows').children.length) addExp();
-  syncUsageNote('gaps');
-  syncUsageNote('scanner');
+  Object.keys(TOOL_KEYS).forEach(syncUsageNote);
 }
 function closeApp() { document.getElementById('modal').classList.remove('show'); document.body.style.overflow=''; }
 function handleOverlayClick(e) { if (e.target.id==='modal') closeApp(); }
 document.addEventListener('keydown', e => { if (e.key==='Escape') { closeResumePage(); closeApp(); } });
 
-// TRACK
 function selTrack(t) {
   track=t;
   ['build','target'].forEach(x => {
@@ -715,8 +735,6 @@ function selTrack(t) {
     document.getElementById('p'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',x===t);
   });
 }
-
-// TOOL TABS
 function swTool(tr, tool) {
   activeTool[tr]=tool;
   const pane = document.getElementById(tr==='build'?'pBuild':'pTarget');
@@ -725,8 +743,6 @@ function swTool(tr, tool) {
   pane.querySelectorAll(':scope > .toolpane').forEach(p=>p.classList.remove('active'));
   document.getElementById(tr+'-'+tool).classList.add('active');
 }
-
-// BUILD METHOD
 function swBuildMethod(m) {
   buildMethod=m;
   ['questions','upload'].forEach(x=>{
@@ -734,8 +750,6 @@ function swBuildMethod(m) {
     document.getElementById('build-pane-'+x).classList.toggle('active',x===m);
   });
 }
-
-// GAP JD
 function swGapJd(m) {
   gapJdMethod=m;
   ['paste','link'].forEach(x=>{
@@ -743,8 +757,6 @@ function swGapJd(m) {
     document.getElementById('gjd-'+x).style.display=x===m?'block':'none';
   });
 }
-
-// GAP BG
 function swGapBg(m) {
   gapBgMethod=m;
   ['paste','upload'].forEach(x=>{
@@ -752,8 +764,6 @@ function swGapBg(m) {
     document.getElementById('gbg-'+x).style.display=x===m?'block':'none';
   });
 }
-
-// JD METHOD (target)
 function swJdMethod(tool,m) {
   jdMethod[tool]=m;
   ['paste','link'].forEach(x=>{
@@ -761,8 +771,6 @@ function swJdMethod(tool,m) {
     document.getElementById('jd-'+tool+'-'+x).style.display=x===m?'block':'none';
   });
 }
-
-// RES METHOD (target)
 function swResMethod(tool,m) {
   resMethod[tool]=m;
   ['paste','upload'].forEach(x=>{
@@ -771,176 +779,123 @@ function swResMethod(tool,m) {
   });
 }
 
-// FILES
+// ═══════ FILES ═══════
 function trigUp(t){document.getElementById('file-'+t).click();}
 function onDrag(e,id){e.preventDefault();document.getElementById(id).classList.add('dragover');}
 function offDrag(id){document.getElementById(id).classList.remove('dragover');}
 function onDrop(e,id,t){e.preventDefault();offDrag(id);if(e.dataTransfer.files[0])readF(e.dataTransfer.files[0],t,id);}
 function onFile(e,t){if(e.target.files[0])readF(e.target.files[0],t,'dz-'+t);}
-
 async function readF(file, t, dzId) {
   const dz = document.getElementById(dzId);
   const ext = file.name.split('.').pop().toLowerCase();
-  const isParsed = ['pdf','doc','docx','rtf'].includes(ext) || file.type.includes('pdf') || file.type.includes('word') || file.type.includes('officedocument');
-
-  // Update drop zone to show "reading..."
-  if (dz) {
-    dz.classList.add('has-file');
-    const ps = dz.querySelectorAll('p');
-    if (ps[0]) ps[0].innerHTML = '<strong>Reading ' + file.name + '…</strong>';
-    if (ps[1]) ps[1].textContent = 'Extracting text';
-  }
-
+  const isParsed = ['pdf','doc','docx','rtf'].includes(ext)||file.type.includes('pdf')||file.type.includes('word')||file.type.includes('officedocument');
+  if (dz) { dz.classList.add('has-file'); const ps=dz.querySelectorAll('p'); if(ps[0])ps[0].innerHTML='<strong>Reading '+file.name+'…</strong>'; if(ps[1])ps[1].textContent='Extracting text'; }
   if (isParsed) {
-    // Send to server-side parser for PDF/DOCX/DOC
     try {
       const base64 = await fileToBase64(file);
-      const resp = await fetch('/api/parse-file', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: base64, mimeType: file.type, fileName: file.name })
-      });
+      const resp = await fetch('/api/parse-file',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:base64,mimeType:file.type,fileName:file.name})});
       const data = await resp.json();
       if (data.error) throw new Error(data.error);
-      fileData[t] = data.text || '';
-      if (dz) {
-        const ps = dz.querySelectorAll('p');
-        if (ps[0]) ps[0].innerHTML = '<strong>✓ ' + file.name + '</strong>';
-        if (ps[1]) ps[1].textContent = Math.round(fileData[t].length / 5) + ' words extracted';
-      }
-    } catch (err) {
-      fileData[t] = '';
-      if (dz) {
-        dz.classList.remove('has-file');
-        const ps = dz.querySelectorAll('p');
-        if (ps[0]) ps[0].innerHTML = '<strong>⚠ Could not read file</strong>';
-        if (ps[1]) ps[1].textContent = err.message || 'Please paste your resume text instead';
-      }
+      fileData[t] = data.text||'';
+      if (dz) { const ps=dz.querySelectorAll('p'); if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>'; if(ps[1])ps[1].textContent=Math.round(fileData[t].length/5)+' words extracted'; }
+    } catch(err) {
+      fileData[t]='';
+      if (dz) { dz.classList.remove('has-file'); const ps=dz.querySelectorAll('p'); if(ps[0])ps[0].innerHTML='<strong>⚠ Could not read file</strong>'; if(ps[1])ps[1].textContent=err.message||'Please paste your resume text instead'; }
     }
   } else {
-    // Plain text files (.txt) — read directly in browser
-    const r = new FileReader();
-    r.onload = ev => {
-      fileData[t] = ev.target.result || '';
-      if (dz) {
-        const ps = dz.querySelectorAll('p');
-        if (ps[0]) ps[0].innerHTML = '<strong>✓ ' + file.name + '</strong>';
-        if (ps[1]) ps[1].textContent = 'Ready';
-      }
-    };
+    const r=new FileReader();
+    r.onload=ev=>{fileData[t]=ev.target.result||''; if(dz){const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent='Ready';}};
     r.readAsText(file);
   }
 }
-
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = ev => resolve(ev.target.result.split(',')[1]);
-    r.onerror = () => reject(new Error('Could not read file'));
-    r.readAsDataURL(file);
-  });
-}
+function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=ev=>res(ev.target.result.split(',')[1]);r.onerror=()=>rej(new Error('Could not read file'));r.readAsDataURL(file);});}
 
 // EXP ROWS
 function addExp(){
-  expCount++;
-  const id=expCount;
-  const div=document.createElement('div');
-  div.className='exprow';div.id='exp-'+id;
-  div.innerHTML=`<div class="exprow-hdr"><span class="exprow-lbl">Experience ${id}</span><button class="exprow-rm" onclick="rmExp(${id})">✕</button></div>
-    <div class="fld"><label>Job title / Role</label><input type="text" id="et-${id}" placeholder="e.g. Sales Associate"/></div>
-    <div class="fld"><label>Company / Organization</label><input type="text" id="ec-${id}" placeholder="e.g. Target, Google"/></div>
-    <div class="fld"><label>Dates</label><input type="text" id="edt-${id}" placeholder="e.g. Jun 2022 – Aug 2023, or 2021–Present"/></div>
-    <div class="fld"><label>What you did (rough notes ok)</label><textarea id="ed-${id}" placeholder="e.g. handled customer complaints, trained new staff, exceeded monthly targets..."></textarea></div>`;
+  expCount++;const id=expCount;const div=document.createElement('div');div.className='exprow';div.id='exp-'+id;
+  div.innerHTML='<div class="exprow-hdr"><span class="exprow-lbl">Experience '+id+'</span><button class="exprow-rm" onclick="rmExp('+id+')">✕</button></div><div class="fld"><label>Job title / Role</label><input type="text" id="et-'+id+'" placeholder="e.g. Sales Associate"/></div><div class="fld"><label>Company / Organization</label><input type="text" id="ec-'+id+'" placeholder="e.g. Target, Google"/></div><div class="fld"><label>Dates</label><input type="text" id="edt-'+id+'" placeholder="e.g. Jun 2022 – Aug 2023, or 2021–Present"/></div><div class="fld"><label>What you did (rough notes ok)</label><textarea id="ed-'+id+'" placeholder="e.g. handled customer complaints, trained new staff, exceeded monthly targets..."></textarea></div>';
   document.getElementById('expRows').appendChild(div);
 }
 function rmExp(id){const el=document.getElementById('exp-'+id);if(el)el.remove();}
 
-// FETCH URL VIA API
 async function fetchUrl(url){
   const r=await fetch('/api/fetch-url',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
-  const d=await r.json();
-  if(d.error)throw new Error(d.error);
-  return d.text||'';
+  const d=await r.json();if(d.error)throw new Error(d.error);return d.text||'';
 }
 
-// GET TEXTS
+// ═══════ GET TEXTS (with validation) ═══════
 async function getJdText(tool){
-  if(jdMethod[tool]==='link'){
-    const url=document.getElementById(tool==='tailor'?'t-jd-url':'s-jd-url')?.value;
-    if(!url)throw new Error('Please paste a job posting URL.');
-    return await fetchUrl(url);
-  }
-  return document.getElementById(tool==='tailor'?'t-jd':'s-jd')?.value||'';
+  if(jdMethod[tool]==='link'){const url=document.getElementById(tool==='tailor'?'t-jd-url':'s-jd-url')?.value;if(!url)throw new Error('Please paste a job posting URL.');return await fetchUrl(url);}
+  const val=document.getElementById(tool==='tailor'?'t-jd':'s-jd')?.value||'';
+  validateField(val,'job description');return val;
 }
 function getResText(tool){
   const m=resMethod[tool]||'paste';
   if(m==='upload')return fileData[tool]||'';
-  return document.getElementById(tool==='tailor'?'t-res':'s-res')?.value||'';
+  const val=document.getElementById(tool==='tailor'?'t-res':'s-res')?.value||'';
+  validateField(val,'resume');return val;
 }
 async function getGapJdText(){
   if(gapJdMethod==='link'){const url=document.getElementById('gap-jd-url')?.value;if(!url)throw new Error('Please paste a job posting URL.');return await fetchUrl(url);}
-  return document.getElementById('gap-jd')?.value||'';
+  const val=document.getElementById('gap-jd')?.value||'';validateField(val,'job description');return val;
 }
 function getGapBgText(){
   if(gapBgMethod==='upload')return fileData['gap']||'';
-  return document.getElementById('gap-bg')?.value||'';
+  const val=document.getElementById('gap-bg')?.value||'';validateField(val,'background');return val;
 }
+
+// ★ UPDATED: getBuilderBg handles optional job posting URL
 async function getBuilderBg(){
   if(buildMethod==='upload'){
     if(!fileData['builder'])throw new Error("Drop your resume file in first — then we're good to go.");
-    return `Target role: ${document.getElementById('b-role-up')?.value||''}\nResume:\n${fileData['builder']}`;
+    const role=document.getElementById('b-role-up')?.value||'';
+    const jobUrl=(document.getElementById('b-job-url-up')?.value||'').trim();
+    let jobPosting='';
+    if(jobUrl){try{jobPosting=await fetchUrl(jobUrl);}catch(e){}}
+    let bg='Target role: '+role+'\nResume:\n'+fileData['builder'];
+    if(jobPosting) bg+='\n\nTarget job posting:\n'+jobPosting;
+    return bg;
   }
   const role=document.getElementById('b-role')?.value||'';
   const skills=document.getElementById('b-skills')?.value||'';
   const exp=document.getElementById('b-exp')?.value||'';
   const edu=document.getElementById('b-edu')?.value||'';
   const extras=document.getElementById('b-extras')?.value||'';
+  validateField(exp,'experience');validateField(skills,'skills');
   if(!role&&!exp)throw new Error("We need at least your target role and some experience. Fill those in and let's go!");
-  return `Target role: ${role}\nSkills: ${skills}\nExperience: ${exp}\nEducation: ${edu}\nLanguages/Certs/Achievements: ${extras}`;
+  const jobUrl=(document.getElementById('b-job-url')?.value||'').trim();
+  let jobPosting='';
+  if(jobUrl){try{jobPosting=await fetchUrl(jobUrl);}catch(e){}}
+  let bg='Target role: '+role+'\nSkills: '+skills+'\nExperience: '+exp+'\nEducation: '+edu+'\nLanguages/Certs/Achievements: '+extras;
+  if(jobPosting) bg+='\n\nTarget job posting:\n'+jobPosting;
+  return bg;
 }
 
-// PROMPTS
+// ═══════ PROMPTS ═══════
 const RESUME_RULES=`
 CRITICAL RULES:
 1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements. If a metric is missing, write the bullet without one — never fabricate. Use "(add your [detail] here)" as a placeholder where helpful.
 2. If information is too thin to build a section, ask for what's missing rather than guessing.
 3. Format: Name + contact (email and phone only — no address, age, photo, gender). Then Education (all degrees). Then Experience (most recent first). Then one of: Core Skills, Certifications, Languages, or Achievements. Skip Professional Summary. Keep Core Skills short — a few lines of keywords only.
 4. Dates on experience: always include month/year date ranges if provided (e.g. "Jun 2022 – Aug 2023"). If only year is given, use year only. Never invent dates.
-5. Dates on education: include graduation year ONLY for new grads (graduated within the last 2 years or still in progress). For candidates who graduated more than 2 years ago, omit the graduation year — it's not standard practice and may invite age bias.
+5. Dates on education: include graduation year ONLY for new grads (graduated within the last 2 years or still in progress). For candidates who graduated more than 2 years ago, omit the graduation year.
 6. One page. Prioritize experience relevant to the target role. Summarize or omit unrelated experience.
 7. No cover letter. Clean formatting, ATS-friendly. No graphics, no bright colors.
-8. Tone: warm, concise, lightly witty — like a recruiter friend who's rooting for them.`;
+8. Tone: warm, concise, lightly witty — like a recruiter friend who's rooting for them.
+9. ALWAYS close with a "Suggestions to make this even stronger:" section separated by dashes. Include 2-3 specific improvements, even for strong resumes. No resume is perfect.`;
 
 async function getPrompt(tool){
   if(tool==='builder'){
     const bg=await getBuilderBg();
-    return `You are an expert resume writer and senior recruiter with 10+ years at Fortune 500 companies. Build a complete, polished resume.\n${RESUME_RULES}\n\nBackground:\n${bg}\n\nReturn ONLY the formatted resume. No preamble or commentary.`;
+    const hasJob=bg.includes('Target job posting:');
+    const tailorNote=hasJob?'\nIMPORTANT: A specific job posting was provided. Mirror its keywords and language. Prioritize experiences most relevant to that exact role.':'';
+    return 'You are an expert resume writer and senior recruiter with 10+ years at Fortune 500 companies. Build a complete, polished resume.\n'+RESUME_RULES+tailorNote+'\n\nBackground:\n'+bg+'\n\nReturn ONLY the formatted resume followed by the suggestions section. No other commentary.';
   }
   if(tool==='gaps'){
-    const jd=await getGapJdText();
-    const bg=getGapBgText();
+    const jd=await getGapJdText();const bg=getGapBgText();
     if(!jd)throw new Error("We need the job description — paste it or drop the link and we'll get to work.");
     if(!bg)throw new Error("Your background is missing — paste it in or upload your resume.");
-    return `You are a senior talent acquisition manager doing a precise, honest gap analysis. Return ONLY valid JSON — no markdown, no commentary, no code fences.
-
-Job description:\n${jd}\n\nCandidate background:\n${bg}
-
-Return this exact JSON shape:
-{
-  "score": <integer 0-100>,
-  "verdict": "<4-8 word punchy verdict e.g. 'Strong foundation, a few gaps to close'>",
-  "summary": "<2 sentences: what the overall picture looks like, honest and warm>",
-  "strengths": ["<specific strength 1>", "<specific strength 2>", "<specific strength 3 if warranted>"],
-  "gaps": [
-    {"text": "<gap description>", "priority": "high"|"medium"|"low"},
-    ... up to 5 gaps
-  ],
-  "actions": ["<specific actionable move 1>", "<specific actionable move 2>", "<specific actionable move 3>"],
-  "recruiter_take": "<1 honest paragraph — what a recruiter would actually think reading this resume for this role. Direct, specific, no fluff. Warm but real.>"
-}
-
-Base everything strictly on what was provided. No invented facts.`;
+    return 'You are a senior talent acquisition manager doing a precise, honest gap analysis. Return ONLY valid JSON — no markdown, no commentary, no code fences.\n\nJob description:\n'+jd+'\n\nCandidate background:\n'+bg+'\n\nReturn this exact JSON shape:\n{\n  "score": <integer 0-100>,\n  "verdict": "<4-8 word punchy verdict>",\n  "summary": "<2 sentences: honest and warm>",\n  "strengths": ["<strength 1>","<strength 2>","<strength 3 if warranted>"],\n  "gaps": [\n    {"text": "<gap>", "priority": "high"|"medium"|"low"}\n  ],\n  "actions": ["<action 1>","<action 2>","<action 3>"],\n  "improvements": ["<improvement even if score is high>","<improvement 2>"],\n  "recruiter_take": "<1 honest paragraph. Include at least one improvement even if strong.>"\n}\n\nBase everything strictly on what was provided. No invented facts.';
   }
   if(tool==='impact'){
     const rows=document.querySelectorAll('.exprow');
@@ -952,49 +907,30 @@ Base everything strictly on what was provided. No invented facts.`;
       const c=document.getElementById('ec-'+id)?.value||'';
       const dt=document.getElementById('edt-'+id)?.value||'';
       const d=document.getElementById('ed-'+id)?.value||'';
-      if(t2||d)expText+=`\nRole ${i+1}: ${t2} at ${c}${dt?' ('+dt+')':''}\nNotes: ${d}\n`;
+      validateField(d,'experience notes');
+      if(t2||d) expText+='\nRole '+(i+1)+': '+t2+' at '+c+(dt?' ('+dt+')':'')+'\nNotes: '+d+'\n';
     });
     if(!expText.trim())throw new Error("Fill in at least one experience — title, company, and what you did — and we'll do the rest.");
-    return `You are an expert resume writer. Transform rough notes into achievement-first bullets.\nCRITICAL: Use ONLY what's provided. If a metric would help but isn't given, use "(add your number)" as placeholder. Never fabricate.\n3-5 bullets per role. Strong action verb. Show impact, not task. No "responsible for".\n\nTarget role: ${document.getElementById('imp-role')?.value||''}\nIndustry: ${document.getElementById('imp-ind')?.value||''}\nExperiences:${expText}\n\nReturn ONLY the formatted bullets grouped by role. No commentary.`;
+    return 'You are an expert resume writer. Transform rough notes into achievement-first bullets.\nCRITICAL: Use ONLY what\'s provided. If a metric would help but isn\'t given, use "(add your number)" as placeholder. Never fabricate.\n3-5 bullets per role. Strong action verb. Show impact, not task. No "responsible for".\n\nAt the end, add: "---\n💡 Tips to make these even stronger:" with 2 specific suggestions.\n\nTarget role: '+(document.getElementById('imp-role')?.value||'')+'\nIndustry: '+(document.getElementById('imp-ind')?.value||'')+'\nExperiences:'+expText+'\n\nReturn ONLY the formatted bullets grouped by role, followed by the tips section.';
   }
   if(tool==='tailor'){
-    const jd=await getJdText('tailor');
-    const resume=getResText('tailor');
+    const jd=await getJdText('tailor');const resume=getResText('tailor');
     if(!jd)throw new Error("We need the job description — paste it or drop the link.");
     if(!resume)throw new Error("Your resume is missing — paste it, upload a file, or share your profile link.");
-    return `You are a senior TA manager rewriting a resume to be laser-targeted to this role.\n${RESUME_RULES}\nMirror exact keywords from the JD. Reorder so most relevant experience comes first.\n\nJob description:\n${jd}\n\nCurrent resume:\n${resume}\n\nReturn ONLY the tailored resume. No commentary.`;
+    return 'You are a senior TA manager rewriting a resume to be laser-targeted to this role.\n'+RESUME_RULES+'\nMirror exact keywords from the JD. Reorder so most relevant experience comes first.\n\nJob description:\n'+jd+'\n\nCurrent resume:\n'+resume+'\n\nReturn ONLY the tailored resume followed by the suggestions section.';
   }
   if(tool==='scanner'){
-    const jd=await getJdText('scanner');
-    const resume=getResText('scanner');
+    const jd=await getJdText('scanner');const resume=getResText('scanner');
     if(!jd)throw new Error("We need the job description — paste it or drop the link.");
     if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");
-    return `You are acting as both an ATS system and a senior recruiter evaluating a resume against a job description. Return ONLY valid JSON — no markdown, no commentary, no code fences.
-
-Job description:\n${jd}\n\nResume:\n${resume}
-
-Return this exact JSON shape:
-{
-  "score": <integer 0-100>,
-  "verdict": "<4-8 word punchy verdict e.g. 'Close match — a few tweaks needed'>",
-  "summary": "<2 sentences: why this score. Be specific about what is or isn't there.>",
-  "keywords_present": ["<keyword1>", "<keyword2>", ... up to 10],
-  "keywords_missing": ["<keyword1>", "<keyword2>", ... top 7 missing],
-  "edits": [
-    {"label": "<what to change>", "before": "<phrase currently in resume or 'missing'>", "after": "<improved version>"},
-    {"label": "<what to change>", "before": "<phrase>", "after": "<improved version>"},
-    {"label": "<what to change>", "before": "<phrase>", "after": "<improved version>"}
-  ],
-  "recruiter_take": "<1 honest paragraph — will this pass the 6-second scan? What is the single biggest thing holding it back? Warm, direct, specific.>"
-}
-
-Base score strictly on resume vs JD content. No assumptions.`;
+    return 'You are acting as both an ATS system and a senior recruiter evaluating a resume against a job description. Return ONLY valid JSON — no markdown, no commentary, no code fences.\n\nJob description:\n'+jd+'\n\nResume:\n'+resume+'\n\nReturn this exact JSON shape:\n{\n  "score": <integer 0-100>,\n  "verdict": "<4-8 word punchy verdict>",\n  "summary": "<2 sentences: why this score. Specific.>",\n  "keywords_present": ["<keyword1>","<keyword2>"],\n  "keywords_missing": ["<keyword1>","<keyword2>"],\n  "edits": [\n    {"label": "<what to change>", "before": "<phrase or \'missing\'>", "after": "<improved>"}\n  ],\n  "improvements": ["<general improvement even if score is high>","<improvement 2>"],\n  "recruiter_take": "<1 honest paragraph. Name at least one thing to improve even if strong.>"\n}\n\nBase score strictly on resume vs JD content. No assumptions.';
   }
   throw new Error('Unknown tool');
 }
 
-// RUN (resume tools — builder, impact, tailor)
+// ═══════ RUN (builder, impact, tailor) ═══════
 async function run(tool){
+  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";err.style.display='block';return;}
   const btn=document.getElementById('run-'+tool);
   const btnSpan=btn.querySelector('span');
   const resId=(tool==='tailor')?'res-'+tool+'-result':'res-'+tool;
@@ -1002,8 +938,7 @@ async function run(tool){
   const outDiv=document.getElementById('out-'+tool);
   const errDiv=document.getElementById('err-'+tool);
   errDiv.style.display='none';errDiv.textContent='';
-  let prompt;
-  try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
+  let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
   btn.disabled=true;btnSpan.textContent='Analyzing — hang tight (~15 sec)…';
   resDiv.classList.add('show');outDiv.classList.add('loading');outDiv.textContent='Building your resume…';
   try{
@@ -1014,223 +949,87 @@ async function run(tool){
     if(!text)throw new Error('Empty response. Please try again.');
     outDiv.classList.remove('loading');outDiv.textContent=text;
     resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
+    incToolCount(tool);syncUsageNote(tool);
   }catch(e){
     outDiv.classList.remove('loading');resDiv.classList.remove('show');
     errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';
   }finally{
-    btn.disabled=false;
+    btn.disabled=toolLeft(tool)<=0;
     const labels={builder:'Build my resume',impact:'Generate impact bullets',tailor:'Tailor my resume'};
     btnSpan.textContent=labels[tool]||'Run';
   }
 }
 
-// RUN ANALYSIS (gaps + scanner — structured JSON output)
+// ═══════ RUN ANALYSIS (gaps, scanner) ═══════
 async function runAnalysis(tool){
-  if(toolLeft(tool)<=0){
-    const err=document.getElementById('err-'+tool);
-    err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";
-    err.style.display='block';
-    return;
-  }
-  const btn=document.getElementById('run-'+tool);
-  const btnSpan=btn.querySelector('span');
-  const resDiv=document.getElementById('res-'+tool);
-  const errDiv=document.getElementById('err-'+tool);
+  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";err.style.display='block';return;}
+  const btn=document.getElementById('run-'+tool);const btnSpan=btn.querySelector('span');
+  const resDiv=document.getElementById('res-'+tool);const errDiv=document.getElementById('err-'+tool);
   errDiv.style.display='none';errDiv.textContent='';
-  let prompt;
-  try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
-  btn.disabled=true;
-  btnSpan.textContent=tool==='gaps'?'Analyzing your gaps…':'Scanning your fit…';
+  let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
+  btn.disabled=true;btnSpan.textContent=tool==='gaps'?'Analyzing your gaps…':'Scanning your fit…';
   resDiv.style.display='none';resDiv.innerHTML='';
   try{
     const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
     const data=await resp.json();
     if(!resp.ok||data.error)throw new Error(data.error||'API error '+resp.status);
-    let raw=data.content?.[0]?.text||'';
-    // Strip any accidental markdown fences
-    raw=raw.replace(/```json|```/g,'').trim();
-    let parsed;
-    try{ parsed=JSON.parse(raw); }
-    catch{ throw new Error('Could not parse result. Please try again.'); }
-    // Render
-    if(tool==='gaps') resDiv.innerHTML=renderGaps(parsed);
-    else resDiv.innerHTML=renderScanner(parsed);
-    resDiv.style.display='block';
-    resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
-    incToolCount(tool);
-    syncUsageNote(tool);
-  }catch(e){
-    errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';
-  }finally{
-    btn.disabled=toolLeft(tool)<=0;
-    btnSpan.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';
-  }
+    let raw=data.content?.[0]?.text||'';raw=raw.replace(/```json|```/g,'').trim();
+    let parsed;try{parsed=JSON.parse(raw);}catch{throw new Error('Could not parse result. Please try again.');}
+    if(tool==='gaps')resDiv.innerHTML=renderGaps(parsed);else resDiv.innerHTML=renderScanner(parsed);
+    resDiv.style.display='block';resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
+    incToolCount(tool);syncUsageNote(tool);
+  }catch(e){errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';}
+  finally{btn.disabled=toolLeft(tool)<=0;btnSpan.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';}
 }
 
 function esc2(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-function scoreClass(n){ return n>=70?'high':n>=45?'mid':'low'; }
-function scoreVerdict(n){ return n>=70?'Strong match':n>=45?'Partial match':'Needs work'; }
+function scoreClass(n){return n>=70?'high':n>=45?'mid':'low';}
+function scoreVerdict(n){return n>=70?'Strong match':n>=45?'Partial match':'Needs work';}
 
 function buildScoreRing(score){
-  const r=36,cx=44,cy=44,circ=2*Math.PI*r;
-  const pct=Math.max(0,Math.min(100,score))/100;
-  const dash=circ*pct, gap=circ*(1-pct);
-  const cls=scoreClass(score);
-  return `<svg class="score-ring-svg" viewBox="0 0 88 88">
-    <circle class="score-ring-bg" cx="${cx}" cy="${cy}" r="${r}"/>
-    <circle class="score-ring-fg ${cls}" cx="${cx}" cy="${cy}" r="${r}"
-      stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}"
-      stroke-dashoffset="0"/>
-    <text class="score-ring-text" x="${cx}" y="${cy-4}">${score}</text>
-    <text class="score-ring-sub" x="${cx}" y="${cy+12}">/ 100</text>
-  </svg>`;
+  const r=36,cx=44,cy=44,circ=2*Math.PI*r,pct=Math.max(0,Math.min(100,score))/100;
+  const dash=circ*pct,gap=circ*(1-pct),cls=scoreClass(score);
+  return '<svg class="score-ring-svg" viewBox="0 0 88 88"><circle class="score-ring-bg" cx="'+cx+'" cy="'+cy+'" r="'+r+'"/><circle class="score-ring-fg '+cls+'" cx="'+cx+'" cy="'+cy+'" r="'+r+'" stroke-dasharray="'+dash.toFixed(1)+' '+gap.toFixed(1)+'" stroke-dashoffset="0"/><text class="score-ring-text" x="'+cx+'" y="'+(cy-4)+'">'+score+'</text><text class="score-ring-sub" x="'+cx+'" y="'+(cy+12)+'">/&nbsp;100</text></svg>';
 }
 
 function renderGaps(d){
-  const sc=d.score||0, cls=scoreClass(sc), vd=d.verdict||scoreVerdict(sc);
-  let html=`<div class="analysis-result">`;
-  // Score hero
-  html+=`<div class="score-hero">
-    <div class="score-ring-wrap">${buildScoreRing(sc)}</div>
-    <div class="score-hero-right">
-      <div class="score-verdict ${cls}">${esc2(vd)}</div>
-      <div class="score-summary">${esc2(d.summary||'')}</div>
-    </div>
-  </div>`;
-  // Strengths
-  if(d.strengths?.length){
-    const items=d.strengths.map(s=>`<div class="strength-item"><div class="strength-dot"></div><div>${esc2(s)}</div></div>`).join('');
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">What's working</span></div>
-      <div class="an-section-body">${items}</div>
-    </div>`;
-  }
-  // Gaps
-  if(d.gaps?.length){
-    const items=d.gaps.map(g=>{
-      const p=(g.priority||'medium').toLowerCase();
-      const label=p==='high'?'High':p==='low'?'Low':'Medium';
-      return `<div class="gap-item"><span class="gap-priority ${p==='high'?'high':p==='low'?'low':'mid'}">${label}</span><div class="gap-text">${esc2(g.text||g)}</div></div>`;
-    }).join('');
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon amber">!</div><span class="an-section-title">Gaps to close</span></div>
-      <div class="an-section-body">${items}</div>
-    </div>`;
-  }
-  // Actions
-  if(d.actions?.length){
-    const items=d.actions.map((a,i)=>`<div class="action-item"><div class="action-num">${i+1}</div><div class="action-text">${esc2(a)}</div></div>`).join('');
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon blue">→</div><span class="an-section-title">3 moves to make now</span></div>
-      <div class="an-section-body">${items}</div>
-    </div>`;
-  }
-  // Recruiter take
-  if(d.recruiter_take){
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter's honest take</span></div>
-      <div class="an-section-body"><div class="recruiter-take">${esc2(d.recruiter_take)}</div></div>
-    </div>`;
-  }
-  // Copy row
-  const plain=buildGapsPlainText(d);
-  html+=`<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,'${btoa(encodeURIComponent(plain))}')">Copy results</button></div>`;
-  html+=`</div>`;
+  const sc=d.score||0,cls=scoreClass(sc),vd=d.verdict||scoreVerdict(sc);
+  let html='<div class="analysis-result">';
+  html+='<div class="score-hero"><div class="score-ring-wrap">'+buildScoreRing(sc)+'</div><div class="score-hero-right"><div class="score-verdict '+cls+'">'+esc2(vd)+'</div><div class="score-summary">'+esc2(d.summary||'')+'</div></div></div>';
+  if(d.strengths?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">What\'s working</span></div><div class="an-section-body">'+d.strengths.map(s=>'<div class="strength-item"><div class="strength-dot"></div><div>'+esc2(s)+'</div></div>').join('')+'</div></div>';
+  if(d.gaps?.length){const items=d.gaps.map(g=>{const p=(g.priority||'medium').toLowerCase();return '<div class="gap-item"><span class="gap-priority '+(p==='high'?'high':p==='low'?'low':'mid')+'">'+(p==='high'?'High':p==='low'?'Low':'Medium')+'</span><div class="gap-text">'+esc2(g.text||g)+'</div></div>';}).join('');html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">!</div><span class="an-section-title">Gaps to close</span></div><div class="an-section-body">'+items+'</div></div>';}
+  if(d.actions?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon blue">→</div><span class="an-section-title">3 moves to make now</span></div><div class="an-section-body">'+d.actions.map((a,i)=>'<div class="action-item"><div class="action-num">'+(i+1)+'</div><div class="action-text">'+esc2(a)+'</div></div>').join('')+'</div></div>';
+  if(d.improvements?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">✦</div><span class="an-section-title">Suggestions to improve further</span></div><div class="an-section-body">'+d.improvements.map(s=>'<div class="strength-item"><div class="strength-dot" style="background:#d97706"></div><div>'+esc2(s)+'</div></div>').join('')+'</div></div>';
+  if(d.recruiter_take) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter\'s honest take</span></div><div class="an-section-body"><div class="recruiter-take">'+esc2(d.recruiter_take)+'</div></div></div>';
+  const plain='ATS MATCH SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.strengths?.length?'STRENGTHS\n'+d.strengths.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.gaps?.length?'GAPS\n'+d.gaps.map(g=>'['+((g.priority||'').toUpperCase())+'] '+(g.text||g)).join('\n')+'\n\n':'')+(d.actions?.length?'3 MOVES\n'+d.actions.map((a,i)=>(i+1)+'. '+a).join('\n')+'\n\n':'')+(d.improvements?.length?'IMPROVEMENTS\n'+d.improvements.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
+  html+='<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,\''+btoa(encodeURIComponent(plain))+'\')">Copy results</button></div></div>';
   return html;
 }
 
 function renderScanner(d){
-  const sc=d.score||0, cls=scoreClass(sc), vd=d.verdict||scoreVerdict(sc);
-  let html=`<div class="analysis-result">`;
-  // Score hero
-  html+=`<div class="score-hero">
-    <div class="score-ring-wrap">${buildScoreRing(sc)}</div>
-    <div class="score-hero-right">
-      <div class="score-verdict ${cls}">${esc2(vd)}</div>
-      <div class="score-summary">${esc2(d.summary||'')}</div>
-    </div>
-  </div>`;
-  // Keywords present
-  if(d.keywords_present?.length){
-    const chips=d.keywords_present.map(k=>`<span class="chip present">${esc2(k)}</span>`).join('');
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">Keywords found</span></div>
-      <div class="an-section-body"><div class="chip-wrap">${chips}</div></div>
-    </div>`;
-  }
-  // Keywords missing
-  if(d.keywords_missing?.length){
-    const chips=d.keywords_missing.map(k=>`<span class="chip missing">${esc2(k)}</span>`).join('');
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon red">✗</div><span class="an-section-title">Missing keywords</span></div>
-      <div class="an-section-body"><div class="chip-wrap">${chips}</div></div>
-    </div>`;
-  }
-  // Edits
-  if(d.edits?.length){
-    const items=d.edits.map(e=>`<div class="edit-item">
-      <div class="edit-label">${esc2(e.label||'Change')}</div>
-      <div class="edit-before">${esc2(e.before||'')}</div>
-      <div class="edit-after">→ ${esc2(e.after||'')}</div>
-    </div>`).join('');
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon blue">✏</div><span class="an-section-title">Exact edits to make</span></div>
-      <div class="an-section-body">${items}</div>
-    </div>`;
-  }
-  // Recruiter take
-  if(d.recruiter_take){
-    html+=`<div class="an-section">
-      <div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter's take</span></div>
-      <div class="an-section-body"><div class="recruiter-take">${esc2(d.recruiter_take)}</div></div>
-    </div>`;
-  }
-  // Copy row
-  const plain=buildScannerPlainText(d);
-  html+=`<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,'${btoa(encodeURIComponent(plain))}')">Copy results</button></div>`;
-  html+=`</div>`;
+  const sc=d.score||0,cls=scoreClass(sc),vd=d.verdict||scoreVerdict(sc);
+  let html='<div class="analysis-result">';
+  html+='<div class="score-hero"><div class="score-ring-wrap">'+buildScoreRing(sc)+'</div><div class="score-hero-right"><div class="score-verdict '+cls+'">'+esc2(vd)+'</div><div class="score-summary">'+esc2(d.summary||'')+'</div></div></div>';
+  if(d.keywords_present?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">Keywords found</span></div><div class="an-section-body"><div class="chip-wrap">'+d.keywords_present.map(k=>'<span class="chip present">'+esc2(k)+'</span>').join('')+'</div></div></div>';
+  if(d.keywords_missing?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon red">✗</div><span class="an-section-title">Missing keywords</span></div><div class="an-section-body"><div class="chip-wrap">'+d.keywords_missing.map(k=>'<span class="chip missing">'+esc2(k)+'</span>').join('')+'</div></div></div>';
+  if(d.edits?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon blue">✏</div><span class="an-section-title">Exact edits to make</span></div><div class="an-section-body">'+d.edits.map(e=>'<div class="edit-item"><div class="edit-label">'+esc2(e.label||'Change')+'</div><div class="edit-before">'+esc2(e.before||'')+'</div><div class="edit-after">→ '+esc2(e.after||'')+'</div></div>').join('')+'</div></div>';
+  if(d.improvements?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">✦</div><span class="an-section-title">Suggestions to improve further</span></div><div class="an-section-body">'+d.improvements.map(s=>'<div class="strength-item"><div class="strength-dot" style="background:#d97706"></div><div>'+esc2(s)+'</div></div>').join('')+'</div></div>';
+  if(d.recruiter_take) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter\'s take</span></div><div class="an-section-body"><div class="recruiter-take">'+esc2(d.recruiter_take)+'</div></div></div>';
+  const plain='ATS SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.keywords_present?.length?'FOUND: '+d.keywords_present.join(', ')+'\n\n':'')+(d.keywords_missing?.length?'MISSING: '+d.keywords_missing.join(', ')+'\n\n':'')+(d.edits?.length?'EDITS:\n'+d.edits.map(e=>e.label+': "'+e.before+'" → "'+e.after+'"').join('\n')+'\n\n':'')+(d.improvements?.length?'IMPROVEMENTS:\n'+d.improvements.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
+  html+='<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,\''+btoa(encodeURIComponent(plain))+'\')">Copy results</button></div></div>';
   return html;
 }
 
-function buildGapsPlainText(d){
-  let t=`ATS MATCH SCORE: ${d.score}/100\n${d.verdict}\n\n${d.summary}\n\n`;
-  if(d.strengths?.length) t+=`WHAT'S WORKING\n${d.strengths.map(s=>'• '+s).join('\n')}\n\n`;
-  if(d.gaps?.length) t+=`GAPS TO CLOSE\n${d.gaps.map(g=>`[${(g.priority||'').toUpperCase()}] ${g.text||g}`).join('\n')}\n\n`;
-  if(d.actions?.length) t+=`3 MOVES TO MAKE NOW\n${d.actions.map((a,i)=>`${i+1}. ${a}`).join('\n')}\n\n`;
-  if(d.recruiter_take) t+=`RECRUITER'S TAKE\n${d.recruiter_take}`;
-  return t;
-}
-function buildScannerPlainText(d){
-  let t=`ATS MATCH SCORE: ${d.score}/100\n${d.verdict}\n\n${d.summary}\n\n`;
-  if(d.keywords_present?.length) t+=`KEYWORDS FOUND\n${d.keywords_present.join(', ')}\n\n`;
-  if(d.keywords_missing?.length) t+=`MISSING KEYWORDS\n${d.keywords_missing.join(', ')}\n\n`;
-  if(d.edits?.length) t+=`EDITS TO MAKE\n${d.edits.map(e=>`${e.label}: "${e.before}" → "${e.after}"`).join('\n')}\n\n`;
-  if(d.recruiter_take) t+=`RECRUITER'S TAKE\n${d.recruiter_take}`;
-  return t;
-}
-function copyAnalysis(btn, encoded){
+function copyAnalysis(btn,encoded){
   const text=decodeURIComponent(atob(encoded));
-  navigator.clipboard.writeText(text).then(()=>{
-    const orig=btn.textContent; btn.textContent='Copied!'; btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
-  });
+  navigator.clipboard.writeText(text).then(()=>{const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});
 }
 
-
-
-// COPY
 function copyRes(tool){
   const text=document.getElementById('out-'+tool)?.textContent||'';
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=document.getElementById('copy-'+tool);
-    if(!btn)return;
-    const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
-  });
+  navigator.clipboard.writeText(text).then(()=>{const btn=document.getElementById('copy-'+tool);if(!btn)return;const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});
 }
 
-// RESUME PAGE
 function openResumePage(tool){
   const text=document.getElementById('out-'+tool)?.textContent||'';
   if(!text||text.includes('Building'))return;
@@ -1238,141 +1037,67 @@ function openResumePage(tool){
   const titles={builder:'Your Resume',gaps:'Your Gap Analysis',impact:'Your Impact Bullets',tailor:'Your Tailored Resume',scanner:'Your ATS Score'};
   document.getElementById('rp-title').textContent=titles[tool]||'Your Result';
   document.getElementById('letterSheet').innerHTML=renderLetter(text);
-  syncDlBadge();
-  document.getElementById('resumePage').classList.add('show');
-  document.body.style.overflow='hidden';
+  syncDlBadge();document.getElementById('resumePage').classList.add('show');document.body.style.overflow='hidden';
 }
-function closeResumePage(){
-  document.getElementById('resumePage').classList.remove('show');
-  document.body.style.overflow='';
-}
+function closeResumePage(){document.getElementById('resumePage').classList.remove('show');document.body.style.overflow='';}
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 function renderLetter(text){
-  const lines=text.split('\n');
-  let html='';let firstDone=false;let contactDone=false;
+  const lines=text.split('\n');let html='';let firstDone=false;let contactDone=false;
   for(let i=0;i<lines.length;i++){
     const raw=lines[i];const line=raw.trim();
     if(!line){html+='<div style="height:6px"></div>';continue;}
     const clean=line.replace(/\*\*/g,'');
-    // Name
-    if(!firstDone&&clean.length<70&&!clean.includes('@')){
-      html+=`<div style="text-align:center;font-size:15pt;font-weight:bold;margin-bottom:2px;font-family:'Times New Roman',serif">${esc(clean)}</div>`;
-      firstDone=true;continue;
-    }
-    // Contact line (email, phone, linkedin — first few lines)
-    if(firstDone&&!contactDone&&i<6&&(clean.includes('@')||/\d{3}[-.\s]\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){
-      html+=`<div style="text-align:center;font-size:10pt;color:#444;margin-bottom:14px;font-family:'Times New Roman',serif">${esc(clean)}</div>`;
-      continue;
-    }
-    // Section heading (ALL CAPS / **HEADING** / ends with colon and short)
-    if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){
-      contactDone=true;
-      html+=`<div style="font-size:11pt;font-weight:bold;font-family:'Times New Roman',serif;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #333;padding-bottom:2px;margin:16px 0 6px">${esc(clean.replace(/\*\*/g,''))}</div>`;
-      continue;
-    }
-    // Bullets
-    if(clean.startsWith('- ')||clean.startsWith('• ')){
-      html+=`<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:'Times New Roman',serif">• ${esc(clean.replace(/^[-•]\s*/,''))}</div>`;
-      continue;
-    }
-    // Numbered
-    if(clean.match(/^\d+\.\s/)){
-      html+=`<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:'Times New Roman',serif">${esc(clean)}</div>`;
-      continue;
-    }
-    html+=`<div style="margin-bottom:3px;font-size:11pt;font-family:'Times New Roman',serif">${esc(clean)}</div>`;
+    if(!firstDone&&clean.length<70&&!clean.includes('@')){html+='<div style="text-align:center;font-size:15pt;font-weight:bold;margin-bottom:2px;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';firstDone=true;continue;}
+    if(firstDone&&!contactDone&&i<6&&(clean.includes('@')||/\d{3}[-.\\s]\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){html+='<div style="text-align:center;font-size:10pt;color:#444;margin-bottom:14px;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';continue;}
+    if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){contactDone=true;html+='<div style="font-size:11pt;font-weight:bold;font-family:\'Times New Roman\',serif;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #333;padding-bottom:2px;margin:16px 0 6px">'+esc(clean.replace(/\*\*/g,''))+'</div>';continue;}
+    if(clean.startsWith('- ')||clean.startsWith('• ')){html+='<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">• '+esc(clean.replace(/^[-•]\s*/,''))+'</div>';continue;}
+    if(clean.match(/^\d+\.\s/)){html+='<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';continue;}
+    if(clean.match(/^-{3,}$/)){html+='<hr style="border:none;border-top:1px dashed #ccc;margin:16px 0"/>';continue;}
+    html+='<div style="margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';
   }
   return html;
 }
 
-// RP COPY
 function rpCopy(){
   const text=document.getElementById('out-'+rpTool)?.textContent||'';
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=document.getElementById('rp-copy-btn');
-    if(!btn)return;
-    const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
-  });
+  navigator.clipboard.writeText(text).then(()=>{const btn=document.getElementById('rp-copy-btn');if(!btn)return;const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});
 }
 
-// RP DOWNLOAD DOCX
 async function rpDownloadDocx(){
-  if(dlLeft()<=0){alert('You\'ve used your 3 free downloads. Upgrade to Pro for unlimited.');return;}
-  const text=document.getElementById('out-'+rpTool)?.textContent||'';
-  if(!text)return;
+  if(dlLeft()<=0){alert("You've used your 3 free downloads. Upgrade to Pro for unlimited.");return;}
+  const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
   try{
     const {Document,Packer,Paragraph,TextRun,HeadingLevel,AlignmentType}=docx;
     const lines=text.split('\n');const children=[];
     for(let i=0;i<lines.length;i++){
       const t=lines[i].trim();if(!t){children.push(new Paragraph({text:''}));continue;}
       const clean=t.replace(/\*\*/g,'');
-      if(i===0&&clean.length<70&&!clean.includes('@')){
-        children.push(new Paragraph({children:[new TextRun({text:clean,bold:true,size:32,font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:60}})
-        );continue;
-      }
-      if(i<5&&(clean.includes('@')||/\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){
-        children.push(new Paragraph({children:[new TextRun({text:clean,size:20,color:'444444',font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:80}}));continue;
-      }
-      if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){
-        children.push(new Paragraph({text:clean.replace(/\*\*/g,'').toUpperCase(),heading:HeadingLevel.HEADING_2,spacing:{before:200,after:60}}));continue;
-      }
-      if(clean.startsWith('- ')||clean.startsWith('• ')){
-        children.push(new Paragraph({bullet:{level:0},children:[new TextRun({text:clean.replace(/^[-•]\s*/,''),size:22,font:'Times New Roman'})]}));continue;
-      }
+      if(i===0&&clean.length<70&&!clean.includes('@')){children.push(new Paragraph({children:[new TextRun({text:clean,bold:true,size:32,font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:60}}));continue;}
+      if(i<5&&(clean.includes('@')||/\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){children.push(new Paragraph({children:[new TextRun({text:clean,size:20,color:'444444',font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:80}}));continue;}
+      if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){children.push(new Paragraph({text:clean.replace(/\*\*/g,'').toUpperCase(),heading:HeadingLevel.HEADING_2,spacing:{before:200,after:60}}));continue;}
+      if(clean.startsWith('- ')||clean.startsWith('• ')){children.push(new Paragraph({bullet:{level:0},children:[new TextRun({text:clean.replace(/^[-•]\s*/,''),size:22,font:'Times New Roman'})]}));continue;}
       children.push(new Paragraph({children:[new TextRun({text:clean,size:22,font:'Times New Roman'})],spacing:{after:40}}));
     }
-    const doc=new Document({
-      styles:{default:{heading2:{run:{bold:true,size:22,font:'Times New Roman'},paragraph:{spacing:{before:200,after:60},border:{bottom:{style:'single',size:6,color:'333333',space:4}}}}}},
-      sections:[{properties:{page:{margin:{top:1080,bottom:1080,left:1080,right:1080}}},children}]
-    });
+    const doc=new Document({styles:{default:{heading2:{run:{bold:true,size:22,font:'Times New Roman'},paragraph:{spacing:{before:200,after:60},border:{bottom:{style:'single',size:6,color:'333333',space:4}}}}}},sections:[{properties:{page:{margin:{top:1080,bottom:1080,left:1080,right:1080}}},children}]});
     const blob=await Packer.toBlob(doc);
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='resume-landedd.docx';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='resume-landedd.docx';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
     incDl();syncDlBadge();
   }catch(e){alert('Download failed — use "Copy text" and paste into Word or Google Docs.');}
 }
 
-// RP GOOGLE DOCS
 function rpOpenGdocs(){
-  if(dlLeft()<=0){alert('You\'ve used your 3 free downloads. Upgrade to Pro for unlimited.');return;}
-  const text=document.getElementById('out-'+rpTool)?.textContent||'';
-  if(!text)return;
+  if(dlLeft()<=0){alert("You've used your 3 free downloads. Upgrade to Pro for unlimited.");return;}
+  const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
   const win=window.open('','_blank');
-  win.document.write(`<!DOCTYPE html><html><head><title>Open in Google Docs — Landedd</title>
-  <style>body{font-family:'Times New Roman',serif;max-width:760px;margin:40px auto;padding:0 40px;font-size:12pt;line-height:1.65;color:#1a1a1a}
-  .bar{background:#f0faf4;border:1px solid #d8f3dc;border-radius:8px;padding:16px 20px;margin-bottom:28px;font-family:sans-serif;font-size:13px}
-  .bar h3{font-size:15px;font-weight:700;color:#2d6a4f;margin:0 0 8px}
-  ol{margin:0;padding-left:20px;color:#444;line-height:1.9}
-  .btn{background:#4285f4;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:10px}
-  pre{white-space:pre-wrap;font-size:12pt}</style></head><body>
-  <div class="bar"><h3>Open in Google Docs — 3 steps</h3>
-  <ol>
-  <li>Click <strong>Select all text</strong> below → copy (Ctrl+C / Cmd+C)</li>
-  <li><a href="https://docs.google.com/document/create" target="_blank" style="color:#4285f4;font-weight:600">Open a new Google Doc</a></li>
-  <li>Paste (Ctrl+V / Cmd+V) — then format as needed</li>
-  </ol>
-  <button class="btn" onclick="sel()">Select all text</button>
-  </div>
-  <pre id="rt">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
-  <script>function sel(){const e=document.getElementById('rt');const r=document.createRange();r.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}<\/script>
-  </body></html>`);
-  win.document.close();
-  incDl();syncDlBadge();
+  win.document.write('<!DOCTYPE html><html><head><title>Open in Google Docs — Landedd</title><style>body{font-family:\'Times New Roman\',serif;max-width:760px;margin:40px auto;padding:0 40px;font-size:12pt;line-height:1.65;color:#1a1a1a}.bar{background:#f0faf4;border:1px solid #d8f3dc;border-radius:8px;padding:16px 20px;margin-bottom:28px;font-family:sans-serif;font-size:13px}.bar h3{font-size:15px;font-weight:700;color:#2d6a4f;margin:0 0 8px}ol{margin:0;padding-left:20px;color:#444;line-height:1.9}.btn{background:#4285f4;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:10px}pre{white-space:pre-wrap;font-size:12pt}</style></head><body><div class="bar"><h3>Open in Google Docs — 3 steps</h3><ol><li>Click <strong>Select all text</strong> below → copy (Ctrl+C / Cmd+C)</li><li><a href="https://docs.google.com/document/create" target="_blank" style="color:#4285f4;font-weight:600">Open a new Google Doc</a></li><li>Paste (Ctrl+V / Cmd+V) — then format as needed</li></ol><button class="btn" onclick="sel()">Select all text</button></div><pre id="rt">'+text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre><script>function sel(){const e=document.getElementById(\'rt\');const r=document.createRange();r.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}<\/script></body></html>');
+  win.document.close();incDl();syncDlBadge();
 }
 
 // FEEDBACK
 let fbRating=0;
-function setStar(v){
-  fbRating=v;
-  document.querySelectorAll('.star-btn').forEach(b=>{
-    b.classList.toggle('sel',parseInt(b.dataset.v)<=v);
-    b.textContent=parseInt(b.dataset.v)<=v?'★':b.dataset.v;
-  });
-}
+function setStar(v){fbRating=v;document.querySelectorAll('.star-btn').forEach(b=>{b.classList.toggle('sel',parseInt(b.dataset.v)<=v);b.textContent=parseInt(b.dataset.v)<=v?'★':b.dataset.v;});}
 async function submitFeedback(){
   const msg=(document.getElementById('fb-msg').value||'').trim();
   const email=document.getElementById('fb-email').value.trim();
@@ -1380,15 +1105,13 @@ async function submitFeedback(){
   const btn=document.getElementById('fbBtn');
   if(!msg){alert('Please enter some feedback.');return;}
   btn.disabled=true;btn.textContent='Sending…';
-  try{
-    await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'feedback',message:msg,email,rating:fbRating||null,tool,source:'feedback-section'})});
-    document.getElementById('fb-ok').style.display='block';btn.style.display='none';
-  }catch{btn.disabled=false;btn.textContent='Send feedback';alert('Could not send right now. Please try again or email hello@landedd.com');}
+  try{await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'feedback',message:msg,email,rating:fbRating||null,tool,source:'feedback-section'})});document.getElementById('fb-ok').style.display='block';btn.style.display='none';}
+  catch{btn.disabled=false;btn.textContent='Send feedback';alert('Could not send right now. Please try again or email hello@landedd.com');}
 }
 
+// INIT
 syncDlBadge();
-syncUsageNote('gaps');
-syncUsageNote('scanner');
+Object.keys(TOOL_KEYS).forEach(syncUsageNote);
 </script>
 
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
