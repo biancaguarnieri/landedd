@@ -183,6 +183,83 @@
     .letter-wrap{max-width:870px;margin:28px auto;padding:0 16px 60px}
     .letter-sheet{background:#fff;padding:72px 80px;min-height:1056px;box-shadow:0 2px 24px rgba(0,0,0,.12);font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.65;color:#1a1a1a}
     @media(max-width:700px){.letter-sheet{padding:32px 20px;min-height:auto}}
+    /* ── ANALYSIS TOOLS: GAP FINDER & FIT SCANNER ── */
+    .tool-usage-note{font-size:.75rem;color:var(--text3);margin-bottom:8px;min-height:16px}
+    .tool-usage-note.warn{color:#b45309}
+    .tool-usage-note.out{color:#991b1b;font-weight:600}
+
+    .analysis-result{margin-top:18px;animation:fadeIn .35s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Score hero */
+    .score-hero{display:flex;align-items:center;gap:20px;background:var(--green-bg);border:1.5px solid var(--green-pale);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px}
+    .score-ring-wrap{flex-shrink:0}
+    .score-ring-svg{width:88px;height:88px}
+    .score-ring-bg{fill:none;stroke:var(--gray2);stroke-width:8}
+    .score-ring-fg{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);transform:rotate(-90deg);transform-origin:50% 50%}
+    .score-ring-fg.high{stroke:#2d6a4f}
+    .score-ring-fg.mid{stroke:#d97706}
+    .score-ring-fg.low{stroke:#dc2626}
+    .score-ring-text{font-size:22px;font-weight:800;fill:var(--text);font-family:-apple-system,sans-serif;dominant-baseline:central;text-anchor:middle}
+    .score-ring-sub{font-size:9px;fill:var(--text3);font-family:-apple-system,sans-serif;dominant-baseline:central;text-anchor:middle}
+    .score-hero-right{flex:1;min-width:0}
+    .score-verdict{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:4px}
+    .score-verdict.high{color:#2d6a4f}
+    .score-verdict.mid{color:#d97706}
+    .score-verdict.low{color:#dc2626}
+    .score-summary{font-size:.83rem;color:var(--text2);line-height:1.55}
+
+    /* Section blocks */
+    .an-section{background:#fff;border:1px solid var(--gray2);border-radius:var(--rsm);margin-bottom:10px;overflow:hidden}
+    .an-section-hdr{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--gray2);background:var(--gray)}
+    .an-section-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+    .an-section-icon.green{background:var(--green-pale);color:var(--green)}
+    .an-section-icon.amber{background:#fef3c7;color:#92400e}
+    .an-section-icon.blue{background:#dbeafe;color:#1e40af}
+    .an-section-icon.red{background:#fee2e2;color:#991b1b}
+    .an-section-title{font-size:.78rem;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.06em}
+    .an-section-body{padding:12px 14px}
+
+    /* Strength items */
+    .strength-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:.84rem;color:var(--text2);line-height:1.5}
+    .strength-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:6px}
+
+    /* Gap items */
+    .gap-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--gray2)}
+    .gap-item:last-child{border-bottom:none}
+    .gap-priority{font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
+    .gap-priority.high{background:#fee2e2;color:#991b1b}
+    .gap-priority.mid{background:#fef3c7;color:#92400e}
+    .gap-priority.low{background:#dbeafe;color:#1e40af}
+    .gap-text{font-size:.84rem;color:var(--text2);line-height:1.5}
+
+    /* Action items */
+    .action-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--gray2)}
+    .action-item:last-child{border-bottom:none}
+    .action-num{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+    .action-text{font-size:.84rem;color:var(--text2);line-height:1.5}
+
+    /* Keyword chips */
+    .chip-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0}
+    .chip{font-size:.74rem;font-weight:600;padding:3px 10px;border-radius:12px;line-height:1.4}
+    .chip.present{background:var(--green-pale);color:var(--green)}
+    .chip.missing{background:#fee2e2;color:#991b1b}
+
+    /* Edit suggestions */
+    .edit-item{padding:8px 0;border-bottom:1px solid var(--gray2);font-size:.83rem}
+    .edit-item:last-child{border-bottom:none}
+    .edit-before{color:var(--text3);text-decoration:line-through;margin-bottom:3px}
+    .edit-after{color:var(--green);font-weight:600}
+    .edit-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);margin-bottom:4px}
+
+    /* Recruiter take */
+    .recruiter-take{font-size:.85rem;color:var(--text2);line-height:1.65;font-style:italic;padding:2px 0}
+
+    /* Copy row */
+    .an-copy-row{display:flex;justify-content:flex-end;padding:10px 14px 0;border-top:1px solid var(--gray2);margin-top:4px}
+    .an-copy-btn{font-size:.75rem;font-weight:600;color:var(--text3);background:none;border:1px solid var(--gray2);padding:5px 12px;border-radius:12px;cursor:pointer;transition:all .15s}
+    .an-copy-btn:hover{border-color:var(--green);color:var(--green)}
+    .an-copy-btn.copied{color:var(--green);border-color:var(--green-light);background:var(--green-bg)}
   </style>
 </head>
 <body>
@@ -422,20 +499,10 @@
               </div>
             </div>
           </div>
-          <button class="btn-run" id="run-gaps" onclick="run('gaps')"><span>Find my gaps</span></button>
+          <div class="tool-usage-note" id="usage-gaps"></div>
+          <button class="btn-run" id="run-gaps" onclick="runAnalysis('gaps')"><span>Find my gaps</span></button>
           <div class="err-box" id="err-gaps"></div>
-          <div class="result-wrap" id="res-gaps">
-            <div class="resume-viz">
-              <div class="viz-toolbar">
-                <div class="viz-title"><span class="dot"></span> Your gap analysis</div>
-                <div class="viz-actions">
-                  <button class="btn-dl btn-dl-copy" id="copy-gaps" onclick="copyRes('gaps')">Copy</button>
-                  <button class="btn-dl btn-dl-primary" onclick="openResumePage('gaps')">📄 View &amp; Download</button>
-                </div>
-              </div>
-              <div class="resume-preview" id="out-gaps"></div>
-            </div>
-          </div>
+          <div class="analysis-result" id="res-gaps" style="display:none"></div>
         </div>
 
         <!-- IMPACT COACH -->
@@ -541,19 +608,10 @@
               </div>
             </div>
           </div>
-          <button class="btn-run" id="run-scanner" onclick="run('scanner')"><span>Scan my fit</span></button>
+          <div class="tool-usage-note" id="usage-scanner"></div>
+          <button class="btn-run" id="run-scanner" onclick="runAnalysis('scanner')"><span>Scan my fit</span></button>
           <div class="err-box" id="err-scanner"></div>
-          <div class="result-wrap" id="res-scanner-result">
-            <div class="resume-viz">
-              <div class="viz-toolbar">
-                <div class="viz-title"><span class="dot"></span> Your ATS score</div>
-                <div class="viz-actions">
-                  <button class="btn-dl btn-dl-copy" id="copy-scanner" onclick="copyRes('scanner')">Copy</button>
-                </div>
-              </div>
-              <div class="resume-preview" id="out-scanner"></div>
-            </div>
-          </div>
+          <div class="analysis-result" id="res-scanner" style="display:none"></div>
         </div>
       </div>
 
@@ -613,12 +671,37 @@ function syncDlBadge() {
   });
 }
 
-// MODAL
+// TOOL USAGE LIMITS (3 runs each, tracked per tool in localStorage)
+const TOOL_KEYS = { gaps:'ldl_gaps', scanner:'ldl_scanner' };
+const TOOL_MAX = 3;
+const getToolCount = t => parseInt(localStorage.getItem(TOOL_KEYS[t])||'0');
+const incToolCount = t => localStorage.setItem(TOOL_KEYS[t], getToolCount(t)+1);
+const toolLeft = t => Math.max(0, TOOL_MAX - getToolCount(t));
+
+function syncUsageNote(tool) {
+  const el = document.getElementById('usage-'+tool);
+  if (!el) return;
+  const n = toolLeft(tool);
+  if (n === TOOL_MAX) { el.textContent=''; el.className='tool-usage-note'; return; }
+  if (n === 0) {
+    el.textContent = "You've used all 3 free runs. Upgrade to Pro for unlimited.";
+    el.className = 'tool-usage-note out';
+    const btn = document.getElementById('run-'+tool);
+    if (btn) btn.disabled = true;
+  } else {
+    el.textContent = `${n} free run${n===1?'':'s'} remaining`;
+    el.className = 'tool-usage-note warn';
+  }
+}
+
+
 function openApp(t) {
   document.getElementById('modal').classList.add('show');
   document.body.style.overflow = 'hidden';
   if (t) selTrack(t);
   if (!document.getElementById('expRows').children.length) addExp();
+  syncUsageNote('gaps');
+  syncUsageNote('scanner');
 }
 function closeApp() { document.getElementById('modal').classList.remove('show'); document.body.style.overflow=''; }
 function handleOverlayClick(e) { if (e.target.id==='modal') closeApp(); }
@@ -839,7 +922,25 @@ async function getPrompt(tool){
     const bg=getGapBgText();
     if(!jd)throw new Error("We need the job description — paste it or drop the link and we'll get to work.");
     if(!bg)throw new Error("Your background is missing — paste it in or upload your resume.");
-    return `You are a senior talent acquisition manager. Honest, specific gap analysis only — base it strictly on what's provided. No assumptions.\n\nJob description:\n${jd}\n\nCandidate background:\n${bg}\n\nReturn:\n**ATS MATCH SCORE: [X]/100**\n[1-sentence take]\n\n**What's working:**\n- [2-3 real strengths]\n\n**Gaps to close (priority order):**\n- [Gap] — HIGH/MEDIUM/LOW\n(top 5 max)\n\n**3 moves to make right now:**\n1.\n2.\n3.\n\n**Recruiter's honest take:**\n[1 paragraph, direct, specific, no fluff]`;
+    return `You are a senior talent acquisition manager doing a precise, honest gap analysis. Return ONLY valid JSON — no markdown, no commentary, no code fences.
+
+Job description:\n${jd}\n\nCandidate background:\n${bg}
+
+Return this exact JSON shape:
+{
+  "score": <integer 0-100>,
+  "verdict": "<4-8 word punchy verdict e.g. 'Strong foundation, a few gaps to close'>",
+  "summary": "<2 sentences: what the overall picture looks like, honest and warm>",
+  "strengths": ["<specific strength 1>", "<specific strength 2>", "<specific strength 3 if warranted>"],
+  "gaps": [
+    {"text": "<gap description>", "priority": "high"|"medium"|"low"},
+    ... up to 5 gaps
+  ],
+  "actions": ["<specific actionable move 1>", "<specific actionable move 2>", "<specific actionable move 3>"],
+  "recruiter_take": "<1 honest paragraph — what a recruiter would actually think reading this resume for this role. Direct, specific, no fluff. Warm but real.>"
+}
+
+Base everything strictly on what was provided. No invented facts.`;
   }
   if(tool==='impact'){
     const rows=document.querySelectorAll('.exprow');
@@ -867,17 +968,36 @@ async function getPrompt(tool){
     const jd=await getJdText('scanner');
     const resume=getResText('scanner');
     if(!jd)throw new Error("We need the job description — paste it or drop the link.");
-    if(!resume)throw new Error("Your resume is missing — paste it, upload a file, or share your profile link.");
-    return `You are acting as both an ATS system and a senior recruiter. Base score strictly on the resume vs JD. Be specific. Tone: direct, warm, lightly witty.\n\nJob description:\n${jd}\n\nResume:\n${resume}\n\nReturn:\n**ATS MATCH SCORE: [X]/100**\n\n**Why this score:**\n[2-3 specific sentences]\n\n**Keywords present:**\n[Keywords from JD in the resume]\n\n**Missing keywords:**\n[Top 5-7 missing]\n\n**Exact edits:**\n1. Change: "[phrase]" → "[better version]"\n2. Add to Skills: [keywords]\n3. [one more fix]\n\n**Recruiter's take:**\n[Honest 1-paragraph — will this pass the 6-second scan?]`;
+    if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");
+    return `You are acting as both an ATS system and a senior recruiter evaluating a resume against a job description. Return ONLY valid JSON — no markdown, no commentary, no code fences.
+
+Job description:\n${jd}\n\nResume:\n${resume}
+
+Return this exact JSON shape:
+{
+  "score": <integer 0-100>,
+  "verdict": "<4-8 word punchy verdict e.g. 'Close match — a few tweaks needed'>",
+  "summary": "<2 sentences: why this score. Be specific about what is or isn't there.>",
+  "keywords_present": ["<keyword1>", "<keyword2>", ... up to 10],
+  "keywords_missing": ["<keyword1>", "<keyword2>", ... top 7 missing],
+  "edits": [
+    {"label": "<what to change>", "before": "<phrase currently in resume or 'missing'>", "after": "<improved version>"},
+    {"label": "<what to change>", "before": "<phrase>", "after": "<improved version>"},
+    {"label": "<what to change>", "before": "<phrase>", "after": "<improved version>"}
+  ],
+  "recruiter_take": "<1 honest paragraph — will this pass the 6-second scan? What is the single biggest thing holding it back? Warm, direct, specific.>"
+}
+
+Base score strictly on resume vs JD content. No assumptions.`;
   }
   throw new Error('Unknown tool');
 }
 
-// RUN
+// RUN (resume tools — builder, impact, tailor)
 async function run(tool){
   const btn=document.getElementById('run-'+tool);
   const btnSpan=btn.querySelector('span');
-  const resId=(tool==='tailor'||tool==='scanner')?'res-'+tool+'-result':'res-'+tool;
+  const resId=(tool==='tailor')?'res-'+tool+'-result':'res-'+tool;
   const resDiv=document.getElementById(resId);
   const outDiv=document.getElementById('out-'+tool);
   const errDiv=document.getElementById('err-'+tool);
@@ -899,10 +1019,205 @@ async function run(tool){
     errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';
   }finally{
     btn.disabled=false;
-    const labels={builder:'Build my resume',gaps:'Find my gaps',impact:'Generate impact bullets',tailor:'Tailor my resume',scanner:'Scan my fit'};
+    const labels={builder:'Build my resume',impact:'Generate impact bullets',tailor:'Tailor my resume'};
     btnSpan.textContent=labels[tool]||'Run';
   }
 }
+
+// RUN ANALYSIS (gaps + scanner — structured JSON output)
+async function runAnalysis(tool){
+  if(toolLeft(tool)<=0){
+    const err=document.getElementById('err-'+tool);
+    err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";
+    err.style.display='block';
+    return;
+  }
+  const btn=document.getElementById('run-'+tool);
+  const btnSpan=btn.querySelector('span');
+  const resDiv=document.getElementById('res-'+tool);
+  const errDiv=document.getElementById('err-'+tool);
+  errDiv.style.display='none';errDiv.textContent='';
+  let prompt;
+  try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
+  btn.disabled=true;
+  btnSpan.textContent=tool==='gaps'?'Analyzing your gaps…':'Scanning your fit…';
+  resDiv.style.display='none';resDiv.innerHTML='';
+  try{
+    const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
+    const data=await resp.json();
+    if(!resp.ok||data.error)throw new Error(data.error||'API error '+resp.status);
+    let raw=data.content?.[0]?.text||'';
+    // Strip any accidental markdown fences
+    raw=raw.replace(/```json|```/g,'').trim();
+    let parsed;
+    try{ parsed=JSON.parse(raw); }
+    catch{ throw new Error('Could not parse result. Please try again.'); }
+    // Render
+    if(tool==='gaps') resDiv.innerHTML=renderGaps(parsed);
+    else resDiv.innerHTML=renderScanner(parsed);
+    resDiv.style.display='block';
+    resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
+    incToolCount(tool);
+    syncUsageNote(tool);
+  }catch(e){
+    errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';
+  }finally{
+    btn.disabled=toolLeft(tool)<=0;
+    btnSpan.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';
+  }
+}
+
+function esc2(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function scoreClass(n){ return n>=70?'high':n>=45?'mid':'low'; }
+function scoreVerdict(n){ return n>=70?'Strong match':n>=45?'Partial match':'Needs work'; }
+
+function buildScoreRing(score){
+  const r=36,cx=44,cy=44,circ=2*Math.PI*r;
+  const pct=Math.max(0,Math.min(100,score))/100;
+  const dash=circ*pct, gap=circ*(1-pct);
+  const cls=scoreClass(score);
+  return `<svg class="score-ring-svg" viewBox="0 0 88 88">
+    <circle class="score-ring-bg" cx="${cx}" cy="${cy}" r="${r}"/>
+    <circle class="score-ring-fg ${cls}" cx="${cx}" cy="${cy}" r="${r}"
+      stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}"
+      stroke-dashoffset="0"/>
+    <text class="score-ring-text" x="${cx}" y="${cy-4}">${score}</text>
+    <text class="score-ring-sub" x="${cx}" y="${cy+12}">/ 100</text>
+  </svg>`;
+}
+
+function renderGaps(d){
+  const sc=d.score||0, cls=scoreClass(sc), vd=d.verdict||scoreVerdict(sc);
+  let html=`<div class="analysis-result">`;
+  // Score hero
+  html+=`<div class="score-hero">
+    <div class="score-ring-wrap">${buildScoreRing(sc)}</div>
+    <div class="score-hero-right">
+      <div class="score-verdict ${cls}">${esc2(vd)}</div>
+      <div class="score-summary">${esc2(d.summary||'')}</div>
+    </div>
+  </div>`;
+  // Strengths
+  if(d.strengths?.length){
+    const items=d.strengths.map(s=>`<div class="strength-item"><div class="strength-dot"></div><div>${esc2(s)}</div></div>`).join('');
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">What's working</span></div>
+      <div class="an-section-body">${items}</div>
+    </div>`;
+  }
+  // Gaps
+  if(d.gaps?.length){
+    const items=d.gaps.map(g=>{
+      const p=(g.priority||'medium').toLowerCase();
+      const label=p==='high'?'High':p==='low'?'Low':'Medium';
+      return `<div class="gap-item"><span class="gap-priority ${p==='high'?'high':p==='low'?'low':'mid'}">${label}</span><div class="gap-text">${esc2(g.text||g)}</div></div>`;
+    }).join('');
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon amber">!</div><span class="an-section-title">Gaps to close</span></div>
+      <div class="an-section-body">${items}</div>
+    </div>`;
+  }
+  // Actions
+  if(d.actions?.length){
+    const items=d.actions.map((a,i)=>`<div class="action-item"><div class="action-num">${i+1}</div><div class="action-text">${esc2(a)}</div></div>`).join('');
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon blue">→</div><span class="an-section-title">3 moves to make now</span></div>
+      <div class="an-section-body">${items}</div>
+    </div>`;
+  }
+  // Recruiter take
+  if(d.recruiter_take){
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter's honest take</span></div>
+      <div class="an-section-body"><div class="recruiter-take">${esc2(d.recruiter_take)}</div></div>
+    </div>`;
+  }
+  // Copy row
+  const plain=buildGapsPlainText(d);
+  html+=`<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,'${btoa(encodeURIComponent(plain))}')">Copy results</button></div>`;
+  html+=`</div>`;
+  return html;
+}
+
+function renderScanner(d){
+  const sc=d.score||0, cls=scoreClass(sc), vd=d.verdict||scoreVerdict(sc);
+  let html=`<div class="analysis-result">`;
+  // Score hero
+  html+=`<div class="score-hero">
+    <div class="score-ring-wrap">${buildScoreRing(sc)}</div>
+    <div class="score-hero-right">
+      <div class="score-verdict ${cls}">${esc2(vd)}</div>
+      <div class="score-summary">${esc2(d.summary||'')}</div>
+    </div>
+  </div>`;
+  // Keywords present
+  if(d.keywords_present?.length){
+    const chips=d.keywords_present.map(k=>`<span class="chip present">${esc2(k)}</span>`).join('');
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">Keywords found</span></div>
+      <div class="an-section-body"><div class="chip-wrap">${chips}</div></div>
+    </div>`;
+  }
+  // Keywords missing
+  if(d.keywords_missing?.length){
+    const chips=d.keywords_missing.map(k=>`<span class="chip missing">${esc2(k)}</span>`).join('');
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon red">✗</div><span class="an-section-title">Missing keywords</span></div>
+      <div class="an-section-body"><div class="chip-wrap">${chips}</div></div>
+    </div>`;
+  }
+  // Edits
+  if(d.edits?.length){
+    const items=d.edits.map(e=>`<div class="edit-item">
+      <div class="edit-label">${esc2(e.label||'Change')}</div>
+      <div class="edit-before">${esc2(e.before||'')}</div>
+      <div class="edit-after">→ ${esc2(e.after||'')}</div>
+    </div>`).join('');
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon blue">✏</div><span class="an-section-title">Exact edits to make</span></div>
+      <div class="an-section-body">${items}</div>
+    </div>`;
+  }
+  // Recruiter take
+  if(d.recruiter_take){
+    html+=`<div class="an-section">
+      <div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter's take</span></div>
+      <div class="an-section-body"><div class="recruiter-take">${esc2(d.recruiter_take)}</div></div>
+    </div>`;
+  }
+  // Copy row
+  const plain=buildScannerPlainText(d);
+  html+=`<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,'${btoa(encodeURIComponent(plain))}')">Copy results</button></div>`;
+  html+=`</div>`;
+  return html;
+}
+
+function buildGapsPlainText(d){
+  let t=`ATS MATCH SCORE: ${d.score}/100\n${d.verdict}\n\n${d.summary}\n\n`;
+  if(d.strengths?.length) t+=`WHAT'S WORKING\n${d.strengths.map(s=>'• '+s).join('\n')}\n\n`;
+  if(d.gaps?.length) t+=`GAPS TO CLOSE\n${d.gaps.map(g=>`[${(g.priority||'').toUpperCase()}] ${g.text||g}`).join('\n')}\n\n`;
+  if(d.actions?.length) t+=`3 MOVES TO MAKE NOW\n${d.actions.map((a,i)=>`${i+1}. ${a}`).join('\n')}\n\n`;
+  if(d.recruiter_take) t+=`RECRUITER'S TAKE\n${d.recruiter_take}`;
+  return t;
+}
+function buildScannerPlainText(d){
+  let t=`ATS MATCH SCORE: ${d.score}/100\n${d.verdict}\n\n${d.summary}\n\n`;
+  if(d.keywords_present?.length) t+=`KEYWORDS FOUND\n${d.keywords_present.join(', ')}\n\n`;
+  if(d.keywords_missing?.length) t+=`MISSING KEYWORDS\n${d.keywords_missing.join(', ')}\n\n`;
+  if(d.edits?.length) t+=`EDITS TO MAKE\n${d.edits.map(e=>`${e.label}: "${e.before}" → "${e.after}"`).join('\n')}\n\n`;
+  if(d.recruiter_take) t+=`RECRUITER'S TAKE\n${d.recruiter_take}`;
+  return t;
+}
+function copyAnalysis(btn, encoded){
+  const text=decodeURIComponent(atob(encoded));
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.textContent; btn.textContent='Copied!'; btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);
+  });
+}
+
+
 
 // COPY
 function copyRes(tool){
@@ -1072,6 +1387,8 @@ async function submitFeedback(){
 }
 
 syncDlBadge();
+syncUsageNote('gaps');
+syncUsageNote('scanner');
 </script>
 
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
