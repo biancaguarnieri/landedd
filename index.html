@@ -62,9 +62,6 @@
     .btn-track{width:100%;padding:11px;border-radius:var(--rsm);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;border:none}
     .btn-build{background:var(--green);color:#fff}.btn-build:hover{background:var(--green-mid)}
     .btn-target{background:var(--text);color:#fff}.btn-target:hover{background:#333}
-    .testimonial{background:var(--green);color:#fff;padding:56px 6%;text-align:center}
-    .testimonial blockquote{font-size:1.08rem;line-height:1.75;max-width:620px;margin:0 auto 18px;font-style:italic;opacity:.92}
-    .testimonial cite{font-size:.8rem;opacity:.6;font-style:normal}
     .cta-bottom{padding:64px 6%;text-align:center;background:var(--gray)}
     .cta-bottom h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:var(--text);margin-bottom:12px;letter-spacing:-1px}
     .cta-bottom h2 em{color:var(--green);font-style:normal}
@@ -315,10 +312,7 @@
   </div>
 </section>
 
-<section class="testimonial">
-  <blockquote>"I've reviewed thousands of resumes. Most get rejected before a human reads them — not because the candidate isn't qualified, but because the resume doesn't speak the right language. Landedd fixes that."</blockquote>
-  <cite>Fortune 500 TA Manager · Thousands of resumes reviewed · Real ATS expertise</cite>
-</section>
+
 
 <section class="cta-bottom">
   <h2>Launch your application.<br><em>Landd the role.</em></h2>
@@ -478,7 +472,7 @@
             <div id="gjd-paste"><textarea id="gap-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="gjd-link" style="display:none">
               <input type="url" id="gap-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with Indeed, Glassdoor, and most job board URLs.</p>
+              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards. If the URL is behind a login or redirects, we'll ask you to paste the text instead.</p>
             </div>
           </div>
           <div class="fld">
@@ -544,7 +538,7 @@
             <div id="jd-tailor-paste"><textarea id="t-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="jd-tailor-link" style="display:none">
               <input type="url" id="t-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">We'll fetch and read the job posting for you.</p>
+              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards. If the page is behind a login, we'll ask you to paste the text instead.</p>
             </div>
           </div>
           <div class="fld">
@@ -589,7 +583,7 @@
             <div id="jd-scanner-paste"><textarea id="s-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="jd-scanner-link" style="display:none">
               <input type="url" id="s-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">We'll fetch and read the job posting for you.</p>
+              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards. If the page is behind a login, we'll ask you to paste the text instead.</p>
             </div>
           </div>
           <div class="fld">
@@ -698,21 +692,84 @@ function syncDlBadge() {
   });
 }
 
-// ═══════ PROMPT INJECTION GUARD ═══════
-// Block users from trying to send arbitrary instructions through structured fields
+// ═══════ INPUT VALIDATION — block off-topic prompts & injection ═══════
 function looksLikeInjection(text) {
   if (!text || text.trim().length < 8) return false;
-  const t = text.toLowerCase().trim();
+  const t = text.trim();
   return (
-    /^(ignore|forget|disregard|override|bypass).{0,30}(above|previous|instruction|rule|prompt)/i.test(t) ||
-    /^(you are|act as|pretend|roleplay|your new role|from now on)/i.test(t) ||
-    /^(system|assistant|user)\s*:/i.test(t) ||
-    /^(write me a|generate a|create a|make me a).{0,30}(story|poem|code|script|email to|letter to)/i.test(t)
+    /^(ignore|forget|disregard|override|bypass).{0,40}(above|previous|instruction|rule|prompt)/i.test(t) ||
+    /^(you are|act as|pretend|roleplay|your new role|from now on|imagine you)/i.test(t) ||
+    /^(system|assistant|user|human|ai)\s*:/i.test(t) ||
+    /\[system\]|\[inst\]|<\|im_start\|>|<\|system\|>/i.test(t) ||
+    /^(write me a|generate a|create a|make me a|give me a).{0,40}(story|poem|code|script|email to|letter to|song|essay|joke)/i.test(t) ||
+    /^(translate|summarize|explain|describe|list).{0,20}(everything|all|above|below|previous)/i.test(t) ||
+    /(reveal|show|print|output|dump).{0,20}(prompt|instruction|system|secret|token|key)/i.test(t)
   );
 }
+
+// Field-context validators — each field type has a domain it belongs to
+const FIELD_CONTEXTS = {
+  'job description': {
+    minLen: 30,
+    hint: 'Paste the full job description text from the posting — job title, responsibilities, and requirements.',
+    // Must look like a job posting: has common JD signals
+    validate: (t) => {
+      const lo = t.toLowerCase();
+      const signals = ['responsibilit','qualif','require','experience','skill','bachelor','year','team','role','position','job','employ','salary','benefit','apply','candidate'];
+      const hits = signals.filter(s => lo.includes(s)).length;
+      return hits >= 2; // at least 2 job-posting signals
+    },
+    failMsg: "That doesn't look like a job description. Paste the full text from the job posting — including the responsibilities and requirements sections."
+  },
+  'background': {
+    minLen: 20,
+    hint: 'Paste your resume or describe your work experience.',
+    validate: (t) => true, // background is flexible
+    failMsg: ''
+  },
+  'resume': {
+    minLen: 40,
+    hint: 'Paste your current resume text here.',
+    validate: (t) => true,
+    failMsg: ''
+  },
+  'experience': {
+    minLen: 10,
+    hint: 'Describe what you actually did in this role — tasks, wins, responsibilities.',
+    validate: (t) => {
+      // Reject if it looks like a general question or command instead of experience notes
+      const lo = t.toLowerCase().trim();
+      const chatPatterns = /^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me|show me|explain)\b/i;
+      return !chatPatterns.test(lo);
+    },
+    failMsg: "This field is for your actual work experience — what you did, achieved, or handled in the role. Describe that and we'll transform it into great bullets."
+  },
+  'skills': {
+    minLen: 3,
+    hint: 'List your skills, e.g. Excel, communication, project management.',
+    validate: (t) => {
+      const lo = t.toLowerCase().trim();
+      const chatPatterns = /^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me)\b/i;
+      return !chatPatterns.test(lo);
+    },
+    failMsg: "Just list your skills here — e.g. Excel, leadership, customer service. We'll take it from there."
+  }
+};
+
 function validateField(text, fieldName) {
-  if (looksLikeInjection(text)) {
-    throw new Error('Heads up — the ' + fieldName + ' field should contain your actual ' + fieldName.toLowerCase() + '. Fill in your info and we\'ll handle the rest.');
+  if (!text || !text.trim()) return; // empty handled by required checks elsewhere
+  const t = text.trim();
+  // Always check injection first
+  if (looksLikeInjection(t)) {
+    throw new Error('That field expects your actual ' + fieldName.toLowerCase() + ', not instructions. Fill in your information and we\'ll handle the rest.');
+  }
+  const ctx = FIELD_CONTEXTS[fieldName.toLowerCase()];
+  if (!ctx) return;
+  // Min length check
+  if (t.length < ctx.minLen) return; // too short to validate domain
+  // Domain validation
+  if (!ctx.validate(t)) {
+    throw new Error(ctx.failMsg || ('Please enter your actual ' + fieldName.toLowerCase() + ' here. ' + ctx.hint));
   }
 }
 
@@ -818,9 +875,22 @@ function addExp(){
 }
 function rmExp(id){const el=document.getElementById('exp-'+id);if(el)el.remove();}
 
-async function fetchUrl(url){
-  const r=await fetch('/api/fetch-url',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
-  const d=await r.json();if(d.error)throw new Error(d.error);return d.text||'';
+async function fetchUrl(url) {
+  const r = await fetch('/api/fetch-url', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({url})});
+  const d = await r.json();
+  if (d.error) throw new Error(d.error);
+  const text = d.text || '';
+  // Validate the fetched content actually looks like a job posting
+  if (text.length < 200) {
+    throw new Error("We couldn't read that page — it may require a login or be blocked. Please copy and paste the job description text directly.");
+  }
+  const lo = text.toLowerCase();
+  const jobSignals = ['responsibilit','qualif','require','experience','skill','bachelor','year','salary','apply','candidate','team','position','job description','we are looking'];
+  const hits = jobSignals.filter(s => lo.includes(s)).length;
+  if (hits < 2) {
+    throw new Error("The page loaded, but it doesn't appear to contain a job description — it may be a login wall, redirect, or listing index. Please copy and paste the job description text directly.");
+  }
+  return text;
 }
 
 // ═══════ GET TEXTS (with validation) ═══════
