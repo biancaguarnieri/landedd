@@ -8,6 +8,36 @@
   <meta name="theme-color" content="#2d6a4f">
   <title>Landedd — Stop applying. Start landing.</title>
   <meta name="description" content="AI resume tools built from the recruiter's chair. Tailor, scan, and transform your resume to get hired faster." />
+
+  <!-- ═══════ ANALYTICS: Google Analytics 4 ═══════ -->
+  <!-- REPLACE G-XXXXXXXXXX with your actual GA4 Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      send_page_view: true
+    });
+
+    // ── GA4 custom event helper ──
+    function trackEvent(eventName, params) {
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, params || {});
+      }
+    }
+  </script>
+
+  <!-- ═══════ ANALYTICS: Microsoft Clarity ═══════ -->
+  <!-- REPLACE 'XXXXXXXXXX' with your actual Clarity project ID -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "XXXXXXXXXX");
+  </script>
+
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -238,6 +268,31 @@
     .job-url-optional{background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--rsm);padding:10px 12px;margin-top:10px}
     .job-url-optional .opt-label{font-size:.72rem;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
     .job-url-optional p{font-size:.76rem;color:var(--text3);margin-top:4px;line-height:1.4}
+
+    /* ── AI output rating widget ── */
+    .rating-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--green-bg);border-top:1px solid var(--green-pale);font-size:.8rem;color:var(--text2)}
+    .rating-bar span{flex:1}
+    .rating-btns{display:flex;gap:6px}
+    .rate-btn{padding:5px 12px;border-radius:20px;border:1.5px solid var(--gray2);background:#fff;cursor:pointer;font-size:.8rem;transition:all .15s}
+    .rate-btn:hover{border-color:var(--green);color:var(--green)}
+    .rate-btn.rated-pos{background:var(--green-pale);border-color:var(--green);color:var(--green)}
+    .rate-btn.rated-neg{background:#fee2e2;border-color:#f09595;color:#991b1b}
+    .rating-thanks{font-size:.78rem;color:var(--green);padding:8px 14px;background:var(--green-bg);border-top:1px solid var(--green-pale)}
+
+    /* ── WTP survey overlay ── */
+    .wtp-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+    .wtp-overlay.show{display:flex}
+    .wtp-card{background:#fff;border-radius:16px;padding:28px;max-width:440px;width:90%;animation:slideUp .25s ease}
+    .wtp-title{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px}
+    .wtp-sub{font-size:.85rem;color:var(--text2);margin-bottom:20px;line-height:1.5}
+    .wtp-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+    .wtp-opt{padding:12px 16px;border:1.5px solid var(--gray2);border-radius:var(--rsm);cursor:pointer;font-size:.87rem;color:var(--text);background:#fff;text-align:left;transition:all .2s;line-height:1.4}
+    .wtp-opt:hover{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+    .wtp-opt.selected{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:600}
+    .wtp-opt strong{display:block;font-weight:700}
+    .wtp-skip{font-size:.76rem;color:var(--text3);cursor:pointer;text-decoration:underline;text-align:center}
+    .wtp-skip:hover{color:var(--green)}
+    .wtp-thanks{text-align:center;padding:10px 0;font-size:.9rem;color:var(--green);font-weight:600}
   </style>
 </head>
 <body>
@@ -311,8 +366,6 @@
     </div>
   </div>
 </section>
-
-
 
 <section class="cta-bottom">
   <h2>Launch your application.<br><em>Landd the role.</em></h2>
@@ -415,32 +468,28 @@
               <button class="imethod active" onclick="swBuildMethod('questions')" id="bm-questions">✎ Answer questions</button>
               <button class="imethod" onclick="swBuildMethod('upload')" id="bm-upload">↑ Upload resume</button>
             </div>
-            <!-- QUESTIONS PANE -->
             <div class="ipane active" id="build-pane-questions">
               <div class="fld"><label>Target role</label><input type="text" id="b-role" placeholder="e.g. Marketing Manager, Software Engineer" /></div>
               <div class="fld"><label>Your top skills</label><input type="text" id="b-skills" placeholder="e.g. Python, project management, Canva" /></div>
               <div class="fld"><label>Experience (jobs, clubs, volunteering)</label><textarea id="b-exp" placeholder="e.g. Barista at Starbucks 2 yrs, president of college marketing club"></textarea></div>
               <div class="fld"><label>Education</label><input type="text" id="b-edu" placeholder="e.g. BBA Marketing, Univ. of Chicago — graduated 2021, or in progress 2025" /></div>
               <div class="fld"><label>Languages, certifications, or achievements</label><input type="text" id="b-extras" placeholder="e.g. Fluent in Spanish, Google Analytics cert, Dean's List" /></div>
-              <!-- ★ NEW: Optional job posting URL -->
               <div class="job-url-optional">
                 <div class="opt-label">🎯 Optional — tailor to a specific job</div>
                 <input type="url" id="b-job-url" class="url-input" placeholder="https://linkedin.com/jobs/... or any job posting URL" />
-                <p>Drop the link and we'll tune your resume to match what that employer is looking for. Even strong resumes get sharper with a target.</p>
+                <p>Drop the link and we'll tune your resume to match what that employer is looking for.</p>
               </div>
             </div>
-            <!-- UPLOAD PANE -->
             <div class="ipane" id="build-pane-upload">
               <div class="dz" id="dz-builder" onclick="trigUp('builder')" ondragover="onDrag(event,'dz-builder')" ondragleave="offDrag('dz-builder')" ondrop="onDrop(event,'dz-builder','builder')">
                 <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
                 <input type="file" id="file-builder" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'builder')" />
               </div>
               <div class="fld" style="margin-top:11px"><label>Target role</label><input type="text" id="b-role-up" placeholder="e.g. Product Manager" /></div>
-              <!-- ★ NEW: Optional job posting URL (upload mode) -->
               <div class="job-url-optional">
                 <div class="opt-label">🎯 Optional — tailor to a specific job</div>
                 <input type="url" id="b-job-url-up" class="url-input" placeholder="https://linkedin.com/jobs/... or any job posting URL" />
-                <p>Drop the link and we'll tune your resume to match what that employer is looking for. Even strong resumes get sharper with a target.</p>
+                <p>Drop the link and we'll tune your resume to match what that employer is looking for.</p>
               </div>
             </div>
           </div>
@@ -457,6 +506,13 @@
                 </div>
               </div>
               <div class="resume-preview" id="out-builder"></div>
+              <div class="rating-bar" id="rating-builder">
+                <span>Was this helpful?</span>
+                <div class="rating-btns">
+                  <button class="rate-btn" onclick="rateOutput('builder','positive')">👍 Yes</button>
+                  <button class="rate-btn" onclick="rateOutput('builder','negative')">👎 No</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -472,7 +528,7 @@
             <div id="gjd-paste"><textarea id="gap-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="gjd-link" style="display:none">
               <input type="url" id="gap-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards. If the URL is behind a login or redirects, we'll ask you to paste the text instead.</p>
+              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards.</p>
             </div>
           </div>
           <div class="fld">
@@ -493,6 +549,15 @@
           <button class="btn-run" id="run-gaps" onclick="runAnalysis('gaps')"><span>Find my gaps</span></button>
           <div class="err-box" id="err-gaps"></div>
           <div class="analysis-result" id="res-gaps" style="display:none"></div>
+          <div id="rating-gaps-wrap" style="display:none;margin-top:8px">
+            <div class="rating-bar" id="rating-gaps">
+              <span>Was this analysis helpful?</span>
+              <div class="rating-btns">
+                <button class="rate-btn" onclick="rateOutput('gaps','positive')">👍 Yes</button>
+                <button class="rate-btn" onclick="rateOutput('gaps','negative')">👎 No</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- IMPACT COACH -->
@@ -515,6 +580,13 @@
                 </div>
               </div>
               <div class="resume-preview" id="out-impact"></div>
+              <div class="rating-bar" id="rating-impact">
+                <span>Were these bullets helpful?</span>
+                <div class="rating-btns">
+                  <button class="rate-btn" onclick="rateOutput('impact','positive')">👍 Yes</button>
+                  <button class="rate-btn" onclick="rateOutput('impact','negative')">👎 No</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -538,7 +610,7 @@
             <div id="jd-tailor-paste"><textarea id="t-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="jd-tailor-link" style="display:none">
               <input type="url" id="t-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards. If the page is behind a login, we'll ask you to paste the text instead.</p>
+              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards.</p>
             </div>
           </div>
           <div class="fld">
@@ -568,6 +640,13 @@
                 </div>
               </div>
               <div class="resume-preview" id="out-tailor"></div>
+              <div class="rating-bar" id="rating-tailor">
+                <span>Was this helpful?</span>
+                <div class="rating-btns">
+                  <button class="rate-btn" onclick="rateOutput('tailor','positive')">👍 Yes</button>
+                  <button class="rate-btn" onclick="rateOutput('tailor','negative')">👎 No</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -583,7 +662,7 @@
             <div id="jd-scanner-paste"><textarea id="s-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="jd-scanner-link" style="display:none">
               <input type="url" id="s-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards. If the page is behind a login, we'll ask you to paste the text instead.</p>
+              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with most public job boards.</p>
             </div>
           </div>
           <div class="fld">
@@ -604,6 +683,15 @@
           <button class="btn-run" id="run-scanner" onclick="runAnalysis('scanner')"><span>Scan my fit</span></button>
           <div class="err-box" id="err-scanner"></div>
           <div class="analysis-result" id="res-scanner" style="display:none"></div>
+          <div id="rating-scanner-wrap" style="display:none;margin-top:8px">
+            <div class="rating-bar" id="rating-scanner">
+              <span>Was this scan helpful?</span>
+              <div class="rating-btns">
+                <button class="rate-btn" onclick="rateOutput('scanner','positive')">👍 Yes</button>
+                <button class="rate-btn" onclick="rateOutput('scanner','negative')">👎 No</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -631,6 +719,22 @@
   </div>
 </div>
 
+<!-- WTP SURVEY OVERLAY -->
+<div class="wtp-overlay" id="wtpOverlay">
+  <div class="wtp-card">
+    <div class="wtp-title">Quick question before you go 👋</div>
+    <div class="wtp-sub">Landedd is free during beta. When we launch, which plan would you consider? (No commitment — this helps us build the right thing.)</div>
+    <div class="wtp-opts" id="wtpOpts">
+      <button class="wtp-opt" onclick="selectWtp('free')"><strong>Free only</strong>I'd only use Landedd if it's free</button>
+      <button class="wtp-opt" onclick="selectWtp('basic')"><strong>Basic — $7/month</strong>Limited AI generations, core tools</button>
+      <button class="wtp-opt" onclick="selectWtp('pro')"><strong>Pro — $15/month</strong>Unlimited, ATS optimization, cover letters</button>
+      <button class="wtp-opt" onclick="selectWtp('more')"><strong>I'd pay more</strong>Tell me what premium looks like</button>
+    </div>
+    <div class="wtp-thanks" id="wtpThanks" style="display:none">Thank you! This helps us build exactly what you need. 🙌</div>
+    <div class="wtp-skip" onclick="closeWtp()">Skip for now</div>
+  </div>
+</div>
+
 <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
 <script>
 // ═══════ STATE ═══════
@@ -645,9 +749,7 @@ let gapBgMethod = 'paste';
 let buildMethod = 'questions';
 let rpTool = 'builder';
 
-// ═══════ USAGE LIMITS — server-side tracking ═══════
-// Fingerprint: anonymous browser ID stored in localStorage (not PII)
-// Counts are tracked server-side — cannot be bypassed by clearing localStorage
+// ═══════ USAGE LIMITS ═══════
 const TOOL_MAX = 3;
 const DL_MAX = 3;
 
@@ -660,7 +762,6 @@ function getFingerprint() {
   return fp;
 }
 
-// Local cache of remaining counts (hydrated from server on load)
 const _usageCache = { tools: {}, downloads: DL_MAX, loaded: false };
 
 async function loadUsage() {
@@ -669,7 +770,7 @@ async function loadUsage() {
     const res = await fetch('/api/usage?fp=' + encodeURIComponent(fp));
     if (!res.ok) return;
     const data = await res.json();
-    if (data.unlimited) return; // KV not set up yet — allow all
+    if (data.unlimited) return;
     Object.assign(_usageCache.tools, data.tools || {});
     _usageCache.downloads = DL_MAX - (data.downloads || 0);
     _usageCache.loaded = true;
@@ -745,7 +846,65 @@ function syncDlBadge() {
   });
 }
 
-// ═══════ INPUT VALIDATION — block off-topic prompts & injection ═══════
+// ═══════ WTP SURVEY ═══════
+// Show after 3rd total tool run
+let _totalRuns = parseInt(localStorage.getItem('_ldRuns') || '0');
+let _wtpShown = localStorage.getItem('_ldWtpShown') === '1';
+
+function checkWtpTrigger() {
+  _totalRuns++;
+  localStorage.setItem('_ldRuns', _totalRuns);
+  if (_totalRuns === 3 && !_wtpShown) {
+    setTimeout(() => showWtp(), 2500); // show after output renders
+  }
+}
+
+function showWtp() {
+  document.getElementById('wtpOverlay').classList.add('show');
+  trackEvent('pricing_screen_viewed', { trigger: 'post_3rd_run' });
+}
+
+function closeWtp() {
+  document.getElementById('wtpOverlay').classList.remove('show');
+  _wtpShown = true;
+  localStorage.setItem('_ldWtpShown', '1');
+}
+
+function selectWtp(tier) {
+  document.querySelectorAll('.wtp-opt').forEach(b => b.classList.remove('selected'));
+  event.target.closest('.wtp-opt').classList.add('selected');
+  document.getElementById('wtpOpts').style.opacity = '0.4';
+  document.getElementById('wtpOpts').style.pointerEvents = 'none';
+  document.getElementById('wtpThanks').style.display = 'block';
+  // ── GA4 Event: wtp_response ──
+  trackEvent('wtp_response', { tier: tier });
+  _wtpShown = true;
+  localStorage.setItem('_ldWtpShown', '1');
+  setTimeout(() => closeWtp(), 2200);
+}
+
+// ═══════ AI OUTPUT RATING ═══════
+function rateOutput(tool, rating) {
+  const bar = document.getElementById('rating-' + tool);
+  if (!bar) return;
+  // Mark the button
+  bar.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('rated-pos','rated-neg'));
+  event.target.classList.add(rating === 'positive' ? 'rated-pos' : 'rated-neg');
+  // Replace bar with thanks
+  setTimeout(() => {
+    bar.innerHTML = '<div class="rating-thanks">Thanks for the feedback!</div>';
+  }, 600);
+  // ── GA4 Event: ai_output_rated ──
+  trackEvent('ai_output_rated', { tool: tool, rating: rating });
+}
+
+// Show rating bar for analysis tools after result renders
+function showAnalysisRating(tool) {
+  const wrap = document.getElementById('rating-' + tool + '-wrap');
+  if (wrap) wrap.style.display = 'block';
+}
+
+// ═══════ INPUT VALIDATION ═══════
 function looksLikeInjection(text) {
   if (!text || text.trim().length < 8) return false;
   const t = text.trim();
@@ -760,70 +919,41 @@ function looksLikeInjection(text) {
   );
 }
 
-// Field-context validators — each field type has a domain it belongs to
 const FIELD_CONTEXTS = {
   'job description': {
     minLen: 30,
-    hint: 'Paste the full job description text from the posting — job title, responsibilities, and requirements.',
-    // Must look like a job posting: has common JD signals
+    hint: 'Paste the full job description text from the posting.',
     validate: (t) => {
       const lo = t.toLowerCase();
       const signals = ['responsibilit','qualif','require','experience','skill','bachelor','year','team','role','position','job','employ','salary','benefit','apply','candidate'];
-      const hits = signals.filter(s => lo.includes(s)).length;
-      return hits >= 2; // at least 2 job-posting signals
+      return signals.filter(s => lo.includes(s)).length >= 2;
     },
     failMsg: "That doesn't look like a job description. Paste the full text from the job posting — including the responsibilities and requirements sections."
   },
-  'background': {
-    minLen: 20,
-    hint: 'Paste your resume or describe your work experience.',
-    validate: (t) => true, // background is flexible
-    failMsg: ''
-  },
-  'resume': {
-    minLen: 40,
-    hint: 'Paste your current resume text here.',
-    validate: (t) => true,
-    failMsg: ''
-  },
+  'background': { minLen: 20, hint: 'Paste your resume or describe your work experience.', validate: () => true, failMsg: '' },
+  'resume': { minLen: 40, hint: 'Paste your current resume text here.', validate: () => true, failMsg: '' },
   'experience': {
     minLen: 10,
-    hint: 'Describe what you actually did in this role — tasks, wins, responsibilities.',
-    validate: (t) => {
-      // Reject if it looks like a general question or command instead of experience notes
-      const lo = t.toLowerCase().trim();
-      const chatPatterns = /^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me|show me|explain)\b/i;
-      return !chatPatterns.test(lo);
-    },
-    failMsg: "This field is for your actual work experience — what you did, achieved, or handled in the role. Describe that and we'll transform it into great bullets."
+    hint: 'Describe what you actually did in this role.',
+    validate: (t) => !/^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me|show me|explain)\b/i.test(t.trim()),
+    failMsg: "This field is for your actual work experience — what you did, achieved, or handled in the role."
   },
   'skills': {
     minLen: 3,
-    hint: 'List your skills, e.g. Excel, communication, project management.',
-    validate: (t) => {
-      const lo = t.toLowerCase().trim();
-      const chatPatterns = /^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me)\b/i;
-      return !chatPatterns.test(lo);
-    },
-    failMsg: "Just list your skills here — e.g. Excel, leadership, customer service. We'll take it from there."
+    hint: 'List your skills.',
+    validate: (t) => !/^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me)\b/i.test(t.trim()),
+    failMsg: "Just list your skills here — e.g. Excel, leadership, customer service."
   }
 };
 
 function validateField(text, fieldName) {
-  if (!text || !text.trim()) return; // empty handled by required checks elsewhere
+  if (!text || !text.trim()) return;
   const t = text.trim();
-  // Always check injection first
-  if (looksLikeInjection(t)) {
-    throw new Error('That field expects your actual ' + fieldName.toLowerCase() + ', not instructions. Fill in your information and we\'ll handle the rest.');
-  }
+  if (looksLikeInjection(t)) throw new Error('That field expects your actual ' + fieldName.toLowerCase() + ', not instructions.');
   const ctx = FIELD_CONTEXTS[fieldName.toLowerCase()];
   if (!ctx) return;
-  // Min length check
-  if (t.length < ctx.minLen) return; // too short to validate domain
-  // Domain validation
-  if (!ctx.validate(t)) {
-    throw new Error(ctx.failMsg || ('Please enter your actual ' + fieldName.toLowerCase() + ' here. ' + ctx.hint));
-  }
+  if (t.length < ctx.minLen) return;
+  if (!ctx.validate(t)) throw new Error(ctx.failMsg || 'Please enter your actual ' + fieldName.toLowerCase() + ' here.');
 }
 
 // ═══════ OPEN / CLOSE ═══════
@@ -833,6 +963,8 @@ function openApp(t) {
   if (t) selTrack(t);
   if (!document.getElementById('expRows').children.length) addExp();
   _toolNames.forEach(syncUsageNote);
+  // ── GA4 Event: app_opened ──
+  trackEvent('app_opened', { track: t || 'default' });
 }
 function closeApp() { document.getElementById('modal').classList.remove('show'); document.body.style.overflow=''; }
 function handleOverlayClick(e) { if (e.target.id==='modal') closeApp(); }
@@ -860,34 +992,10 @@ function swBuildMethod(m) {
     document.getElementById('build-pane-'+x).classList.toggle('active',x===m);
   });
 }
-function swGapJd(m) {
-  gapJdMethod=m;
-  ['paste','link'].forEach(x=>{
-    document.getElementById('gjdm-'+x).classList.toggle('active',x===m);
-    document.getElementById('gjd-'+x).style.display=x===m?'block':'none';
-  });
-}
-function swGapBg(m) {
-  gapBgMethod=m;
-  ['paste','upload'].forEach(x=>{
-    document.getElementById('gbgm-'+x).classList.toggle('active',x===m);
-    document.getElementById('gbg-'+x).style.display=x===m?'block':'none';
-  });
-}
-function swJdMethod(tool,m) {
-  jdMethod[tool]=m;
-  ['paste','link'].forEach(x=>{
-    document.getElementById('jdm-'+tool+'-'+x).classList.toggle('active',x===m);
-    document.getElementById('jd-'+tool+'-'+x).style.display=x===m?'block':'none';
-  });
-}
-function swResMethod(tool,m) {
-  resMethod[tool]=m;
-  ['paste','upload'].forEach(x=>{
-    document.getElementById('rm-'+tool+'-'+x).classList.toggle('active',x===m);
-    document.getElementById('res-'+tool+'-'+x).style.display=x===m?'block':'none';
-  });
-}
+function swGapJd(m) { gapJdMethod=m; ['paste','link'].forEach(x=>{ document.getElementById('gjdm-'+x).classList.toggle('active',x===m); document.getElementById('gjd-'+x).style.display=x===m?'block':'none'; }); }
+function swGapBg(m) { gapBgMethod=m; ['paste','upload'].forEach(x=>{ document.getElementById('gbgm-'+x).classList.toggle('active',x===m); document.getElementById('gbg-'+x).style.display=x===m?'block':'none'; }); }
+function swJdMethod(tool,m) { jdMethod[tool]=m; ['paste','link'].forEach(x=>{ document.getElementById('jdm-'+tool+'-'+x).classList.toggle('active',x===m); document.getElementById('jd-'+tool+'-'+x).style.display=x===m?'block':'none'; }); }
+function swResMethod(tool,m) { resMethod[tool]=m; ['paste','upload'].forEach(x=>{ document.getElementById('rm-'+tool+'-'+x).classList.toggle('active',x===m); document.getElementById('res-'+tool+'-'+x).style.display=x===m?'block':'none'; }); }
 
 // ═══════ FILES ═══════
 function trigUp(t){document.getElementById('file-'+t).click();}
@@ -907,6 +1015,8 @@ async function readF(file, t, dzId) {
       const data = await resp.json();
       if (data.error) throw new Error(data.error);
       fileData[t] = data.text||'';
+      // ── GA4 Event: resume_uploaded ──
+      trackEvent('resume_uploaded', { tool: t, method: 'file', ext: ext });
       if (dz) { const ps=dz.querySelectorAll('p'); if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>'; if(ps[1])ps[1].textContent=Math.round(fileData[t].length/5)+' words extracted'; }
     } catch(err) {
       fileData[t]='';
@@ -914,7 +1024,11 @@ async function readF(file, t, dzId) {
     }
   } else {
     const r=new FileReader();
-    r.onload=ev=>{fileData[t]=ev.target.result||''; if(dz){const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent='Ready';}};
+    r.onload=ev=>{
+      fileData[t]=ev.target.result||'';
+      trackEvent('resume_uploaded', { tool: t, method: 'file', ext: ext });
+      if(dz){const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent='Ready';}
+    };
     r.readAsText(file);
   }
 }
@@ -933,20 +1047,14 @@ async function fetchUrl(url) {
   const d = await r.json();
   if (d.error) throw new Error(d.error);
   const text = d.text || '';
-  // Validate the fetched content actually looks like a job posting
-  if (text.length < 200) {
-    throw new Error("We couldn't read that page — it may require a login or be blocked. Please copy and paste the job description text directly.");
-  }
+  if (text.length < 200) throw new Error("We couldn't read that page — it may require a login. Please paste the job description text directly.");
   const lo = text.toLowerCase();
   const jobSignals = ['responsibilit','qualif','require','experience','skill','bachelor','year','salary','apply','candidate','team','position','job description','we are looking'];
-  const hits = jobSignals.filter(s => lo.includes(s)).length;
-  if (hits < 2) {
-    throw new Error("The page loaded, but it doesn't appear to contain a job description — it may be a login wall, redirect, or listing index. Please copy and paste the job description text directly.");
-  }
+  if (jobSignals.filter(s => lo.includes(s)).length < 2) throw new Error("The page loaded, but it doesn't appear to contain a job description. Please paste the text directly.");
   return text;
 }
 
-// ═══════ GET TEXTS (with validation) ═══════
+// ═══════ GET TEXTS ═══════
 async function getJdText(tool){
   if(jdMethod[tool]==='link'){const url=document.getElementById(tool==='tailor'?'t-jd-url':'s-jd-url')?.value;if(!url)throw new Error('Please paste a job posting URL.');return await fetchUrl(url);}
   const val=document.getElementById(tool==='tailor'?'t-jd':'s-jd')?.value||'';
@@ -966,8 +1074,6 @@ function getGapBgText(){
   if(gapBgMethod==='upload')return fileData['gap']||'';
   const val=document.getElementById('gap-bg')?.value||'';validateField(val,'background');return val;
 }
-
-// ★ UPDATED: getBuilderBg handles optional job posting URL
 async function getBuilderBg(){
   if(buildMethod==='upload'){
     if(!fileData['builder'])throw new Error("Drop your resume file in first — then we're good to go.");
@@ -997,28 +1103,24 @@ async function getBuilderBg(){
 // ═══════ PROMPTS ═══════
 const RESUME_RULES=`
 CRITICAL RULES:
-1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements. If a metric is missing, write the bullet without one — never fabricate. Use "(add your [detail] here)" as a placeholder where helpful.
-2. If information is too thin to build a section, ask for what's missing rather than guessing.
-3. Format: Name + contact (email and phone only — no address, age, photo, gender). Then Education (all degrees). Then Experience (most recent first). Then one of: Core Skills, Certifications, Languages, or Achievements. Skip Professional Summary. Keep Core Skills short — a few lines of keywords only.
-4. Dates on experience: always include month/year date ranges if provided (e.g. "Jun 2022 – Aug 2023"). If only year is given, use year only. Never invent dates.
-5. Dates on education: include graduation year ONLY for new grads (graduated within the last 2 years or still in progress). For candidates who graduated more than 2 years ago, omit the graduation year.
-6. One page. Prioritize experience relevant to the target role. Summarize or omit unrelated experience.
-7. No cover letter. Clean formatting, ATS-friendly. No graphics, no bright colors.
-8. Tone: warm, concise, lightly witty — like a recruiter friend who's rooting for them.
-9. ALWAYS close with a "Suggestions to make this even stronger:" section separated by dashes. Include 2-3 specific improvements, even for strong resumes. No resume is perfect.`;
+1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements.
+2. Format: Name + contact (email and phone only). Then Education. Then Experience (most recent first). Then Core Skills/Certs. Skip Professional Summary. Keep Core Skills short.
+3. Dates on education: include graduation year ONLY for new grads (last 2 years or in progress). Omit for older grads.
+4. One page. ATS-friendly. No graphics.
+5. ALWAYS close with "Suggestions to make this even stronger:" section with 2-3 specific improvements.`;
 
 async function getPrompt(tool){
   if(tool==='builder'){
     const bg=await getBuilderBg();
     const hasJob=bg.includes('Target job posting:');
-    const tailorNote=hasJob?'\nIMPORTANT: A specific job posting was provided. Mirror its keywords and language. Prioritize experiences most relevant to that exact role.':'';
-    return 'You are an expert resume writer and senior recruiter with 10+ years at Fortune 500 companies. Build a complete, polished resume.\n'+RESUME_RULES+tailorNote+'\n\nBackground:\n'+bg+'\n\nReturn ONLY the formatted resume followed by the suggestions section. No other commentary.';
+    const tailorNote=hasJob?'\nIMPORTANT: A specific job posting was provided. Mirror its keywords and language.':'';
+    return 'You are an expert resume writer and senior recruiter with 10+ years at Fortune 500 companies. Build a complete, polished resume.\n'+RESUME_RULES+tailorNote+'\n\nBackground:\n'+bg+'\n\nReturn ONLY the formatted resume followed by the suggestions section.';
   }
   if(tool==='gaps'){
     const jd=await getGapJdText();const bg=getGapBgText();
-    if(!jd)throw new Error("We need the job description — paste it or drop the link and we'll get to work.");
+    if(!jd)throw new Error("We need the job description — paste it or drop the link.");
     if(!bg)throw new Error("Your background is missing — paste it in or upload your resume.");
-    return 'You are a senior talent acquisition manager doing a precise, honest gap analysis. Return ONLY valid JSON — no markdown, no commentary, no code fences.\n\nJob description:\n'+jd+'\n\nCandidate background:\n'+bg+'\n\nReturn this exact JSON shape:\n{\n  "score": <integer 0-100>,\n  "verdict": "<4-8 word punchy verdict>",\n  "summary": "<2 sentences: honest and warm>",\n  "strengths": ["<strength 1>","<strength 2>","<strength 3 if warranted>"],\n  "gaps": [\n    {"text": "<gap>", "priority": "high"|"medium"|"low"}\n  ],\n  "actions": ["<action 1>","<action 2>","<action 3>"],\n  "improvements": ["<improvement even if score is high>","<improvement 2>"],\n  "recruiter_take": "<1 honest paragraph. Include at least one improvement even if strong.>"\n}\n\nBase everything strictly on what was provided. No invented facts.';
+    return 'You are a senior talent acquisition manager doing a precise, honest gap analysis. Return ONLY valid JSON — no markdown, no commentary.\n\nJob description:\n'+jd+'\n\nCandidate background:\n'+bg+'\n\nReturn this exact JSON shape:\n{\n  "score": <integer 0-100>,\n  "verdict": "<4-8 word punchy verdict>",\n  "summary": "<2 sentences: honest and warm>",\n  "strengths": ["<strength 1>","<strength 2>","<strength 3 if warranted>"],\n  "gaps": [\n    {"text": "<gap>", "priority": "high"|"medium"|"low"}\n  ],\n  "actions": ["<action 1>","<action 2>","<action 3>"],\n  "improvements": ["<improvement 1>","<improvement 2>"],\n  "recruiter_take": "<1 honest paragraph>"\n}\n\nBase everything strictly on what was provided.';
   }
   if(tool==='impact'){
     const rows=document.querySelectorAll('.exprow');
@@ -1033,25 +1135,25 @@ async function getPrompt(tool){
       validateField(d,'experience notes');
       if(t2||d) expText+='\nRole '+(i+1)+': '+t2+' at '+c+(dt?' ('+dt+')':'')+'\nNotes: '+d+'\n';
     });
-    if(!expText.trim())throw new Error("Fill in at least one experience — title, company, and what you did — and we'll do the rest.");
-    return 'You are an expert resume writer. Transform rough notes into achievement-first bullets.\nCRITICAL: Use ONLY what\'s provided. If a metric would help but isn\'t given, use "(add your number)" as placeholder. Never fabricate.\n3-5 bullets per role. Strong action verb. Show impact, not task. No "responsible for".\n\nAt the end, add: "---\n💡 Tips to make these even stronger:" with 2 specific suggestions.\n\nTarget role: '+(document.getElementById('imp-role')?.value||'')+'\nIndustry: '+(document.getElementById('imp-ind')?.value||'')+'\nExperiences:'+expText+'\n\nReturn ONLY the formatted bullets grouped by role, followed by the tips section.';
+    if(!expText.trim())throw new Error("Fill in at least one experience — title, company, and what you did.");
+    return 'You are an expert resume writer. Transform rough notes into achievement-first bullets.\nCRITICAL: Use ONLY what\'s provided. 3-5 bullets per role. Strong action verb. Show impact.\n\nAt the end, add: "---\n💡 Tips to make these even stronger:" with 2 specific suggestions.\n\nTarget role: '+(document.getElementById('imp-role')?.value||'')+'\nIndustry: '+(document.getElementById('imp-ind')?.value||'')+'\nExperiences:'+expText+'\n\nReturn ONLY the formatted bullets grouped by role, followed by the tips section.';
   }
   if(tool==='tailor'){
     const jd=await getJdText('tailor');const resume=getResText('tailor');
     if(!jd)throw new Error("We need the job description — paste it or drop the link.");
-    if(!resume)throw new Error("Your resume is missing — paste it, upload a file, or share your profile link.");
+    if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");
     return 'You are a senior TA manager rewriting a resume to be laser-targeted to this role.\n'+RESUME_RULES+'\nMirror exact keywords from the JD. Reorder so most relevant experience comes first.\n\nJob description:\n'+jd+'\n\nCurrent resume:\n'+resume+'\n\nReturn ONLY the tailored resume followed by the suggestions section.';
   }
   if(tool==='scanner'){
     const jd=await getJdText('scanner');const resume=getResText('scanner');
     if(!jd)throw new Error("We need the job description — paste it or drop the link.");
     if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");
-    return 'You are acting as both an ATS system and a senior recruiter evaluating a resume against a job description. Return ONLY valid JSON — no markdown, no commentary, no code fences.\n\nJob description:\n'+jd+'\n\nResume:\n'+resume+'\n\nReturn this exact JSON shape:\n{\n  "score": <integer 0-100>,\n  "verdict": "<4-8 word punchy verdict>",\n  "summary": "<2 sentences: why this score. Specific.>",\n  "keywords_present": ["<keyword1>","<keyword2>"],\n  "keywords_missing": ["<keyword1>","<keyword2>"],\n  "edits": [\n    {"label": "<what to change>", "before": "<phrase or \'missing\'>", "after": "<improved>"}\n  ],\n  "improvements": ["<general improvement even if score is high>","<improvement 2>"],\n  "recruiter_take": "<1 honest paragraph. Name at least one thing to improve even if strong.>"\n}\n\nBase score strictly on resume vs JD content. No assumptions.';
+    return 'You are acting as both an ATS system and a senior recruiter. Return ONLY valid JSON.\n\nJob description:\n'+jd+'\n\nResume:\n'+resume+'\n\nReturn this exact JSON shape:\n{\n  "score": <integer 0-100>,\n  "verdict": "<4-8 word punchy verdict>",\n  "summary": "<2 sentences>",\n  "keywords_present": ["<keyword1>"],\n  "keywords_missing": ["<keyword1>"],\n  "edits": [\n    {"label": "<what to change>", "before": "<phrase>", "after": "<improved>"}\n  ],\n  "improvements": ["<improvement 1>","<improvement 2>"],\n  "recruiter_take": "<1 honest paragraph>"\n}';
   }
   throw new Error('Unknown tool');
 }
 
-// ═══════ RUN (builder, impact, tailor) ═══════
+// ═══════ RUN ═══════
 async function run(tool){
   if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";err.style.display='block';return;}
   const btn=document.getElementById('run-'+tool);
@@ -1064,6 +1166,8 @@ async function run(tool){
   let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
   btn.disabled=true;btnSpan.textContent='Analyzing — hang tight (~15 sec)…';
   resDiv.classList.add('show');outDiv.classList.add('loading');outDiv.textContent='Building your resume…';
+  // ── GA4 Event: ai_output_generated ──
+  trackEvent('ai_output_generated', { feature: tool });
   try{
     const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
     const data=await resp.json();
@@ -1073,6 +1177,7 @@ async function run(tool){
     outDiv.classList.remove('loading');outDiv.textContent=text;
     resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
     await incToolCount(tool);syncUsageNote(tool);
+    checkWtpTrigger();
   }catch(e){
     outDiv.classList.remove('loading');resDiv.classList.remove('show');
     errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';
@@ -1083,7 +1188,7 @@ async function run(tool){
   }
 }
 
-// ═══════ RUN ANALYSIS (gaps, scanner) ═══════
+// ═══════ RUN ANALYSIS ═══════
 async function runAnalysis(tool){
   if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";err.style.display='block';return;}
   const btn=document.getElementById('run-'+tool);const btnSpan=btn.querySelector('span');
@@ -1092,6 +1197,8 @@ async function runAnalysis(tool){
   let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
   btn.disabled=true;btnSpan.textContent=tool==='gaps'?'Analyzing your gaps…':'Scanning your fit…';
   resDiv.style.display='none';resDiv.innerHTML='';
+  // ── GA4 Event: ai_output_generated ──
+  trackEvent('ai_output_generated', { feature: tool });
   try{
     const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
     const data=await resp.json();
@@ -1100,7 +1207,9 @@ async function runAnalysis(tool){
     let parsed;try{parsed=JSON.parse(raw);}catch{throw new Error('Could not parse result. Please try again.');}
     if(tool==='gaps')resDiv.innerHTML=renderGaps(parsed);else resDiv.innerHTML=renderScanner(parsed);
     resDiv.style.display='block';resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
+    showAnalysisRating(tool);
     await incToolCount(tool);syncUsageNote(tool);
+    checkWtpTrigger();
   }catch(e){errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';}
   finally{btn.disabled=toolLeft(tool)<=0;btnSpan.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';}
 }
@@ -1124,7 +1233,7 @@ function renderGaps(d){
   if(d.actions?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon blue">→</div><span class="an-section-title">3 moves to make now</span></div><div class="an-section-body">'+d.actions.map((a,i)=>'<div class="action-item"><div class="action-num">'+(i+1)+'</div><div class="action-text">'+esc2(a)+'</div></div>').join('')+'</div></div>';
   if(d.improvements?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">✦</div><span class="an-section-title">Suggestions to improve further</span></div><div class="an-section-body">'+d.improvements.map(s=>'<div class="strength-item"><div class="strength-dot" style="background:#d97706"></div><div>'+esc2(s)+'</div></div>').join('')+'</div></div>';
   if(d.recruiter_take) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter\'s honest take</span></div><div class="an-section-body"><div class="recruiter-take">'+esc2(d.recruiter_take)+'</div></div></div>';
-  const plain='ATS MATCH SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.strengths?.length?'STRENGTHS\n'+d.strengths.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.gaps?.length?'GAPS\n'+d.gaps.map(g=>'['+((g.priority||'').toUpperCase())+'] '+(g.text||g)).join('\n')+'\n\n':'')+(d.actions?.length?'3 MOVES\n'+d.actions.map((a,i)=>(i+1)+'. '+a).join('\n')+'\n\n':'')+(d.improvements?.length?'IMPROVEMENTS\n'+d.improvements.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
+  const plain='ATS MATCH SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.strengths?.length?'STRENGTHS\n'+d.strengths.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.gaps?.length?'GAPS\n'+d.gaps.map(g=>'['+((g.priority||'').toUpperCase())+'] '+(g.text||g)).join('\n')+'\n\n':'')+(d.actions?.length?'3 MOVES\n'+d.actions.map((a,i)=>(i+1)+'. '+a).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
   html+='<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,\''+btoa(encodeURIComponent(plain))+'\')">Copy results</button></div></div>';
   return html;
 }
@@ -1138,7 +1247,7 @@ function renderScanner(d){
   if(d.edits?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon blue">✏</div><span class="an-section-title">Exact edits to make</span></div><div class="an-section-body">'+d.edits.map(e=>'<div class="edit-item"><div class="edit-label">'+esc2(e.label||'Change')+'</div><div class="edit-before">'+esc2(e.before||'')+'</div><div class="edit-after">→ '+esc2(e.after||'')+'</div></div>').join('')+'</div></div>';
   if(d.improvements?.length) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">✦</div><span class="an-section-title">Suggestions to improve further</span></div><div class="an-section-body">'+d.improvements.map(s=>'<div class="strength-item"><div class="strength-dot" style="background:#d97706"></div><div>'+esc2(s)+'</div></div>').join('')+'</div></div>';
   if(d.recruiter_take) html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter\'s take</span></div><div class="an-section-body"><div class="recruiter-take">'+esc2(d.recruiter_take)+'</div></div></div>';
-  const plain='ATS SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.keywords_present?.length?'FOUND: '+d.keywords_present.join(', ')+'\n\n':'')+(d.keywords_missing?.length?'MISSING: '+d.keywords_missing.join(', ')+'\n\n':'')+(d.edits?.length?'EDITS:\n'+d.edits.map(e=>e.label+': "'+e.before+'" → "'+e.after+'"').join('\n')+'\n\n':'')+(d.improvements?.length?'IMPROVEMENTS:\n'+d.improvements.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
+  const plain='ATS SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.keywords_present?.length?'FOUND: '+d.keywords_present.join(', ')+'\n\n':'')+(d.keywords_missing?.length?'MISSING: '+d.keywords_missing.join(', ')+'\n\n':'')+(d.edits?.length?'EDITS:\n'+d.edits.map(e=>e.label+': "'+e.before+'" → "'+e.after+'"').join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
   html+='<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,\''+btoa(encodeURIComponent(plain))+'\')">Copy results</button></div></div>';
   return html;
 }
@@ -1173,7 +1282,7 @@ function renderLetter(text){
     if(!line){html+='<div style="height:6px"></div>';continue;}
     const clean=line.replace(/\*\*/g,'');
     if(!firstDone&&clean.length<70&&!clean.includes('@')){html+='<div style="text-align:center;font-size:15pt;font-weight:bold;margin-bottom:2px;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';firstDone=true;continue;}
-    if(firstDone&&!contactDone&&i<6&&(clean.includes('@')||/\d{3}[-.\\s]\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){html+='<div style="text-align:center;font-size:10pt;color:#444;margin-bottom:14px;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';continue;}
+    if(firstDone&&!contactDone&&i<6&&(clean.includes('@')||/\d{3}[-.\s]\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){html+='<div style="text-align:center;font-size:10pt;color:#444;margin-bottom:14px;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';continue;}
     if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){contactDone=true;html+='<div style="font-size:11pt;font-weight:bold;font-family:\'Times New Roman\',serif;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #333;padding-bottom:2px;margin:16px 0 6px">'+esc(clean.replace(/\*\*/g,''))+'</div>';continue;}
     if(clean.startsWith('- ')||clean.startsWith('• ')){html+='<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">• '+esc(clean.replace(/^[-•]\s*/,''))+'</div>';continue;}
     if(clean.match(/^\d+\.\s/)){html+='<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">'+esc(clean)+'</div>';continue;}
@@ -1191,6 +1300,8 @@ function rpCopy(){
 async function rpDownloadDocx(){
   if(dlLeft()<=0){alert("You've used your 3 free downloads. Upgrade to Pro for unlimited.");return;}
   const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
+  // ── GA4 Event: resume_downloaded_or_saved ──
+  trackEvent('resume_downloaded_or_saved', { format: 'docx', tool: rpTool });
   try{
     const {Document,Packer,Paragraph,TextRun,HeadingLevel,AlignmentType}=docx;
     const lines=text.split('\n');const children=[];
@@ -1213,6 +1324,8 @@ async function rpDownloadDocx(){
 async function rpOpenGdocs(){
   if(dlLeft()<=0){alert("You've used your 3 free downloads. Upgrade to Pro for unlimited.");return;}
   const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
+  // ── GA4 Event: resume_downloaded_or_saved ──
+  trackEvent('resume_downloaded_or_saved', { format: 'gdocs', tool: rpTool });
   const win=window.open('','_blank');
   win.document.write('<!DOCTYPE html><html><head><title>Open in Google Docs — Landedd</title><style>body{font-family:\'Times New Roman\',serif;max-width:760px;margin:40px auto;padding:0 40px;font-size:12pt;line-height:1.65;color:#1a1a1a}.bar{background:#f0faf4;border:1px solid #d8f3dc;border-radius:8px;padding:16px 20px;margin-bottom:28px;font-family:sans-serif;font-size:13px}.bar h3{font-size:15px;font-weight:700;color:#2d6a4f;margin:0 0 8px}ol{margin:0;padding-left:20px;color:#444;line-height:1.9}.btn{background:#4285f4;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:10px}pre{white-space:pre-wrap;font-size:12pt}</style></head><body><div class="bar"><h3>Open in Google Docs — 3 steps</h3><ol><li>Click <strong>Select all text</strong> below → copy (Ctrl+C / Cmd+C)</li><li><a href="https://docs.google.com/document/create" target="_blank" style="color:#4285f4;font-weight:600">Open a new Google Doc</a></li><li>Paste (Ctrl+V / Cmd+V) — then format as needed</li></ol><button class="btn" onclick="sel()">Select all text</button></div><pre id="rt">'+text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre><script>function sel(){const e=document.getElementById(\'rt\');const r=document.createRange();r.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}<\/script></body></html>');
   win.document.close();await incDl();syncDlBadge();
@@ -1225,13 +1338,8 @@ function setStar(v) {
   fbRating = v;
   document.querySelectorAll('.star-btn').forEach(function(b) {
     var val = parseInt(b.dataset.v);
-    if (val <= v) {
-      b.classList.add('sel');
-      b.textContent = '★';
-    } else {
-      b.classList.remove('sel');
-      b.textContent = b.dataset.v;
-    }
+    if (val <= v) { b.classList.add('sel'); b.textContent = '★'; }
+    else { b.classList.remove('sel'); b.textContent = b.dataset.v; }
   });
 }
 
@@ -1241,12 +1349,8 @@ async function submitFeedback() {
   var tool = document.getElementById('fb-tool').value;
   var btn = document.getElementById('fbBtn');
   var okDiv = document.getElementById('fb-ok');
-
   if (!msg) { alert('Please write some feedback before sending.'); return; }
-
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-
+  btn.disabled = true; btn.textContent = 'Sending…';
   try {
     var resp = await fetch('/api/feedback', {
       method: 'POST',
@@ -1254,24 +1358,28 @@ async function submitFeedback() {
       body: JSON.stringify({ type: 'feedback', message: msg, email: email, rating: fbRating || null, tool: tool, source: 'feedback-section' })
     });
     var data = await resp.json();
-    if (!resp.ok || data.error) {
-      throw new Error(data.error || 'Server error ' + resp.status);
-    }
-    okDiv.style.display = 'block';
-    btn.style.display = 'none';
+    if (!resp.ok || data.error) throw new Error(data.error || 'Server error ' + resp.status);
+    okDiv.style.display = 'block'; btn.style.display = 'none';
+    // ── GA4 Event: feedback_submitted ──
+    trackEvent('feedback_submitted', { rating: fbRating, tool: tool });
   } catch(err) {
-    btn.disabled = false;
-    btn.textContent = 'Send feedback';
+    btn.disabled = false; btn.textContent = 'Send feedback';
     alert('Could not send right now — ' + (err.message || 'please try again') + '. You can also email us at hello@landedd.com');
   }
 }
 
-// INIT — load usage counts from server, then sync UI
+// INIT
 const _toolNames = ['builder','gaps','impact','tailor','scanner'];
 loadUsage().then(() => {
   syncDlBadge();
   _toolNames.forEach(syncUsageNote);
 });
+
+// ── GA4 Event: user_signed_up (fired on first-ever page load — proxy for new user) ──
+if (!localStorage.getItem('_ldVisited')) {
+  localStorage.setItem('_ldVisited', '1');
+  trackEvent('user_signed_up', { source: 'organic' });
+}
 </script>
 
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
