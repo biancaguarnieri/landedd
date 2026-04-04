@@ -1210,7 +1210,7 @@ async function rpDownloadDocx(){
   }catch(e){alert('Download failed — use "Copy text" and paste into Word or Google Docs.');}
 }
 
-function rpOpenGdocs(){
+async function rpOpenGdocs(){
   if(dlLeft()<=0){alert("You've used your 3 free downloads. Upgrade to Pro for unlimited.");return;}
   const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
   const win=window.open('','_blank');
