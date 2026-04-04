@@ -1406,103 +1406,7 @@ async function rpOpenGdocs(){
   trackEvent('resume_downloaded_or_saved', { format: 'gdocs', tool: rpTool });
   const win=window.open('','_blank');
   win.document.write('<!DOCTYPE html><html><head><title>Open in Google Docs — Landedd</title><style>body{font-family:\'Times New Roman\',serif;max-width:760px;margin:40px auto;padding:0 40px;font-size:12pt;line-height:1.65;color:#1a1a1a}.bar{background:#f0faf4;border:1px solid #d8f3dc;border-radius:8px;padding:16px 20px;margin-bottom:28px;font-family:sans-serif;font-size:13px}.bar h3{font-size:15px;font-weight:700;color:#2d6a4f;margin:0 0 8px}ol{margin:0;padding-left:20px;color:#444;line-height:1.9}.btn{background:#4285f4;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:10px}pre{white-space:pre-wrap;font-size:12pt}</style></head><body><div class="bar"><h3>Open in Google Docs — 3 steps</h3><ol><li>Click <strong>Select all text</strong> below → copy (Ctrl+C / Cmd+C)</li><li><a href="https://docs.google.com/document/create" target="_blank" style="color:#4285f4;font-weight:600">Open a new Google Doc</a></li><li>Paste (Ctrl+V / Cmd+V) — then format as needed</li></ol><button class="btn" onclick="sel()">Select all text</button></div><pre id="rt">'+text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre><script>function sel(){const e=document.getElementById(\'rt\');const r=document.createRange();r.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}<\/script>
-<!-- DASHBOARD SCREEN -->
-<div id="dashScreen">
-  <div id="dashLoginWrap" class="dsh-login">
-    <div class="dsh-login-card">
-      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px">
-        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
-        <span style="font-weight:800;font-size:1rem">Landedd</span>
-      </div>
-      <div class="dsh-login-title">Pilot dashboard</div>
-      <div class="dsh-login-sub">Private access only</div>
-      <input class="dsh-pw-input" type="password" id="dashPwInput" placeholder="Enter dashboard password" onkeydown="if(event.key==='Enter')dashLogin()"/>
-      <button class="dsh-pw-btn" onclick="dashLogin()">Access dashboard</button>
-      <div class="dsh-pw-err" id="dashPwErr">Incorrect password. Try again.</div>
-    </div>
-  </div>
-  <div id="dashContent" style="display:none">
-    <div class="dsh-hdr">
-      <div class="dsh-logo" onclick="closeDash()">
-        <div class="logo-mark" style="width:24px;height:24px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
-        Pilot dashboard
-      </div>
-      <div class="dsh-right">
-        <div class="live-pill"><div class="live-dot"></div>Live</div>
-        <span class="dsh-upd" id="dshUpd">Loading…</span>
-        <button class="dsh-btn" onclick="dshLoad()">Refresh</button>
-        <button class="dsh-btn" onclick="dashLogout()">Sign out</button>
-      </div>
-    </div>
-    <div class="dsh-main">
-      <div class="dsh-demo-note" id="dshDemoNote">No live data yet — data populates automatically as pilot users interact with Landedd.</div>
-      <div style="margin-bottom:14px">
-        <div class="dsh-sec">Launch readiness thermometer</div>
-        <div class="thermo-card">
-          <div class="thermo-inner">
-            <svg width="110" height="110" viewBox="0 0 110 110">
-              <circle cx="55" cy="55" r="42" fill="none" stroke="#e8e8e8" stroke-width="10"/>
-              <circle id="dshArc" cx="55" cy="55" r="42" fill="none" stroke="#2d6a4f" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 264" transform="rotate(-90 55 55)" style="transition:stroke-dasharray 1.3s cubic-bezier(.4,0,.2,1),stroke .5s"/>
-              <text id="dshScore" x="55" y="51" text-anchor="middle" font-size="26" font-weight="800" fill="#1a1a1a">0</text>
-              <text x="55" y="68" text-anchor="middle" font-size="10" fill="#888">/ 100</text>
-            </svg>
-            <div class="th-right">
-              <div class="th-verdict" id="dshVerdict">Awaiting data</div>
-              <div class="th-sub" id="dshVerdictSub">Data populates automatically as pilot users interact.</div>
-              <div class="tbars">
-                <div class="tbar-r"><div class="tbar-lbl">AI satisfaction</div><div class="tbar-track"><div class="tbar-fill" id="dtb-sat" style="width:0%;background:#2d6a4f"></div></div><div class="tbar-val" id="dtbv-sat">0%</div><div class="tbar-tgt">target 70%</div></div>
-                <div class="tbar-r"><div class="tbar-lbl">WTP paid tier</div><div class="tbar-track"><div class="tbar-fill" id="dtb-wtp" style="width:0%;background:#378add"></div></div><div class="tbar-val" id="dtbv-wtp">0%</div><div class="tbar-tgt">target 30%</div></div>
-                <div class="tbar-r"><div class="tbar-lbl">User target</div><div class="tbar-track"><div class="tbar-fill" id="dtb-users" style="width:0%;background:#ef9f27"></div></div><div class="tbar-val" id="dtbv-users">0</div><div class="tbar-tgt">target 20</div></div>
-                <div class="tbar-r"><div class="tbar-lbl">Feedback rating</div><div class="tbar-track"><div class="tbar-fill" id="dtb-fb" style="width:0%;background:#afa9ec"></div></div><div class="tbar-val" id="dtbv-fb">—</div><div class="tbar-tgt">target 4/5</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="margin-bottom:14px">
-        <div class="dsh-sec">Core metrics</div>
-        <div class="kpi-grid">
-          <div class="kpi-c"><div class="kpi-lbl">Total users</div><div class="kpi-v" id="dkpi-users">0</div><div class="kpi-s s-muted" id="dks-users">target: 20–30</div></div>
-          <div class="kpi-c"><div class="kpi-lbl">Sessions</div><div class="kpi-v" id="dkpi-sessions">0</div><div class="kpi-s s-muted" id="dks-sessions">—</div></div>
-          <div class="kpi-c"><div class="kpi-lbl">AI runs</div><div class="kpi-v" id="dkpi-runs">0</div><div class="kpi-s s-muted">—</div></div>
-          <div class="kpi-c"><div class="kpi-lbl">Downloads</div><div class="kpi-v" id="dkpi-dl">0</div><div class="kpi-s s-muted">—</div></div>
-          <div class="kpi-c"><div class="kpi-lbl">AI satisfaction</div><div class="kpi-v" id="dkpi-sat">—</div><div class="kpi-s s-muted" id="dks-sat">no ratings yet</div></div>
-          <div class="kpi-c"><div class="kpi-lbl">Feedback score</div><div class="kpi-v" id="dkpi-fb">—</div><div class="kpi-s s-muted" id="dks-fb">/ 5 stars</div></div>
-        </div>
-      </div>
-      <div class="two-col-d">
-        <div class="dsh-card">
-          <div class="dsh-card-title">Tool usage</div>
-          <div style="position:relative;height:180px"><canvas id="dshToolChart"></canvas></div>
-        </div>
-        <div class="dsh-card">
-          <div class="dsh-card-title">Willingness to pay</div>
-          <div class="wtp-r"><div class="wtp-l">Free only</div><div class="wtp-t"><div class="wtp-f" id="dwf-free" style="width:0%;background:#b4b2a9;color:#2c2c2a"></div></div><div class="wtp-p" id="dwp-free">0%</div></div>
-          <div class="wtp-r"><div class="wtp-l">Basic $7/mo</div><div class="wtp-t"><div class="wtp-f" id="dwf-basic" style="width:0%;background:#85b7eb;color:#042c53"></div></div><div class="wtp-p" id="dwp-basic">0%</div></div>
-          <div class="wtp-r"><div class="wtp-l">Pro $15/mo</div><div class="wtp-t"><div class="wtp-f" id="dwf-pro" style="width:0%;background:#5dcaa5;color:#04342c"></div></div><div class="wtp-p" id="dwp-pro">0%</div></div>
-          <div class="wtp-r"><div class="wtp-l">Pay more</div><div class="wtp-t"><div class="wtp-f" id="dwf-more" style="width:0%;background:#97c459;color:#173404"></div></div><div class="wtp-p" id="dwp-more">0%</div></div>
-          <div class="sig-box">
-            <div class="sig-lbl">Profitability signal</div>
-            <div class="sig-val s-muted" id="dshSig">—</div>
-          </div>
-        </div>
-      </div>
-      <div style="margin-bottom:14px">
-        <div class="dsh-sec">Weekly trend</div>
-        <div class="dsh-card">
-          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px;font-size:.7rem;color:#4a4a4a">
-            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#2d6a4f;display:inline-block"></span>AI runs</span>
-            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#378add;display:inline-block"></span>Sessions</span>
-            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#ef9f27;display:inline-block"></span>New users</span>
-          </div>
-          <div style="position:relative;height:180px"><canvas id="dshTrendChart"></canvas></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-</body></html>');
   win.document.close();await incDl();syncDlBadge();
 }
 
@@ -1719,6 +1623,103 @@ if(window.location.search.includes('dashboard') || window.location.pathname.incl
 
 </script>
 
+<!-- DASHBOARD SCREEN -->
+<div id="dashScreen">
+  <div id="dashLoginWrap" class="dsh-login">
+    <div class="dsh-login-card">
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px">
+        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
+        <span style="font-weight:800;font-size:1rem">Landedd</span>
+      </div>
+      <div class="dsh-login-title">Pilot dashboard</div>
+      <div class="dsh-login-sub">Private access only</div>
+      <input class="dsh-pw-input" type="password" id="dashPwInput" placeholder="Enter dashboard password" onkeydown="if(event.key==='Enter')dashLogin()"/>
+      <button class="dsh-pw-btn" onclick="dashLogin()">Access dashboard</button>
+      <div class="dsh-pw-err" id="dashPwErr">Incorrect password. Try again.</div>
+    </div>
+  </div>
+  <div id="dashContent" style="display:none">
+    <div class="dsh-hdr">
+      <div class="dsh-logo" onclick="closeDash()">
+        <div class="logo-mark" style="width:24px;height:24px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
+        Pilot dashboard
+      </div>
+      <div class="dsh-right">
+        <div class="live-pill"><div class="live-dot"></div>Live</div>
+        <span class="dsh-upd" id="dshUpd">Loading…</span>
+        <button class="dsh-btn" onclick="dshLoad()">Refresh</button>
+        <button class="dsh-btn" onclick="dashLogout()">Sign out</button>
+      </div>
+    </div>
+    <div class="dsh-main">
+      <div class="dsh-demo-note" id="dshDemoNote">No live data yet — data populates automatically as pilot users interact with Landedd.</div>
+      <div style="margin-bottom:14px">
+        <div class="dsh-sec">Launch readiness thermometer</div>
+        <div class="thermo-card">
+          <div class="thermo-inner">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#e8e8e8" stroke-width="10"/>
+              <circle id="dshArc" cx="55" cy="55" r="42" fill="none" stroke="#2d6a4f" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 264" transform="rotate(-90 55 55)" style="transition:stroke-dasharray 1.3s cubic-bezier(.4,0,.2,1),stroke .5s"/>
+              <text id="dshScore" x="55" y="51" text-anchor="middle" font-size="26" font-weight="800" fill="#1a1a1a">0</text>
+              <text x="55" y="68" text-anchor="middle" font-size="10" fill="#888">/ 100</text>
+            </svg>
+            <div class="th-right">
+              <div class="th-verdict" id="dshVerdict">Awaiting data</div>
+              <div class="th-sub" id="dshVerdictSub">Data populates automatically as pilot users interact.</div>
+              <div class="tbars">
+                <div class="tbar-r"><div class="tbar-lbl">AI satisfaction</div><div class="tbar-track"><div class="tbar-fill" id="dtb-sat" style="width:0%;background:#2d6a4f"></div></div><div class="tbar-val" id="dtbv-sat">0%</div><div class="tbar-tgt">target 70%</div></div>
+                <div class="tbar-r"><div class="tbar-lbl">WTP paid tier</div><div class="tbar-track"><div class="tbar-fill" id="dtb-wtp" style="width:0%;background:#378add"></div></div><div class="tbar-val" id="dtbv-wtp">0%</div><div class="tbar-tgt">target 30%</div></div>
+                <div class="tbar-r"><div class="tbar-lbl">User target</div><div class="tbar-track"><div class="tbar-fill" id="dtb-users" style="width:0%;background:#ef9f27"></div></div><div class="tbar-val" id="dtbv-users">0</div><div class="tbar-tgt">target 20</div></div>
+                <div class="tbar-r"><div class="tbar-lbl">Feedback rating</div><div class="tbar-track"><div class="tbar-fill" id="dtb-fb" style="width:0%;background:#afa9ec"></div></div><div class="tbar-val" id="dtbv-fb">—</div><div class="tbar-tgt">target 4/5</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div class="dsh-sec">Core metrics</div>
+        <div class="kpi-grid">
+          <div class="kpi-c"><div class="kpi-lbl">Total users</div><div class="kpi-v" id="dkpi-users">0</div><div class="kpi-s s-muted" id="dks-users">target: 20–30</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">Sessions</div><div class="kpi-v" id="dkpi-sessions">0</div><div class="kpi-s s-muted" id="dks-sessions">—</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">AI runs</div><div class="kpi-v" id="dkpi-runs">0</div><div class="kpi-s s-muted">—</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">Downloads</div><div class="kpi-v" id="dkpi-dl">0</div><div class="kpi-s s-muted">—</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">AI satisfaction</div><div class="kpi-v" id="dkpi-sat">—</div><div class="kpi-s s-muted" id="dks-sat">no ratings yet</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">Feedback score</div><div class="kpi-v" id="dkpi-fb">—</div><div class="kpi-s s-muted" id="dks-fb">/ 5 stars</div></div>
+        </div>
+      </div>
+      <div class="two-col-d">
+        <div class="dsh-card">
+          <div class="dsh-card-title">Tool usage</div>
+          <div style="position:relative;height:180px"><canvas id="dshToolChart"></canvas></div>
+        </div>
+        <div class="dsh-card">
+          <div class="dsh-card-title">Willingness to pay</div>
+          <div class="wtp-r"><div class="wtp-l">Free only</div><div class="wtp-t"><div class="wtp-f" id="dwf-free" style="width:0%;background:#b4b2a9;color:#2c2c2a"></div></div><div class="wtp-p" id="dwp-free">0%</div></div>
+          <div class="wtp-r"><div class="wtp-l">Basic $7/mo</div><div class="wtp-t"><div class="wtp-f" id="dwf-basic" style="width:0%;background:#85b7eb;color:#042c53"></div></div><div class="wtp-p" id="dwp-basic">0%</div></div>
+          <div class="wtp-r"><div class="wtp-l">Pro $15/mo</div><div class="wtp-t"><div class="wtp-f" id="dwf-pro" style="width:0%;background:#5dcaa5;color:#04342c"></div></div><div class="wtp-p" id="dwp-pro">0%</div></div>
+          <div class="wtp-r"><div class="wtp-l">Pay more</div><div class="wtp-t"><div class="wtp-f" id="dwf-more" style="width:0%;background:#97c459;color:#173404"></div></div><div class="wtp-p" id="dwp-more">0%</div></div>
+          <div class="sig-box">
+            <div class="sig-lbl">Profitability signal</div>
+            <div class="sig-val s-muted" id="dshSig">—</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div class="dsh-sec">Weekly trend</div>
+        <div class="dsh-card">
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px;font-size:.7rem;color:#4a4a4a">
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#2d6a4f;display:inline-block"></span>AI runs</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#378add;display:inline-block"></span>Sessions</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#ef9f27;display:inline-block"></span>New users</span>
+          </div>
+          <div style="position:relative;height:180px"><canvas id="dshTrendChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
 </body>
 </html>
