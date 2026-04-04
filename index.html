@@ -302,6 +302,66 @@
     .wtp-skip{font-size:.76rem;color:var(--text3);cursor:pointer;text-decoration:underline;text-align:center}
     .wtp-skip:hover{color:var(--green)}
     .wtp-thanks{text-align:center;padding:10px 0;font-size:.9rem;color:var(--green);font-weight:600}
+
+    /* ── DASHBOARD ── */
+    #dashScreen{display:none;position:fixed;inset:0;z-index:500;background:#f7f7f5;overflow-y:auto}
+    .dsh-hdr{background:#fff;border-bottom:1px solid #e8e8e8;padding:12px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+    .dsh-logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:.95rem;color:#1a1a1a;text-decoration:none;cursor:pointer}
+    .dsh-right{display:flex;align-items:center;gap:10px}
+    .live-pill{display:flex;align-items:center;gap:5px;font-size:.72rem;color:#2d6a4f;background:#d8f3dc;padding:3px 9px;border-radius:20px;font-weight:700}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:#2d6a4f;animation:lpulse 2s infinite}
+    @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .dsh-upd{font-size:.7rem;color:#888}
+    .dsh-btn{font-size:.72rem;padding:4px 12px;border-radius:20px;border:1px solid #e8e8e8;background:transparent;color:#4a4a4a;cursor:pointer}
+    .dsh-btn:hover{background:#f4f4f4}
+    .dsh-main{max-width:960px;margin:0 auto;padding:20px 5% 48px}
+    .dsh-sec{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#888;margin-bottom:10px}
+
+    .dsh-login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .dsh-login-card{background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:36px 32px;max-width:340px;width:100%;text-align:center}
+    .dsh-login-title{font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:5px}
+    .dsh-login-sub{font-size:.82rem;color:#888;margin-bottom:22px}
+    .dsh-pw-input{width:100%;padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:7px;font-size:.9rem;margin-bottom:12px;outline:none;font-family:inherit;color:#1a1a1a}
+    .dsh-pw-input:focus{border-color:#40916c}
+    .dsh-pw-btn{width:100%;padding:11px;border-radius:7px;border:none;background:#2d6a4f;color:#fff;font-size:.9rem;font-weight:700;cursor:pointer}
+    .dsh-pw-btn:hover{background:#40916c}
+    .dsh-pw-err{font-size:.8rem;color:#b91c1c;margin-top:8px;display:none}
+
+    .thermo-card{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:20px 22px;margin-bottom:16px}
+    .thermo-inner{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+    .th-right{flex:1;min-width:180px}
+    .th-verdict{font-size:1.15rem;font-weight:800;margin-bottom:3px;color:#1a1a1a}
+    .th-sub{font-size:.82rem;color:#4a4a4a;margin-bottom:14px;line-height:1.5}
+    .tbars{display:flex;flex-direction:column;gap:6px}
+    .tbar-r{display:flex;align-items:center;gap:7px}
+    .tbar-lbl{font-size:.72rem;color:#4a4a4a;width:118px;flex-shrink:0}
+    .tbar-track{flex:1;height:6px;background:#e8e8e8;border-radius:3px;overflow:hidden}
+    .tbar-fill{height:100%;border-radius:3px;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+    .tbar-val{font-size:.72rem;font-weight:700;width:34px;text-align:right;color:#1a1a1a}
+    .tbar-tgt{font-size:.66rem;color:#888;width:46px;text-align:right}
+
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:16px}
+    .kpi-c{background:#fff;border:1px solid #e8e8e8;border-radius:7px;padding:13px 15px}
+    .kpi-lbl{font-size:.68rem;color:#888;margin-bottom:5px}
+    .kpi-v{font-size:1.4rem;font-weight:800;color:#1a1a1a}
+    .kpi-s{font-size:.68rem;margin-top:3px}
+    .s-ok{color:#2d6a4f}.s-warn{color:#b45309}.s-bad{color:#b91c1c}.s-muted{color:#888}
+
+    .two-col-d{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:16px}
+    @media(max-width:540px){.two-col-d{grid-template-columns:1fr}}
+    .dsh-card{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:16px 18px}
+    .dsh-card-title{font-size:.78rem;font-weight:700;color:#4a4a4a;margin-bottom:11px}
+
+    .wtp-r{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+    .wtp-l{font-size:.72rem;color:#4a4a4a;width:84px;flex-shrink:0}
+    .wtp-t{flex:1;height:20px;background:#f4f4f4;border-radius:4px;overflow:hidden}
+    .wtp-f{height:100%;display:flex;align-items:center;padding-left:7px;font-size:.68rem;font-weight:700;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+    .wtp-p{font-size:.72rem;font-weight:700;color:#1a1a1a;width:30px;text-align:right}
+    .sig-box{margin-top:11px;padding-top:11px;border-top:1px solid #e8e8e8}
+    .sig-lbl{font-size:.66rem;color:#888;margin-bottom:3px}
+    .sig-val{font-size:.95rem;font-weight:700}
+
+    .dsh-demo-note{background:#fffbeb;border:1px solid #fcd34d;border-radius:7px;padding:9px 13px;margin-bottom:14px;font-size:.8rem;color:#92400e;display:none}
   </style>
 </head>
 <body>
@@ -771,7 +831,7 @@ function getFingerprint() {
   return fp;
 }
 
-const _usageCache = { tools: {}, downloads: DL_MAX, loaded: false };
+const _usageCache = { tools: {}, downloads: DL_MAX, loaded: false, resetsInSeconds: 86400 };
 
 async function loadUsage() {
   try {
@@ -782,6 +842,7 @@ async function loadUsage() {
     if (data.unlimited) return;
     Object.assign(_usageCache.tools, data.tools || {});
     _usageCache.downloads = DL_MAX - (data.downloads || 0);
+    _usageCache.resetsInSeconds = data.resetsInSeconds || 86400;
     _usageCache.loaded = true;
   } catch { /* fail open */ }
 }
@@ -827,18 +888,26 @@ async function incDl() {
   } catch { return { ok: true, remaining: 1 }; }
 }
 
+function fmtResetTime() {
+  const secs = _usageCache.resetsInSeconds || 86400;
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  if (h > 0) return h + 'h ' + (m > 0 ? m + 'm' : '');
+  return m + 'm';
+}
+
 function syncUsageNote(tool) {
   const el = document.getElementById('usage-'+tool);
   if (!el) return;
   const n = toolLeft(tool);
   if (n >= TOOL_MAX) { el.textContent=''; el.className='tool-usage-note'; return; }
   if (n === 0) {
-    el.textContent = "You've used all 3 free runs. Upgrade to Pro for unlimited.";
+    el.textContent = 'Daily limit reached — resets in ' + fmtResetTime() + '. Come back tomorrow or upgrade to Pro.';
     el.className = 'tool-usage-note out';
     const btn = document.getElementById('run-'+tool);
     if (btn) btn.disabled = true;
   } else {
-    el.textContent = n + ' free run' + (n===1?'':'s') + ' remaining';
+    el.textContent = n + ' run' + (n===1?'':'s') + ' left today — resets every 24h';
     el.className = 'tool-usage-note warn';
   }
 }
@@ -1164,7 +1233,7 @@ async function getPrompt(tool){
 
 // ═══════ RUN ═══════
 async function run(tool){
-  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";err.style.display='block';return;}
+  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent='Daily limit reached — resets in ' + fmtResetTime() + '. Come back tomorrow or upgrade to Pro.';err.style.display='block';return;}
   const btn=document.getElementById('run-'+tool);
   const btnSpan=btn.querySelector('span');
   const resId=(tool==='tailor')?'res-'+tool+'-result':'res-'+tool;
@@ -1199,7 +1268,7 @@ async function run(tool){
 
 // ═══════ RUN ANALYSIS ═══════
 async function runAnalysis(tool){
-  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent="You've used all 3 free runs. Upgrade to Pro for unlimited.";err.style.display='block';return;}
+  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent='Daily limit reached — resets in ' + fmtResetTime() + '. Come back tomorrow or upgrade to Pro.';err.style.display='block';return;}
   const btn=document.getElementById('run-'+tool);const btnSpan=btn.querySelector('span');
   const resDiv=document.getElementById('res-'+tool);const errDiv=document.getElementById('err-'+tool);
   errDiv.style.display='none';errDiv.textContent='';
@@ -1336,7 +1405,104 @@ async function rpOpenGdocs(){
   // ── GA4 Event: resume_downloaded_or_saved ──
   trackEvent('resume_downloaded_or_saved', { format: 'gdocs', tool: rpTool });
   const win=window.open('','_blank');
-  win.document.write('<!DOCTYPE html><html><head><title>Open in Google Docs — Landedd</title><style>body{font-family:\'Times New Roman\',serif;max-width:760px;margin:40px auto;padding:0 40px;font-size:12pt;line-height:1.65;color:#1a1a1a}.bar{background:#f0faf4;border:1px solid #d8f3dc;border-radius:8px;padding:16px 20px;margin-bottom:28px;font-family:sans-serif;font-size:13px}.bar h3{font-size:15px;font-weight:700;color:#2d6a4f;margin:0 0 8px}ol{margin:0;padding-left:20px;color:#444;line-height:1.9}.btn{background:#4285f4;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:10px}pre{white-space:pre-wrap;font-size:12pt}</style></head><body><div class="bar"><h3>Open in Google Docs — 3 steps</h3><ol><li>Click <strong>Select all text</strong> below → copy (Ctrl+C / Cmd+C)</li><li><a href="https://docs.google.com/document/create" target="_blank" style="color:#4285f4;font-weight:600">Open a new Google Doc</a></li><li>Paste (Ctrl+V / Cmd+V) — then format as needed</li></ol><button class="btn" onclick="sel()">Select all text</button></div><pre id="rt">'+text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre><script>function sel(){const e=document.getElementById(\'rt\');const r=document.createRange();r.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}<\/script></body></html>');
+  win.document.write('<!DOCTYPE html><html><head><title>Open in Google Docs — Landedd</title><style>body{font-family:\'Times New Roman\',serif;max-width:760px;margin:40px auto;padding:0 40px;font-size:12pt;line-height:1.65;color:#1a1a1a}.bar{background:#f0faf4;border:1px solid #d8f3dc;border-radius:8px;padding:16px 20px;margin-bottom:28px;font-family:sans-serif;font-size:13px}.bar h3{font-size:15px;font-weight:700;color:#2d6a4f;margin:0 0 8px}ol{margin:0;padding-left:20px;color:#444;line-height:1.9}.btn{background:#4285f4;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:10px}pre{white-space:pre-wrap;font-size:12pt}</style></head><body><div class="bar"><h3>Open in Google Docs — 3 steps</h3><ol><li>Click <strong>Select all text</strong> below → copy (Ctrl+C / Cmd+C)</li><li><a href="https://docs.google.com/document/create" target="_blank" style="color:#4285f4;font-weight:600">Open a new Google Doc</a></li><li>Paste (Ctrl+V / Cmd+V) — then format as needed</li></ol><button class="btn" onclick="sel()">Select all text</button></div><pre id="rt">'+text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre><script>function sel(){const e=document.getElementById(\'rt\');const r=document.createRange();r.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}<\/script>
+<!-- DASHBOARD SCREEN -->
+<div id="dashScreen">
+  <div id="dashLoginWrap" class="dsh-login">
+    <div class="dsh-login-card">
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px">
+        <div class="logo-mark" style="width:28px;height:28px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
+        <span style="font-weight:800;font-size:1rem">Landedd</span>
+      </div>
+      <div class="dsh-login-title">Pilot dashboard</div>
+      <div class="dsh-login-sub">Private access only</div>
+      <input class="dsh-pw-input" type="password" id="dashPwInput" placeholder="Enter dashboard password" onkeydown="if(event.key==='Enter')dashLogin()"/>
+      <button class="dsh-pw-btn" onclick="dashLogin()">Access dashboard</button>
+      <div class="dsh-pw-err" id="dashPwErr">Incorrect password. Try again.</div>
+    </div>
+  </div>
+  <div id="dashContent" style="display:none">
+    <div class="dsh-hdr">
+      <div class="dsh-logo" onclick="closeDash()">
+        <div class="logo-mark" style="width:24px;height:24px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
+        Pilot dashboard
+      </div>
+      <div class="dsh-right">
+        <div class="live-pill"><div class="live-dot"></div>Live</div>
+        <span class="dsh-upd" id="dshUpd">Loading…</span>
+        <button class="dsh-btn" onclick="dshLoad()">Refresh</button>
+        <button class="dsh-btn" onclick="dashLogout()">Sign out</button>
+      </div>
+    </div>
+    <div class="dsh-main">
+      <div class="dsh-demo-note" id="dshDemoNote">No live data yet — data populates automatically as pilot users interact with Landedd.</div>
+      <div style="margin-bottom:14px">
+        <div class="dsh-sec">Launch readiness thermometer</div>
+        <div class="thermo-card">
+          <div class="thermo-inner">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <circle cx="55" cy="55" r="42" fill="none" stroke="#e8e8e8" stroke-width="10"/>
+              <circle id="dshArc" cx="55" cy="55" r="42" fill="none" stroke="#2d6a4f" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 264" transform="rotate(-90 55 55)" style="transition:stroke-dasharray 1.3s cubic-bezier(.4,0,.2,1),stroke .5s"/>
+              <text id="dshScore" x="55" y="51" text-anchor="middle" font-size="26" font-weight="800" fill="#1a1a1a">0</text>
+              <text x="55" y="68" text-anchor="middle" font-size="10" fill="#888">/ 100</text>
+            </svg>
+            <div class="th-right">
+              <div class="th-verdict" id="dshVerdict">Awaiting data</div>
+              <div class="th-sub" id="dshVerdictSub">Data populates automatically as pilot users interact.</div>
+              <div class="tbars">
+                <div class="tbar-r"><div class="tbar-lbl">AI satisfaction</div><div class="tbar-track"><div class="tbar-fill" id="dtb-sat" style="width:0%;background:#2d6a4f"></div></div><div class="tbar-val" id="dtbv-sat">0%</div><div class="tbar-tgt">target 70%</div></div>
+                <div class="tbar-r"><div class="tbar-lbl">WTP paid tier</div><div class="tbar-track"><div class="tbar-fill" id="dtb-wtp" style="width:0%;background:#378add"></div></div><div class="tbar-val" id="dtbv-wtp">0%</div><div class="tbar-tgt">target 30%</div></div>
+                <div class="tbar-r"><div class="tbar-lbl">User target</div><div class="tbar-track"><div class="tbar-fill" id="dtb-users" style="width:0%;background:#ef9f27"></div></div><div class="tbar-val" id="dtbv-users">0</div><div class="tbar-tgt">target 20</div></div>
+                <div class="tbar-r"><div class="tbar-lbl">Feedback rating</div><div class="tbar-track"><div class="tbar-fill" id="dtb-fb" style="width:0%;background:#afa9ec"></div></div><div class="tbar-val" id="dtbv-fb">—</div><div class="tbar-tgt">target 4/5</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div class="dsh-sec">Core metrics</div>
+        <div class="kpi-grid">
+          <div class="kpi-c"><div class="kpi-lbl">Total users</div><div class="kpi-v" id="dkpi-users">0</div><div class="kpi-s s-muted" id="dks-users">target: 20–30</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">Sessions</div><div class="kpi-v" id="dkpi-sessions">0</div><div class="kpi-s s-muted" id="dks-sessions">—</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">AI runs</div><div class="kpi-v" id="dkpi-runs">0</div><div class="kpi-s s-muted">—</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">Downloads</div><div class="kpi-v" id="dkpi-dl">0</div><div class="kpi-s s-muted">—</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">AI satisfaction</div><div class="kpi-v" id="dkpi-sat">—</div><div class="kpi-s s-muted" id="dks-sat">no ratings yet</div></div>
+          <div class="kpi-c"><div class="kpi-lbl">Feedback score</div><div class="kpi-v" id="dkpi-fb">—</div><div class="kpi-s s-muted" id="dks-fb">/ 5 stars</div></div>
+        </div>
+      </div>
+      <div class="two-col-d">
+        <div class="dsh-card">
+          <div class="dsh-card-title">Tool usage</div>
+          <div style="position:relative;height:180px"><canvas id="dshToolChart"></canvas></div>
+        </div>
+        <div class="dsh-card">
+          <div class="dsh-card-title">Willingness to pay</div>
+          <div class="wtp-r"><div class="wtp-l">Free only</div><div class="wtp-t"><div class="wtp-f" id="dwf-free" style="width:0%;background:#b4b2a9;color:#2c2c2a"></div></div><div class="wtp-p" id="dwp-free">0%</div></div>
+          <div class="wtp-r"><div class="wtp-l">Basic $7/mo</div><div class="wtp-t"><div class="wtp-f" id="dwf-basic" style="width:0%;background:#85b7eb;color:#042c53"></div></div><div class="wtp-p" id="dwp-basic">0%</div></div>
+          <div class="wtp-r"><div class="wtp-l">Pro $15/mo</div><div class="wtp-t"><div class="wtp-f" id="dwf-pro" style="width:0%;background:#5dcaa5;color:#04342c"></div></div><div class="wtp-p" id="dwp-pro">0%</div></div>
+          <div class="wtp-r"><div class="wtp-l">Pay more</div><div class="wtp-t"><div class="wtp-f" id="dwf-more" style="width:0%;background:#97c459;color:#173404"></div></div><div class="wtp-p" id="dwp-more">0%</div></div>
+          <div class="sig-box">
+            <div class="sig-lbl">Profitability signal</div>
+            <div class="sig-val s-muted" id="dshSig">—</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div class="dsh-sec">Weekly trend</div>
+        <div class="dsh-card">
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px;font-size:.7rem;color:#4a4a4a">
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#2d6a4f;display:inline-block"></span>AI runs</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#378add;display:inline-block"></span>Sessions</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:#ef9f27;display:inline-block"></span>New users</span>
+          </div>
+          <div style="position:relative;height:180px"><canvas id="dshTrendChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>');
   win.document.close();await incDl();syncDlBadge();
 }
 
@@ -1389,6 +1555,168 @@ if (!localStorage.getItem('_ldVisited')) {
   localStorage.setItem('_ldVisited', '1');
   trackEvent('user_signed_up', { source: 'organic' });
 }
+
+// ═══════ DASHBOARD ═══════
+const DSH_SESSION = '_ldDashAuth';
+let dshToolChart = null, dshTrendChart = null, dshInterval = null;
+
+function openDash() {
+  document.getElementById('dashScreen').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  if (sessionStorage.getItem(DSH_SESSION)) {
+    showDashContent();
+  }
+}
+function closeDash() {
+  document.getElementById('dashScreen').style.display = 'none';
+  document.body.style.overflow = '';
+  if (dshInterval) { clearInterval(dshInterval); dshInterval = null; }
+}
+function dashLogout() {
+  sessionStorage.removeItem(DSH_SESSION);
+  document.getElementById('dashContent').style.display = 'none';
+  document.getElementById('dashLoginWrap').style.display = 'flex';
+  if (dshInterval) { clearInterval(dshInterval); dshInterval = null; }
+}
+async function dashLogin() {
+  const pw = document.getElementById('dashPwInput').value;
+  const err = document.getElementById('dashPwErr');
+  err.style.display = 'none';
+  try {
+    const res = await fetch('/api/dashboard-auth', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({password:pw}) });
+    const data = await res.json();
+    if (data.ok) { sessionStorage.setItem(DSH_SESSION, data.token); showDashContent(); }
+    else { err.style.display = 'block'; }
+  } catch { err.textContent = 'Could not connect. Try again.'; err.style.display = 'block'; }
+}
+function showDashContent() {
+  document.getElementById('dashLoginWrap').style.display = 'none';
+  document.getElementById('dashContent').style.display = 'block';
+  initDshCharts();
+  dshLoad();
+  if (!dshInterval) dshInterval = setInterval(dshLoad, 60000);
+}
+
+function dshPct(n,d){return d>0?Math.round((n/d)*100):0;}
+function dshClamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+function dshBarColor(val,target){if(val===0)return '#c0c0c0';return val>=target*0.75?'#2d6a4f':val>=target*0.5?'#ef9f27':'#e24b4a';}
+function setDshBar(id,pctFill,display,target){
+  document.getElementById('dtb-'+id).style.width=dshClamp(pctFill,0,100)+'%';
+  document.getElementById('dtb-'+id).style.background=dshBarColor(pctFill,target);
+  document.getElementById('dtbv-'+id).textContent=display;
+}
+
+async function dshLoad() {
+  try {
+    const res = await fetch('/api/metrics');
+    const d = await res.json();
+    dshRender(d);
+  } catch { document.getElementById('dshUpd').textContent = 'Error loading'; }
+}
+
+function dshRender(d) {
+  const t=d.totals, w=d.wtp, wk=d.weekly, fb=d.feedback;
+  if(d.demo) document.getElementById('dshDemoNote').style.display='block';
+
+  document.getElementById('dkpi-users').textContent=t.users;
+  document.getElementById('dkpi-sessions').textContent=t.sessions;
+  document.getElementById('dkpi-runs').textContent=t.runs;
+  document.getElementById('dkpi-dl').textContent=t.downloads;
+
+  const spu=t.users>0?(t.sessions/t.users).toFixed(1):0;
+  document.getElementById('dks-sessions').textContent=spu+' per user';
+  const uOk=t.users>=20;
+  document.getElementById('dks-users').textContent=uOk?'On track':'Need '+(20-t.users)+' more';
+  document.getElementById('dks-users').className='kpi-s '+(uOk?'s-ok':t.users>=10?'s-warn':'s-bad');
+
+  const rated=t.thumbsup+t.thumbsdown, satPct=dshPct(t.thumbsup,rated);
+  document.getElementById('dkpi-sat').textContent=rated>0?satPct+'%':'—';
+  document.getElementById('dks-sat').textContent=rated>0?t.thumbsup+' up / '+t.thumbsdown+' down':'no ratings yet';
+  document.getElementById('dks-sat').className='kpi-s '+(satPct>=70?'s-ok':satPct>=50?'s-warn':rated>0?'s-bad':'s-muted');
+
+  document.getElementById('dkpi-fb').textContent=fb.avgRating?fb.avgRating.toFixed(1):'—';
+  document.getElementById('dks-fb').textContent=fb.total>0?fb.total+' responses':'/ 5 stars';
+
+  const wtpTotal=w.free+w.basic+w.pro+w.more, wtpPaid=w.basic+w.pro+w.more, wtpPaidPct=dshPct(wtpPaid,wtpTotal);
+  [['free',w.free],['basic',w.basic],['pro',w.pro],['more',w.more]].forEach(([tier,val])=>{
+    const p=dshPct(val,wtpTotal);
+    document.getElementById('dwf-'+tier).style.width=p+'%';
+    document.getElementById('dwp-'+tier).textContent=p+'%';
+  });
+
+  let sig='—',sigCls='s-muted';
+  if(wtpTotal>0){
+    if(wtpPaidPct>=40){sig='Strong — launch paid now';sigCls='s-ok';}
+    else if(wtpPaidPct>=25){sig='Promising — refine first';sigCls='s-warn';}
+    else if(wtpPaidPct>0){sig='Weak — consider pivot';sigCls='s-bad';}
+    else{sig='No paid interest yet';sigCls='s-bad';}
+  }
+  const sigEl=document.getElementById('dshSig');
+  sigEl.textContent=sig;sigEl.className='sig-val '+sigCls;
+
+  const fbScore=fb.avgRating?Math.round((fb.avgRating/5)*100):0;
+  const score=dshClamp(
+    Math.round((satPct/70)*30)+Math.round((wtpPaidPct/30)*25)+Math.round((dshClamp(t.users,0,20)/20)*20)+(fb.avgRating?Math.round(((fb.avgRating-1)/4)*15):7)+8,
+    0,100
+  );
+
+  const circ=2*Math.PI*42;
+  document.getElementById('dshArc').setAttribute('stroke-dasharray',(circ*score/100).toFixed(1)+' '+circ.toFixed(1));
+  document.getElementById('dshArc').setAttribute('stroke',score>=70?'#2d6a4f':score>=45?'#ef9f27':'#e24b4a');
+  document.getElementById('dshScore').textContent=score;
+
+  let verdict,sub;
+  if(t.users===0){verdict='Awaiting data';sub='Data populates automatically as pilot users interact with Landedd.';}
+  else if(score>=75){verdict='Launch ready';sub='Strong signals across all indicators. Begin paid launch planning.';}
+  else if(score>=55){verdict='Almost there';sub='Good foundation. Address your weakest indicator before going paid.';}
+  else if(score>=35){verdict='Work to do';sub='Mixed signals — investigate the highest-priority red metric first.';}
+  else{verdict='Not ready';sub='Too many weak signals. Diagnose product issues before scaling.';}
+  document.getElementById('dshVerdict').textContent=verdict;
+  document.getElementById('dshVerdictSub').textContent=sub;
+
+  setDshBar('sat',satPct,satPct+'%',70);
+  setDshBar('wtp',wtpPaidPct,wtpPaidPct+'%',30);
+  setDshBar('users',Math.round((dshClamp(t.users,0,20)/20)*100),t.users,100);
+  setDshBar('fb',fbScore,fb.avgRating?fb.avgRating.toFixed(1)+'/5':'—',80);
+
+  const now=new Date(d.updatedAt);
+  document.getElementById('dshUpd').textContent='Updated '+now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+
+  const tools=d.tools;
+  if(dshToolChart){dshToolChart.data.datasets[0].data=[tools.builder,tools.tailor,tools.scanner,tools.gaps,tools.impact];dshToolChart.update();}
+  if(dshTrendChart){dshTrendChart.data.datasets[0].data=wk.runs;dshTrendChart.data.datasets[1].data=wk.sessions;dshTrendChart.data.datasets[2].data=wk.users;dshTrendChart.update();}
+}
+
+function initDshCharts(){
+  if(dshToolChart||dshTrendChart)return;
+  const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+  const axS={grid:{display:false},ticks:{font:{size:10},color:'#888'}};
+
+  dshToolChart=new Chart(document.getElementById('dshToolChart').getContext('2d'),{
+    type:'doughnut',
+    data:{labels:['Builder','Tailor','Scanner','Gap finder','Impact'],datasets:[{data:[0,0,0,0,0],backgroundColor:['#5dcaa5','#378add','#97c459','#ef9f27','#afa9ec'],borderWidth:2,borderColor:'#fff',hoverOffset:4}]},
+    options:{...base,cutout:'62%'}
+  });
+
+  dshTrendChart=new Chart(document.getElementById('dshTrendChart').getContext('2d'),{
+    type:'line',
+    data:{
+      labels:['Week 1','Week 2','Week 3'],
+      datasets:[
+        {label:'Runs',data:[0,0,0],borderColor:'#2d6a4f',backgroundColor:'transparent',tension:.3,pointRadius:5,pointBackgroundColor:'#2d6a4f'},
+        {label:'Sessions',data:[0,0,0],borderColor:'#378add',backgroundColor:'transparent',tension:.3,pointRadius:5,pointBackgroundColor:'#378add'},
+        {label:'Users',data:[0,0,0],borderColor:'#ef9f27',backgroundColor:'transparent',tension:.3,pointRadius:5,pointBackgroundColor:'#ef9f27'}
+      ]
+    },
+    options:{...base,scales:{x:axS,y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},color:'#888',stepSize:5}}}}
+  });
+}
+
+// ── Activate dashboard via URL: landedd.com/?dashboard ──
+if(window.location.search.includes('dashboard')){
+  document.addEventListener('DOMContentLoaded',()=>openDash());
+}
+
 </script>
 
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
