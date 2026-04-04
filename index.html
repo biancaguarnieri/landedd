@@ -193,7 +193,7 @@
 
 <nav>
   <a class="logo" href="/">
-    <div class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><line x1="20" y1="30" x2="20" y2="13" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><polyline points="13,21 20,12 27,21" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="31" x2="28" y2="31" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/></svg></div>
+    <div class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><rect x="13" y="6" width="14" height="18" rx="3" fill="#fff"/><path d="M13,6 L20,0 L27,6 Z" fill="#fff"/><circle cx="20" cy="13" r="3" fill="#2d6a4f"/><line x1="13" y1="24" x2="7" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="27" y1="24" x2="33" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="33" x2="11" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="29" y1="33" x2="37" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="5" y1="37" x2="35" y2="37" stroke="#74c69d" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/></svg></div>
     <span class="logo-text">Landedd</span>
   </a>
   <button class="nav-cta" onclick="openApp()">Try it free</button>
@@ -222,7 +222,7 @@
   <div class="feat">
     <div class="ic"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
     <h3>Impact coach</h3>
-    <p>Turn "responsible for sales" into "$1.2M in revenue." We rewrite duties as achievements — using what you tell us.</p>
+    <p>Turn "responsible for customer service" into "resolved 40+ cases weekly with a 95% satisfaction rate." We rewrite duties as achievements — using what you tell us.</p>
   </div>
 </div>
 
@@ -321,7 +321,7 @@
 
 <footer>
   <div class="footer-logo">
-    <div class="logo-mark" style="width:26px;height:26px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><line x1="20" y1="30" x2="20" y2="13" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><polyline points="13,21 20,12 27,21" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="31" x2="28" y2="31" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/></svg></div>
+    <div class="logo-mark" style="width:26px;height:26px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><rect x="13" y="6" width="14" height="18" rx="3" fill="#fff"/><path d="M13,6 L20,0 L27,6 Z" fill="#fff"/><circle cx="20" cy="13" r="3" fill="#2d6a4f"/><line x1="13" y1="24" x2="7" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="27" y1="24" x2="33" y2="33" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="33" x2="11" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="29" y1="33" x2="37" y2="33" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><line x1="5" y1="37" x2="35" y2="37" stroke="#74c69d" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/></svg></div>
     <span style="font-weight:700;font-size:.9rem">Landedd</span>
     <span style="color:var(--gray3);font-size:.8rem">Beta</span>
   </div>
@@ -368,7 +368,7 @@
               <div class="fld"><label>Target role</label><input type="text" id="b-role" placeholder="e.g. Marketing Manager, Software Engineer" /></div>
               <div class="fld"><label>Your top skills</label><input type="text" id="b-skills" placeholder="e.g. Python, project management, Canva" /></div>
               <div class="fld"><label>Experience (jobs, clubs, volunteering)</label><textarea id="b-exp" placeholder="e.g. Barista at Starbucks 2 yrs, president of college marketing club"></textarea></div>
-              <div class="fld"><label>Education</label><input type="text" id="b-edu" placeholder="e.g. BBA Marketing, University of Chicago, 2024 (in progress)" /></div>
+              <div class="fld"><label>Education</label><input type="text" id="b-edu" placeholder="e.g. BBA Marketing, Univ. of Chicago — graduated 2021, or in progress 2025" /></div>
               <div class="fld"><label>Languages, certifications, or achievements</label><input type="text" id="b-extras" placeholder="e.g. Fluent in Spanish, Google Analytics cert, Dean's List" /></div>
             </div>
             <div class="ipane" id="build-pane-upload">
@@ -715,14 +715,68 @@ function onDrag(e,id){e.preventDefault();document.getElementById(id).classList.a
 function offDrag(id){document.getElementById(id).classList.remove('dragover');}
 function onDrop(e,id,t){e.preventDefault();offDrag(id);if(e.dataTransfer.files[0])readF(e.dataTransfer.files[0],t,id);}
 function onFile(e,t){if(e.target.files[0])readF(e.target.files[0],t,'dz-'+t);}
-function readF(file,t,dzId){
-  const r=new FileReader();
-  r.onload=ev=>{
-    fileData[t]=ev.target.result;
-    const dz=document.getElementById(dzId);
-    if(dz){dz.classList.add('has-file');const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent='Ready';}
-  };
-  r.readAsText(file);
+
+async function readF(file, t, dzId) {
+  const dz = document.getElementById(dzId);
+  const ext = file.name.split('.').pop().toLowerCase();
+  const isParsed = ['pdf','doc','docx','rtf'].includes(ext) || file.type.includes('pdf') || file.type.includes('word') || file.type.includes('officedocument');
+
+  // Update drop zone to show "reading..."
+  if (dz) {
+    dz.classList.add('has-file');
+    const ps = dz.querySelectorAll('p');
+    if (ps[0]) ps[0].innerHTML = '<strong>Reading ' + file.name + '…</strong>';
+    if (ps[1]) ps[1].textContent = 'Extracting text';
+  }
+
+  if (isParsed) {
+    // Send to server-side parser for PDF/DOCX/DOC
+    try {
+      const base64 = await fileToBase64(file);
+      const resp = await fetch('/api/parse-file', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: base64, mimeType: file.type, fileName: file.name })
+      });
+      const data = await resp.json();
+      if (data.error) throw new Error(data.error);
+      fileData[t] = data.text || '';
+      if (dz) {
+        const ps = dz.querySelectorAll('p');
+        if (ps[0]) ps[0].innerHTML = '<strong>✓ ' + file.name + '</strong>';
+        if (ps[1]) ps[1].textContent = Math.round(fileData[t].length / 5) + ' words extracted';
+      }
+    } catch (err) {
+      fileData[t] = '';
+      if (dz) {
+        dz.classList.remove('has-file');
+        const ps = dz.querySelectorAll('p');
+        if (ps[0]) ps[0].innerHTML = '<strong>⚠ Could not read file</strong>';
+        if (ps[1]) ps[1].textContent = err.message || 'Please paste your resume text instead';
+      }
+    }
+  } else {
+    // Plain text files (.txt) — read directly in browser
+    const r = new FileReader();
+    r.onload = ev => {
+      fileData[t] = ev.target.result || '';
+      if (dz) {
+        const ps = dz.querySelectorAll('p');
+        if (ps[0]) ps[0].innerHTML = '<strong>✓ ' + file.name + '</strong>';
+        if (ps[1]) ps[1].textContent = 'Ready';
+      }
+    };
+    r.readAsText(file);
+  }
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = ev => resolve(ev.target.result.split(',')[1]);
+    r.onerror = () => reject(new Error('Could not read file'));
+    r.readAsDataURL(file);
+  });
 }
 
 // EXP ROWS
@@ -734,7 +788,8 @@ function addExp(){
   div.innerHTML=`<div class="exprow-hdr"><span class="exprow-lbl">Experience ${id}</span><button class="exprow-rm" onclick="rmExp(${id})">✕</button></div>
     <div class="fld"><label>Job title / Role</label><input type="text" id="et-${id}" placeholder="e.g. Sales Associate"/></div>
     <div class="fld"><label>Company / Organization</label><input type="text" id="ec-${id}" placeholder="e.g. Target, Google"/></div>
-    <div class="fld"><label>What you did (rough notes ok)</label><textarea id="ed-${id}" placeholder="e.g. handled customer complaints, trained new staff..."></textarea></div>`;
+    <div class="fld"><label>Dates</label><input type="text" id="edt-${id}" placeholder="e.g. Jun 2022 – Aug 2023, or 2021–Present"/></div>
+    <div class="fld"><label>What you did (rough notes ok)</label><textarea id="ed-${id}" placeholder="e.g. handled customer complaints, trained new staff, exceeded monthly targets..."></textarea></div>`;
   document.getElementById('expRows').appendChild(div);
 }
 function rmExp(id){const el=document.getElementById('exp-'+id);if(el)el.remove();}
@@ -796,9 +851,11 @@ CRITICAL RULES:
 1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements. If a metric is missing, write the bullet without one — never fabricate. Use "(add your [detail] here)" as a placeholder where helpful.
 2. If information is too thin to build a section, ask for what's missing rather than guessing.
 3. Format: Name + contact (email, phone, LinkedIn only — no address, age, photo, gender). Then Education (all degrees). Then Experience (most recent first). Then one of: Core Skills, Certifications, Languages, or Achievements. Skip Professional Summary. Keep Core Skills short — a few lines of keywords only.
-4. One page. Prioritize experience relevant to the target role. Summarize or omit unrelated experience.
-5. No cover letter. Clean formatting, ATS-friendly. No graphics, no bright colors.
-6. Tone: warm, concise, lightly witty — like a recruiter friend who's rooting for them.`;
+4. Dates on experience: always include month/year date ranges if provided (e.g. "Jun 2022 – Aug 2023"). If only year is given, use year only. Never invent dates.
+5. Dates on education: include graduation year ONLY for new grads (graduated within the last 2 years or still in progress). For candidates who graduated more than 2 years ago, omit the graduation year — it's not standard practice and may invite age bias.
+6. One page. Prioritize experience relevant to the target role. Summarize or omit unrelated experience.
+7. No cover letter. Clean formatting, ATS-friendly. No graphics, no bright colors.
+8. Tone: warm, concise, lightly witty — like a recruiter friend who's rooting for them.`;
 
 async function getPrompt(tool){
   if(tool==='builder'){
@@ -820,8 +877,9 @@ async function getPrompt(tool){
       const id=row.id.replace('exp-','');
       const t2=document.getElementById('et-'+id)?.value||'';
       const c=document.getElementById('ec-'+id)?.value||'';
+      const dt=document.getElementById('edt-'+id)?.value||'';
       const d=document.getElementById('ed-'+id)?.value||'';
-      if(t2||d)expText+=`\nRole ${i+1}: ${t2} at ${c}\nNotes: ${d}\n`;
+      if(t2||d)expText+=`\nRole ${i+1}: ${t2} at ${c}${dt?' ('+dt+')':''}\nNotes: ${d}\n`;
     });
     if(!expText.trim())throw new Error("Fill in at least one experience — title, company, and what you did — and we'll do the rest.");
     return `You are an expert resume writer. Transform rough notes into achievement-first bullets.\nCRITICAL: Use ONLY what's provided. If a metric would help but isn't given, use "(add your number)" as placeholder. Never fabricate.\n3-5 bullets per role. Strong action verb. Show impact, not task. No "responsible for".\n\nTarget role: ${document.getElementById('imp-role')?.value||''}\nIndustry: ${document.getElementById('imp-ind')?.value||''}\nExperiences:${expText}\n\nReturn ONLY the formatted bullets grouped by role. No commentary.`;
