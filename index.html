@@ -1219,17 +1219,51 @@ function rpOpenGdocs(){
 }
 
 // FEEDBACK
-let fbRating=0;
-function setStar(v){fbRating=v;document.querySelectorAll('.star-btn').forEach(b=>{b.classList.toggle('sel',parseInt(b.dataset.v)<=v);b.textContent=parseInt(b.dataset.v)<=v?'★':b.dataset.v;});}
-async function submitFeedback(){
-  const msg=(document.getElementById('fb-msg').value||'').trim();
-  const email=document.getElementById('fb-email').value.trim();
-  const tool=document.getElementById('fb-tool').value;
-  const btn=document.getElementById('fbBtn');
-  if(!msg){alert('Please enter some feedback.');return;}
-  btn.disabled=true;btn.textContent='Sending…';
-  try{await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'feedback',message:msg,email,rating:fbRating||null,tool,source:'feedback-section'})});document.getElementById('fb-ok').style.display='block';btn.style.display='none';}
-  catch{btn.disabled=false;btn.textContent='Send feedback';alert('Could not send right now. Please try again or email hello@landedd.com');}
+let fbRating = 0;
+
+function setStar(v) {
+  fbRating = v;
+  document.querySelectorAll('.star-btn').forEach(function(b) {
+    var val = parseInt(b.dataset.v);
+    if (val <= v) {
+      b.classList.add('sel');
+      b.textContent = '★';
+    } else {
+      b.classList.remove('sel');
+      b.textContent = b.dataset.v;
+    }
+  });
+}
+
+async function submitFeedback() {
+  var msg = (document.getElementById('fb-msg').value || '').trim();
+  var email = (document.getElementById('fb-email').value || '').trim();
+  var tool = document.getElementById('fb-tool').value;
+  var btn = document.getElementById('fbBtn');
+  var okDiv = document.getElementById('fb-ok');
+
+  if (!msg) { alert('Please write some feedback before sending.'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    var resp = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'feedback', message: msg, email: email, rating: fbRating || null, tool: tool, source: 'feedback-section' })
+    });
+    var data = await resp.json();
+    if (!resp.ok || data.error) {
+      throw new Error(data.error || 'Server error ' + resp.status);
+    }
+    okDiv.style.display = 'block';
+    btn.style.display = 'none';
+  } catch(err) {
+    btn.disabled = false;
+    btn.textContent = 'Send feedback';
+    alert('Could not send right now — ' + (err.message || 'please try again') + '. You can also email us at hello@landedd.com');
+  }
 }
 
 // INIT — load usage counts from server, then sync UI
