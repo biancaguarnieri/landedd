@@ -239,7 +239,7 @@
       <ul class="tfeats">
         <li>Guided resume builder</li>
         <li>Gap finder with action plan</li>
-        <li>Upload, LinkedIn, or answer questions</li>
+        <li>Answer questions or upload your resume</li>
       </ul>
       <button class="btn-track btn-build" onclick="openApp('build')">Start building</button>
     </div>
@@ -362,7 +362,6 @@
             <div class="imethods">
               <button class="imethod active" onclick="swBuildMethod('questions')" id="bm-questions">✎ Answer questions</button>
               <button class="imethod" onclick="swBuildMethod('upload')" id="bm-upload">↑ Upload resume</button>
-              <button class="imethod" onclick="swBuildMethod('linkedin')" id="bm-linkedin">in LinkedIn URL</button>
             </div>
             <div class="ipane active" id="build-pane-questions">
               <div class="fld"><label>Target role</label><input type="text" id="b-role" placeholder="e.g. Marketing Manager, Software Engineer" /></div>
@@ -377,11 +376,6 @@
                 <input type="file" id="file-builder" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'builder')" />
               </div>
               <div class="fld" style="margin-top:11px"><label>Target role</label><input type="text" id="b-role-up" placeholder="e.g. Product Manager" /></div>
-            </div>
-            <div class="ipane" id="build-pane-linkedin">
-              <input type="url" id="b-li-url" placeholder="https://linkedin.com/in/yourname" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin:5px 0 10px">Go to your LinkedIn profile → Share → Copy link</p>
-              <div class="fld"><label>Target role</label><input type="text" id="b-role-li" placeholder="e.g. UX Designer" /></div>
             </div>
           </div>
           <button class="btn-run" id="run-builder" onclick="run('builder')"><span>Build my resume</span></button>
@@ -410,8 +404,8 @@
             </div>
             <div id="gjd-paste"><textarea id="gap-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="gjd-link" style="display:none">
-              <input type="url" id="gap-jd-url" placeholder="https://linkedin.com/jobs/view/... or Indeed, Glassdoor, etc." class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with LinkedIn Jobs, Indeed, Glassdoor, and most job boards.</p>
+              <input type="url" id="gap-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
+              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Works with Indeed, Glassdoor, and most job board URLs.</p>
             </div>
           </div>
           <div class="fld">
@@ -419,7 +413,6 @@
             <div class="imethods">
               <button class="imethod active" onclick="swGapBg('paste')" id="gbgm-paste">✎ Paste / type</button>
               <button class="imethod" onclick="swGapBg('upload')" id="gbgm-upload">↑ Upload resume</button>
-              <button class="imethod" onclick="swGapBg('linkedin')" id="gbgm-linkedin">in LinkedIn URL</button>
             </div>
             <div id="gbg-paste"><textarea id="gap-bg" placeholder="Paste your resume or describe your experience..."></textarea></div>
             <div id="gbg-upload" style="display:none">
@@ -427,10 +420,6 @@
                 <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
                 <input type="file" id="file-gap" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'gap')" />
               </div>
-            </div>
-            <div id="gbg-linkedin" style="display:none">
-              <input type="url" id="gap-bg-url" placeholder="https://linkedin.com/in/yourname" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">Go to your LinkedIn profile → Share → Copy link</p>
             </div>
           </div>
           <button class="btn-run" id="run-gaps" onclick="run('gaps')"><span>Find my gaps</span></button>
@@ -490,7 +479,7 @@
             </div>
             <div id="jd-tailor-paste"><textarea id="t-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="jd-tailor-link" style="display:none">
-              <input type="url" id="t-jd-url" placeholder="https://linkedin.com/jobs/view/... or any job posting URL" class="url-input" />
+              <input type="url" id="t-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
               <p style="font-size:.75rem;color:var(--text3);margin-top:5px">We'll fetch and read the job posting for you.</p>
             </div>
           </div>
@@ -498,8 +487,7 @@
             <label>Your resume</label>
             <div class="imethods">
               <button class="imethod active" onclick="swResMethod('tailor','paste')" id="rm-tailor-paste">✎ Paste text</button>
-              <button class="imethod" onclick="swResMethod('tailor','upload')" id="rm-tailor-upload">↑ Upload PDF</button>
-              <button class="imethod" onclick="swResMethod('tailor','link')" id="rm-tailor-link">🔗 Profile link</button>
+              <button class="imethod" onclick="swResMethod('tailor','upload')" id="rm-tailor-upload">↑ Upload resume</button>
             </div>
             <div id="res-tailor-paste"><textarea id="t-res" placeholder="Paste your current resume here..."></textarea></div>
             <div id="res-tailor-upload" style="display:none">
@@ -507,10 +495,6 @@
                 <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
                 <input type="file" id="file-tailor" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'tailor')" />
               </div>
-            </div>
-            <div id="res-tailor-link" style="display:none">
-              <input type="url" id="t-res-url" placeholder="https://linkedin.com/in/yourname or resume link" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">LinkedIn profile URL or any public resume link.</p>
             </div>
           </div>
           <button class="btn-run" id="run-tailor" onclick="run('tailor')"><span>Tailor my resume</span></button>
@@ -539,7 +523,7 @@
             </div>
             <div id="jd-scanner-paste"><textarea id="s-jd" placeholder="Paste the full job description here..."></textarea></div>
             <div id="jd-scanner-link" style="display:none">
-              <input type="url" id="s-jd-url" placeholder="https://linkedin.com/jobs/view/... or any job posting URL" class="url-input" />
+              <input type="url" id="s-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
               <p style="font-size:.75rem;color:var(--text3);margin-top:5px">We'll fetch and read the job posting for you.</p>
             </div>
           </div>
@@ -547,8 +531,7 @@
             <label>Your resume</label>
             <div class="imethods">
               <button class="imethod active" onclick="swResMethod('scanner','paste')" id="rm-scanner-paste">✎ Paste text</button>
-              <button class="imethod" onclick="swResMethod('scanner','upload')" id="rm-scanner-upload">↑ Upload PDF</button>
-              <button class="imethod" onclick="swResMethod('scanner','link')" id="rm-scanner-link">🔗 Profile link</button>
+              <button class="imethod" onclick="swResMethod('scanner','upload')" id="rm-scanner-upload">↑ Upload resume</button>
             </div>
             <div id="res-scanner-paste"><textarea id="s-res" placeholder="Paste your current resume here..."></textarea></div>
             <div id="res-scanner-upload" style="display:none">
@@ -556,10 +539,6 @@
                 <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
                 <input type="file" id="file-scanner" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'scanner')" />
               </div>
-            </div>
-            <div id="res-scanner-link" style="display:none">
-              <input type="url" id="s-res-url" placeholder="https://linkedin.com/in/yourname or resume link" class="url-input" />
-              <p style="font-size:.75rem;color:var(--text3);margin-top:5px">LinkedIn profile URL or any public resume link.</p>
             </div>
           </div>
           <button class="btn-run" id="run-scanner" onclick="run('scanner')"><span>Scan my fit</span></button>
@@ -667,7 +646,7 @@ function swTool(tr, tool) {
 // BUILD METHOD
 function swBuildMethod(m) {
   buildMethod=m;
-  ['questions','upload','linkedin'].forEach(x=>{
+  ['questions','upload'].forEach(x=>{
     document.getElementById('bm-'+x).classList.toggle('active',x===m);
     document.getElementById('build-pane-'+x).classList.toggle('active',x===m);
   });
@@ -685,7 +664,7 @@ function swGapJd(m) {
 // GAP BG
 function swGapBg(m) {
   gapBgMethod=m;
-  ['paste','upload','linkedin'].forEach(x=>{
+  ['paste','upload'].forEach(x=>{
     document.getElementById('gbgm-'+x).classList.toggle('active',x===m);
     document.getElementById('gbg-'+x).style.display=x===m?'block':'none';
   });
@@ -703,7 +682,7 @@ function swJdMethod(tool,m) {
 // RES METHOD (target)
 function swResMethod(tool,m) {
   resMethod[tool]=m;
-  ['paste','upload','link'].forEach(x=>{
+  ['paste','upload'].forEach(x=>{
     document.getElementById('rm-'+tool+'-'+x).classList.toggle('active',x===m);
     document.getElementById('res-'+tool+'-'+x).style.display=x===m?'block':'none';
   });
@@ -814,7 +793,6 @@ async function getJdText(tool){
 function getResText(tool){
   const m=resMethod[tool]||'paste';
   if(m==='upload')return fileData[tool]||'';
-  if(m==='link'){const url=document.getElementById(tool==='tailor'?'t-res-url':'s-res-url')?.value;return url?'LinkedIn/resume URL: '+url+' (use as candidate context)':'';}
   return document.getElementById(tool==='tailor'?'t-res':'s-res')?.value||'';
 }
 async function getGapJdText(){
@@ -823,18 +801,12 @@ async function getGapJdText(){
 }
 function getGapBgText(){
   if(gapBgMethod==='upload')return fileData['gap']||'';
-  if(gapBgMethod==='linkedin'){const url=document.getElementById('gap-bg-url')?.value;return url?'LinkedIn profile: '+url+' (use as background context)':'';}
   return document.getElementById('gap-bg')?.value||'';
 }
 async function getBuilderBg(){
   if(buildMethod==='upload'){
     if(!fileData['builder'])throw new Error("Drop your resume file in first — then we're good to go.");
     return `Target role: ${document.getElementById('b-role-up')?.value||''}\nResume:\n${fileData['builder']}`;
-  }
-  if(buildMethod==='linkedin'){
-    const url=document.getElementById('b-li-url')?.value;
-    if(!url)throw new Error('Please enter your LinkedIn URL.');
-    return `Target role: ${document.getElementById('b-role-li')?.value||''}\nLinkedIn: ${url}`;
   }
   const role=document.getElementById('b-role')?.value||'';
   const skills=document.getElementById('b-skills')?.value||'';
@@ -850,7 +822,7 @@ const RESUME_RULES=`
 CRITICAL RULES:
 1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements. If a metric is missing, write the bullet without one — never fabricate. Use "(add your [detail] here)" as a placeholder where helpful.
 2. If information is too thin to build a section, ask for what's missing rather than guessing.
-3. Format: Name + contact (email, phone, LinkedIn only — no address, age, photo, gender). Then Education (all degrees). Then Experience (most recent first). Then one of: Core Skills, Certifications, Languages, or Achievements. Skip Professional Summary. Keep Core Skills short — a few lines of keywords only.
+3. Format: Name + contact (email and phone only — no address, age, photo, gender). Then Education (all degrees). Then Experience (most recent first). Then one of: Core Skills, Certifications, Languages, or Achievements. Skip Professional Summary. Keep Core Skills short — a few lines of keywords only.
 4. Dates on experience: always include month/year date ranges if provided (e.g. "Jun 2022 – Aug 2023"). If only year is given, use year only. Never invent dates.
 5. Dates on education: include graduation year ONLY for new grads (graduated within the last 2 years or still in progress). For candidates who graduated more than 2 years ago, omit the graduation year — it's not standard practice and may invite age bias.
 6. One page. Prioritize experience relevant to the target role. Summarize or omit unrelated experience.
@@ -866,7 +838,7 @@ async function getPrompt(tool){
     const jd=await getGapJdText();
     const bg=getGapBgText();
     if(!jd)throw new Error("We need the job description — paste it or drop the link and we'll get to work.");
-    if(!bg)throw new Error("Your background is missing — paste it, upload your resume, or share your LinkedIn link.");
+    if(!bg)throw new Error("Your background is missing — paste it in or upload your resume.");
     return `You are a senior talent acquisition manager. Honest, specific gap analysis only — base it strictly on what's provided. No assumptions.\n\nJob description:\n${jd}\n\nCandidate background:\n${bg}\n\nReturn:\n**ATS MATCH SCORE: [X]/100**\n[1-sentence take]\n\n**What's working:**\n- [2-3 real strengths]\n\n**Gaps to close (priority order):**\n- [Gap] — HIGH/MEDIUM/LOW\n(top 5 max)\n\n**3 moves to make right now:**\n1.\n2.\n3.\n\n**Recruiter's honest take:**\n[1 paragraph, direct, specific, no fluff]`;
   }
   if(tool==='impact'){
