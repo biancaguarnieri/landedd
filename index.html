@@ -10,13 +10,13 @@
   <meta name="description" content="AI resume tools built from the recruiter's chair. Tailor, scan, and transform your resume to get hired faster." />
 
   <!-- ═══════ ANALYTICS: Google Analytics 4 ═══════ -->
-  <!-- REPLACE G-YHXZXVKHZE with your actual GA4 Measurement ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YHXZXVKHZE"></script>
+  <!-- REPLACE G-XXXXXXXXXX with your actual GA4 Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-YHXZXVKHZE', {
+    gtag('config', 'G-XXXXXXXXXX', {
       send_page_view: true
     });
 
@@ -25,17 +25,26 @@
       if (typeof gtag === 'function') {
         gtag('event', eventName, params || {});
       }
+      // ── Write to KV via /api/metrics for live dashboard ──
+      const pilotEvents = ['ai_output_generated','ai_output_rated','user_signed_up','app_opened','wtp_response','resume_downloaded_or_saved','feedback_submitted'];
+      if (pilotEvents.includes(eventName)) {
+        fetch('/api/metrics', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event: eventName, ...(params || {}) })
+        }).catch(() => {});
+      }
     }
   </script>
 
   <!-- ═══════ ANALYTICS: Microsoft Clarity ═══════ -->
-  <!-- REPLACE 'w6j5li9w6x' with your actual Clarity project ID -->
+  <!-- REPLACE 'XXXXXXXXXX' with your actual Clarity project ID -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w6j5li9w6x");
+    })(window, document, "clarity", "script", "XXXXXXXXXX");
   </script>
 
   <style>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Landedd — Pilot Dashboard</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --green:#2d6a4f;--green-mid:#40916c;--green-pale:#d8f3dc;--green-bg:#f0faf4;
+      --gray:#f4f4f4;--gray2:#e8e8e8;--gray3:#c0c0c0;
+      --text:#1a1a1a;--text2:#4a4a4a;--text3:#888;--white:#fff;
+      --radius:10px;--rsm:7px;
+    }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);background:#f7f7f5;line-height:1.5;min-height:100vh}
+    header{background:var(--white);border-bottom:1px solid var(--gray2);padding:14px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.1rem;color:var(--text);text-decoration:none}
+    .logo svg{width:28px;height:28px}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .live-pill{display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--green);background:var(--green-pale);padding:4px 10px;border-radius:20px;font-weight:600}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .last-update{font-size:.72rem;color:var(--text3)}
+    main{max-width:1000px;margin:0 auto;padding:24px 5% 48px}
+    .section-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:10px}
+    .thermo-card{background:var(--white);border:1px solid var(--gray2);border-radius:var(--radius);padding:22px 24px;margin-bottom:20px}
+    .thermo-inner{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+    .gauge-svg{width:120px;height:120px;flex-shrink:0}
+    .thermo-right{flex:1;min-width:200px}
+    .verdict{font-size:1.3rem;font-weight:800;margin-bottom:3px}
+    .verdict-sub{font-size:.85rem;color:var(--text2);margin-bottom:16px;line-height:1.5}
+    .bar-rows{display:flex;flex-direction:column;gap:7px}
+    .br{display:flex;align-items:center;gap:8px}
+    .br-label{font-size:.75rem;color:var(--text2);width:130px;flex-shrink:0}
+    .br-track{flex:1;height:7px;background:var(--gray2);border-radius:4px;overflow:hidden}
+    .br-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+    .br-val{font-size:.75rem;font-weight:700;color:var(--text);width:38px;text-align:right}
+    .br-tgt{font-size:.68rem;color:var(--text3);width:50px;text-align:right}
+    .metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+    .mc{background:var(--white);border:1px solid var(--gray2);border-radius:var(--rsm);padding:14px 16px}
+    .mc-label{font-size:.7rem;color:var(--text3);margin-bottom:5px}
+    .mc-val{font-size:1.5rem;font-weight:800;color:var(--text)}
+    .mc-sub{font-size:.7rem;margin-top:3px}
+    .green{color:#2d6a4f}.amber{color:#b45309}.red{color:#b91c1c}.gray{color:var(--text3)}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+    @media(max-width:560px){.two-col{grid-template-columns:1fr}}
+    .chart-card{background:var(--white);border:1px solid var(--gray2);border-radius:var(--radius);padding:18px 20px}
+    .chart-title{font-size:.8rem;font-weight:700;color:var(--text2);margin-bottom:12px}
+    .wtp-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+    .wtp-label{font-size:.75rem;color:var(--text2);width:88px;flex-shrink:0}
+    .wtp-track{flex:1;height:22px;background:var(--gray);border-radius:4px;overflow:hidden}
+    .wtp-fill{height:100%;display:flex;align-items:center;padding-left:8px;font-size:.7rem;font-weight:700;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+    .wtp-pct{font-size:.75rem;font-weight:700;color:var(--text);width:32px;text-align:right}
+    .signal-box{margin-top:12px;padding-top:12px;border-top:1px solid var(--gray2)}
+    .signal-label{font-size:.68rem;color:var(--text3);margin-bottom:3px}
+    .signal-val{font-size:1rem;font-weight:700}
+    .trend-card{background:var(--white);border:1px solid var(--gray2);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px}
+    .chart-legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px;font-size:.72rem;color:var(--text2)}
+    .leg{display:flex;align-items:center;gap:5px}
+    .leg-dot{width:8px;height:8px;border-radius:2px}
+    .loading{display:flex;align-items:center;justify-content:center;height:200px;color:var(--text3);font-size:.85rem}
+    .refresh-btn{font-size:.75rem;padding:5px 14px;border-radius:20px;border:1px solid var(--gray2);background:transparent;color:var(--text2);cursor:pointer}
+    .refresh-btn:hover{background:var(--gray);color:var(--text)}
+    .demo-banner{background:#fffbeb;border:1px solid #fcd34d;border-radius:var(--rsm);padding:10px 14px;margin-bottom:20px;font-size:.82rem;color:#92400e}
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="/">
+    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg>
+    Landedd pilot
+  </a>
+  <div class="header-right">
+    <div class="live-pill"><div class="live-dot"></div>Live</div>
+    <span class="last-update" id="lastUpdate">Loading…</span>
+    <button class="refresh-btn" onclick="loadData()">Refresh</button>
+  </div>
+</header>
+
+<main>
+  <div id="demoBanner" class="demo-banner" style="display:none">
+    No live data yet — KV store is empty or not connected. Numbers will populate automatically as pilot users interact with Landedd.
+  </div>
+
+  <div style="margin-bottom:16px">
+    <div class="section-title">Launch readiness — pilot thermometer</div>
+    <div class="thermo-card">
+      <div class="thermo-inner">
+        <svg class="gauge-svg" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#e8e8e8" stroke-width="11"/>
+          <circle id="gaugeArc" cx="60" cy="60" r="46" fill="none" stroke="#2d6a4f" stroke-width="11"
+            stroke-linecap="round" stroke-dasharray="0 289"
+            transform="rotate(-90 60 60)" style="transition:stroke-dasharray 1.3s cubic-bezier(.4,0,.2,1),stroke .5s"/>
+          <text id="gaugeScore" x="60" y="56" text-anchor="middle" font-size="30" font-weight="800" fill="#1a1a1a">0</text>
+          <text x="60" y="74" text-anchor="middle" font-size="12" fill="#888">/ 100</text>
+        </svg>
+        <div class="thermo-right">
+          <div class="verdict" id="verdictText">Waiting for data</div>
+          <div class="verdict-sub" id="verdictSub">Pilot data will populate here automatically as users interact with Landedd.</div>
+          <div class="bar-rows">
+            <div class="br"><div class="br-label">Activation rate</div><div class="br-track"><div class="br-fill" id="bf-activation" style="width:0%;background:#2d6a4f"></div></div><div class="br-val" id="bv-activation">0%</div><div class="br-tgt">target 40%</div></div>
+            <div class="br"><div class="br-label">Satisfaction</div><div class="br-track"><div class="br-fill" id="bf-satisfaction" style="width:0%;background:#2d6a4f"></div></div><div class="br-val" id="bv-satisfaction">0%</div><div class="br-tgt">target 70%</div></div>
+            <div class="br"><div class="br-label">WTP paid tier</div><div class="br-track"><div class="br-fill" id="bf-wtp" style="width:0%;background:#378add"></div></div><div class="br-val" id="bv-wtp">0%</div><div class="br-tgt">target 30%</div></div>
+            <div class="br"><div class="br-label">Avg feedback</div><div class="br-track"><div class="br-fill" id="bf-feedback" style="width:0%;background:#ef9f27"></div></div><div class="br-val" id="bv-feedback">—</div><div class="br-tgt">target 4+/5</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:16px">
+    <div class="section-title">Core metrics</div>
+    <div class="metrics-grid">
+      <div class="mc"><div class="mc-label">Total users</div><div class="mc-val" id="m-users">0</div><div class="mc-sub gray" id="ms-users">target: 20–30</div></div>
+      <div class="mc"><div class="mc-label">Sessions</div><div class="mc-val" id="m-sessions">0</div><div class="mc-sub gray" id="ms-sessions">—</div></div>
+      <div class="mc"><div class="mc-label">AI runs</div><div class="mc-val" id="m-runs">0</div><div class="mc-sub gray" id="ms-runs">—</div></div>
+      <div class="mc"><div class="mc-label">Downloads</div><div class="mc-val" id="m-downloads">0</div><div class="mc-sub gray">—</div></div>
+      <div class="mc"><div class="mc-label">Satisfaction</div><div class="mc-val" id="m-satisfaction">—</div><div class="mc-sub gray" id="ms-satisfaction">target: 70%+</div></div>
+      <div class="mc"><div class="mc-label">Feedback avg</div><div class="mc-val" id="m-feedback">—</div><div class="mc-sub gray">/ 5 stars</div></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <div class="chart-title">Tool usage — all time</div>
+      <div style="position:relative;height:190px"><canvas id="toolChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Willingness to pay</div>
+      <div id="wtpRows">
+        <div class="wtp-row"><div class="wtp-label">Free only</div><div class="wtp-track"><div class="wtp-fill" id="wf-free" style="width:0%;background:#b4b2a9;color:#2c2c2a"></div></div><div class="wtp-pct" id="wp-free">0%</div></div>
+        <div class="wtp-row"><div class="wtp-label">Basic $7/mo</div><div class="wtp-track"><div class="wtp-fill" id="wf-basic" style="width:0%;background:#85b7eb;color:#042c53"></div></div><div class="wtp-pct" id="wp-basic">0%</div></div>
+        <div class="wtp-row"><div class="wtp-label">Pro $15/mo</div><div class="wtp-track"><div class="wtp-fill" id="wf-pro" style="width:0%;background:#5dcaa5;color:#04342c"></div></div><div class="wtp-pct" id="wp-pro">0%</div></div>
+        <div class="wtp-row"><div class="wtp-label">Pay more</div><div class="wtp-track"><div class="wtp-fill" id="wf-more" style="width:0%;background:#97c459;color:#173404"></div></div><div class="wtp-pct" id="wp-more">0%</div></div>
+      </div>
+      <div class="signal-box">
+        <div class="signal-label">Profitability signal</div>
+        <div class="signal-val" id="profitSignal">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:16px">
+    <div class="section-title">Weekly trend</div>
+    <div class="trend-card">
+      <div class="chart-legend">
+        <div class="leg"><div class="leg-dot" style="background:#2d6a4f"></div>AI runs</div>
+        <div class="leg"><div class="leg-dot" style="background:#378add"></div>Sessions</div>
+        <div class="leg"><div class="leg-dot" style="background:#ef9f27"></div>New users</div>
+      </div>
+      <div style="position:relative;height:200px"><canvas id="trendChart"></canvas></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-title">Tool breakdown — this week</div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <div class="leg"><div class="leg-dot" style="background:#5dcaa5"></div>Builder</div>
+        <div class="leg"><div class="leg-dot" style="background:#378add"></div>Tailor</div>
+        <div class="leg"><div class="leg-dot" style="background:#97c459"></div>Scanner</div>
+        <div class="leg"><div class="leg-dot" style="background:#ef9f27"></div>Gap finder</div>
+        <div class="leg"><div class="leg-dot" style="background:#afa9ec"></div>Impact</div>
+      </div>
+      <div style="position:relative;height:180px"><canvas id="toolWeekChart"></canvas></div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+let toolChart, trendChart, toolWeekChart;
+
+function pct(n, d) { return d > 0 ? Math.round((n / d) * 100) : 0; }
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+function barColor(val, target) {
+  if (val === 0) return '#c0c0c0';
+  if (val >= target * 0.75) return '#2d6a4f';
+  if (val >= target * 0.5) return '#ef9f27';
+  return '#e24b4a';
+}
+
+function setBar(id, val, max, display, target) {
+  const fill = document.getElementById('bf-' + id);
+  const valEl = document.getElementById('bv-' + id);
+  if (!fill || !valEl) return;
+  fill.style.width = clamp(Math.round((val / max) * 100), 0, 100) + '%';
+  fill.style.background = barColor(val, target || max * 0.75);
+  valEl.textContent = display;
+}
+
+function render(data) {
+  const t = data.totals;
+  const w = data.wtp;
+  const weekly = data.weekly;
+  const currentWeek = data.currentWeek || 1;
+
+  if (data.demo) document.getElementById('demoBanner').style.display = 'block';
+
+  document.getElementById('m-users').textContent = t.users;
+  document.getElementById('m-sessions').textContent = t.sessions;
+  document.getElementById('m-runs').textContent = t.runs;
+  document.getElementById('m-downloads').textContent = t.downloads;
+
+  const sessPerUser = t.users > 0 ? (t.sessions / t.users).toFixed(1) : 0;
+  document.getElementById('ms-sessions').textContent = sessPerUser + ' per user';
+  document.getElementById('ms-users').textContent = t.users >= 20 ? 'On track' : 'Need ' + (20 - t.users) + ' more';
+  document.getElementById('ms-users').className = 'mc-sub ' + (t.users >= 20 ? 'green' : t.users >= 10 ? 'amber' : 'red');
+
+  const totalRated = t.thumbsup + t.thumbsdown;
+  const satPct = pct(t.thumbsup, totalRated);
+  document.getElementById('m-satisfaction').textContent = totalRated > 0 ? satPct + '%' : '—';
+  document.getElementById('ms-satisfaction').textContent = totalRated > 0 ? (t.thumbsup + ' up / ' + t.thumbsdown + ' down') : 'no ratings yet';
+  document.getElementById('ms-satisfaction').className = 'mc-sub ' + (satPct >= 70 ? 'green' : satPct >= 50 ? 'amber' : totalRated > 0 ? 'red' : 'gray');
+
+  const fb = data.feedback;
+  document.getElementById('m-feedback').textContent = fb.avgRating ? fb.avgRating.toFixed(1) : '—';
+
+  const wtpTotal = w.free + w.basic + w.pro + w.more;
+  const wtpPaid = w.basic + w.pro + w.more;
+  const wtpPaidPct = pct(wtpPaid, wtpTotal);
+
+  [['free', w.free], ['basic', w.basic], ['pro', w.pro], ['more', w.more]].forEach(([tier, val]) => {
+    const p = pct(val, wtpTotal);
+    document.getElementById('wf-' + tier).style.width = p + '%';
+    document.getElementById('wp-' + tier).textContent = p + '%';
+  });
+
+  let signal = '—', sigClass = 'gray';
+  if (wtpTotal > 0) {
+    if (wtpPaidPct >= 40) { signal = 'Strong — launch paid now'; sigClass = 'green'; }
+    else if (wtpPaidPct >= 25) { signal = 'Promising — refine before launch'; sigClass = 'amber'; }
+    else if (wtpPaidPct > 0) { signal = 'Weak — consider model pivot'; sigClass = 'red'; }
+    else { signal = 'No paid interest yet'; sigClass = 'red'; }
+  }
+  const sigEl = document.getElementById('profitSignal');
+  sigEl.textContent = signal; sigEl.className = 'signal-val ' + sigClass;
+
+  const score = computeScore(satPct, wtpPaidPct, fb.avgRating, t.users);
+  const circ = 2 * Math.PI * 46;
+  const arc = document.getElementById('gaugeArc');
+  arc.setAttribute('stroke-dasharray', (circ * score / 100).toFixed(1) + ' ' + circ.toFixed(1));
+  arc.setAttribute('stroke', score >= 70 ? '#2d6a4f' : score >= 45 ? '#ef9f27' : '#e24b4a');
+  document.getElementById('gaugeScore').textContent = score;
+
+  let verdict, sub;
+  if (t.users === 0) { verdict = 'Awaiting data'; sub = 'Numbers populate automatically as pilot users interact with Landedd.'; }
+  else if (score >= 75) { verdict = 'Launch ready'; sub = 'Strong signals across the board. Begin paid launch planning now.'; }
+  else if (score >= 55) { verdict = 'Almost there'; sub = 'Good foundation. Address your weakest indicator before going paid.'; }
+  else if (score >= 35) { verdict = 'Work to do'; sub = 'Mixed signals — investigate your highest-priority red metric first.'; }
+  else { verdict = 'Not ready'; sub = 'Too many weak signals. Diagnose product issues before scaling.'; }
+  document.getElementById('verdictText').textContent = verdict;
+  document.getElementById('verdictSub').textContent = sub;
+
+  setBar('activation', pct(t.users >= 10 ? Math.round(t.users * 0.45) : 0, 100), 100, satPct + '%', 40);
+  setBar('satisfaction', satPct, 100, satPct + '%', 70);
+  setBar('wtp', wtpPaidPct, 100, wtpPaidPct + '%', 30);
+  const fbScore = fb.avgRating ? Math.round((fb.avgRating / 5) * 100) : 0;
+  setBar('feedback', fbScore, 100, fb.avgRating ? fb.avgRating.toFixed(1) + '/5' : '—', 80);
+
+  const now = new Date(data.updatedAt);
+  document.getElementById('lastUpdate').textContent = 'Updated ' + now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+
+  const tools = data.tools;
+  if (toolChart) {
+    toolChart.data.datasets[0].data = [tools.builder, tools.tailor, tools.scanner, tools.gaps, tools.impact];
+    toolChart.update();
+  }
+  if (toolWeekChart) {
+    const w1 = weekly.runs[currentWeek - 1] || 0;
+    toolWeekChart.data.datasets[0].data = [tools.builder, tools.tailor, tools.scanner, tools.gaps, tools.impact];
+    toolWeekChart.update();
+  }
+  if (trendChart) {
+    trendChart.data.datasets[0].data = weekly.runs;
+    trendChart.data.datasets[1].data = weekly.sessions;
+    trendChart.data.datasets[2].data = weekly.users;
+    trendChart.update();
+  }
+}
+
+function computeScore(satPct, wtpPaidPct, avgRating, users) {
+  let score = 0;
+  score += clamp(Math.round((satPct / 70) * 30), 0, 30);
+  score += clamp(Math.round((wtpPaidPct / 30) * 25), 0, 25);
+  score += clamp(Math.round((users / 20) * 20), 0, 20);
+  if (avgRating) score += clamp(Math.round(((avgRating - 1) / 4) * 15), 0, 15);
+  else score += 7;
+  score += 10;
+  return Math.min(100, score);
+}
+
+async function loadData() {
+  try {
+    const res = await fetch('/api/metrics');
+    const data = await res.json();
+    render(data);
+  } catch (e) {
+    document.getElementById('lastUpdate').textContent = 'Error loading data';
+  }
+}
+
+window.addEventListener('load', () => {
+  const chartDefaults = {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } }
+  };
+
+  toolChart = new Chart(document.getElementById('toolChart').getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Builder','Tailor','Scanner','Gap finder','Impact'],
+      datasets: [{ data: [0,0,0,0,0], backgroundColor: ['#5dcaa5','#378add','#97c459','#ef9f27','#afa9ec'], borderWidth: 2, borderColor: '#fff', hoverOffset: 4 }]
+    },
+    options: { ...chartDefaults, cutout: '65%' }
+  });
+
+  trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: ['Week 1','Week 2','Week 3'],
+      datasets: [
+        { label: 'Runs', data: [0,0,0], borderColor: '#2d6a4f', backgroundColor: 'transparent', tension: 0.3, pointRadius: 5, pointBackgroundColor: '#2d6a4f' },
+        { label: 'Sessions', data: [0,0,0], borderColor: '#378add', backgroundColor: 'transparent', tension: 0.3, pointRadius: 5, pointBackgroundColor: '#378add' },
+        { label: 'Users', data: [0,0,0], borderColor: '#ef9f27', backgroundColor: 'transparent', tension: 0.3, pointRadius: 5, pointBackgroundColor: '#ef9f27' }
+      ]
+    },
+    options: { ...chartDefaults, scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#888' } }, y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 11 }, color: '#888', stepSize: 5 } } } }
+  });
+
+  toolWeekChart = new Chart(document.getElementById('toolWeekChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['Builder','Tailor','Scanner','Gap finder','Impact'],
+      datasets: [{ data: [0,0,0,0,0], backgroundColor: ['#5dcaa5','#378add','#97c459','#ef9f27','#afa9ec'], borderRadius: 5, borderSkipped: false }]
+    },
+    options: { ...chartDefaults, scales: { x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#888' } }, y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 11 }, color: '#888' } } } }
+  });
+
+  loadData();
+  setInterval(loadData, 60000);
+});
+</script>
+</body>
+</html>
