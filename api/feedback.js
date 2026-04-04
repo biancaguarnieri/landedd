@@ -40,8 +40,8 @@ module.exports = async function handler(req, res) {
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        from: 'Landedd Feedback <feedback@landedd.com>',
-        to: ['biankitcha@gmail.com'],
+        from: 'Landedd Feedback <hello@landedd.com>',
+        to: ['hello@landedd.com'],
         reply_to: userEmail !== 'Not provided' ? userEmail : undefined,
         subject: `[Landedd Feedback] ${stars} — ${toolLabel}`,
         html: `
