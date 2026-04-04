@@ -1123,11 +1123,10 @@ async function getBuilderBg(){
 const RESUME_RULES=`
 CRITICAL RULES:
 1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements.
-2. Format: Name + contact (email and phone only). Then Education. Then Experience. Then Core Skills/Certs. Skip Professional Summary. Keep Core Skills short (a few lines max).
-3. EXPERIENCE ORDER — NON-NEGOTIABLE: List ALL experiences strictly from most recent to oldest. Never reorder roles by relevancy. Chronological sequence must always be preserved.
-3. Relevancy emphasis (within roles only): Inside each role's bullet points, lead with the most job-relevant achievements. You may give more space to more relevant roles. But role ORDER is always reverse-chronological.
+2. Format: Name + contact (email and phone only). Then Education. Then Experience (reverse chronological — most recent job FIRST, oldest LAST — always). Then Core Skills/Certs. Skip Professional Summary. Keep Core Skills short.
+3. CHRONOLOGICAL ORDER IS NON-NEGOTIABLE: List all jobs most-recent-first. Never reorder jobs by relevance. Within each individual role, lead bullets with the most relevant achievements for the target position.
 4. Dates on education: include graduation year ONLY for new grads (last 2 years or in progress). Omit for older grads.
-5. One page. ATS-friendly. No graphics. Elegant Formatting.
+5. One page. ATS-friendly. No graphics.
 6. ALWAYS close with "Suggestions to make this even stronger:" section with 2-3 specific improvements.`;
 
 async function getPrompt(tool){
