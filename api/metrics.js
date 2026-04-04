@@ -1,67 +1,76 @@
-export const config = { runtime: 'edge' };
+import { createClient } from 'redis';
 
-export default async function handler(req) {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json'
-  };
+export const config = { runtime: 'nodejs' };
 
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: corsHeaders });
+let client = null;
+
+async function getClient() {
+  if (client && client.isOpen) return client;
+  const url = process.env.REDIS_URL;
+  if (!url) return null;
+  client = createClient({ url });
+  client.on('error', () => { client = null; });
+  await client.connect();
+  return client;
+}
+
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') return res.status(204).end();
+
+  const rc = await getClient();
+
+  if (!rc) {
+    return res.status(200).json({ demo: true, ...getDemoData() });
   }
-
-  const kvUrl = process.env.KV_REST_API_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN;
-
-  if (!kvUrl || !kvToken) {
-    return new Response(JSON.stringify({ demo: true, ...getDemoData() }), { headers: corsHeaders });
-  }
-
-  const kv = (path, method = 'GET') =>
-    fetch(`${kvUrl}${path}`, { method, headers: { Authorization: `Bearer ${kvToken}` } }).then(r => r.json());
 
   try {
     if (req.method === 'POST') {
-      const body = await req.json();
+      const body = await new Promise((resolve) => {
+        let raw = '';
+        req.on('data', c => raw += c);
+        req.on('end', () => { try { resolve(JSON.parse(raw)); } catch { resolve({}); } });
+      });
+
       const { event, tool, rating, tier } = body;
       const w = getCurrentWeek();
 
       if (event === 'ai_output_generated') {
-        await kv('/incr/pilot:runs:total', 'POST');
-        await kv(`/incr/pilot:runs:week:${w}`, 'POST');
-        if (tool) await kv(`/incr/pilot:tool:${tool}`, 'POST');
+        await rc.incr('pilot:runs:total');
+        await rc.incr(`pilot:runs:week:${w}`);
+        if (tool) await rc.incr(`pilot:tool:${tool}`);
       }
       if (event === 'user_signed_up') {
-        await kv('/incr/pilot:users:total', 'POST');
-        await kv(`/incr/pilot:users:week:${w}`, 'POST');
+        await rc.incr('pilot:users:total');
+        await rc.incr(`pilot:users:week:${w}`);
       }
       if (event === 'app_opened') {
-        await kv('/incr/pilot:sessions:total', 'POST');
-        await kv(`/incr/pilot:sessions:week:${w}`, 'POST');
+        await rc.incr('pilot:sessions:total');
+        await rc.incr(`pilot:sessions:week:${w}`);
       }
       if (event === 'ai_output_rated') {
         const dir = rating === 'positive' ? 'thumbsup' : 'thumbsdown';
-        await kv(`/incr/pilot:rating:${dir}`, 'POST');
-        await kv(`/incr/pilot:rating:${dir}:week:${w}`, 'POST');
+        await rc.incr(`pilot:rating:${dir}`);
+        await rc.incr(`pilot:rating:${dir}:week:${w}`);
       }
       if (event === 'wtp_response' && tier) {
-        await kv(`/incr/pilot:wtp:${tier}`, 'POST');
+        await rc.incr(`pilot:wtp:${tier}`);
       }
       if (event === 'resume_downloaded_or_saved') {
-        await kv('/incr/pilot:downloads:total', 'POST');
+        await rc.incr('pilot:downloads:total');
       }
       if (event === 'feedback_submitted' && rating) {
-        await kv('/incr/pilot:feedback:total', 'POST');
+        await rc.incr('pilot:feedback:total');
         const ratingNum = parseInt(rating);
         if (!isNaN(ratingNum)) {
-          const [sr, cr] = await Promise.all([kv('/get/pilot:feedback:ratingsum'), kv('/get/pilot:feedback:ratingcount')]);
-          await kv(`/set/pilot:feedback:ratingsum/${parseInt(sr.result||0)+ratingNum}`, 'POST');
-          await kv(`/set/pilot:feedback:ratingcount/${parseInt(cr.result||0)+1}`, 'POST');
+          await rc.incrBy('pilot:feedback:ratingsum', ratingNum);
+          await rc.incr('pilot:feedback:ratingcount');
         }
       }
-      return new Response(JSON.stringify({ ok: true }), { headers: corsHeaders });
+      return res.status(200).json({ ok: true });
     }
 
     const keys = [
@@ -77,15 +86,13 @@ export default async function handler(req) {
       'pilot:rating:thumbsdown:week:1','pilot:rating:thumbsdown:week:2','pilot:rating:thumbsdown:week:3'
     ];
 
-    const res = await fetch(`${kvUrl}/mget/${keys.join('/')}`, {
-      headers: { Authorization: `Bearer ${kvToken}` }
-    });
-    const { result: vals = [] } = await res.json();
+    const vals = await rc.mGet(keys);
     const g = k => parseInt(vals[keys.indexOf(k)] || 0);
 
-    const fbSum = g('pilot:feedback:ratingsum'), fbCnt = g('pilot:feedback:ratingcount');
+    const fbSum = g('pilot:feedback:ratingsum');
+    const fbCnt = g('pilot:feedback:ratingcount');
 
-    return new Response(JSON.stringify({
+    return res.status(200).json({
       totals: {
         users: g('pilot:users:total'), sessions: g('pilot:sessions:total'),
         runs: g('pilot:runs:total'), downloads: g('pilot:downloads:total'),
@@ -96,20 +103,20 @@ export default async function handler(req) {
         scanner: g('pilot:tool:scanner'), gaps: g('pilot:tool:gaps'), impact: g('pilot:tool:impact')
       },
       wtp: { free: g('pilot:wtp:free'), basic: g('pilot:wtp:basic'), pro: g('pilot:wtp:pro'), more: g('pilot:wtp:more') },
-      feedback: { total: g('pilot:feedback:total'), avgRating: fbCnt > 0 ? Math.round((fbSum/fbCnt)*10)/10 : null },
+      feedback: { total: g('pilot:feedback:total'), avgRating: fbCnt > 0 ? Math.round((fbSum / fbCnt) * 10) / 10 : null },
       weekly: {
-        users: [g('pilot:users:week:1'),g('pilot:users:week:2'),g('pilot:users:week:3')],
-        runs: [g('pilot:runs:week:1'),g('pilot:runs:week:2'),g('pilot:runs:week:3')],
-        sessions: [g('pilot:sessions:week:1'),g('pilot:sessions:week:2'),g('pilot:sessions:week:3')],
-        thumbsup: [g('pilot:rating:thumbsup:week:1'),g('pilot:rating:thumbsup:week:2'),g('pilot:rating:thumbsup:week:3')],
-        thumbsdown: [g('pilot:rating:thumbsdown:week:1'),g('pilot:rating:thumbsdown:week:2'),g('pilot:rating:thumbsdown:week:3')]
+        users: [g('pilot:users:week:1'), g('pilot:users:week:2'), g('pilot:users:week:3')],
+        runs: [g('pilot:runs:week:1'), g('pilot:runs:week:2'), g('pilot:runs:week:3')],
+        sessions: [g('pilot:sessions:week:1'), g('pilot:sessions:week:2'), g('pilot:sessions:week:3')],
+        thumbsup: [g('pilot:rating:thumbsup:week:1'), g('pilot:rating:thumbsup:week:2'), g('pilot:rating:thumbsup:week:3')],
+        thumbsdown: [g('pilot:rating:thumbsdown:week:1'), g('pilot:rating:thumbsdown:week:2'), g('pilot:rating:thumbsdown:week:3')]
       },
       currentWeek: getCurrentWeek(),
       updatedAt: new Date().toISOString()
-    }), { headers: corsHeaders });
+    });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message, demo: true, ...getDemoData() }), { headers: corsHeaders });
+    return res.status(200).json({ demo: true, error: err.message, ...getDemoData() });
   }
 }
 
