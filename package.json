@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Landedd — AI resume tools built from the recruiter's chair",
   "dependencies": {
+    "@vercel/kv": "^1.0.0",
     "mammoth": "^1.7.2",
     "pdf-parse": "^1.1.1"
   }

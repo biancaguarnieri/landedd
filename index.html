@@ -645,24 +645,83 @@ let gapBgMethod = 'paste';
 let buildMethod = 'questions';
 let rpTool = 'builder';
 
-// ═══════ USAGE LIMITS — 3 runs per tool, ALL tools ═══════
-const TOOL_KEYS = {
-  builder: 'ldl_builder',
-  gaps:    'ldl_gaps',
-  impact:  'ldl_impact',
-  tailor:  'ldl_tailor',
-  scanner: 'ldl_scanner'
-};
+// ═══════ USAGE LIMITS — server-side tracking ═══════
+// Fingerprint: anonymous browser ID stored in localStorage (not PII)
+// Counts are tracked server-side — cannot be bypassed by clearing localStorage
 const TOOL_MAX = 3;
-const getToolCount = t => parseInt(localStorage.getItem(TOOL_KEYS[t])||'0');
-const incToolCount = t => localStorage.setItem(TOOL_KEYS[t], getToolCount(t)+1);
-const toolLeft = t => Math.max(0, TOOL_MAX - getToolCount(t));
+const DL_MAX = 3;
+
+function getFingerprint() {
+  let fp = localStorage.getItem('_ldlfp');
+  if (!fp) {
+    fp = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    localStorage.setItem('_ldlfp', fp);
+  }
+  return fp;
+}
+
+// Local cache of remaining counts (hydrated from server on load)
+const _usageCache = { tools: {}, downloads: DL_MAX, loaded: false };
+
+async function loadUsage() {
+  try {
+    const fp = getFingerprint();
+    const res = await fetch('/api/usage?fp=' + encodeURIComponent(fp));
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.unlimited) return; // KV not set up yet — allow all
+    Object.assign(_usageCache.tools, data.tools || {});
+    _usageCache.downloads = DL_MAX - (data.downloads || 0);
+    _usageCache.loaded = true;
+  } catch { /* fail open */ }
+}
+
+function toolLeft(t) {
+  if (!_usageCache.loaded) return TOOL_MAX;
+  return Math.max(0, TOOL_MAX - (_usageCache.tools[t] || 0));
+}
+
+function dlLeft() {
+  return Math.max(0, _usageCache.downloads);
+}
+
+async function incToolCount(tool) {
+  try {
+    const fp = getFingerprint();
+    const res = await fetch('/api/usage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'tool', tool, fp })
+    });
+    const data = await res.json();
+    if (data.ok !== false) {
+      _usageCache.tools[tool] = (_usageCache.tools[tool] || 0) + 1;
+    }
+    return data;
+  } catch { return { ok: true, remaining: 1 }; }
+}
+
+async function incDl() {
+  try {
+    const fp = getFingerprint();
+    const res = await fetch('/api/usage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'download', fp })
+    });
+    const data = await res.json();
+    if (data.ok !== false) {
+      _usageCache.downloads = Math.max(0, _usageCache.downloads - 1);
+    }
+    return data;
+  } catch { return { ok: true, remaining: 1 }; }
+}
 
 function syncUsageNote(tool) {
   const el = document.getElementById('usage-'+tool);
   if (!el) return;
   const n = toolLeft(tool);
-  if (n === TOOL_MAX) { el.textContent=''; el.className='tool-usage-note'; return; }
+  if (n >= TOOL_MAX) { el.textContent=''; el.className='tool-usage-note'; return; }
   if (n === 0) {
     el.textContent = "You've used all 3 free runs. Upgrade to Pro for unlimited.";
     el.className = 'tool-usage-note out';
@@ -674,12 +733,6 @@ function syncUsageNote(tool) {
   }
 }
 
-// ═══════ DOWNLOAD LIMIT ═══════
-const DL_KEY = 'ldl';
-const DL_MAX = 3;
-const getDlCount = () => parseInt(localStorage.getItem(DL_KEY)||'0');
-const incDl = () => localStorage.setItem(DL_KEY, getDlCount()+1);
-const dlLeft = () => Math.max(0, DL_MAX - getDlCount());
 function syncDlBadge() {
   const n = dlLeft();
   const el = document.getElementById('dl-badge');
@@ -779,7 +832,7 @@ function openApp(t) {
   document.body.style.overflow = 'hidden';
   if (t) selTrack(t);
   if (!document.getElementById('expRows').children.length) addExp();
-  Object.keys(TOOL_KEYS).forEach(syncUsageNote);
+  _toolNames.forEach(syncUsageNote);
 }
 function closeApp() { document.getElementById('modal').classList.remove('show'); document.body.style.overflow=''; }
 function handleOverlayClick(e) { if (e.target.id==='modal') closeApp(); }
@@ -1019,7 +1072,7 @@ async function run(tool){
     if(!text)throw new Error('Empty response. Please try again.');
     outDiv.classList.remove('loading');outDiv.textContent=text;
     resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
-    incToolCount(tool);syncUsageNote(tool);
+    await incToolCount(tool);syncUsageNote(tool);
   }catch(e){
     outDiv.classList.remove('loading');resDiv.classList.remove('show');
     errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';
@@ -1047,7 +1100,7 @@ async function runAnalysis(tool){
     let parsed;try{parsed=JSON.parse(raw);}catch{throw new Error('Could not parse result. Please try again.');}
     if(tool==='gaps')resDiv.innerHTML=renderGaps(parsed);else resDiv.innerHTML=renderScanner(parsed);
     resDiv.style.display='block';resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
-    incToolCount(tool);syncUsageNote(tool);
+    await incToolCount(tool);syncUsageNote(tool);
   }catch(e){errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';}
   finally{btn.disabled=toolLeft(tool)<=0;btnSpan.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';}
 }
@@ -1153,7 +1206,7 @@ async function rpDownloadDocx(){
     const doc=new Document({styles:{default:{heading2:{run:{bold:true,size:22,font:'Times New Roman'},paragraph:{spacing:{before:200,after:60},border:{bottom:{style:'single',size:6,color:'333333',space:4}}}}}},sections:[{properties:{page:{margin:{top:1080,bottom:1080,left:1080,right:1080}}},children}]});
     const blob=await Packer.toBlob(doc);
     const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='resume-landedd.docx';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-    incDl();syncDlBadge();
+    await incDl();syncDlBadge();
   }catch(e){alert('Download failed — use "Copy text" and paste into Word or Google Docs.');}
 }
 
@@ -1162,7 +1215,7 @@ function rpOpenGdocs(){
   const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
   const win=window.open('','_blank');
   win.document.write('<!DOCTYPE html><html><head><title>Open in Google Docs — Landedd</title><style>body{font-family:\'Times New Roman\',serif;max-width:760px;margin:40px auto;padding:0 40px;font-size:12pt;line-height:1.65;color:#1a1a1a}.bar{background:#f0faf4;border:1px solid #d8f3dc;border-radius:8px;padding:16px 20px;margin-bottom:28px;font-family:sans-serif;font-size:13px}.bar h3{font-size:15px;font-weight:700;color:#2d6a4f;margin:0 0 8px}ol{margin:0;padding-left:20px;color:#444;line-height:1.9}.btn{background:#4285f4;color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;margin-top:10px}pre{white-space:pre-wrap;font-size:12pt}</style></head><body><div class="bar"><h3>Open in Google Docs — 3 steps</h3><ol><li>Click <strong>Select all text</strong> below → copy (Ctrl+C / Cmd+C)</li><li><a href="https://docs.google.com/document/create" target="_blank" style="color:#4285f4;font-weight:600">Open a new Google Doc</a></li><li>Paste (Ctrl+V / Cmd+V) — then format as needed</li></ol><button class="btn" onclick="sel()">Select all text</button></div><pre id="rt">'+text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre><script>function sel(){const e=document.getElementById(\'rt\');const r=document.createRange();r.selectNodeContents(e);const s=window.getSelection();s.removeAllRanges();s.addRange(r);}<\/script></body></html>');
-  win.document.close();incDl();syncDlBadge();
+  win.document.close();await incDl();syncDlBadge();
 }
 
 // FEEDBACK
@@ -1179,9 +1232,12 @@ async function submitFeedback(){
   catch{btn.disabled=false;btn.textContent='Send feedback';alert('Could not send right now. Please try again or email hello@landedd.com');}
 }
 
-// INIT
-syncDlBadge();
-Object.keys(TOOL_KEYS).forEach(syncUsageNote);
+// INIT — load usage counts from server, then sync UI
+const _toolNames = ['builder','gaps','impact','tailor','scanner'];
+loadUsage().then(() => {
+  syncDlBadge();
+  _toolNames.forEach(syncUsageNote);
+});
 </script>
 
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
