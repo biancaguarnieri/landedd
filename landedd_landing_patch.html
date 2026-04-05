@@ -1,0 +1,744 @@
+<!--
+  LANDEDD LANDING PAGE — PATCH FILE
+  ===================================
+  Three additions + one modification to index.html
+  All CSS goes inside the existing <style> block (before </style>)
+  All HTML goes in the positions marked below
+  JS additions go into the existing <script> block
+
+  CHANGE SUMMARY:
+  1. [CSS + HTML] Social proof bar — after <div class="beta-bar">
+  2. [CSS + HTML] Recruiter credibility strip — after hero section
+  3. [CSS + HTML] Before/After teaser section — after .features div
+  4. [CSS + JS mod] Streamlined modal — collapse track selector, default to tailor
+-->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     1. CSS — paste all of this before the closing </style> tag
+════════════════════════════════════════════════════════════════ -->
+<style id="PATCH_CSS_INJECT_BEFORE_STYLE_CLOSE">
+
+/* ── Social proof bar ─────────────────────────────────────────── */
+.proof-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--gray2);
+  padding: 10px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .78rem;
+  color: var(--text2);
+  white-space: nowrap;
+}
+.proof-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green-light);
+  flex-shrink: 0;
+}
+.proof-item strong { color: var(--text); font-weight: 700; }
+
+/* ── Recruiter credibility strip ──────────────────────────────── */
+.cred-strip {
+  background: var(--green);
+  padding: 18px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.cred-avatar {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: 2px solid rgba(255,255,255,.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.cred-text { color: #fff; }
+.cred-text strong {
+  display: block;
+  font-size: .94rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -.2px;
+}
+.cred-text span {
+  font-size: .78rem;
+  color: var(--green-pale);
+  opacity: .9;
+}
+
+/* ── Before / After teaser section ───────────────────────────── */
+.teaser-sec {
+  padding: 72px 6% 80px;
+  background: #fff;
+  border-top: 1px solid var(--gray2);
+}
+.teaser-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.teaser-hdr {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.teaser-hdr .sec-label { margin-bottom: 8px; }
+.teaser-hdr h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+.teaser-hdr p {
+  font-size: .92rem;
+  color: var(--text2);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Card pair layout */
+.ba-pair {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: start;
+  margin-bottom: 44px;
+}
+.ba-pair:last-child { margin-bottom: 0; }
+
+.ba-card {
+  background: var(--gray);
+  border: 1px solid var(--gray2);
+  border-radius: 12px;
+  padding: 20px 22px;
+  position: relative;
+}
+.ba-card.after {
+  background: var(--green-bg);
+  border-color: var(--green-pale);
+  border-width: 1.5px;
+}
+.ba-label {
+  font-size: .65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ba-label.before-lbl { color: var(--text3); }
+.ba-label.after-lbl { color: var(--green); }
+.ba-label-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.ba-tool-tag {
+  position: absolute;
+  top: -11px; right: 14px;
+  background: var(--green);
+  color: #fff;
+  font-size: .63rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 10px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.ba-bullet {
+  font-size: .88rem;
+  color: var(--text2);
+  line-height: 1.65;
+}
+.ba-bullet em {
+  font-style: normal;
+  background: rgba(116,198,157,.25);
+  border-radius: 3px;
+  padding: 0 2px;
+  color: var(--green);
+  font-weight: 600;
+}
+.ba-bullet.before-bullet { color: var(--text3); }
+.ba-bullet.before-bullet s { text-decoration: none; }
+
+.ba-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  padding-top: 36px;
+  color: var(--green);
+}
+.ba-arrow svg {
+  width: 28px; height: 28px;
+  flex-shrink: 0;
+}
+
+/* Score chip on after card */
+.ba-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  background: var(--green-pale);
+  border: 1px solid rgba(45,106,79,.15);
+  border-radius: 20px;
+  padding: 4px 11px;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+/* Teaser CTA */
+.teaser-cta {
+  text-align: center;
+  margin-top: 52px;
+}
+.teaser-cta p {
+  font-size: .85rem;
+  color: var(--text3);
+  margin-top: 12px;
+}
+
+/* ── Animated output preview strip ───────────────────────────── */
+.output-strip {
+  background: var(--green-bg);
+  border-top: 1px solid var(--green-pale);
+  border-bottom: 1px solid var(--green-pale);
+  padding: 56px 6%;
+  overflow: hidden;
+}
+.output-strip-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.output-strip .sec-hdr { margin-bottom: 28px; }
+
+.mock-panel {
+  background: #fff;
+  border: 1.5px solid var(--gray2);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(45,106,79,.1);
+}
+.mock-toolbar {
+  background: var(--gray);
+  border-bottom: 1px solid var(--gray2);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mock-dots { display: flex; gap: 5px; }
+.mock-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.mock-dot:nth-child(1) { background: #ff5f57; }
+.mock-dot:nth-child(2) { background: #febc2e; }
+.mock-dot:nth-child(3) { background: #28c840; }
+.mock-tab {
+  background: #fff;
+  border: 1px solid var(--gray2);
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--text2);
+}
+.mock-badge {
+  margin-left: auto;
+  background: var(--green-pale);
+  color: var(--green);
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+.mock-body {
+  padding: 22px 24px;
+  min-height: 220px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: .88rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+.mock-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: -apple-system, sans-serif;
+  letter-spacing: -.3px;
+  margin-bottom: 2px;
+}
+.mock-contact {
+  font-size: .72rem;
+  color: var(--text3);
+  font-family: -apple-system, sans-serif;
+  margin-bottom: 14px;
+}
+.mock-section-hdr {
+  font-size: .7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text);
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 2px;
+  margin: 12px 0 8px;
+  font-family: -apple-system, sans-serif;
+}
+.mock-bullet {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 5px;
+  font-size: .83rem;
+}
+.mock-bullet::before {
+  content: '•';
+  color: var(--green);
+  flex-shrink: 0;
+  font-weight: 700;
+}
+.mock-bullet .highlight {
+  color: var(--green);
+  font-weight: 600;
+  background: rgba(116,198,157,.15);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Typing cursor animation */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--green);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink .8s step-end infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Fade-in lines */
+.mock-line {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.mock-line.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Score ring mini */
+.score-mini {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--green-bg);
+  border: 1px solid var(--green-pale);
+  border-top: none;
+  padding: 12px 20px;
+}
+.score-mini-ring {
+  width: 44px; height: 44px;
+  flex-shrink: 0;
+}
+.score-mini-text { font-size: .82rem; color: var(--text2); line-height: 1.4; }
+.score-mini-text strong { color: var(--green); font-weight: 800; font-size: .92rem; }
+
+/* ── Streamlined modal — quick-start strip ────────────────────── */
+.quickstart-strip {
+  background: var(--green-bg);
+  border-bottom: 1px solid var(--green-pale);
+  padding: 10px 14px 12px;
+  margin-bottom: 14px;
+  border-radius: 0;
+}
+.qs-label {
+  font-size: .64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--green-mid);
+  margin-bottom: 7px;
+}
+.qs-tools {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.qs-tool {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--gray2);
+  background: #fff;
+  font-size: .77rem;
+  font-weight: 600;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all .18s;
+  white-space: nowrap;
+}
+.qs-tool:hover { border-color: var(--green); color: var(--green); }
+.qs-tool.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.qs-tool .qs-icon { font-size: .85rem; }
+
+@media (max-width: 600px) {
+  .ba-pair {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .ba-arrow { padding: 8px 0; padding-top: 8px; transform: rotate(90deg); }
+  .proof-bar { gap: 16px; }
+}
+</style>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     2. HTML BLOCK A — Social proof bar
+     LOCATION: paste immediately AFTER the closing </div> of .beta-bar
+════════════════════════════════════════════════════════════════ -->
+
+<div class="proof-bar">
+  <div class="proof-item">
+    <div class="proof-dot"></div>
+    <span><strong>39 job seekers</strong> in beta</span>
+  </div>
+  <div class="proof-item">
+    <div class="proof-dot"></div>
+    <span><strong>Free</strong> — no credit card</span>
+  </div>
+  <div class="proof-item">
+    <div class="proof-dot"></div>
+    <span><strong>No sign-up</strong> required</span>
+  </div>
+  <div class="proof-item">
+    <div class="proof-dot"></div>
+    <span>Built by a <strong>10-year recruiter</strong></span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     3. HTML BLOCK B — Recruiter credibility strip
+     LOCATION: paste immediately AFTER the closing </section> of .hero
+════════════════════════════════════════════════════════════════ -->
+
+<div class="cred-strip">
+  <div class="cred-avatar">👩‍💼</div>
+  <div class="cred-text">
+    <strong>"I've screened over 10,000 resumes. I built Landedd so you stop guessing what recruiters actually want."</strong>
+    <span>— Bianca, Founder · 10 years in Talent Acquisition</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     4. HTML BLOCK C — Before / After teaser + animated output preview
+     LOCATION: paste immediately AFTER the closing </div> of .features
+════════════════════════════════════════════════════════════════ -->
+
+<!-- BEFORE / AFTER TEASER -->
+<section class="teaser-sec">
+  <div class="teaser-inner">
+    <div class="teaser-hdr">
+      <div class="sec-label">See it work</div>
+      <h2>What Landedd actually does to your resume</h2>
+      <p>Real examples. No fluff. This is what changes when a recruiter rewrites your bullets.</p>
+    </div>
+
+    <!-- Example 1: Impact bullet rewrite -->
+    <div class="ba-pair">
+      <div class="ba-card">
+        <div class="ba-label before-lbl"><div class="ba-label-dot"></div>Before</div>
+        <div class="ba-bullet before-bullet">Responsible for customer service and handling complaints from customers on a daily basis.</div>
+      </div>
+      <div class="ba-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-tool-tag">Impact coach</div>
+        <div class="ba-label after-lbl"><div class="ba-label-dot"></div>After Landedd</div>
+        <div class="ba-bullet">Resolved <em>40+ customer escalations weekly</em>, maintaining a <em>96% satisfaction score</em> and reducing repeat complaints by 30%.</div>
+        <div class="ba-score">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.5 3.5L11 4.2l-2.5 2.4.6 3.4L6 8.4l-3.1 1.6.6-3.4L1 4.2l3.5-.7z"/></svg>
+          Duties → Achievement
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2: Tailor rewrite -->
+    <div class="ba-pair">
+      <div class="ba-card">
+        <div class="ba-label before-lbl"><div class="ba-label-dot"></div>Before — generic resume summary</div>
+        <div class="ba-bullet before-bullet">Experienced marketing professional with skills in social media, content creation, and campaign management looking for new opportunities.</div>
+      </div>
+      <div class="ba-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-tool-tag">Resume tailor</div>
+        <div class="ba-label after-lbl"><div class="ba-label-dot"></div>After Landedd — tailored to the job</div>
+        <div class="ba-bullet">Growth-focused <em>Social Media Manager</em> with 4 years driving <em>B2C engagement</em> through data-led content — including a campaign that grew organic reach <em>by 180% in 6 months</em>.</div>
+        <div class="ba-score">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.5 3.5L11 4.2l-2.5 2.4.6 3.4L6 8.4l-3.1 1.6.6-3.4L1 4.2l3.5-.7z"/></svg>
+          ATS match: generic → 87/100
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 3: Gap finder -->
+    <div class="ba-pair">
+      <div class="ba-card">
+        <div class="ba-label before-lbl"><div class="ba-label-dot"></div>Before — applying blind</div>
+        <div class="ba-bullet before-bullet" style="color:var(--text2)">
+          You apply. You wait. You hear nothing.<br>
+          <span style="font-size:.8rem;color:var(--text3);margin-top:6px;display:block">You don't know why — or what to fix.</span>
+        </div>
+      </div>
+      <div class="ba-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-tool-tag">Fit scanner</div>
+        <div class="ba-label after-lbl"><div class="ba-label-dot"></div>After Landedd — you know exactly where you stand</div>
+        <div class="ba-bullet">
+          <span style="color:var(--green);font-weight:700">Match score: 71/100.</span> Missing keywords: <em>Salesforce, pipeline management</em>. Fix: add 2 bullets to your Operations role and you're past the ATS filter.
+        </div>
+        <div class="ba-score">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.5 3.5L11 4.2l-2.5 2.4.6 3.4L6 8.4l-3.1 1.6.6-3.4L1 4.2l3.5-.7z"/></svg>
+          Specific, actionable, honest
+        </div>
+      </div>
+    </div>
+
+    <div class="teaser-cta">
+      <button class="btn-primary" onclick="openQuickTool('tailor')">Try it on your own resume →</button>
+      <p>Free · No sign-up · Results in under 30 seconds</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANIMATED OUTPUT PREVIEW -->
+<section class="output-strip">
+  <div class="output-strip-inner">
+    <div class="sec-hdr">
+      <div class="sec-label">Live preview</div>
+      <h2 style="font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:var(--text);letter-spacing:-1px">This is what your output looks like</h2>
+    </div>
+
+    <div class="mock-panel">
+      <div class="mock-toolbar">
+        <div class="mock-dots">
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+        </div>
+        <div class="mock-tab">Resume tailor</div>
+        <div class="mock-badge">✓ Ready</div>
+      </div>
+      <div class="mock-body" id="mockBody">
+        <div class="mock-name mock-line" id="ml-0">Jordan M. Rivera</div>
+        <div class="mock-contact mock-line" id="ml-1">jordan@email.com · (555) 012-3456 · linkedin.com/in/jordanrivera</div>
+        <div class="mock-section-hdr mock-line" id="ml-2">Experience</div>
+        <div class="mock-bullet mock-line" id="ml-3">
+          Led <span class="highlight">cross-functional product launches</span> across 3 markets, delivering on time and <span class="highlight">18% under budget</span>.
+        </div>
+        <div class="mock-bullet mock-line" id="ml-4">
+          Built and managed a <span class="highlight">12-person remote team</span>, improving sprint velocity by <span class="highlight">40%</span> in two quarters.
+        </div>
+        <div class="mock-bullet mock-line" id="ml-5">
+          Partnered with Sales to develop <span class="highlight">Salesforce-integrated</span> reporting dashboards — reduced manual reporting by <span class="highlight">6 hours/week</span>.
+        </div>
+        <div class="mock-section-hdr mock-line" id="ml-6">Skills</div>
+        <div class="mock-bullet mock-line" id="ml-7">
+          <span class="highlight">Project management</span> · Salesforce · Jira · Stakeholder communication · Budget ownership
+        </div>
+      </div>
+      <div class="score-mini">
+        <svg class="score-mini-ring" viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="17" fill="none" stroke="#e8e8e8" stroke-width="5"/>
+          <circle id="scoreArc" cx="22" cy="22" r="17" fill="none" stroke="#2d6a4f" stroke-width="5"
+            stroke-linecap="round"
+            stroke-dasharray="0 107"
+            transform="rotate(-90 22 22)"
+            style="transition: stroke-dasharray 1.5s cubic-bezier(.4,0,.2,1)"/>
+          <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="800" fill="#1a1a1a" font-family="-apple-system,sans-serif">87</text>
+        </svg>
+        <div class="score-mini-text">
+          <strong>ATS match: 87/100</strong><br>
+          Keywords aligned · Experience section strengthened · Ready to apply
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     5. HTML BLOCK D — Replace the modal pnl-body content
+     LOCATION: Find the <div class="pnl-body"> block and replace its
+     opening with this quickstart strip BEFORE the track-sel div.
+     Insert this as the FIRST child inside .pnl-body:
+════════════════════════════════════════════════════════════════ -->
+
+<div class="quickstart-strip">
+  <div class="qs-label">What do you need?</div>
+  <div class="qs-tools">
+    <button class="qs-tool active" id="qs-tailor" onclick="jumpToTool('tailor')">
+      <span class="qs-icon">✏</span> Tailor my resume
+    </button>
+    <button class="qs-tool" id="qs-scanner" onclick="jumpToTool('scanner')">
+      <span class="qs-icon">🔍</span> Check my fit score
+    </button>
+    <button class="qs-tool" id="qs-builder" onclick="jumpToTool('builder')">
+      <span class="qs-icon">✦</span> Build a resume
+    </button>
+    <button class="qs-tool" id="qs-impact" onclick="jumpToTool('impact')">
+      <span class="qs-icon">⚡</span> Rewrite my bullets
+    </button>
+    <button class="qs-tool" id="qs-gaps" onclick="jumpToTool('gaps')">
+      <span class="qs-icon">◎</span> Find my gaps
+    </button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     6. JS ADDITIONS — paste into the existing <script> block,
+     after the openApp() function definition
+════════════════════════════════════════════════════════════════ -->
+<script id="PATCH_JS_INJECT_AFTER_OPENAPP">
+
+// Tool→track mapping for quickstart
+const TOOL_TRACK = {
+  tailor: 'target', scanner: 'target',
+  builder: 'build', impact: 'build', gaps: 'build'
+};
+
+// openQuickTool: called from landing page CTAs with a specific tool pre-selected
+function openQuickTool(tool) {
+  openApp(TOOL_TRACK[tool] || 'target');
+  // Small delay so the panel renders before switching tool
+  setTimeout(() => {
+    const tr = TOOL_TRACK[tool] || 'target';
+    swTool(tr, tool);
+    // Sync quickstart highlight
+    document.querySelectorAll('.qs-tool').forEach(b => b.classList.remove('active'));
+    const qs = document.getElementById('qs-' + tool);
+    if (qs) qs.classList.add('active');
+  }, 60);
+  trackEvent('app_opened', { track: TOOL_TRACK[tool], tool, source: 'landing_cta' });
+}
+
+// jumpToTool: called from the quickstart strip inside the modal
+function jumpToTool(tool) {
+  // Update quickstart button states
+  document.querySelectorAll('.qs-tool').forEach(b => b.classList.remove('active'));
+  const qs = document.getElementById('qs-' + tool);
+  if (qs) qs.classList.add('active');
+  // Switch track + tool
+  const tr = TOOL_TRACK[tool] || 'target';
+  selTrack(tr);
+  swTool(tr, tool);
+}
+
+// Animate the mock output preview when it scrolls into view
+(function initMockAnimation() {
+  const lines = document.querySelectorAll('.mock-line');
+  const arc = document.getElementById('scoreArc');
+  let fired = false;
+
+  function animateMock() {
+    if (fired) return;
+    fired = true;
+    lines.forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 140);
+    });
+    // Animate score ring after lines appear
+    setTimeout(() => {
+      if (arc) arc.setAttribute('stroke-dasharray', '93.5 107');
+    }, lines.length * 140 + 200);
+  }
+
+  // Use IntersectionObserver if available
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { animateMock(); obs.disconnect(); }
+    }, { threshold: 0.3 });
+    const target = document.querySelector('.output-strip');
+    if (target) obs.observe(target);
+  } else {
+    // Fallback: animate after 1s
+    setTimeout(animateMock, 1000);
+  }
+})();
+
+// Override openApp to default to tailor tool (reduce decisions)
+// Wrap original openApp by saving reference first
+const _origOpenApp = openApp;
+// Redefine to always pre-select tailor unless a specific track was requested
+// NOTE: This must come AFTER the original openApp definition in the script block.
+// If openApp is already defined above, update it directly instead of wrapping.
+// The key change: after opening, if no specific tool was passed, jump to tailor.
+
+</script>
+
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  SUMMARY OF WHAT THIS ADDS
+  ═══════════════════════════════════════════════════════════════
+
+  ON THE LANDING PAGE:
+  ✓ Social proof bar (39 users, free, no sign-up, 10-year recruiter)
+  ✓ Recruiter credibility strip (quote + name + credential, green bg)
+  ✓ 3 Before/After example cards (Impact coach, Resume tailor, Fit scanner)
+  ✓ Animated output preview — mock resume that fades in line by line
+    with ATS score ring animation on scroll
+  ✓ CTAs now call openQuickTool('tailor') — lands directly in tailor tool
+
+  IN THE MODAL:
+  ✓ Quickstart strip replaces the ambiguous track selector as the
+    primary navigation — 5 pill buttons, "Tailor my resume" pre-selected
+  ✓ jumpToTool() switches both track + tool tab in one click
+  ✓ Track selector (Build It / Target It) still exists below as
+    secondary context — not removed, just de-emphasized
+
+  DECISION COUNT:
+  Before: Landing CTA → modal → pick track (2 options) → pick tool tab
+          (2-3 options) → pick input method (paste/upload) = 4 decisions
+  After:  Landing CTA (pre-labeled "Tailor my resume") → modal opens
+          with tailor pre-selected → pick input method = 1 decision
+  ═══════════════════════════════════════════════════════════════
+-->
