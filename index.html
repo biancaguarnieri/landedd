@@ -6,39 +6,26 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="shortcut icon" href="/favicon.svg">
   <meta name="theme-color" content="#2d6a4f">
-  <title>Landedd — Stop applying. Start landing.</title>
-  <meta name="description" content="AI resume tools built from the recruiter's chair. Tailor, scan, and transform your resume to get hired faster." />
+  <title>Landedd — Your job search, coached.</title>
+  <meta name="description" content="Free job-hunting tools built by someone who knows what leaders want — and how recruiters find them. Land the role you actually want." />
 
   <!-- ═══════ ANALYTICS: Google Analytics 4 ═══════ -->
-  <!-- REPLACE G-XXXXXXXXXX with your actual GA4 Measurement ID -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', {
-      send_page_view: true
-    });
-
-    // ── GA4 custom event helper ──
+    gtag('config', 'G-XXXXXXXXXX', { send_page_view: true });
     function trackEvent(eventName, params) {
-      if (typeof gtag === 'function') {
-        gtag('event', eventName, params || {});
-      }
-      // ── Write to KV via /api/metrics for live dashboard ──
+      if (typeof gtag === 'function') { gtag('event', eventName, params || {}); }
       const pilotEvents = ['ai_output_generated','ai_output_rated','user_signed_up','app_opened','wtp_response','resume_downloaded_or_saved','feedback_submitted'];
       if (pilotEvents.includes(eventName)) {
-        fetch('/api/metrics', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event: eventName, ...(params || {}) })
-        }).catch(() => {});
+        fetch('/api/metrics', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: eventName, ...(params || {}) }) }).catch(() => {});
       }
     }
   </script>
 
   <!-- ═══════ ANALYTICS: Microsoft Clarity ═══════ -->
-  <!-- REPLACE 'XXXXXXXXXX' with your actual Clarity project ID -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -71,7 +58,7 @@
     .hero{padding:72px 6% 52px;text-align:center;max-width:800px;margin:0 auto}
     .hero h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-1.5px;color:var(--text);margin-bottom:18px}
     .hero h1 em{color:var(--green);font-style:normal}
-    .hero p{font-size:1.08rem;color:var(--text2);max-width:500px;margin:0 auto 32px;line-height:1.7}
+    .hero p{font-size:1.08rem;color:var(--text2);max-width:540px;margin:0 auto 32px;line-height:1.7}
     .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn-primary{background:var(--green);color:#fff;border:none;padding:13px 30px;border-radius:24px;font-size:.98rem;font-weight:700;cursor:pointer;transition:all .2s}
     .btn-primary:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:var(--shadow)}
@@ -277,8 +264,6 @@
     .job-url-optional{background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--rsm);padding:10px 12px;margin-top:10px}
     .job-url-optional .opt-label{font-size:.72rem;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
     .job-url-optional p{font-size:.76rem;color:var(--text3);margin-top:4px;line-height:1.4}
-
-    /* ── AI output rating widget ── */
     .rating-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--green-bg);border-top:1px solid var(--green-pale);font-size:.8rem;color:var(--text2)}
     .rating-bar span{flex:1}
     .rating-btns{display:flex;gap:6px}
@@ -287,8 +272,6 @@
     .rate-btn.rated-pos{background:var(--green-pale);border-color:var(--green);color:var(--green)}
     .rate-btn.rated-neg{background:#fee2e2;border-color:#f09595;color:#991b1b}
     .rating-thanks{font-size:.78rem;color:var(--green);padding:8px 14px;background:var(--green-bg);border-top:1px solid var(--green-pale)}
-
-    /* ── WTP survey overlay ── */
     .wtp-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center}
     .wtp-overlay.show{display:flex}
     .wtp-card{background:#fff;border-radius:16px;padding:28px;max-width:440px;width:90%;animation:slideUp .25s ease}
@@ -302,13 +285,12 @@
     .wtp-skip{font-size:.76rem;color:var(--text3);cursor:pointer;text-decoration:underline;text-align:center}
     .wtp-skip:hover{color:var(--green)}
     .wtp-thanks{text-align:center;padding:10px 0;font-size:.9rem;color:var(--green);font-weight:600}
-
-    </style>
+  </style>
 </head>
 <body>
 
 <div class="beta-bar">
-  🧪 <strong>Beta — currently in testing.</strong> Free to use. Your feedback helps us improve — thank you for being an early tester!
+  🧪 <strong>Beta — free to use.</strong> Your feedback helps us build something people actually need.
 </div>
 
 <nav>
@@ -320,8 +302,8 @@
 </nav>
 
 <section class="hero">
-  <h1>Stop applying.<br><em>Start landing.</em></h1>
-  <p>AI resume tools built from the recruiter's chair — so your resume speaks the language that actually gets you hired.</p>
+  <h1>Land the role<br><em>you actually want.</em></h1>
+  <p>Free job-hunting tools built by someone who knows what leaders want — and how recruiters find them.</p>
   <div class="hero-btns">
     <button class="btn-primary" onclick="openApp()">Get started free</button>
     <button class="btn-ghost" onclick="document.querySelector('.tracks-sec').scrollIntoView({behavior:'smooth'})">See how it works</button>
@@ -332,17 +314,17 @@
   <div class="feat">
     <div class="ic"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
     <h3>Resume tailor</h3>
-    <p>Paste a job description or link. Get a rewritten resume that speaks directly to what that recruiter needs.</p>
+    <p>Paste a job description or link. Get a rewritten resume that speaks directly to what that employer is looking for.</p>
   </div>
   <div class="feat">
     <div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg></div>
     <h3>Fit scanner</h3>
-    <p>Get a real ATS match score with specific fixes — not vague advice. Know exactly what to change.</p>
+    <p>See exactly how well you match a role before you apply — with specific fixes, not guesswork.</p>
   </div>
   <div class="feat">
     <div class="ic"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
     <h3>Impact coach</h3>
-    <p>Turn "responsible for customer service" into "resolved 40+ cases weekly with a 95% satisfaction rate." We rewrite duties as achievements — using what you tell us.</p>
+    <p>Turn "responsible for customer service" into "resolved 40+ cases weekly with a 95% satisfaction rate." We rewrite duties as achievements — using only what you tell us.</p>
   </div>
 </div>
 
@@ -355,7 +337,7 @@
     <div class="track-card">
       <span class="tbadge b-early">Early career</span>
       <h3>Build It</h3>
-      <p class="tline">Starting from scratch? Answer a few questions and we'll build a polished, ATS-ready resume — even if your experience is mostly part-time jobs and class projects.</p>
+      <p class="tline">Starting out or starting over? Answer a few questions and we'll build a clean, polished resume that sets you up to land — even if your experience is mostly part-time jobs and class projects.</p>
       <ul class="tfeats">
         <li>Guided resume builder</li>
         <li>Gap finder with action plan</li>
@@ -366,10 +348,10 @@
     <div class="track-card">
       <span class="tbadge b-exp">Experienced</span>
       <h3>Target It</h3>
-      <p class="tline">Already have experience? Tailor your resume to specific roles, score your ATS fit, and rewrite bullets to match what hiring managers look for.</p>
+      <p class="tline">Ready to go after a specific role? Tailor your resume, find your gaps, and walk into every application knowing exactly where you stand.</p>
       <ul class="tfeats">
         <li>Resume tailor — paste or link job descriptions</li>
-        <li>ATS fit score with exact fixes</li>
+        <li>Fit score with exact fixes</li>
         <li>Impact bullet rewriter</li>
       </ul>
       <button class="btn-track btn-target" onclick="openApp('target')">Start targeting</button>
@@ -378,7 +360,7 @@
 </section>
 
 <section class="cta-bottom">
-  <h2>Launch your application.<br><em>Landd the role.</em></h2>
+  <h2>Ready to <em>land</em> your next role?</h2>
   <p>Free during beta. No credit card, no sign-up required.</p>
   <button class="btn-primary" onclick="openApp()">Try Landedd free</button>
 </section>
@@ -402,7 +384,7 @@
     <div class="sec-hdr" style="text-align:left;margin-bottom:0">
       <div class="sec-label">Beta feedback</div>
       <h2>How are we doing?</h2>
-      <p style="font-size:.95rem;color:var(--text2);margin-top:8px;line-height:1.6">We're in testing and your feedback directly shapes what we build next. Good, bad, or broken — we want to hear it.</p>
+      <p style="font-size:.95rem;color:var(--text2);margin-top:8px;line-height:1.6">We're building this for you. Tell us what's working, what's missing, and what would make your job search easier.</p>
     </div>
     <div class="feedback-card">
       <div class="fld-fb"><label>Rate your experience</label>
@@ -455,10 +437,10 @@
 
       <div class="track-sel">
         <button class="trk-btn active" id="trkBuild" onclick="selTrack('build')">
-          <div class="ti">✦</div><div class="tn">Build It</div><div class="td">Early career — start from scratch</div>
+          <div class="ti">✦</div><div class="tn">Build It</div><div class="td">Starting out — build your foundation</div>
         </button>
         <button class="trk-btn" id="trkTarget" onclick="selTrack('target')">
-          <div class="ti">◎</div><div class="tn">Target It</div><div class="td">Experienced — tailor and score</div>
+          <div class="ti">◎</div><div class="tn">Target It</div><div class="td">Experienced — target the right role</div>
         </button>
       </div>
 
@@ -765,10 +747,7 @@ const DL_MAX = 3;
 
 function getFingerprint() {
   let fp = localStorage.getItem('_ldlfp');
-  if (!fp) {
-    fp = Math.random().toString(36).slice(2) + Date.now().toString(36);
-    localStorage.setItem('_ldlfp', fp);
-  }
+  if (!fp) { fp = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('_ldlfp', fp); }
   return fp;
 }
 
@@ -785,30 +764,18 @@ async function loadUsage() {
     _usageCache.downloads = DL_MAX - (data.downloads || 0);
     _usageCache.resetsInSeconds = data.resetsInSeconds || 86400;
     _usageCache.loaded = true;
-  } catch { /* fail open */ }
+  } catch { }
 }
 
-function toolLeft(t) {
-  if (!_usageCache.loaded) return TOOL_MAX;
-  return Math.max(0, TOOL_MAX - (_usageCache.tools[t] || 0));
-}
-
-function dlLeft() {
-  return Math.max(0, _usageCache.downloads);
-}
+function toolLeft(t) { if (!_usageCache.loaded) return TOOL_MAX; return Math.max(0, TOOL_MAX - (_usageCache.tools[t] || 0)); }
+function dlLeft() { return Math.max(0, _usageCache.downloads); }
 
 async function incToolCount(tool) {
   try {
     const fp = getFingerprint();
-    const res = await fetch('/api/usage', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'tool', tool, fp })
-    });
+    const res = await fetch('/api/usage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'tool', tool, fp }) });
     const data = await res.json();
-    if (data.ok !== false) {
-      _usageCache.tools[tool] = (_usageCache.tools[tool] || 0) + 1;
-    }
+    if (data.ok !== false) { _usageCache.tools[tool] = (_usageCache.tools[tool] || 0) + 1; }
     return data;
   } catch { return { ok: true, remaining: 1 }; }
 }
@@ -816,37 +783,27 @@ async function incToolCount(tool) {
 async function incDl() {
   try {
     const fp = getFingerprint();
-    const res = await fetch('/api/usage', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'download', fp })
-    });
+    const res = await fetch('/api/usage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'download', fp }) });
     const data = await res.json();
-    if (data.ok !== false) {
-      _usageCache.downloads = Math.max(0, _usageCache.downloads - 1);
-    }
+    if (data.ok !== false) { _usageCache.downloads = Math.max(0, _usageCache.downloads - 1); }
     return data;
   } catch { return { ok: true, remaining: 1 }; }
 }
 
 function fmtResetTime() {
   const secs = _usageCache.resetsInSeconds || 86400;
-  const h = Math.floor(secs / 3600);
-  const m = Math.floor((secs % 3600) / 60);
-  if (h > 0) return h + 'h ' + (m > 0 ? m + 'm' : '');
-  return m + 'm';
+  const h = Math.floor(secs / 3600); const m = Math.floor((secs % 3600) / 60);
+  if (h > 0) return h + 'h ' + (m > 0 ? m + 'm' : ''); return m + 'm';
 }
 
 function syncUsageNote(tool) {
-  const el = document.getElementById('usage-'+tool);
-  if (!el) return;
+  const el = document.getElementById('usage-'+tool); if (!el) return;
   const n = toolLeft(tool);
   if (n >= TOOL_MAX) { el.textContent=''; el.className='tool-usage-note'; return; }
   if (n === 0) {
     el.textContent = 'Daily limit reached — resets in ' + fmtResetTime() + '. Come back tomorrow or upgrade to Pro.';
     el.className = 'tool-usage-note out';
-    const btn = document.getElementById('run-'+tool);
-    if (btn) btn.disabled = true;
+    const btn = document.getElementById('run-'+tool); if (btn) btn.disabled = true;
   } else {
     el.textContent = n + ' run' + (n===1?'':'s') + ' left today — resets every 24h';
     el.className = 'tool-usage-note warn';
@@ -854,40 +811,23 @@ function syncUsageNote(tool) {
 }
 
 function syncDlBadge() {
-  const n = dlLeft();
-  const el = document.getElementById('dl-badge');
-  if (!el) return;
+  const n = dlLeft(); const el = document.getElementById('dl-badge'); if (!el) return;
   el.textContent = n > 0 ? n + ' download' + (n===1?'':'s') + ' left' : 'Limit reached — upgrade for more';
   el.className = 'dl-badge' + (n===0?' out':n===1?' warn':'');
-  ['rp-docx-btn','rp-gdocs-btn'].forEach(id => {
-    const b = document.getElementById(id);
-    if (b) b.disabled = n===0;
-  });
+  ['rp-docx-btn','rp-gdocs-btn'].forEach(id => { const b = document.getElementById(id); if (b) b.disabled = n===0; });
 }
 
 // ═══════ WTP SURVEY ═══════
-// Show after 3rd total tool run
 let _totalRuns = parseInt(localStorage.getItem('_ldRuns') || '0');
 let _wtpShown = localStorage.getItem('_ldWtpShown') === '1';
 
 function checkWtpTrigger() {
-  _totalRuns++;
-  localStorage.setItem('_ldRuns', _totalRuns);
-  if (_totalRuns === 3 && !_wtpShown) {
-    setTimeout(() => showWtp(), 2500); // show after output renders
-  }
+  _totalRuns++; localStorage.setItem('_ldRuns', _totalRuns);
+  if (_totalRuns === 3 && !_wtpShown) { setTimeout(() => showWtp(), 2500); }
 }
 
-function showWtp() {
-  document.getElementById('wtpOverlay').classList.add('show');
-  trackEvent('pricing_screen_viewed', { trigger: 'post_3rd_run' });
-}
-
-function closeWtp() {
-  document.getElementById('wtpOverlay').classList.remove('show');
-  _wtpShown = true;
-  localStorage.setItem('_ldWtpShown', '1');
-}
+function showWtp() { document.getElementById('wtpOverlay').classList.add('show'); trackEvent('pricing_screen_viewed', { trigger: 'post_3rd_run' }); }
+function closeWtp() { document.getElementById('wtpOverlay').classList.remove('show'); _wtpShown = true; localStorage.setItem('_ldWtpShown', '1'); }
 
 function selectWtp(tier) {
   document.querySelectorAll('.wtp-opt').forEach(b => b.classList.remove('selected'));
@@ -895,33 +835,21 @@ function selectWtp(tier) {
   document.getElementById('wtpOpts').style.opacity = '0.4';
   document.getElementById('wtpOpts').style.pointerEvents = 'none';
   document.getElementById('wtpThanks').style.display = 'block';
-  // ── GA4 Event: wtp_response ──
   trackEvent('wtp_response', { tier: tier });
-  _wtpShown = true;
-  localStorage.setItem('_ldWtpShown', '1');
+  _wtpShown = true; localStorage.setItem('_ldWtpShown', '1');
   setTimeout(() => closeWtp(), 2200);
 }
 
 // ═══════ AI OUTPUT RATING ═══════
 function rateOutput(tool, rating) {
-  const bar = document.getElementById('rating-' + tool);
-  if (!bar) return;
-  // Mark the button
+  const bar = document.getElementById('rating-' + tool); if (!bar) return;
   bar.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('rated-pos','rated-neg'));
   event.target.classList.add(rating === 'positive' ? 'rated-pos' : 'rated-neg');
-  // Replace bar with thanks
-  setTimeout(() => {
-    bar.innerHTML = '<div class="rating-thanks">Thanks for the feedback!</div>';
-  }, 600);
-  // ── GA4 Event: ai_output_rated ──
+  setTimeout(() => { bar.innerHTML = '<div class="rating-thanks">Thanks for the feedback!</div>'; }, 600);
   trackEvent('ai_output_rated', { tool: tool, rating: rating });
 }
 
-// Show rating bar for analysis tools after result renders
-function showAnalysisRating(tool) {
-  const wrap = document.getElementById('rating-' + tool + '-wrap');
-  if (wrap) wrap.style.display = 'block';
-}
+function showAnalysisRating(tool) { const wrap = document.getElementById('rating-' + tool + '-wrap'); if (wrap) wrap.style.display = 'block'; }
 
 // ═══════ INPUT VALIDATION ═══════
 function looksLikeInjection(text) {
@@ -939,30 +867,11 @@ function looksLikeInjection(text) {
 }
 
 const FIELD_CONTEXTS = {
-  'job description': {
-    minLen: 30,
-    hint: 'Paste the full job description text from the posting.',
-    validate: (t) => {
-      const lo = t.toLowerCase();
-      const signals = ['responsibilit','qualif','require','experience','skill','bachelor','year','team','role','position','job','employ','salary','benefit','apply','candidate'];
-      return signals.filter(s => lo.includes(s)).length >= 2;
-    },
-    failMsg: "That doesn't look like a job description. Paste the full text from the job posting — including the responsibilities and requirements sections."
-  },
+  'job description': { minLen: 30, hint: 'Paste the full job description text from the posting.', validate: (t) => { const lo = t.toLowerCase(); const signals = ['responsibilit','qualif','require','experience','skill','bachelor','year','team','role','position','job','employ','salary','benefit','apply','candidate']; return signals.filter(s => lo.includes(s)).length >= 2; }, failMsg: "That doesn't look like a job description. Paste the full text from the job posting — including the responsibilities and requirements sections." },
   'background': { minLen: 20, hint: 'Paste your resume or describe your work experience.', validate: () => true, failMsg: '' },
   'resume': { minLen: 40, hint: 'Paste your current resume text here.', validate: () => true, failMsg: '' },
-  'experience': {
-    minLen: 10,
-    hint: 'Describe what you actually did in this role.',
-    validate: (t) => !/^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me|show me|explain)\b/i.test(t.trim()),
-    failMsg: "This field is for your actual work experience — what you did, achieved, or handled in the role."
-  },
-  'skills': {
-    minLen: 3,
-    hint: 'List your skills.',
-    validate: (t) => !/^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me)\b/i.test(t.trim()),
-    failMsg: "Just list your skills here — e.g. Excel, leadership, customer service."
-  }
+  'experience': { minLen: 10, hint: 'Describe what you actually did in this role.', validate: (t) => !/^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me|show me|explain)\b/i.test(t.trim()), failMsg: "This field is for your actual work experience — what you did, achieved, or handled in the role." },
+  'skills': { minLen: 3, hint: 'List your skills.', validate: (t) => !/^(what|how|why|can you|could you|please|help me|tell me|i want|i need|write|generate|create|make|give me)\b/i.test(t.trim()), failMsg: "Just list your skills here — e.g. Excel, leadership, customer service." }
 };
 
 function validateField(text, fieldName) {
@@ -977,12 +886,10 @@ function validateField(text, fieldName) {
 
 // ═══════ OPEN / CLOSE ═══════
 function openApp(t) {
-  document.getElementById('modal').classList.add('show');
-  document.body.style.overflow = 'hidden';
+  document.getElementById('modal').classList.add('show'); document.body.style.overflow = 'hidden';
   if (t) selTrack(t);
   if (!document.getElementById('expRows').children.length) addExp();
   _toolNames.forEach(syncUsageNote);
-  // ── GA4 Event: app_opened ──
   trackEvent('app_opened', { track: t || 'default' });
 }
 function closeApp() { document.getElementById('modal').classList.remove('show'); document.body.style.overflow=''; }
@@ -1004,13 +911,7 @@ function swTool(tr, tool) {
   pane.querySelectorAll(':scope > .toolpane').forEach(p=>p.classList.remove('active'));
   document.getElementById(tr+'-'+tool).classList.add('active');
 }
-function swBuildMethod(m) {
-  buildMethod=m;
-  ['questions','upload'].forEach(x=>{
-    document.getElementById('bm-'+x).classList.toggle('active',x===m);
-    document.getElementById('build-pane-'+x).classList.toggle('active',x===m);
-  });
-}
+function swBuildMethod(m) { buildMethod=m; ['questions','upload'].forEach(x=>{ document.getElementById('bm-'+x).classList.toggle('active',x===m); document.getElementById('build-pane-'+x).classList.toggle('active',x===m); }); }
 function swGapJd(m) { gapJdMethod=m; ['paste','link'].forEach(x=>{ document.getElementById('gjdm-'+x).classList.toggle('active',x===m); document.getElementById('gjd-'+x).style.display=x===m?'block':'none'; }); }
 function swGapBg(m) { gapBgMethod=m; ['paste','upload'].forEach(x=>{ document.getElementById('gbgm-'+x).classList.toggle('active',x===m); document.getElementById('gbg-'+x).style.display=x===m?'block':'none'; }); }
 function swJdMethod(tool,m) { jdMethod[tool]=m; ['paste','link'].forEach(x=>{ document.getElementById('jdm-'+tool+'-'+x).classList.toggle('active',x===m); document.getElementById('jd-'+tool+'-'+x).style.display=x===m?'block':'none'; }); }
@@ -1034,7 +935,6 @@ async function readF(file, t, dzId) {
       const data = await resp.json();
       if (data.error) throw new Error(data.error);
       fileData[t] = data.text||'';
-      // ── GA4 Event: resume_uploaded ──
       trackEvent('resume_uploaded', { tool: t, method: 'file', ext: ext });
       if (dz) { const ps=dz.querySelectorAll('p'); if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>'; if(ps[1])ps[1].textContent=Math.round(fileData[t].length/5)+' words extracted'; }
     } catch(err) {
@@ -1043,17 +943,12 @@ async function readF(file, t, dzId) {
     }
   } else {
     const r=new FileReader();
-    r.onload=ev=>{
-      fileData[t]=ev.target.result||'';
-      trackEvent('resume_uploaded', { tool: t, method: 'file', ext: ext });
-      if(dz){const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent='Ready';}
-    };
+    r.onload=ev=>{ fileData[t]=ev.target.result||''; trackEvent('resume_uploaded', { tool: t, method: 'file', ext: ext }); if(dz){const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent='Ready';} };
     r.readAsText(file);
   }
 }
 function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=ev=>res(ev.target.result.split(',')[1]);r.onerror=()=>rej(new Error('Could not read file'));r.readAsDataURL(file);});}
 
-// EXP ROWS
 function addExp(){
   expCount++;const id=expCount;const div=document.createElement('div');div.className='exprow';div.id='exp-'+id;
   div.innerHTML='<div class="exprow-hdr"><span class="exprow-lbl">Experience '+id+'</span><button class="exprow-rm" onclick="rmExp('+id+')">✕</button></div><div class="fld"><label>Job title / Role</label><input type="text" id="et-'+id+'" placeholder="e.g. Sales Associate"/></div><div class="fld"><label>Company / Organization</label><input type="text" id="ec-'+id+'" placeholder="e.g. Target, Google"/></div><div class="fld"><label>Dates</label><input type="text" id="edt-'+id+'" placeholder="e.g. Jun 2022 – Aug 2023, or 2021–Present"/></div><div class="fld"><label>What you did (rough notes ok)</label><textarea id="ed-'+id+'" placeholder="e.g. handled customer complaints, trained new staff, exceeded monthly targets..."></textarea></div>';
@@ -1073,7 +968,6 @@ async function fetchUrl(url) {
   return text;
 }
 
-// ═══════ GET TEXTS ═══════
 async function getJdText(tool){
   if(jdMethod[tool]==='link'){const url=document.getElementById(tool==='tailor'?'t-jd-url':'s-jd-url')?.value;if(!url)throw new Error('Please paste a job posting URL.');return await fetchUrl(url);}
   const val=document.getElementById(tool==='tailor'?'t-jd':'s-jd')?.value||'';
@@ -1119,7 +1013,6 @@ async function getBuilderBg(){
   return bg;
 }
 
-// ═══════ PROMPTS ═══════
 const RESUME_RULES=`
 CRITICAL RULES:
 1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements.
@@ -1173,7 +1066,6 @@ async function getPrompt(tool){
   throw new Error('Unknown tool');
 }
 
-// ═══════ RUN ═══════
 async function run(tool){
   if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent='Daily limit reached — resets in ' + fmtResetTime() + '. Come back tomorrow or upgrade to Pro.';err.style.display='block';return;}
   const btn=document.getElementById('run-'+tool);
@@ -1186,7 +1078,6 @@ async function run(tool){
   let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
   btn.disabled=true;btnSpan.textContent='Analyzing — hang tight (~15 sec)…';
   resDiv.classList.add('show');outDiv.classList.add('loading');outDiv.textContent='Building your resume…';
-  // ── GA4 Event: ai_output_generated ──
   trackEvent('ai_output_generated', { feature: tool });
   try{
     const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
@@ -1208,7 +1099,6 @@ async function run(tool){
   }
 }
 
-// ═══════ RUN ANALYSIS ═══════
 async function runAnalysis(tool){
   if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent='Daily limit reached — resets in ' + fmtResetTime() + '. Come back tomorrow or upgrade to Pro.';err.style.display='block';return;}
   const btn=document.getElementById('run-'+tool);const btnSpan=btn.querySelector('span');
@@ -1217,7 +1107,6 @@ async function runAnalysis(tool){
   let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
   btn.disabled=true;btnSpan.textContent=tool==='gaps'?'Analyzing your gaps…':'Scanning your fit…';
   resDiv.style.display='none';resDiv.innerHTML='';
-  // ── GA4 Event: ai_output_generated ──
   trackEvent('ai_output_generated', { feature: tool });
   try{
     const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
@@ -1241,7 +1130,7 @@ function scoreVerdict(n){return n>=70?'Strong match':n>=45?'Partial match':'Need
 function buildScoreRing(score){
   const r=36,cx=44,cy=44,circ=2*Math.PI*r,pct=Math.max(0,Math.min(100,score))/100;
   const dash=circ*pct,gap=circ*(1-pct),cls=scoreClass(score);
-  return '<svg class="score-ring-svg" viewBox="0 0 88 88"><circle class="score-ring-bg" cx="'+cx+'" cy="'+cy+'" r="'+r+'"/><circle class="score-ring-fg '+cls+'" cx="'+cx+'" cy="'+cy+'" r="'+r+'" stroke-dasharray="'+dash.toFixed(1)+' '+gap.toFixed(1)+'" stroke-dashoffset="0"/><text class="score-ring-text" x="'+cx+'" y="'+(cy-4)+'">'+score+'</text><text class="score-ring-sub" x="'+cx+'" y="'+(cy+12)+'">/&nbsp;100</text></svg>';
+  return '<svg class="score-ring-svg" viewBox="0 0 88 88"><circle class="score-ring-bg" cx="'+cx+'" cy="'+cy+'" r="'+r+'"/><circle class="score-ring-fg '+cls+'" cx="'+cx+'" cy="'+cy+'" r="'+r+'" stroke-dasharray="'+dash.toFixed(1)+' '+gap.toFixed(1)+'" stroke-dashoffset="0"/><text class="score-ring-text" x="'+cx+'" y="'+(cy-4)+'">'+score+'</text><text class="score-ring-sub" x="'+cx+'" y="'+(cy+12)+'">/ 100</text></svg>';
 }
 
 function renderGaps(d){
@@ -1320,7 +1209,6 @@ function rpCopy(){
 async function rpDownloadDocx(){
   if(dlLeft()<=0){alert("You've used your 3 free downloads. Upgrade to Pro for unlimited.");return;}
   const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
-  // ── GA4 Event: resume_downloaded_or_saved ──
   trackEvent('resume_downloaded_or_saved', { format: 'docx', tool: rpTool });
   try{
     const {Document,Packer,Paragraph,TextRun,HeadingLevel,AlignmentType}=docx;
@@ -1356,7 +1244,6 @@ async function rpOpenGdocs(){
 
 // FEEDBACK
 let fbRating = 0;
-
 function setStar(v) {
   fbRating = v;
   document.querySelectorAll('.star-btn').forEach(function(b) {
@@ -1375,15 +1262,10 @@ async function submitFeedback() {
   if (!msg) { alert('Please write some feedback before sending.'); return; }
   btn.disabled = true; btn.textContent = 'Sending…';
   try {
-    var resp = await fetch('/api/feedback', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'feedback', message: msg, email: email, rating: fbRating || null, tool: tool, source: 'feedback-section' })
-    });
+    var resp = await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'feedback', message: msg, email: email, rating: fbRating || null, tool: tool, source: 'feedback-section' }) });
     var data = await resp.json();
     if (!resp.ok || data.error) throw new Error(data.error || 'Server error ' + resp.status);
     okDiv.style.display = 'block'; btn.style.display = 'none';
-    // ── GA4 Event: feedback_submitted ──
     trackEvent('feedback_submitted', { rating: fbRating, tool: tool });
   } catch(err) {
     btn.disabled = false; btn.textContent = 'Send feedback';
@@ -1393,20 +1275,12 @@ async function submitFeedback() {
 
 // INIT
 const _toolNames = ['builder','gaps','impact','tailor','scanner'];
-loadUsage().then(() => {
-  syncDlBadge();
-  _toolNames.forEach(syncUsageNote);
-});
+loadUsage().then(() => { syncDlBadge(); _toolNames.forEach(syncUsageNote); });
 
-// ── GA4 Event: user_signed_up (fired on first-ever page load — proxy for new user) ──
 if (!localStorage.getItem('_ldVisited')) {
   localStorage.setItem('_ldVisited', '1');
   trackEvent('user_signed_up', { source: 'organic' });
 }
-
-
-
-
 </script>
 
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
