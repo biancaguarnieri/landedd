@@ -1,5 +1,6 @@
 // /api/metrics.js — Landedd pilot dashboard KV handler
 // Fixed: ai_output_generated now routes to tools[feature], ai_output_rated routes to thumbsup/thumbsdown
+// Fixed: dashboard visits (referer /dashboard) excluded from user/session counts
 
 import { kv } from '@vercel/kv';
 
@@ -74,6 +75,17 @@ async function getWeeklyData() {
   return { runs, sessions, users, thumbsup, thumbsdown };
 }
 
+// Returns true if the request is coming from the dashboard itself
+function isDashboardRequest(req) {
+  const referer = req.headers['referer'] || req.headers['referrer'] || '';
+  const page = req.body?.page || '';
+  return (
+    referer.includes('/dashboard') ||
+    page === 'dashboard' ||
+    page.includes('dashboard')
+  );
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -121,17 +133,22 @@ export default async function handler(req, res) {
     const currentWeek = await getCurrentWeek();
     const wk = weekKey(currentWeek);
 
+    // ── DASHBOARD FILTER: skip user/session events from dashboard visits ──
+    const fromDashboard = isDashboardRequest(req);
+
     try {
       switch (event) {
 
         // ── A user arrived for the first time ───────────────────────────
         case 'user_signed_up':
+          if (fromDashboard) break; // filter out dashboard owner
           await kv.hincrby(totalsKey(), 'users', 1);
           await kv.hincrby(wk, 'users', 1);
           break;
 
         // ── App panel opened (session) ───────────────────────────────────
         case 'app_opened':
+          if (fromDashboard) break; // filter out dashboard owner
           await kv.hincrby(totalsKey(), 'sessions', 1);
           await kv.hincrby(wk, 'sessions', 1);
           break;
