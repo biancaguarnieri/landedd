@@ -277,6 +277,30 @@
     .wtp-skip{font-size:.76rem;color:var(--text3);cursor:pointer;text-decoration:underline;text-align:center}
     .wtp-skip:hover{color:var(--green)}
     .wtp-thanks{text-align:center;padding:10px 0;font-size:.9rem;color:var(--green);font-weight:600}
+    .examples-sec{padding:64px 6%;background:#fff;border-top:1px solid var(--gray2)}
+.examples-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:980px;margin:0 auto}
+.example-card{background:var(--green-bg);border:1.5px solid var(--green-pale);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:14px}
+.ex-label{display:flex}
+.ex-tool-badge{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);background:#fff;border:1px solid var(--green-pale);padding:3px 10px;border-radius:12px}
+.ex-body{display:flex;flex-direction:column;gap:10px}
+.ex-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.ex-tag-before{color:var(--text3)}.ex-tag-after{color:var(--green)}
+.ex-before{background:#fff;border:1px solid var(--gray2);border-radius:var(--rsm);padding:12px 14px}
+.ex-after{background:#fff;border:1.5px solid var(--green-light);border-radius:var(--rsm);padding:12px 14px}
+.ex-arrow{text-align:center;font-size:1rem;color:var(--green-light);font-weight:700}
+.ex-text{font-size:.83rem;color:var(--text2);line-height:1.5}
+.ex-mono{font-family:Georgia,'Times New Roman',serif;font-size:.8rem}
+.ex-green{color:var(--green);font-weight:600}
+.ex-score-row{display:flex;align-items:center;gap:10px}
+.ex-score-label{font-size:.85rem;font-weight:700;color:var(--green)}
+.ex-score-sub{font-size:.72rem;color:var(--text3);margin-top:2px}
+.ex-gaps{display:flex;flex-direction:column;gap:5px}
+.ex-gap-item{font-size:.75rem;padding:5px 9px;border-radius:6px;line-height:1.4}
+.ex-gap-high{background:#fee2e2;color:#991b1b}.ex-gap-mid{background:#fef3c7;color:#92400e}.ex-gap-low{background:#dbeafe;color:#1e40af}
+.ex-actions{display:flex;flex-direction:column;gap:5px}
+.ex-action-item{display:flex;align-items:flex-start;gap:8px;font-size:.75rem;color:var(--text2);line-height:1.4}
+.ex-action-num{width:18px;height:18px;border-radius:50%;background:var(--green);color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ex-caption{font-size:.78rem;color:var(--text3);line-height:1.5;border-top:1px solid var(--green-pale);padding-top:12px}
   </style>
 </head>
 <body>
@@ -297,7 +321,74 @@
     <button class="btn-ghost" onclick="document.querySelector('.tracks-sec').scrollIntoView({behavior:'smooth'})">See how it works</button>
   </div>
 </section>
+<section class="examples-sec">
+  <div class="sec-hdr">
+    <div class="sec-label">What it actually does</div>
+    <h2>See the difference it makes</h2>
+  </div>
+  <div class="examples-grid">
 
+    <div class="example-card">
+      <div class="ex-label"><span class="ex-tool-badge">Fit scanner</span></div>
+      <div class="ex-body">
+        <div class="ex-before">
+          <div class="ex-tag ex-tag-before">Before</div>
+          <p class="ex-text">"I spray-applied to 40 jobs and heard nothing back."</p>
+        </div>
+        <div class="ex-arrow">→</div>
+        <div class="ex-after">
+          <div class="ex-tag ex-tag-after">After</div>
+          <div class="ex-score-row">
+            <svg viewBox="0 0 60 60" width="52" height="52"><circle cx="30" cy="30" r="24" fill="none" stroke="#e8e8e8" stroke-width="6"/><circle cx="30" cy="30" r="24" fill="none" stroke="#2d6a4f" stroke-width="6" stroke-linecap="round" stroke-dasharray="120 151" transform="rotate(-90 30 30)"/><text x="30" y="34" text-anchor="middle" font-size="13" font-weight="800" fill="#1a1a1a" font-family="-apple-system,sans-serif">78</text></svg>
+            <div><div class="ex-score-label">Strong match</div><div class="ex-score-sub">3 keywords missing · 2 quick fixes</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="ex-caption">Know your score before you apply. Fix the gaps that actually matter.</p>
+    </div>
+
+    <div class="example-card">
+      <div class="ex-label"><span class="ex-tool-badge">Resume tailor</span></div>
+      <div class="ex-body">
+        <div class="ex-before">
+          <div class="ex-tag ex-tag-before">Before</div>
+          <p class="ex-text ex-mono">"Responsible for managing social media accounts and creating content."</p>
+        </div>
+        <div class="ex-arrow">→</div>
+        <div class="ex-after">
+          <div class="ex-tag ex-tag-after">After</div>
+          <p class="ex-text ex-mono ex-green">"Grew Instagram engagement 43% in 90 days by launching a short-form video strategy aligned with brand voice."</p>
+        </div>
+      </div>
+      <p class="ex-caption">Tailored to the exact job. Keywords matched. Impact shown, not just duties.</p>
+    </div>
+
+    <div class="example-card">
+      <div class="ex-label"><span class="ex-tool-badge">Gap finder</span></div>
+      <div class="ex-body">
+        <div class="ex-before">
+          <div class="ex-tag ex-tag-before">Gaps found</div>
+          <div class="ex-gaps">
+            <div class="ex-gap-item ex-gap-high">High — No mention of cross-functional stakeholder management</div>
+            <div class="ex-gap-item ex-gap-mid">Medium — Missing budget ownership experience</div>
+            <div class="ex-gap-item ex-gap-low">Low — Could strengthen data analysis framing</div>
+          </div>
+        </div>
+        <div class="ex-arrow">→</div>
+        <div class="ex-after">
+          <div class="ex-tag ex-tag-after">Action plan</div>
+          <div class="ex-actions">
+            <div class="ex-action-item"><span class="ex-action-num">1</span>Add a bullet about the cross-team project you led in Q3</div>
+            <div class="ex-action-item"><span class="ex-action-num">2</span>Mention the $40K vendor budget you managed last role</div>
+            <div class="ex-action-item"><span class="ex-action-num">3</span>Reframe your Excel work as "data-driven decision making"</div>
+          </div>
+        </div>
+      </div>
+      <p class="ex-caption">Not just "you're missing X" — you get exactly what to do about it.</p>
+    </div>
+
+  </div>
+</section>
 <section class="tracks-sec">
   <div class="sec-hdr">
     <div class="sec-label">Two tracks, one goal</div>
