@@ -9,7 +9,6 @@
   <title>Landedd — The gap between qualified and hired.</title>
   <meta name="description" content="Free AI-powered job search tools built with real-world hiring intelligence. Close the gap between qualified and hired. No sign-up required." />
 
-  <!-- GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YHXZXVKHZE"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -24,8 +23,6 @@
       }
     }
   </script>
-
-  <!-- Microsoft Clarity -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -33,304 +30,322 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "w6j5li9w6x");
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap');
-
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --green:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;
-      --green-pale:#d8f3dc;--green-bg:#f0faf4;
-      --gray:#f5f5f3;--gray2:#e4e4e0;--gray3:#b8b8b2;
-      --text:#1a1a1a;--text2:#4a4a4a;--text3:#888;--white:#fff;
-      --radius:12px;--rsm:8px;
-      --shadow:0 2px 16px rgba(45,106,79,.08);
-      --shadow-lg:0 8px 40px rgba(45,106,79,.14);
+      --g:#2d6a4f;--gm:#40916c;--gl:#74c69d;--gp:#d8f3dc;--gbg:#f0faf4;
+      --ink:#1a1a1a;--ink2:#444;--ink3:#888;
+      --cream:#faf9f6;--sand:#f0ede6;--line:#e4dfd4;--lineb:#ccc9bf;
+      --white:#fff;--r:10px;--rs:6px;
       --serif:'DM Serif Display',Georgia,serif;
       --sans:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+      --sh:0 2px 20px rgba(45,106,79,.09);
+      --sh-lg:0 8px 48px rgba(45,106,79,.14);
     }
-    body{font-family:var(--sans);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
 
-    /* ── NAV ── */
-    nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--gray2);padding:0 6%;display:flex;align-items:center;justify-content:space-between;height:60px}
+    /* NAV */
+    nav{position:sticky;top:0;z-index:200;background:rgba(250,249,246,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:0 6%;display:flex;align-items:center;justify-content:space-between;height:60px}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .logo-mark{width:34px;height:34px;flex-shrink:0}
-    .logo-mark svg{width:34px;height:34px;display:block}
-    .logo-text{font-family:var(--sans);font-size:1.18rem;font-weight:700;color:var(--text);letter-spacing:-.3px}
-    .nav-cta{background:var(--green);color:#fff;padding:8px 20px;border-radius:20px;border:none;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s}
-    .nav-cta:hover{background:var(--green-mid)}
+    .logo-mark svg{width:32px;height:32px;display:block}
+    .logo-text{font-family:var(--sans);font-size:1.15rem;font-weight:700;color:var(--ink);letter-spacing:-.3px}
+    .nav-cta{background:var(--g);color:#fff;padding:8px 20px;border-radius:20px;border:none;font-family:var(--sans);font-size:.84rem;font-weight:600;cursor:pointer;transition:background .2s;letter-spacing:.01em}
+    .nav-cta:hover{background:var(--gm)}
 
-    /* ── PROOF BAR ── */
-    .proof-bar{background:#fff;border-bottom:1px solid var(--gray2);padding:9px 6%;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
-    .proof-item{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--text2);white-space:nowrap}
-    .proof-dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);flex-shrink:0}
-    .proof-item strong{color:var(--text);font-weight:600}
+    /* PROOF BAR */
+    .proof-bar{background:var(--g);padding:9px 6%;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+    .proof-item{display:flex;align-items:center;gap:6px;font-size:.74rem;color:rgba(255,255,255,.82);white-space:nowrap}
+    .proof-dot{width:5px;height:5px;border-radius:50%;background:var(--gl);flex-shrink:0}
+    .proof-item strong{color:#fff;font-weight:600}
 
-    /* ── HERO ── */
-    .hero{padding:80px 6% 28px;text-align:center;max-width:820px;margin:0 auto}
-    .hero h1{font-family:var(--serif);font-size:clamp(2.4rem,5.5vw,3.8rem);font-weight:400;line-height:1.1;letter-spacing:-.5px;color:var(--text);margin-bottom:16px}
-    .hero h1 em{color:var(--green);font-style:italic}
-    .hero p{font-size:1.05rem;color:var(--text2);max-width:520px;margin:0 auto 16px;line-height:1.7}
-    .hero-sub{font-size:.8rem;color:var(--text3);margin-bottom:36px}
+    /* HERO */
+    .hero{padding:88px 6% 36px;text-align:center;max-width:860px;margin:0 auto}
+    .hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:18px}
+    .hero h1{font-family:var(--serif);font-size:clamp(2.6rem,6vw,4.2rem);font-weight:400;line-height:1.08;letter-spacing:-.5px;color:var(--ink);margin-bottom:20px}
+    .hero h1 em{color:var(--g);font-style:italic}
+    .hero p{font-size:1.05rem;color:var(--ink2);max-width:500px;margin:0 auto 10px;line-height:1.7}
+    .hero-sub{font-size:.78rem;color:var(--ink3);margin-bottom:44px;letter-spacing:.02em}
 
-    /* ── TOOLS SECTION ── */
-    .tools-sec{padding:0 6% 80px;max-width:1080px;margin:0 auto}
-    .tools-label{text-align:center;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:28px}
+    /* TOOLS SECTION */
+    .tools-wrap{max-width:1080px;margin:0 auto;padding:0 5% 60px}
+    .tools-label{text-align:center;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:26px}
 
-    /* 3 cards in a row */
-    .tool-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:16px}
+    /* CARD GRID */
+    .tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:1px}
+    @media(max-width:720px){.tool-grid{grid-template-columns:1fr}}
+    .tool-card{background:var(--white);padding:28px 26px 22px;cursor:pointer;transition:background .18s;position:relative;display:flex;flex-direction:column;gap:0}
+    .tool-card:hover{background:#fdfcfb}
+    .tool-card.active{background:var(--gbg)}
+    .card-icon{font-size:1.3rem;margin-bottom:12px;display:block}
+    .card-title{font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.25}
+    .card-desc{font-size:.82rem;color:var(--ink2);line-height:1.55;margin-bottom:16px;flex:1}
+    .card-btn{display:inline-flex;align-items:center;gap:6px;background:var(--g);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-family:var(--sans);font-size:.82rem;font-weight:600;cursor:pointer;transition:background .18s;width:100%;justify-content:center}
+    .card-btn:hover{background:var(--gm)}
+    .card-btn.active-btn{background:var(--ink)}
 
-    /* ── CARD ── */
-    .tool-card{background:#fff;border:1.5px solid var(--gray2);border-radius:var(--radius);overflow:hidden;transition:border-color .2s,box-shadow .2s;cursor:pointer}
-    .tool-card:hover{border-color:var(--green-light);box-shadow:var(--shadow-lg)}
-    .tool-card.active{border-color:var(--green);box-shadow:var(--shadow-lg)}
-    .card-head{padding:24px 24px 20px;display:flex;align-items:flex-start;gap:14px}
-    .card-icon{width:42px;height:42px;border-radius:10px;background:var(--green-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
-    .card-info{flex:1;min-width:0}
-    .card-info h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:4px;line-height:1.25}
-    .card-info p{font-size:.83rem;color:var(--text2);line-height:1.5}
-    .card-cta{display:block;width:calc(100% - 48px);margin:0 24px 20px;padding:11px;background:var(--green);color:#fff;border:none;border-radius:var(--rsm);font-family:var(--sans);font-size:.88rem;font-weight:700;cursor:pointer;transition:background .2s;text-align:center}
-    .card-cta:hover{background:var(--green-mid)}
+    /* INLINE TOOL PANEL — full width below cards */
+    .tool-panel-row{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--g);border-radius:0 0 16px 16px;display:none;animation:slideIn .22s ease}
+    .tool-panel-row.open{display:block}
+    @keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+    .tool-panel-inner{max-width:900px;margin:0 auto;padding:36px 40px 40px}
+    @media(max-width:640px){.tool-panel-inner{padding:24px 20px 28px}}
+    .panel-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--ink);margin-bottom:6px}
+    .panel-sub{font-size:.84rem;color:var(--ink3);margin-bottom:28px;line-height:1.5}
 
-    /* ── INLINE TOOL PANEL ── */
-    .tool-panel{display:none;border-top:1.5px solid var(--green-pale);background:var(--green-bg);padding:24px;animation:fadeDown .2s ease}
-    .tool-card.active .tool-panel{display:block}
-    @keyframes fadeDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    /* Two-column input layout */
+    .input-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px}
+    @media(max-width:620px){.input-cols{grid-template-columns:1fr}}
+    .input-col{}
 
-    /* ── MORE TOOLS ── */
-    .more-row{text-align:center;margin-bottom:60px}
-    .more-btn{background:none;border:1.5px solid var(--gray2);color:var(--text3);padding:9px 22px;border-radius:20px;font-family:var(--sans);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
-    .more-btn:hover{border-color:var(--green);color:var(--green)}
-    .more-grid{display:none;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:640px;margin:20px auto 0}
-    .more-grid.open{display:grid}
-    .mini-card{background:#fff;border:1.5px solid var(--gray2);border-radius:var(--rsm);overflow:hidden;cursor:pointer;transition:border-color .2s}
-    .mini-card:hover{border-color:var(--green-light)}
-    .mini-card.active{border-color:var(--green)}
-    .mini-head{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:10px}
-    .mini-icon{font-size:.9rem;margin-top:2px}
-    .mini-head h4{font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:3px}
-    .mini-head p{font-size:.76rem;color:var(--text3);line-height:1.4}
-    .mini-cta{display:block;width:calc(100% - 36px);margin:0 18px 14px;padding:9px;background:var(--green);color:#fff;border:none;border-radius:6px;font-family:var(--sans);font-size:.82rem;font-weight:700;cursor:pointer;transition:background .2s}
-    .mini-cta:hover{background:var(--green-mid)}
-    .mini-panel{display:none;border-top:1.5px solid var(--green-pale);background:var(--green-bg);padding:18px;animation:fadeDown .2s ease}
-    .mini-card.active .mini-panel{display:block}
-
-    /* ── FORM ELEMENTS (shared) ── */
+    /* Form fields */
     .fld{margin-bottom:12px}
-    .fld label{display:block;font-size:.72rem;font-weight:700;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
-    .fld textarea,.fld input[type=text],.fld input[type=url],.fld input[type=email]{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:var(--rsm);font-family:var(--sans);font-size:.87rem;color:var(--text);background:#fff;transition:border-color .2s;resize:vertical}
-    .fld textarea{min-height:96px}
-    .fld textarea:focus,.fld input:focus{outline:none;border-color:var(--green-mid)}
+    .fld label{display:block;font-size:.69rem;font-weight:700;color:var(--ink2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+    .fld textarea,.fld input[type=text],.fld input[type=url],.fld input[type=email]{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:var(--rs);font-family:var(--sans);font-size:.87rem;color:var(--ink);background:var(--white);transition:border-color .2s;resize:vertical}
+    .fld textarea{min-height:120px}
+    .fld textarea:focus,.fld input:focus{outline:none;border-color:var(--gl)}
     .imethods{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap}
-    .imethod{padding:5px 11px;border-radius:20px;font-family:var(--sans);font-size:.74rem;font-weight:600;border:1.5px solid var(--gray2);cursor:pointer;background:#fff;color:var(--text2);transition:all .2s}
-    .imethod.active{background:var(--text);color:#fff;border-color:var(--text)}
+    .imethod{padding:5px 12px;border-radius:20px;font-family:var(--sans);font-size:.73rem;font-weight:600;border:1.5px solid var(--line);cursor:pointer;background:var(--white);color:var(--ink2);transition:all .18s}
+    .imethod.active{background:var(--ink);color:#fff;border-color:var(--ink)}
     .ipane{display:none}.ipane.active{display:block}
-    .url-input{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:var(--rsm);font-family:var(--sans);font-size:.87rem;color:var(--text);background:#fff}
-    .url-input:focus{outline:none;border-color:var(--green-mid)}
-    .dz{border:2px dashed var(--gray2);border-radius:var(--rsm);padding:22px;text-align:center;cursor:pointer;transition:all .2s;background:#fff}
-    .dz:hover,.dz.dragover{border-color:var(--green-mid);background:var(--green-bg)}
-    .dz.has-file{border-color:var(--green);background:var(--green-bg)}
-    .dz.has-file p{color:var(--green)}
-    .dz .dzic{font-size:1.4rem;margin-bottom:4px}
-    .dz p{font-size:.79rem;color:var(--text3)}
+    .url-input{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:var(--rs);font-family:var(--sans);font-size:.87rem;color:var(--ink);background:var(--white)}
+    .url-input:focus{outline:none;border-color:var(--gl)}
+    .url-note{font-size:.72rem;color:var(--ink3);margin-top:5px;line-height:1.4}
+    .url-note a{color:var(--g)}
+    .dz{border:2px dashed var(--line);border-radius:var(--rs);padding:22px;text-align:center;cursor:pointer;transition:all .2s;background:var(--sand)}
+    .dz:hover,.dz.dragover{border-color:var(--gl);background:var(--gbg)}
+    .dz.has-file{border-color:var(--g);background:var(--gbg)}
+    .dz.has-file p{color:var(--g)}
+    .dz .dzic{font-size:1.3rem;margin-bottom:4px}
+    .dz p{font-size:.78rem;color:var(--ink3)}
     .dz input[type=file]{display:none}
-    .btn-run{width:100%;padding:12px;border-radius:var(--rsm);border:none;background:var(--green);color:#fff;font-family:var(--sans);font-size:.94rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
-    .btn-run:hover:not(:disabled){background:var(--green-mid)}
-    .btn-run:disabled{opacity:.6;cursor:not-allowed}
-    .err-box{background:#fff5f5;border:1px solid #fca5a5;border-radius:var(--rsm);padding:10px 12px;margin-top:10px;font-size:.83rem;color:#b91c1c;display:none}
-    .tool-usage-note{font-size:.73rem;color:var(--text3);margin-bottom:6px;min-height:14px}
+
+    /* Run button */
+    .run-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+    .btn-run{padding:13px 28px;border-radius:24px;border:none;background:var(--g);color:#fff;font-family:var(--sans);font-size:.94rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
+    .btn-run:hover:not(:disabled){background:var(--gm);transform:translateY(-1px)}
+    .btn-run:disabled{opacity:.55;cursor:not-allowed;transform:none}
+    .tool-usage-note{font-size:.73rem;color:var(--ink3);min-height:14px}
     .tool-usage-note.warn{color:#b45309}
     .tool-usage-note.out{color:#991b1b;font-weight:600}
+    .err-box{background:#fff5f5;border:1px solid #fca5a5;border-radius:var(--rs);padding:10px 14px;margin-top:14px;font-size:.83rem;color:#b91c1c;display:none}
 
-    /* ── RESULTS ── */
-    .result-wrap{margin-top:16px;display:none}.result-wrap.show{display:block}
-    .resume-viz{background:var(--gray);border:1.5px solid var(--gray2);border-radius:var(--radius);overflow:hidden}
-    .viz-toolbar{background:#fff;border-bottom:1px solid var(--gray2);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-    .viz-title{font-size:.82rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px}
-    .viz-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
-    .viz-actions{display:flex;gap:6px;flex-wrap:wrap}
-    .btn-dl{padding:6px 14px;border-radius:20px;font-family:var(--sans);font-size:.76rem;font-weight:700;border:none;cursor:pointer;transition:all .2s}
-    .btn-dl-primary{background:var(--green);color:#fff}.btn-dl-primary:hover{background:var(--green-mid)}
-    .btn-dl-copy{background:var(--gray2);color:var(--text)}.btn-dl-copy:hover{background:var(--gray3)}
-    .btn-dl-copy.copied{background:var(--green-pale);color:var(--green)}
-    .resume-preview{padding:18px 22px;background:#fff;margin:10px;border-radius:var(--rsm);border:1px solid var(--gray2);min-height:100px;font-size:.87rem;line-height:1.7;color:var(--text);white-space:pre-wrap;word-wrap:break-word;max-height:360px;overflow-y:auto;font-family:Georgia,'Times New Roman',serif}
-    .resume-preview.loading{color:var(--text3);font-style:italic;font-family:var(--sans)}
-    .rating-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--green-bg);border-top:1px solid var(--green-pale);font-size:.8rem;color:var(--text2)}
-    .rating-bar span{flex:1}
+    /* ═══════════ RESULTS — full width coaching session ═══════════ */
+    .result-section{display:none;margin-top:32px;border-top:1px solid var(--line);padding-top:32px}
+    .result-section.show{display:block;animation:fadeUp .3s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Text resume result */
+    .resume-result-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+    .rr-title{font-family:var(--serif);font-size:1.25rem;color:var(--ink)}
+    .rr-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn-act{padding:8px 16px;border-radius:20px;font-family:var(--sans);font-size:.78rem;font-weight:600;border:none;cursor:pointer;transition:all .18s}
+    .btn-copy{background:var(--sand);color:var(--ink)}.btn-copy:hover{background:var(--line)}
+    .btn-copy.copied{background:var(--gp);color:var(--g)}
+    .btn-view{background:var(--g);color:#fff}.btn-view:hover{background:var(--gm)}
+    .resume-body{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:28px 32px;font-family:Georgia,'Times New Roman',serif;font-size:.9rem;line-height:1.75;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;max-height:480px;overflow-y:auto}
+    .resume-body.loading{color:var(--ink3);font-style:italic;font-family:var(--sans)}
+
+    /* Rating bar */
+    .rating-row{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px 0;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink2)}
+    .rating-row span{flex:1}
     .rating-btns{display:flex;gap:6px}
-    .rate-btn{padding:5px 12px;border-radius:20px;border:1.5px solid var(--gray2);background:#fff;cursor:pointer;font-family:var(--sans);font-size:.8rem;transition:all .15s}
-    .rate-btn:hover{border-color:var(--green);color:var(--green)}
-    .rate-btn.rated-pos{background:var(--green-pale);border-color:var(--green);color:var(--green)}
+    .rate-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--line);background:var(--white);cursor:pointer;font-family:var(--sans);font-size:.78rem;transition:all .15s}
+    .rate-btn:hover{border-color:var(--g);color:var(--g)}
+    .rate-btn.rated-pos{background:var(--gp);border-color:var(--g);color:var(--g)}
     .rate-btn.rated-neg{background:#fee2e2;border-color:#f09595;color:#991b1b}
-    .rating-thanks{font-size:.78rem;color:var(--green);padding:8px 14px;background:var(--green-bg);border-top:1px solid var(--green-pale)}
+    .rating-thanks{font-size:.78rem;color:var(--g);padding:8px 0}
 
-    /* Analysis results */
-    .analysis-result{margin-top:16px;animation:fadeDown .3s ease}
-    .score-hero{display:flex;align-items:center;gap:18px;background:#fff;border:1.5px solid var(--green-pale);border-radius:var(--radius);padding:18px 20px;margin-bottom:12px}
-    .score-ring-wrap{flex-shrink:0}
-    .score-ring-svg{width:80px;height:80px}
-    .score-ring-bg{fill:none;stroke:var(--gray2);stroke-width:8}
+    /* Score hero */
+    .score-hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:var(--white);border:1.5px solid var(--line);border-left:4px solid var(--g);border-radius:var(--r);padding:24px 28px;margin-bottom:20px}
+    @media(max-width:480px){.score-hero{grid-template-columns:1fr}}
+    .score-ring-svg{width:88px;height:88px}
+    .score-ring-bg{fill:none;stroke:var(--line);stroke-width:8}
     .score-ring-fg{fill:none;stroke-width:8;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%}
     .score-ring-fg.high{stroke:#2d6a4f}.score-ring-fg.mid{stroke:#d97706}.score-ring-fg.low{stroke:#dc2626}
-    .score-ring-text{font-size:20px;font-weight:700;fill:var(--text);font-family:var(--sans);dominant-baseline:central;text-anchor:middle}
-    .score-ring-sub{font-size:9px;fill:var(--text3);font-family:var(--sans);dominant-baseline:central;text-anchor:middle}
-    .score-hero-right{flex:1;min-width:0}
-    .score-verdict{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .score-ring-text{font-size:22px;font-weight:700;fill:var(--ink);font-family:var(--sans);dominant-baseline:central;text-anchor:middle}
+    .score-ring-sub{font-size:9px;fill:var(--ink3);font-family:var(--sans);dominant-baseline:central;text-anchor:middle}
+    .score-right{}
+    .score-verdict{font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:6px}
     .score-verdict.high{color:#2d6a4f}.score-verdict.mid{color:#d97706}.score-verdict.low{color:#dc2626}
-    .score-summary{font-size:.82rem;color:var(--text2);line-height:1.55}
-    .an-section{background:#fff;border:1px solid var(--gray2);border-radius:var(--rsm);margin-bottom:8px;overflow:hidden}
-    .an-section-hdr{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--gray2);background:var(--gray)}
-    .an-section-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.68rem;flex-shrink:0}
-    .an-section-icon.green{background:var(--green-pale);color:var(--green)}
-    .an-section-icon.amber{background:#fef3c7;color:#92400e}
-    .an-section-icon.blue{background:#dbeafe;color:#1e40af}
-    .an-section-icon.red{background:#fee2e2;color:#991b1b}
-    .an-section-title{font-size:.75rem;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.06em}
-    .an-section-body{padding:11px 14px}
-    .strength-item{display:flex;align-items:flex-start;gap:8px;padding:4px 0;font-size:.82rem;color:var(--text2);line-height:1.5}
-    .strength-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:6px}
-    .gap-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid var(--gray2)}
-    .gap-item:last-child{border-bottom:none}
-    .gap-priority{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:10px;flex-shrink:0;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
-    .gap-priority.high{background:#fee2e2;color:#991b1b}.gap-priority.mid{background:#fef3c7;color:#92400e}.gap-priority.low{background:#dbeafe;color:#1e40af}
-    .gap-text{font-size:.82rem;color:var(--text2);line-height:1.5}
-    .action-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid var(--gray2)}
-    .action-item:last-child{border-bottom:none}
-    .action-num{width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-    .action-text{font-size:.82rem;color:var(--text2);line-height:1.5}
-    .chip-wrap{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0}
-    .chip{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:12px;line-height:1.4}
-    .chip.present{background:var(--green-pale);color:var(--green)}.chip.missing{background:#fee2e2;color:#991b1b}
-    .edit-item{padding:8px 0;border-bottom:1px solid var(--gray2);font-size:.81rem}
-    .edit-item:last-child{border-bottom:none}
-    .edit-before{color:var(--text3);text-decoration:line-through;margin-bottom:3px}
-    .edit-after{color:var(--green);font-weight:600}
-    .edit-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);margin-bottom:4px}
-    .recruiter-take{font-size:.83rem;color:var(--text2);line-height:1.65;font-style:italic}
-    .an-copy-row{display:flex;justify-content:flex-end;padding:8px 14px 0;border-top:1px solid var(--gray2);margin-top:4px}
-    .an-copy-btn{font-size:.73rem;font-weight:600;color:var(--text3);background:none;border:1px solid var(--gray2);padding:5px 12px;border-radius:12px;cursor:pointer;transition:all .15s;font-family:var(--sans)}
-    .an-copy-btn:hover{border-color:var(--green);color:var(--green)}
-    .an-copy-btn.copied{color:var(--green);border-color:var(--green-light);background:var(--green-bg)}
+    .score-summary{font-size:.86rem;color:var(--ink2);line-height:1.6}
 
-    /* ── BUILDER experience rows ── */
-    .exprow{background:#fff;border-radius:var(--rsm);padding:12px;margin-bottom:8px;border:1px solid var(--gray2)}
-    .exprow-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-    .exprow-lbl{font-size:.72rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.04em}
-    .exprow-rm{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;line-height:1}
+    /* Analysis blocks */
+    .an-blocks{display:flex;flex-direction:column;gap:12px}
+    .an-block{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+    .an-block-hdr{display:flex;align-items:center;gap:10px;padding:12px 18px;background:var(--sand);border-bottom:1px solid var(--line)}
+    .an-hdr-icon{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;font-weight:700}
+    .hi-green{background:var(--gp);color:var(--g)}.hi-amber{background:#fef3c7;color:#92400e}.hi-blue{background:#dbeafe;color:#1e40af}.hi-red{background:#fee2e2;color:#991b1b}
+    .an-block-title{font-size:.72rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.07em}
+    .an-block-body{padding:16px 18px}
+    .strength-row{display:flex;align-items:flex-start;gap:9px;padding:5px 0;font-size:.85rem;color:var(--ink2);line-height:1.55}
+    .s-dot{width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0;margin-top:7px}
+    .gap-row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+    .gap-row:last-child{border-bottom:none}
+    .gap-badge{font-size:.62rem;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;letter-spacing:.04em;text-transform:uppercase}
+    .gb-high{background:#fee2e2;color:#991b1b}.gb-mid{background:#fef3c7;color:#92400e}.gb-low{background:#dbeafe;color:#1e40af}
+    .gap-text{font-size:.84rem;color:var(--ink2);line-height:1.55}
+    .action-row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+    .action-row:last-child{border-bottom:none}
+    .action-num{width:22px;height:22px;border-radius:50%;background:var(--g);color:#fff;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .action-text{font-size:.84rem;color:var(--ink2);line-height:1.55}
+    .chip-cloud{display:flex;flex-wrap:wrap;gap:7px;padding:2px 0}
+    .chip{font-size:.73rem;font-weight:600;padding:4px 11px;border-radius:12px}
+    .ch-green{background:var(--gp);color:var(--g)}.ch-red{background:#fee2e2;color:#991b1b}
+    .edit-row{padding:10px 0;border-bottom:1px solid var(--line);font-size:.83rem}
+    .edit-row:last-child{border-bottom:none}
+    .edit-lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);margin-bottom:4px}
+    .edit-before{color:var(--ink3);text-decoration:line-through;margin-bottom:3px}
+    .edit-after{color:var(--g);font-weight:600}
+    .rec-take{font-size:.85rem;color:var(--ink2);line-height:1.7;font-style:italic}
+    .copy-row{display:flex;justify-content:flex-end;padding:10px 18px 0;border-top:1px solid var(--line);margin-top:4px}
+    .an-copy-btn{font-size:.73rem;font-weight:600;color:var(--ink3);background:none;border:1px solid var(--line);padding:5px 13px;border-radius:12px;cursor:pointer;font-family:var(--sans);transition:all .15s}
+    .an-copy-btn:hover{border-color:var(--g);color:var(--g)}
+    .an-copy-btn.copied{color:var(--g);border-color:var(--gl);background:var(--gbg)}
+
+    /* MORE TOOLS */
+    .more-wrap{background:var(--sand);border:1px solid var(--line);border-radius:12px;margin-top:1px;overflow:hidden}
+    .more-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;font-family:var(--sans);font-size:.84rem;font-weight:600;color:var(--ink2);background:none;border:none;cursor:pointer;transition:color .18s}
+    .more-trigger:hover{color:var(--g)}
+    .more-trigger svg{width:16px;height:16px;transition:transform .2s;flex-shrink:0}
+    .more-trigger.open svg{transform:rotate(180deg)}
+    .more-grid{display:none;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+    @media(max-width:580px){.more-grid{grid-template-columns:1fr}}
+    .more-grid.open{display:grid}
+    .mini-card{background:var(--white);padding:22px 22px 18px;cursor:pointer;transition:background .18s}
+    .mini-card:hover{background:#fdfcfb}
+    .mini-card.active{background:var(--gbg)}
+    .mini-title{font-size:.92rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+    .mini-desc{font-size:.78rem;color:var(--ink2);line-height:1.45;margin-bottom:12px}
+    .mini-btn{display:inline-block;background:var(--g);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-family:var(--sans);font-size:.78rem;font-weight:600;cursor:pointer;transition:background .18s}
+    .mini-btn:hover{background:var(--gm)}
+    .mini-panel{display:none;background:var(--gbg);border-top:2px solid var(--g);padding:28px 28px 24px;animation:slideIn .2s ease}
+    .mini-card.active .mini-panel{display:block}
+
+    /* BUILDER */
+    .exprow{background:var(--white);border:1px solid var(--line);border-radius:var(--rs);padding:14px;margin-bottom:8px}
+    .exprow-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .exprow-lbl{font-size:.7rem;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}
+    .exprow-rm{background:none;border:none;color:var(--ink3);cursor:pointer;font-size:1rem}
     .exprow-rm:hover{color:#c00}
     .exprow .fld{margin-bottom:7px}.exprow .fld:last-child{margin-bottom:0}
-    .btn-addexp{width:100%;padding:8px;border:1.5px dashed var(--gray2);border-radius:var(--rsm);background:transparent;cursor:pointer;font-family:var(--sans);font-size:.82rem;color:var(--text3);font-weight:600;transition:all .2s;margin-bottom:12px}
-    .btn-addexp:hover{border-color:var(--green);color:var(--green)}
-    .job-url-opt{background:#fff;border:1px solid var(--green-pale);border-radius:var(--rsm);padding:10px 12px;margin-top:8px}
-    .job-url-opt .opt-lbl{font-size:.7rem;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-    .job-url-opt p{font-size:.74rem;color:var(--text3);margin-top:4px;line-height:1.4}
+    .btn-addexp{width:100%;padding:9px;border:1.5px dashed var(--line);border-radius:var(--rs);background:transparent;cursor:pointer;font-family:var(--sans);font-size:.82rem;color:var(--ink3);font-weight:600;transition:all .2s;margin-bottom:12px}
+    .btn-addexp:hover{border-color:var(--g);color:var(--g)}
+    .job-url-opt{background:var(--gbg);border:1px solid var(--gp);border-radius:var(--rs);padding:11px 13px;margin-top:10px}
+    .job-url-opt .opt-lbl{font-size:.68rem;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+    .job-url-opt p{font-size:.73rem;color:var(--ink3);margin-top:4px;line-height:1.4}
 
-    /* ── BEFORE/AFTER SECTION ── */
-    .examples-sec{padding:60px 6% 80px;background:var(--gray);border-top:1px solid var(--gray2)}
-    .sec-hdr{text-align:center;margin-bottom:36px}
-    .sec-label{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:8px}
-    .sec-hdr h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;color:var(--text);letter-spacing:-.3px}
-    .examples-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;max-width:960px;margin:0 auto}
-    .example-card{background:#fff;border:1.5px solid var(--gray2);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:12px}
-    .ex-badge{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);background:var(--green-pale);border-radius:12px;padding:3px 10px;display:inline-block;margin-bottom:2px}
-    .ex-tag{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
-    .ex-tag-before{color:var(--text3)}.ex-tag-after{color:var(--green)}
-    .ex-before{background:var(--gray);border:1px solid var(--gray2);border-radius:var(--rsm);padding:11px 13px}
-    .ex-after{background:var(--green-bg);border:1.5px solid var(--green-light);border-radius:var(--rsm);padding:11px 13px}
-    .ex-arrow{text-align:center;font-size:.9rem;color:var(--green-light);font-weight:700}
-    .ex-text{font-size:.81rem;color:var(--text2);line-height:1.5}
-    .ex-green{color:var(--green);font-weight:600}
+    /* EXAMPLES */
+    .examples-sec{background:var(--sand);border-top:1px solid var(--line);padding:64px 6% 80px}
+    .sec-hdr{text-align:center;margin-bottom:40px}
+    .sec-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:10px}
+    .sec-hdr h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;color:var(--ink);letter-spacing:-.3px;line-height:1.15}
+    .ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;max-width:980px;margin:0 auto}
+    .ex-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px}
+    .ex-badge{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--g);background:var(--gp);border-radius:10px;padding:3px 10px;display:inline-block}
+    .ex-before{background:var(--sand);border:1px solid var(--line);border-radius:var(--rs);padding:12px 14px}
+    .ex-after{background:var(--gbg);border:1.5px solid var(--gl);border-radius:var(--rs);padding:12px 14px}
+    .ex-tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+    .ex-tag-b{color:var(--ink3)}.ex-tag-a{color:var(--g)}
+    .ex-arrow{text-align:center;font-size:.9rem;color:var(--gl);font-weight:700}
+    .ex-text{font-size:.82rem;color:var(--ink2);line-height:1.52}
+    .ex-green{color:var(--g);font-weight:600}
     .ex-score-row{display:flex;align-items:center;gap:10px}
-    .ex-score-label{font-size:.84rem;font-weight:700;color:var(--green)}
-    .ex-score-sub{font-size:.71rem;color:var(--text3);margin-top:2px}
+    .ex-score-lbl{font-size:.84rem;font-weight:700;color:var(--g)}
+    .ex-score-sub{font-size:.7rem;color:var(--ink3);margin-top:2px}
     .ex-gaps{display:flex;flex-direction:column;gap:4px}
-    .ex-gap-item{font-size:.73rem;padding:4px 8px;border-radius:6px;line-height:1.4}
-    .ex-gap-high{background:#fee2e2;color:#991b1b}.ex-gap-mid{background:#fef3c7;color:#92400e}.ex-gap-low{background:#dbeafe;color:#1e40af}
-    .ex-caption{font-size:.76rem;color:var(--text3);line-height:1.5;border-top:1px solid var(--gray2);padding-top:10px}
+    .ex-gap{font-size:.72rem;padding:4px 9px;border-radius:6px;line-height:1.4}
+    .eg-high{background:#fee2e2;color:#991b1b}.eg-mid{background:#fef3c7;color:#92400e}.eg-low{background:#dbeafe;color:#1e40af}
+    .ex-caption{font-size:.76rem;color:var(--ink3);line-height:1.5;border-top:1px solid var(--line);padding-top:10px}
 
-    /* ── CTA BOTTOM ── */
-    .cta-bottom{padding:64px 6%;text-align:center;background:var(--green)}
-    .cta-bottom h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;color:#fff;margin-bottom:10px}
-    .cta-bottom h2 em{font-style:italic;color:var(--green-pale)}
-    .cta-bottom p{font-size:.88rem;color:rgba(255,255,255,.75);margin-bottom:24px}
-    .btn-cta-inv{background:#fff;color:var(--green);border:none;padding:13px 30px;border-radius:24px;font-family:var(--sans);font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
-    .btn-cta-inv:hover{background:var(--green-pale)}
+    /* CTA */
+    .cta-sec{background:var(--ink);padding:72px 6%;text-align:center}
+    .cta-sec h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.1}
+    .cta-sec h2 em{color:var(--gl);font-style:italic}
+    .cta-sec p{font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:28px}
+    .btn-cta-inv{background:var(--white);color:var(--ink);border:none;padding:14px 32px;border-radius:24px;font-family:var(--sans);font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.01em}
+    .btn-cta-inv:hover{background:var(--gp);color:var(--g)}
 
-    /* ── PRIVACY ── */
-    .privacy-sec{background:#fff;padding:60px 6%;border-top:1px solid var(--gray2)}
-    .privacy-pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;max-width:900px;margin:0 auto 18px}
-    .pillar{background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--radius);padding:18px 20px}
-    .pillar-icon{width:32px;height:32px;background:var(--green-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
-    .pillar-icon svg{width:16px;height:16px;fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-    .pillar h3{font-size:.84rem;font-weight:700;color:var(--text);margin-bottom:4px}
-    .pillar p{font-size:.77rem;color:var(--text2);line-height:1.5}
-    .privacy-cta{text-align:center;font-size:.82rem;color:var(--text3)}
-    .privacy-cta a{color:var(--green);font-weight:600;text-decoration:none}
+    /* PRIVACY */
+    .privacy-sec{background:var(--cream);padding:64px 6%;border-top:1px solid var(--line)}
+    .pillar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:900px;margin:0 auto 18px}
+    .pillar{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+    .pillar-icon{width:32px;height:32px;background:var(--gp);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+    .pillar-icon svg{width:15px;height:15px;fill:none;stroke:var(--g);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .pillar h3{font-size:.84rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+    .pillar p{font-size:.78rem;color:var(--ink2);line-height:1.5}
+    .priv-cta{text-align:center;font-size:.82rem;color:var(--ink3)}
+    .priv-cta a{color:var(--g);font-weight:600;text-decoration:none}
 
-    /* ── FEEDBACK ── */
-    .feedback-sec{background:var(--gray);padding:60px 6%;border-top:1px solid var(--gray2)}
-    .feedback-inner{max-width:540px;margin:0 auto}
-    .feedback-card{background:#fff;border:1.5px solid var(--gray2);border-radius:var(--radius);padding:24px;margin-top:24px}
-    .star-row{display:flex;gap:7px;margin-bottom:12px}
-    .star-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--gray2);background:#fff;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:var(--sans)}
-    .star-btn:hover,.star-btn.sel{background:var(--green-pale);border-color:var(--green-light)}
+    /* FEEDBACK */
+    .feedback-sec{background:var(--sand);padding:64px 6%;border-top:1px solid var(--line)}
+    .feedback-inner{max-width:560px;margin:0 auto}
+    .feedback-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px;margin-top:24px}
+    .star-row{display:flex;gap:6px;margin-bottom:12px}
+    .star-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:var(--white);cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:var(--sans)}
+    .star-btn:hover,.star-btn.sel{background:var(--gp);border-color:var(--gl)}
     .fld-fb{margin-bottom:12px}
-    .fld-fb label{display:block;font-size:.72rem;font-weight:700;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
-    .fld-fb textarea,.fld-fb input,.fld-fb select{width:100%;padding:10px 12px;border:1.5px solid var(--gray2);border-radius:var(--rsm);font-family:var(--sans);font-size:.87rem;color:var(--text);background:#fff;transition:border-color .2s;resize:vertical}
+    .fld-fb label{display:block;font-size:.69rem;font-weight:700;color:var(--ink2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+    .fld-fb textarea,.fld-fb input,.fld-fb select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:var(--rs);font-family:var(--sans);font-size:.87rem;color:var(--ink);background:var(--white);resize:vertical}
     .fld-fb textarea{min-height:80px}
-    .btn-fb{padding:11px 26px;border-radius:var(--rsm);border:none;background:var(--green);color:#fff;font-family:var(--sans);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s}
-    .btn-fb:hover:not(:disabled){background:var(--green-mid)}
+    .btn-fb{padding:11px 24px;border-radius:var(--rs);border:none;background:var(--g);color:#fff;font-family:var(--sans);font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-fb:hover:not(:disabled){background:var(--gm)}
     .btn-fb:disabled{opacity:.6;cursor:not-allowed}
-    .fb-ok{background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--rsm);padding:13px 15px;font-size:.85rem;color:var(--green);display:none;margin-top:10px}
+    .fb-ok{background:var(--gbg);border:1px solid var(--gp);border-radius:var(--rs);padding:13px;font-size:.85rem;color:var(--g);display:none;margin-top:10px}
 
-    /* ── FOOTER ── */
-    footer{background:#fff;border-top:1px solid var(--gray2);padding:26px 6%;text-align:center;font-size:.81rem;color:var(--text3)}
-    footer a{color:var(--text3);text-decoration:none;margin:0 10px}
-    footer a:hover{color:var(--green)}
+    /* FOOTER */
+    footer{background:var(--ink);padding:26px 6%;text-align:center;font-size:.8rem;color:rgba(255,255,255,.5)}
+    footer a{color:rgba(255,255,255,.5);text-decoration:none;margin:0 10px}
+    footer a:hover{color:var(--gl)}
     .footer-logo{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:12px}
-    .fb-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;background:var(--green);color:#fff;writing-mode:vertical-lr;padding:13px 8px;border-radius:8px 0 0 8px;font-family:var(--sans);font-size:.74rem;font-weight:700;cursor:pointer;border:none;letter-spacing:.05em;transition:all .2s}
-    .fb-tab:hover{background:var(--green-mid)}
+    .footer-logo-text{font-weight:700;font-size:.88rem;color:rgba(255,255,255,.8)}
+    .fb-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;background:var(--g);color:#fff;writing-mode:vertical-lr;padding:13px 8px;border-radius:8px 0 0 8px;font-family:var(--sans);font-size:.72rem;font-weight:700;cursor:pointer;border:none;letter-spacing:.06em;transition:all .2s}
+    .fb-tab:hover{background:var(--gm)}
 
-    /* ── RESUME PAGE ── */
-    .resume-page-overlay{display:none;position:fixed;inset:0;z-index:300;background:#e8e8e8;overflow-y:auto}
-    .resume-page-overlay.show{display:block}
-    .rp-bar{background:#fff;border-bottom:1px solid var(--gray2);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10}
-    .rp-left{display:flex;align-items:center;gap:10px}
-    .rp-back{background:transparent;border:1.5px solid var(--gray2);color:var(--text);padding:6px 14px;border-radius:20px;font-family:var(--sans);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
-    .rp-back:hover{border-color:var(--green);color:var(--green)}
-    .rp-title{font-size:.86rem;font-weight:700;color:var(--text)}
+    /* RESUME PAGE OVERLAY */
+    .rp-overlay{display:none;position:fixed;inset:0;z-index:300;background:#eae8e3;overflow-y:auto}
+    .rp-overlay.show{display:block}
+    .rp-bar{background:var(--white);border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10}
+    .rp-left{display:flex;align-items:center;gap:12px}
+    .rp-back{background:transparent;border:1.5px solid var(--line);color:var(--ink);padding:6px 14px;border-radius:20px;font-family:var(--sans);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+    .rp-back:hover{border-color:var(--g);color:var(--g)}
+    .rp-title{font-size:.86rem;font-weight:700;color:var(--ink)}
     .rp-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
     .rp-btn{padding:7px 15px;border-radius:20px;font-family:var(--sans);font-size:.76rem;font-weight:700;border:none;cursor:pointer;transition:all .2s}
-    .rp-btn-copy{background:var(--gray2);color:var(--text)}.rp-btn-copy:hover{background:var(--gray3)}
-    .rp-btn-copy.copied{background:var(--green-pale);color:var(--green)}
-    .rp-btn-docx{background:var(--text);color:#fff}.rp-btn-docx:hover{background:#333}
-    .rp-btn-gdocs{background:#4285f4;color:#fff}.rp-btn-gdocs:hover{background:#2c6fdb}
+    .rp-copy{background:var(--sand);color:var(--ink)}.rp-copy:hover{background:var(--line)}
+    .rp-copy.copied{background:var(--gp);color:var(--g)}
+    .rp-docx{background:var(--ink);color:#fff}.rp-docx:hover{background:#333}
+    .rp-gdocs{background:#4285f4;color:#fff}.rp-gdocs:hover{background:#2c6fdb}
     .rp-btn:disabled{opacity:.4;cursor:not-allowed}
-    .dl-badge{font-size:.7rem;color:var(--text3);background:var(--gray);padding:4px 11px;border-radius:20px;white-space:nowrap}
+    .dl-badge{font-size:.7rem;color:var(--ink3);background:var(--sand);padding:4px 11px;border-radius:20px;white-space:nowrap}
     .dl-badge.warn{color:#b45309;background:#fffbeb}.dl-badge.out{color:#991b1b;background:#fff5f5}
-    .letter-wrap{max-width:870px;margin:24px auto;padding:0 16px 60px}
-    .letter-sheet{background:#fff;padding:72px 80px;min-height:1056px;box-shadow:0 2px 24px rgba(0,0,0,.12);font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.65;color:#1a1a1a}
+    .letter-wrap{max-width:870px;margin:28px auto;padding:0 16px 60px}
+    .letter-sheet{background:var(--white);padding:72px 80px;min-height:1056px;box-shadow:0 2px 24px rgba(0,0,0,.1);font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.65;color:#1a1a1a}
     @media(max-width:700px){.letter-sheet{padding:32px 20px;min-height:auto}}
 
-    /* ── WTP ── */
-    .wtp-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+    /* WTP */
+    .wtp-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(26,26,26,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center}
     .wtp-overlay.show{display:flex}
-    .wtp-card{background:#fff;border-radius:16px;padding:26px;max-width:420px;width:90%;animation:fadeDown .25s ease}
-    .wtp-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:6px}
-    .wtp-sub{font-size:.83rem;color:var(--text2);margin-bottom:18px;line-height:1.5}
-    .wtp-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
-    .wtp-opt{padding:11px 15px;border:1.5px solid var(--gray2);border-radius:var(--rsm);cursor:pointer;font-family:var(--sans);font-size:.85rem;color:var(--text);background:#fff;text-align:left;transition:all .2s;line-height:1.4}
-    .wtp-opt:hover{border-color:var(--green);background:var(--green-bg);color:var(--green)}
-    .wtp-opt.selected{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:600}
+    .wtp-card{background:var(--white);border-radius:16px;padding:28px;max-width:420px;width:90%;animation:slideIn .25s ease}
+    .wtp-title{font-family:var(--serif);font-size:1.2rem;color:var(--ink);margin-bottom:7px}
+    .wtp-sub{font-size:.83rem;color:var(--ink2);margin-bottom:20px;line-height:1.55}
+    .wtp-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+    .wtp-opt{padding:11px 15px;border:1.5px solid var(--line);border-radius:var(--rs);cursor:pointer;font-family:var(--sans);font-size:.85rem;color:var(--ink);background:var(--white);text-align:left;transition:all .2s;line-height:1.4}
+    .wtp-opt:hover{border-color:var(--g);background:var(--gbg);color:var(--g)}
+    .wtp-opt.selected{border-color:var(--g);background:var(--gbg);color:var(--g);font-weight:600}
     .wtp-opt strong{display:block;font-weight:700}
-    .wtp-skip{font-size:.74rem;color:var(--text3);cursor:pointer;text-decoration:underline;text-align:center}
-    .wtp-skip:hover{color:var(--green)}
-    .wtp-thanks{text-align:center;padding:8px 0;font-size:.88rem;color:var(--green);font-weight:600}
+    .wtp-skip{font-size:.74rem;color:var(--ink3);cursor:pointer;text-decoration:underline;text-align:center}
+    .wtp-skip:hover{color:var(--g)}
+    .wtp-thanks{text-align:center;padding:8px 0;font-size:.88rem;color:var(--g);font-weight:600}
 
     @media(max-width:640px){
-      .hero{padding:52px 5% 20px}
-      .tools-sec{padding:0 5% 60px}
-      .proof-bar{gap:14px}
+      .hero{padding:56px 5% 24px}
+      .tools-wrap{padding:0 4% 50px}
+      .tool-panel-inner{padding:22px 18px}
     }
   </style>
 </head>
@@ -347,212 +362,200 @@
 <div class="proof-bar">
   <div class="proof-item"><div class="proof-dot"></div><span><strong>Free</strong> — no credit card</span></div>
   <div class="proof-item"><div class="proof-dot"></div><span><strong>No sign-up</strong> required</span></div>
-  <div class="proof-item"><div class="proof-dot"></div><span>Built with <strong>real hiring intelligence</strong></span></div>
-  <div class="proof-item"><div class="proof-dot"></div><span>Results in <strong>under 30 seconds</strong></span></div>
+  <div class="proof-item"><div class="proof-dot"></div><span>Real <strong>hiring intelligence</strong></span></div>
+  <div class="proof-item"><div class="proof-dot"></div><span>Results in <strong>30 seconds</strong></span></div>
 </div>
 
 <section class="hero">
+  <div class="hero-eyebrow">Free AI-powered tools · Built with real-world hiring intelligence</div>
   <h1>The gap between<br><em>qualified and hired.</em></h1>
-  <p>Free AI-powered tools built with real-world hiring intelligence — to help you present your best self and land the role you've earned.</p>
+  <p>Tools built from inside the hiring process — to help you present your best self and land the role you've earned.</p>
   <p class="hero-sub">Free · No sign-up · No credit card</p>
 </section>
 
-<!-- ═══════════════════════════════════
-     CORE TOOLS — inline expansion
-════════════════════════════════════ -->
-<div class="tools-sec">
-  <div class="tools-label">Pick a tool. Start immediately.</div>
+<div class="tools-wrap">
+  <div class="tools-label">Pick a tool → start immediately</div>
 
-  <div class="tool-cards">
-
-    <!-- SCANNER -->
+  <!-- PRIMARY TOOL CARDS -->
+  <div class="tool-grid">
     <div class="tool-card" id="card-scanner">
-      <div class="card-head">
-        <div class="card-icon">🔍</div>
-        <div class="card-info">
-          <h3>Fit scanner</h3>
-          <p>Know your ATS match score before you apply. See exactly which keywords you're missing.</p>
-        </div>
-      </div>
-      <button class="card-cta" onclick="openTool('scanner')">Scan my fit →</button>
-      <div class="tool-panel" id="panel-scanner">
-        <div class="fld">
-          <label>Job description</label>
-          <div class="imethods">
-            <button class="imethod active" onclick="swJdMethod('scanner','paste')" id="jdm-scanner-paste">✎ Paste text</button>
-            <button class="imethod" onclick="swJdMethod('scanner','link')" id="jdm-scanner-link">🔗 Paste link</button>
-          </div>
-          <div id="jd-scanner-paste" class="ipane active"><textarea id="s-jd" placeholder="Paste the full job description here..."></textarea></div>
-          <div id="jd-scanner-link" class="ipane">
-            <input type="url" id="s-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-            <p style="font-size:.73rem;color:var(--text3);margin-top:5px">Works with most public job boards.</p>
-          </div>
-        </div>
-        <div class="fld">
-          <label>Your resume</label>
-          <div class="imethods">
-            <button class="imethod active" onclick="swResMethod('scanner','paste')" id="rm-scanner-paste">✎ Paste text</button>
-            <button class="imethod" onclick="swResMethod('scanner','upload')" id="rm-scanner-upload">↑ Upload resume</button>
-          </div>
-          <div id="res-scanner-paste" class="ipane active"><textarea id="s-res" placeholder="Paste your current resume here..."></textarea></div>
-          <div id="res-scanner-upload" class="ipane">
-            <div class="dz" id="dz-scanner" onclick="trigUp('scanner')" ondragover="onDrag(event,'dz-scanner')" ondragleave="offDrag('dz-scanner')" ondrop="onDrop(event,'dz-scanner','scanner')">
-              <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
-              <input type="file" id="file-scanner" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'scanner')" />
-            </div>
-          </div>
-        </div>
-        <div class="tool-usage-note" id="usage-scanner"></div>
-        <button class="btn-run" id="run-scanner" onclick="runAnalysis('scanner')"><span>Scan my fit</span></button>
-        <div class="err-box" id="err-scanner"></div>
-        <div class="analysis-result" id="res-scanner" style="display:none"></div>
-        <div id="rating-scanner-wrap" style="display:none;margin-top:8px">
-          <div class="rating-bar" id="rating-scanner">
-            <span>Was this scan helpful?</span>
-            <div class="rating-btns">
-              <button class="rate-btn" onclick="rateOutput('scanner','positive')">👍 Yes</button>
-              <button class="rate-btn" onclick="rateOutput('scanner','negative')">👎 No</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <span class="card-icon">🔍</span>
+      <div class="card-title">Fit scanner</div>
+      <div class="card-desc">Know your ATS match score before you apply. See exactly which keywords you're missing and what to fix.</div>
+      <button class="card-btn" id="btn-scanner" onclick="openTool('scanner')">Scan my fit →</button>
     </div>
-
-    <!-- TAILOR -->
     <div class="tool-card" id="card-tailor">
-      <div class="card-head">
-        <div class="card-icon">✏️</div>
-        <div class="card-info">
-          <h3>Resume tailor</h3>
-          <p>Paste a job description and your resume. Get a version rewritten to match — keywords aligned, impact shown.</p>
-        </div>
-      </div>
-      <button class="card-cta" onclick="openTool('tailor')">Tailor my resume →</button>
-      <div class="tool-panel" id="panel-tailor">
-        <div class="fld">
-          <label>Job description</label>
-          <div class="imethods">
-            <button class="imethod active" onclick="swJdMethod('tailor','paste')" id="jdm-tailor-paste">✎ Paste text</button>
-            <button class="imethod" onclick="swJdMethod('tailor','link')" id="jdm-tailor-link">🔗 Paste link</button>
-          </div>
-          <div id="jd-tailor-paste" class="ipane active"><textarea id="t-jd" placeholder="Paste the full job description here..."></textarea></div>
-          <div id="jd-tailor-link" class="ipane">
-            <input type="url" id="t-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" />
-            <p style="font-size:.73rem;color:var(--text3);margin-top:5px">Works with most public job boards.</p>
-          </div>
-        </div>
-        <div class="fld">
-          <label>Your resume</label>
-          <div class="imethods">
-            <button class="imethod active" onclick="swResMethod('tailor','paste')" id="rm-tailor-paste">✎ Paste text</button>
-            <button class="imethod" onclick="swResMethod('tailor','upload')" id="rm-tailor-upload">↑ Upload resume</button>
-          </div>
-          <div id="res-tailor-paste" class="ipane active"><textarea id="t-res" placeholder="Paste your current resume here..."></textarea></div>
-          <div id="res-tailor-upload" class="ipane">
-            <div class="dz" id="dz-tailor" onclick="trigUp('tailor')" ondragover="onDrag(event,'dz-tailor')" ondragleave="offDrag('dz-tailor')" ondrop="onDrop(event,'dz-tailor','tailor')">
-              <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
-              <input type="file" id="file-tailor" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'tailor')" />
-            </div>
-          </div>
-        </div>
-        <div class="tool-usage-note" id="usage-tailor"></div>
-        <button class="btn-run" id="run-tailor" onclick="run('tailor')"><span>Tailor my resume</span></button>
-        <div class="err-box" id="err-tailor"></div>
-        <div class="result-wrap" id="res-tailor-result">
-          <div class="resume-viz">
-            <div class="viz-toolbar">
-              <div class="viz-title"><span class="viz-dot"></span>Your tailored resume</div>
-              <div class="viz-actions">
-                <button class="btn-dl btn-dl-copy" id="copy-tailor" onclick="copyRes('tailor')">Copy</button>
-                <button class="btn-dl btn-dl-primary" onclick="openResumePage('tailor')">📄 View & Download</button>
-              </div>
-            </div>
-            <div class="resume-preview" id="out-tailor"></div>
-            <div class="rating-bar" id="rating-tailor">
-              <span>Was this helpful?</span>
-              <div class="rating-btns">
-                <button class="rate-btn" onclick="rateOutput('tailor','positive')">👍 Yes</button>
-                <button class="rate-btn" onclick="rateOutput('tailor','negative')">👎 No</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <span class="card-icon">✏️</span>
+      <div class="card-title">Resume tailor</div>
+      <div class="card-desc">Paste a job and your resume — get a version rewritten to match. Keywords aligned, impact shown, ATS-ready.</div>
+      <button class="card-btn" id="btn-tailor" onclick="openTool('tailor')">Tailor my resume →</button>
     </div>
-
-    <!-- GAP FINDER -->
     <div class="tool-card" id="card-gaps">
-      <div class="card-head">
-        <div class="card-icon">◎</div>
-        <div class="card-info">
-          <h3>Gap finder</h3>
-          <p>Understand exactly where you fall short and get a prioritized action plan for closing those gaps.</p>
-        </div>
-      </div>
-      <button class="card-cta" onclick="openTool('gaps')">Find my gaps →</button>
-      <div class="tool-panel" id="panel-gaps">
-        <div class="fld">
-          <label>Job description</label>
-          <div class="imethods">
-            <button class="imethod active" onclick="swGapJd('paste')" id="gjdm-paste">✎ Paste text</button>
-            <button class="imethod" onclick="swGapJd('link')" id="gjdm-link">🔗 Job URL</button>
-          </div>
-          <div id="gjd-paste" class="ipane active"><textarea id="gap-jd" placeholder="Paste the full job description here..."></textarea></div>
-          <div id="gjd-link" class="ipane"><input type="url" id="gap-jd-url" placeholder="https://indeed.com/... or any job posting URL" class="url-input" /></div>
-        </div>
-        <div class="fld">
-          <label>Your background</label>
-          <div class="imethods">
-            <button class="imethod active" onclick="swGapBg('paste')" id="gbgm-paste">✎ Paste / type</button>
-            <button class="imethod" onclick="swGapBg('upload')" id="gbgm-upload">↑ Upload resume</button>
-          </div>
-          <div id="gbg-paste" class="ipane active"><textarea id="gap-bg" placeholder="Paste your resume or describe your experience..."></textarea></div>
-          <div id="gbg-upload" class="ipane">
-            <div class="dz" id="dz-gap" onclick="trigUp('gap')" ondragover="onDrag(event,'dz-gap')" ondragleave="offDrag('dz-gap')" ondrop="onDrop(event,'dz-gap','gap')">
-              <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
-              <input type="file" id="file-gap" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'gap')" />
-            </div>
-          </div>
-        </div>
-        <div class="tool-usage-note" id="usage-gaps"></div>
-        <button class="btn-run" id="run-gaps" onclick="runAnalysis('gaps')"><span>Find my gaps</span></button>
-        <div class="err-box" id="err-gaps"></div>
-        <div class="analysis-result" id="res-gaps" style="display:none"></div>
-        <div id="rating-gaps-wrap" style="display:none;margin-top:8px">
-          <div class="rating-bar" id="rating-gaps">
-            <span>Was this analysis helpful?</span>
-            <div class="rating-btns">
-              <button class="rate-btn" onclick="rateOutput('gaps','positive')">👍 Yes</button>
-              <button class="rate-btn" onclick="rateOutput('gaps','negative')">👎 No</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <span class="card-icon">◎</span>
+      <div class="card-title">Gap finder</div>
+      <div class="card-desc">Understand exactly where you fall short for a role — with a prioritized action plan to close those gaps.</div>
+      <button class="card-btn" id="btn-gaps" onclick="openTool('gaps')">Find my gaps →</button>
     </div>
+  </div>
 
-  </div><!-- /tool-cards -->
+  <!-- FULL-WIDTH TOOL PANEL (below cards) -->
+  <div class="tool-panel-row" id="tool-panel-row">
+    <div class="tool-panel-inner">
 
-  <!-- MORE TOOLS disclosure -->
-  <div class="more-row">
-    <button class="more-btn" onclick="toggleMore(this)">+ More tools</button>
-    <div class="more-grid" id="moreGrid">
+      <!-- SCANNER -->
+      <div id="pane-scanner" style="display:none">
+        <div class="panel-title">Fit scanner</div>
+        <div class="panel-sub">Paste or link a job description and your resume — we'll score your ATS match and show exactly what to fix.</div>
+        <div class="input-cols">
+          <div class="input-col">
+            <div class="fld">
+              <label>Job description</label>
+              <div class="imethods">
+                <button class="imethod active" onclick="swJd('scanner','paste')" id="jdm-scanner-paste">✎ Paste text</button>
+                <button class="imethod" onclick="swJd('scanner','link')" id="jdm-scanner-link">🔗 Paste link</button>
+              </div>
+              <div id="jd-scanner-paste" class="ipane active"><textarea id="s-jd" placeholder="Paste the full job description here..."></textarea></div>
+              <div id="jd-scanner-link" class="ipane">
+                <input type="url" id="s-jd-url" placeholder="https://linkedin.com/jobs/... or Indeed, Glassdoor, company site" class="url-input" />
+                <div class="url-note">Works with many public job boards. If it fails, paste the text directly — LinkedIn and some sites block automated access.</div>
+              </div>
+            </div>
+          </div>
+          <div class="input-col">
+            <div class="fld">
+              <label>Your resume</label>
+              <div class="imethods">
+                <button class="imethod active" onclick="swRes('scanner','paste')" id="rm-scanner-paste">✎ Paste text</button>
+                <button class="imethod" onclick="swRes('scanner','upload')" id="rm-scanner-upload">↑ Upload file</button>
+              </div>
+              <div id="res-scanner-paste" class="ipane active"><textarea id="s-res" placeholder="Paste your current resume here..."></textarea></div>
+              <div id="res-scanner-upload" class="ipane">
+                <div class="dz" id="dz-scanner" onclick="trigUp('scanner')" ondragover="onDrag(event,'dz-scanner')" ondragleave="offDrag('dz-scanner')" ondrop="onDrop(event,'dz-scanner','scanner')">
+                  <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
+                  <input type="file" id="file-scanner" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'scanner')" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="run-row">
+          <button class="btn-run" id="run-scanner" onclick="runAnalysis('scanner')"><span id="run-scanner-label">Scan my fit</span></button>
+          <div class="tool-usage-note" id="usage-scanner"></div>
+        </div>
+        <div class="err-box" id="err-scanner"></div>
+        <div class="result-section" id="res-scanner"></div>
+      </div>
+
+      <!-- TAILOR -->
+      <div id="pane-tailor" style="display:none">
+        <div class="panel-title">Resume tailor</div>
+        <div class="panel-sub">Paste a job description and your resume — get a version tailored to match the role exactly.</div>
+        <div class="input-cols">
+          <div class="input-col">
+            <div class="fld">
+              <label>Job description</label>
+              <div class="imethods">
+                <button class="imethod active" onclick="swJd('tailor','paste')" id="jdm-tailor-paste">✎ Paste text</button>
+                <button class="imethod" onclick="swJd('tailor','link')" id="jdm-tailor-link">🔗 Paste link</button>
+              </div>
+              <div id="jd-tailor-paste" class="ipane active"><textarea id="t-jd" placeholder="Paste the full job description here..."></textarea></div>
+              <div id="jd-tailor-link" class="ipane">
+                <input type="url" id="t-jd-url" placeholder="https://linkedin.com/jobs/... or Indeed, Glassdoor, company site" class="url-input" />
+                <div class="url-note">Works with many public job boards. If it fails, paste the text directly — LinkedIn and some sites block automated access.</div>
+              </div>
+            </div>
+          </div>
+          <div class="input-col">
+            <div class="fld">
+              <label>Your resume</label>
+              <div class="imethods">
+                <button class="imethod active" onclick="swRes('tailor','paste')" id="rm-tailor-paste">✎ Paste text</button>
+                <button class="imethod" onclick="swRes('tailor','upload')" id="rm-tailor-upload">↑ Upload file</button>
+              </div>
+              <div id="res-tailor-paste" class="ipane active"><textarea id="t-res" placeholder="Paste your current resume here..."></textarea></div>
+              <div id="res-tailor-upload" class="ipane">
+                <div class="dz" id="dz-tailor" onclick="trigUp('tailor')" ondragover="onDrag(event,'dz-tailor')" ondragleave="offDrag('dz-tailor')" ondrop="onDrop(event,'dz-tailor','tailor')">
+                  <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
+                  <input type="file" id="file-tailor" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'tailor')" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="run-row">
+          <button class="btn-run" id="run-tailor" onclick="runText('tailor')"><span id="run-tailor-label">Tailor my resume</span></button>
+          <div class="tool-usage-note" id="usage-tailor"></div>
+        </div>
+        <div class="err-box" id="err-tailor"></div>
+        <div class="result-section" id="res-tailor"></div>
+      </div>
+
+      <!-- GAPS -->
+      <div id="pane-gaps" style="display:none">
+        <div class="panel-title">Gap finder</div>
+        <div class="panel-sub">See exactly where you fall short for this role — and get a prioritized plan to close those gaps before you apply.</div>
+        <div class="input-cols">
+          <div class="input-col">
+            <div class="fld">
+              <label>Job description</label>
+              <div class="imethods">
+                <button class="imethod active" onclick="swGapJd('paste')" id="gjdm-paste">✎ Paste text</button>
+                <button class="imethod" onclick="swGapJd('link')" id="gjdm-link">🔗 Paste link</button>
+              </div>
+              <div id="gjd-paste" class="ipane active"><textarea id="gap-jd" placeholder="Paste the full job description here..."></textarea></div>
+              <div id="gjd-link" class="ipane">
+                <input type="url" id="gap-jd-url" placeholder="https://linkedin.com/jobs/... or Indeed, Glassdoor, company site" class="url-input" />
+                <div class="url-note">Works with many public job boards. If it fails, paste the text directly.</div>
+              </div>
+            </div>
+          </div>
+          <div class="input-col">
+            <div class="fld">
+              <label>Your background</label>
+              <div class="imethods">
+                <button class="imethod active" onclick="swGapBg('paste')" id="gbgm-paste">✎ Paste / type</button>
+                <button class="imethod" onclick="swGapBg('upload')" id="gbgm-upload">↑ Upload resume</button>
+              </div>
+              <div id="gbg-paste" class="ipane active"><textarea id="gap-bg" placeholder="Paste your resume or describe your experience..."></textarea></div>
+              <div id="gbg-upload" class="ipane">
+                <div class="dz" id="dz-gap" onclick="trigUp('gap')" ondragover="onDrag(event,'dz-gap')" ondragleave="offDrag('dz-gap')" ondrop="onDrop(event,'dz-gap','gap')">
+                  <div class="dzic">📄</div><p><strong>Drop your resume here</strong></p><p>PDF, Word, or plain text</p>
+                  <input type="file" id="file-gap" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'gap')" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="run-row">
+          <button class="btn-run" id="run-gaps" onclick="runAnalysis('gaps')"><span id="run-gaps-label">Find my gaps</span></button>
+          <div class="tool-usage-note" id="usage-gaps"></div>
+        </div>
+        <div class="err-box" id="err-gaps"></div>
+        <div class="result-section" id="res-gaps"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MORE TOOLS -->
+  <div class="more-wrap">
+    <button class="more-trigger" id="more-trigger" onclick="toggleMore()">
+      <span>More tools — Resume builder &amp; Impact coach</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="more-grid" id="more-grid">
 
       <!-- BUILDER -->
       <div class="mini-card" id="card-builder">
-        <div class="mini-head">
-          <div class="mini-icon">✦</div>
-          <div>
-            <h4>Resume builder</h4>
-            <p>Starting from scratch? Answer a few questions — we'll build a polished resume.</p>
-          </div>
-        </div>
-        <button class="mini-cta" onclick="openTool('builder')">Build a resume →</button>
-        <div class="mini-panel" id="panel-builder">
+        <div class="mini-title">✦ Resume builder</div>
+        <div class="mini-desc">Starting from scratch? Answer a few questions and we'll build a clean, polished resume.</div>
+        <button class="mini-btn" onclick="openTool('builder')">Build a resume →</button>
+        <div class="mini-panel" id="pane-builder">
           <div class="fld">
             <label>How would you like to start?</label>
             <div class="imethods">
-              <button class="imethod active" onclick="swBuildMethod('questions')" id="bm-questions">✎ Answer questions</button>
-              <button class="imethod" onclick="swBuildMethod('upload')" id="bm-upload">↑ Upload existing</button>
+              <button class="imethod active" onclick="swBuild('questions')" id="bm-questions">✎ Answer questions</button>
+              <button class="imethod" onclick="swBuild('upload')" id="bm-upload">↑ Upload existing</button>
             </div>
           </div>
           <div class="ipane active" id="build-pane-questions">
@@ -561,11 +564,7 @@
             <div class="fld"><label>Experience (jobs, clubs, volunteering)</label><textarea id="b-exp" placeholder="e.g. Barista at Starbucks 2 yrs, president of college marketing club"></textarea></div>
             <div class="fld"><label>Education</label><input type="text" id="b-edu" placeholder="e.g. BBA Marketing, Univ. of Chicago — graduated 2021" /></div>
             <div class="fld"><label>Languages, certifications, or achievements</label><input type="text" id="b-extras" placeholder="e.g. Fluent in Spanish, Google Analytics cert, Dean's List" /></div>
-            <div class="job-url-opt">
-              <div class="opt-lbl">🎯 Optional — tailor to a specific job</div>
-              <input type="url" id="b-job-url" class="url-input" placeholder="https://linkedin.com/jobs/..." />
-              <p>Drop the link and we'll tune your resume to match that role.</p>
-            </div>
+            <div class="job-url-opt"><div class="opt-lbl">🎯 Optional — tailor to a specific job</div><input type="url" id="b-job-url" class="url-input" placeholder="https://linkedin.com/jobs/..." /><p>Drop the link and we'll tune your resume to match that role.</p></div>
           </div>
           <div class="ipane" id="build-pane-upload">
             <div class="dz" id="dz-builder" onclick="trigUp('builder')" ondragover="onDrag(event,'dz-builder')" ondragleave="offDrag('dz-builder')" ondrop="onDrop(event,'dz-builder','builder')">
@@ -573,134 +572,93 @@
               <input type="file" id="file-builder" accept=".pdf,.doc,.docx,.txt" onchange="onFile(event,'builder')" />
             </div>
             <div class="fld" style="margin-top:10px"><label>Target role</label><input type="text" id="b-role-up" placeholder="e.g. Product Manager" /></div>
-            <div class="job-url-opt">
-              <div class="opt-lbl">🎯 Optional — tailor to a specific job</div>
-              <input type="url" id="b-job-url-up" class="url-input" placeholder="https://linkedin.com/jobs/..." />
-            </div>
+            <div class="job-url-opt"><div class="opt-lbl">🎯 Optional — tailor to a specific job</div><input type="url" id="b-job-url-up" class="url-input" placeholder="https://linkedin.com/jobs/..." /></div>
           </div>
-          <div class="tool-usage-note" id="usage-builder"></div>
-          <button class="btn-run" id="run-builder" onclick="run('builder')"><span>Build my resume</span></button>
+          <div class="run-row" style="margin-top:16px">
+            <button class="btn-run" id="run-builder" onclick="runText('builder')"><span id="run-builder-label">Build my resume</span></button>
+            <div class="tool-usage-note" id="usage-builder"></div>
+          </div>
           <div class="err-box" id="err-builder"></div>
-          <div class="result-wrap" id="res-builder">
-            <div class="resume-viz">
-              <div class="viz-toolbar">
-                <div class="viz-title"><span class="viz-dot"></span>Your resume is ready</div>
-                <div class="viz-actions">
-                  <button class="btn-dl btn-dl-copy" id="copy-builder" onclick="copyRes('builder')">Copy</button>
-                  <button class="btn-dl btn-dl-primary" onclick="openResumePage('builder')">📄 View & Download</button>
-                </div>
-              </div>
-              <div class="resume-preview" id="out-builder"></div>
-              <div class="rating-bar" id="rating-builder"><span>Was this helpful?</span><div class="rating-btns"><button class="rate-btn" onclick="rateOutput('builder','positive')">👍 Yes</button><button class="rate-btn" onclick="rateOutput('builder','negative')">👎 No</button></div></div>
-            </div>
-          </div>
+          <div class="result-section" id="res-builder"></div>
         </div>
       </div>
 
-      <!-- IMPACT COACH -->
+      <!-- IMPACT -->
       <div class="mini-card" id="card-impact">
-        <div class="mini-head">
-          <div class="mini-icon">⚡</div>
-          <div>
-            <h4>Impact coach</h4>
-            <p>Transform rough job notes into achievement-first bullets that show what you actually did.</p>
-          </div>
-        </div>
-        <button class="mini-cta" onclick="openTool('impact')">Rewrite my bullets →</button>
-        <div class="mini-panel" id="panel-impact">
-          <p style="font-size:.8rem;color:var(--text2);margin-bottom:12px;line-height:1.5">Don't list what you were <em>responsible for</em> — show what you <em>achieved</em>.</p>
+        <div class="mini-title">⚡ Impact coach</div>
+        <div class="mini-desc">Transform rough job notes into achievement-first bullets that show what you actually accomplished.</div>
+        <button class="mini-btn" onclick="openTool('impact')">Rewrite my bullets →</button>
+        <div class="mini-panel" id="pane-impact">
+          <p style="font-size:.82rem;color:var(--ink2);margin-bottom:14px;line-height:1.55">Don't list what you were <em>responsible for</em> — show what you <em>achieved</em>.</p>
           <div id="expRows"></div>
           <button class="btn-addexp" onclick="addExp()">+ Add experience</button>
           <div class="fld"><label>Target role</label><input type="text" id="imp-role" placeholder="e.g. Sales Manager" /></div>
           <div class="fld"><label>Industry</label><input type="text" id="imp-ind" placeholder="e.g. SaaS, Retail, Healthcare" /></div>
-          <div class="tool-usage-note" id="usage-impact"></div>
-          <button class="btn-run" id="run-impact" onclick="run('impact')"><span>Generate impact bullets</span></button>
-          <div class="err-box" id="err-impact"></div>
-          <div class="result-wrap" id="res-impact">
-            <div class="resume-viz">
-              <div class="viz-toolbar">
-                <div class="viz-title"><span class="viz-dot"></span>Your impact bullets</div>
-                <div class="viz-actions">
-                  <button class="btn-dl btn-dl-copy" id="copy-impact" onclick="copyRes('impact')">Copy</button>
-                  <button class="btn-dl btn-dl-primary" onclick="openResumePage('impact')">📄 View & Download</button>
-                </div>
-              </div>
-              <div class="resume-preview" id="out-impact"></div>
-              <div class="rating-bar" id="rating-impact"><span>Were these helpful?</span><div class="rating-btns"><button class="rate-btn" onclick="rateOutput('impact','positive')">👍 Yes</button><button class="rate-btn" onclick="rateOutput('impact','negative')">👎 No</button></div></div>
-            </div>
+          <div class="run-row" style="margin-top:4px">
+            <button class="btn-run" id="run-impact" onclick="runText('impact')"><span id="run-impact-label">Generate impact bullets</span></button>
+            <div class="tool-usage-note" id="usage-impact"></div>
           </div>
+          <div class="err-box" id="err-impact"></div>
+          <div class="result-section" id="res-impact"></div>
         </div>
       </div>
 
-    </div><!-- /moreGrid -->
-  </div><!-- /more-row -->
-</div><!-- /tools-sec -->
+    </div>
+  </div>
+</div>
 
 <!-- BEFORE/AFTER EXAMPLES -->
 <section class="examples-sec">
   <div class="sec-hdr">
-    <div class="sec-label">See it work</div>
-    <h2>What changes when a recruiter rewrites your resume</h2>
+    <div class="sec-eyebrow">See it work</div>
+    <h2>What changes when a recruiter<br>rewrites your resume</h2>
   </div>
-  <div class="examples-grid">
-
-    <div class="example-card">
+  <div class="ex-grid">
+    <div class="ex-card">
       <div><span class="ex-badge">Fit scanner</span></div>
-      <div class="ex-before">
-        <div class="ex-tag ex-tag-before">Before</div>
-        <p class="ex-text">Spray-applied to 40 jobs. Heard nothing back.</p>
-      </div>
+      <div class="ex-before"><div class="ex-tag ex-tag-b">Before</div><p class="ex-text">Spray-applied to 40 jobs. Heard nothing back.</p></div>
       <div class="ex-arrow">↓</div>
       <div class="ex-after">
-        <div class="ex-tag ex-tag-after">After</div>
+        <div class="ex-tag ex-tag-a">After</div>
         <div class="ex-score-row">
-          <svg viewBox="0 0 60 60" width="50" height="50"><circle cx="30" cy="30" r="24" fill="none" stroke="#e8e8e8" stroke-width="6"/><circle cx="30" cy="30" r="24" fill="none" stroke="#2d6a4f" stroke-width="6" stroke-linecap="round" stroke-dasharray="120 151" transform="rotate(-90 30 30)"/><text x="30" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="sans-serif">78</text></svg>
-          <div><div class="ex-score-label">Strong match</div><div class="ex-score-sub">3 keywords missing · 2 quick fixes</div></div>
+          <svg viewBox="0 0 60 60" width="50" height="50"><circle cx="30" cy="30" r="24" fill="none" stroke="#e4dfd4" stroke-width="6"/><circle cx="30" cy="30" r="24" fill="none" stroke="#2d6a4f" stroke-width="6" stroke-linecap="round" stroke-dasharray="120 151" transform="rotate(-90 30 30)"/><text x="30" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="sans-serif">78</text></svg>
+          <div><div class="ex-score-lbl">Strong match</div><div class="ex-score-sub">3 keywords missing · 2 quick fixes</div></div>
         </div>
       </div>
       <p class="ex-caption">Know your score before you apply. Fix the gaps that actually matter.</p>
     </div>
-
-    <div class="example-card">
+    <div class="ex-card">
       <div><span class="ex-badge">Resume tailor</span></div>
-      <div class="ex-before">
-        <div class="ex-tag ex-tag-before">Before</div>
-        <p class="ex-text" style="font-family:Georgia,serif">Responsible for managing social media accounts and creating content.</p>
-      </div>
+      <div class="ex-before"><div class="ex-tag ex-tag-b">Before</div><p class="ex-text" style="font-family:Georgia,serif">Responsible for managing social media accounts and creating content.</p></div>
       <div class="ex-arrow">↓</div>
-      <div class="ex-after">
-        <div class="ex-tag ex-tag-after">After</div>
-        <p class="ex-text ex-green" style="font-family:Georgia,serif">Grew Instagram engagement 43% in 90 days by launching a short-form video strategy aligned with brand voice.</p>
-      </div>
+      <div class="ex-after"><div class="ex-tag ex-tag-a">After</div><p class="ex-text ex-green" style="font-family:Georgia,serif">Grew Instagram engagement 43% in 90 days by launching a short-form video strategy aligned with brand voice.</p></div>
       <p class="ex-caption">Tailored to the exact job. Keywords matched. Impact shown, not just duties listed.</p>
     </div>
-
-    <div class="example-card">
+    <div class="ex-card">
       <div><span class="ex-badge">Gap finder</span></div>
       <div class="ex-before">
-        <div class="ex-tag ex-tag-before">Gaps found</div>
+        <div class="ex-tag ex-tag-b">Gaps found</div>
         <div class="ex-gaps">
-          <div class="ex-gap-item ex-gap-high">High — No stakeholder management examples</div>
-          <div class="ex-gap-item ex-gap-mid">Medium — Missing budget ownership</div>
-          <div class="ex-gap-item ex-gap-low">Low — Data analysis framing could be stronger</div>
+          <div class="ex-gap eg-high">High — No stakeholder management examples</div>
+          <div class="ex-gap eg-mid">Medium — Missing budget ownership</div>
+          <div class="ex-gap eg-low">Low — Data analysis framing weak</div>
         </div>
       </div>
       <div class="ex-arrow">↓</div>
       <div class="ex-after">
-        <div class="ex-tag ex-tag-after">Action plan</div>
+        <div class="ex-tag ex-tag-a">Action plan</div>
         <div style="display:flex;flex-direction:column;gap:5px">
-          <div style="display:flex;align-items:flex-start;gap:7px;font-size:.74rem;color:var(--text2);line-height:1.4"><span style="width:17px;height:17px;border-radius:50%;background:var(--green);color:#fff;font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</span>Add a bullet about the cross-team project you led in Q3</div>
-          <div style="display:flex;align-items:flex-start;gap:7px;font-size:.74rem;color:var(--text2);line-height:1.4"><span style="width:17px;height:17px;border-radius:50%;background:var(--green);color:#fff;font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</span>Mention the $40K vendor budget you managed last role</div>
+          <div style="display:flex;align-items:flex-start;gap:7px;font-size:.74rem;color:var(--ink2);line-height:1.4"><span style="width:17px;height:17px;border-radius:50%;background:#2d6a4f;color:#fff;font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</span>Add bullet about the cross-team project you led in Q3</div>
+          <div style="display:flex;align-items:flex-start;gap:7px;font-size:.74rem;color:var(--ink2);line-height:1.4"><span style="width:17px;height:17px;border-radius:50%;background:#2d6a4f;color:#fff;font-size:.62rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</span>Mention the $40K vendor budget you managed last role</div>
         </div>
       </div>
       <p class="ex-caption">Not just what's missing — exactly what to do about it.</p>
     </div>
-
   </div>
 </section>
 
-<!-- CTA BOTTOM -->
-<section class="cta-bottom">
+<!-- CTA -->
+<section class="cta-sec">
   <h2>The gap between qualified<br>and <em>hired.</em> Landedd.</h2>
   <p>Free. No credit card. No sign-up required.</p>
   <button class="btn-cta-inv" onclick="openTool('scanner')">Try it free →</button>
@@ -709,25 +667,25 @@
 <!-- PRIVACY -->
 <section class="privacy-sec">
   <div class="sec-hdr" style="margin-bottom:28px">
-    <div class="sec-label">Your data, your terms</div>
-    <h2 style="font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400">Built with privacy first</h2>
+    <div class="sec-eyebrow">Your data, your terms</div>
+    <h2 style="font-size:clamp(1.6rem,3vw,2.2rem)">Built with privacy first</h2>
   </div>
-  <div class="privacy-pillars">
-    <div class="pillar"><div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Not stored</h3><p>Your resume and job descriptions are processed in memory and not written to a database.</p></div>
-    <div class="pillar"><div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h3>Not sold</h3><p>We do not sell, share, or monetize your data. No advertising. No data brokers.</p></div>
+  <div class="pillar-grid">
+    <div class="pillar"><div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Not stored</h3><p>Your resume and job descriptions are processed in memory — not written to a database.</p></div>
+    <div class="pillar"><div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h3>Not sold</h3><p>We don't sell, share, or monetize your data. No advertising. No data brokers.</p></div>
     <div class="pillar"><div class="pillar-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>No account required</h3><p>No sign-up, no email, no tracking cookies. Use the tools and leave nothing behind.</p></div>
-    <div class="pillar"><div class="pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3>AI not trained on you</h3><p>Your data is not used to train any AI model. Your career info stays yours.</p></div>
+    <div class="pillar"><div class="pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h3>AI not trained on you</h3><p>Your data isn't used to train any AI model. Your career info stays yours.</p></div>
   </div>
-  <p class="privacy-cta">Read our full <a href="/privacy.html">Privacy Policy</a> — written in plain language, not legalese.</p>
+  <p class="priv-cta">Read our full <a href="/privacy.html">Privacy Policy</a> — written in plain language, not legalese.</p>
 </section>
 
 <!-- FEEDBACK -->
 <section class="feedback-sec" id="feedback">
   <div class="feedback-inner">
     <div class="sec-hdr" style="text-align:left;margin-bottom:0">
-      <div class="sec-label">Beta feedback</div>
-      <h2 style="font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400">Help us close the gap.</h2>
-      <p style="font-size:.93rem;color:var(--text2);margin-top:8px;line-height:1.6">Tell us what's working, what's missing, and what would make your job search easier.</p>
+      <div class="sec-eyebrow">Beta feedback</div>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);text-align:left">Help us close the gap.</h2>
+      <p style="font-size:.92rem;color:var(--ink2);margin-top:8px;line-height:1.6;text-align:left">Tell us what's working, what's missing, and what would make your job search easier.</p>
     </div>
     <div class="feedback-card">
       <div class="fld-fb"><label>Rate your experience</label>
@@ -738,7 +696,7 @@
           <button class="star-btn" onclick="setStar(4)" data-v="4">4</button>
           <button class="star-btn" onclick="setStar(5)" data-v="5">5</button>
         </div>
-        <p style="font-size:.73rem;color:var(--text3);margin-top:4px">1 = needs work · 5 = loved it</p>
+        <p style="font-size:.72rem;color:var(--ink3);margin-top:4px">1 = needs work · 5 = loved it</p>
       </div>
       <div class="fld-fb"><label>Which tool did you use?</label>
         <select id="fb-tool">
@@ -752,7 +710,7 @@
         </select>
       </div>
       <div class="fld-fb"><label>Your feedback</label><textarea id="fb-msg" placeholder="What worked well? What was confusing or broken? What would you want next?"></textarea></div>
-      <div class="fld-fb"><label>Email <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text3)">(optional)</span></label><input type="email" id="fb-email" placeholder="you@example.com" /></div>
+      <div class="fld-fb"><label>Email <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink3)">(optional)</span></label><input type="email" id="fb-email" placeholder="you@example.com" /></div>
       <button class="btn-fb" id="fbBtn" onclick="submitFeedback()">Send feedback</button>
       <div class="fb-ok" id="fb-ok">Got it — your feedback is in. Thank you for helping us make Landedd better.</div>
     </div>
@@ -761,16 +719,16 @@
 
 <footer>
   <div class="footer-logo">
-    <div class="logo-mark" style="width:24px;height:24px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
-    <span style="font-weight:700;font-size:.88rem">Landedd</span>
-    <span style="color:var(--gray3);font-size:.76rem">Beta</span>
+    <div class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="20" cy="20" r="20" fill="#74c69d"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#74c69d"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#fff"/></svg></div>
+    <span class="footer-logo-text">Landedd</span>
+    <span style="color:rgba(255,255,255,.3);font-size:.74rem">Beta</span>
   </div>
   <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact</a>
   <br><br>© 2026 Landedd
 </footer>
 
-<!-- Resume full-page overlay -->
-<div class="resume-page-overlay" id="resumePage">
+<!-- RESUME PAGE OVERLAY -->
+<div class="rp-overlay" id="resumePage">
   <div class="rp-bar">
     <div class="rp-left">
       <button class="rp-back" onclick="closeResumePage()">← Back</button>
@@ -778,22 +736,22 @@
     </div>
     <div class="rp-actions">
       <span class="dl-badge" id="dl-badge">3 downloads left</span>
-      <button class="rp-btn rp-btn-copy" id="rp-copy-btn" onclick="rpCopy()">Copy text</button>
-      <button class="rp-btn rp-btn-docx" id="rp-docx-btn" onclick="rpDownloadDocx()">⬇ Word (.docx)</button>
-      <button class="rp-btn rp-btn-gdocs" id="rp-gdocs-btn" onclick="rpOpenGdocs()">Open in Google Docs</button>
+      <button class="rp-btn rp-copy" id="rp-copy-btn" onclick="rpCopy()">Copy text</button>
+      <button class="rp-btn rp-docx" id="rp-docx-btn" onclick="rpDownloadDocx()">⬇ Word (.docx)</button>
+      <button class="rp-btn rp-gdocs" id="rp-gdocs-btn" onclick="rpOpenGdocs()">Open in Google Docs</button>
     </div>
   </div>
   <div class="letter-wrap">
     <div class="letter-sheet" id="letterSheet"></div>
-    <p style="text-align:center;font-size:.76rem;color:#aaa;margin-top:12px">Tip: Ctrl+P (Cmd+P) → Save as PDF to download a print-ready copy.</p>
+    <p style="text-align:center;font-size:.75rem;color:#aaa;margin-top:12px">Tip: Ctrl+P (Cmd+P) → Save as PDF for a print-ready copy.</p>
   </div>
 </div>
 
-<!-- WTP overlay -->
+<!-- WTP OVERLAY -->
 <div class="wtp-overlay" id="wtpOverlay">
   <div class="wtp-card">
-    <div class="wtp-title">Quick question before you go 👋</div>
-    <div class="wtp-sub">Landedd is free during beta. When we launch, which plan would you consider? (No commitment — this helps us build the right thing.)</div>
+    <div class="wtp-title">Quick question 👋</div>
+    <div class="wtp-sub">Landedd is free during beta. When we launch, which plan would you consider? (No commitment — helps us build the right thing.)</div>
     <div class="wtp-opts" id="wtpOpts">
       <button class="wtp-opt" onclick="selectWtp('free')"><strong>Free only</strong>I'd only use Landedd if it's free</button>
       <button class="wtp-opt" onclick="selectWtp('basic')"><strong>Basic — $7/month</strong>Limited AI generations, core tools</button>
@@ -809,112 +767,134 @@
 
 <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
 <script>
-// ── STATE ──
-const fileData = {};
-let expCount = 0;
-const jdMethod = { tailor:'paste', scanner:'paste' };
-const resMethod = { tailor:'paste', scanner:'paste' };
-let gapJdMethod = 'paste', gapBgMethod = 'paste', buildMethod = 'questions';
-let rpTool = 'scanner';
-const ALL_TOOLS = ['scanner','tailor','gaps','builder','impact'];
+// ── CONSTANTS ──
+const TOOL_MAX=3,DL_MAX=3;
+const ALL_TOOLS=['scanner','tailor','gaps','builder','impact'];
+const fileData={};
+let expCount=0;
+const jdMethod={tailor:'paste',scanner:'paste',gaps:'paste'};
+const resMethod={tailor:'paste',scanner:'paste'};
+let gapBgMethod='paste',buildMethod='questions',rpTool='scanner';
 
-// ── OPEN TOOL (inline expand) ──
-function openTool(tool) {
-  // Close all panels first
-  ALL_TOOLS.forEach(t => {
-    const card = document.getElementById('card-'+t);
-    const panel = document.getElementById('panel-'+t);
-    if (card) card.classList.remove('active');
-    if (panel) panel.style.display = 'none';
+// ── OPEN TOOL ──
+let activeTool=null;
+function openTool(tool){
+  // Reset any previous active state
+  ['scanner','tailor','gaps'].forEach(t=>{
+    const c=document.getElementById('card-'+t);
+    const b=document.getElementById('btn-'+t);
+    if(c)c.classList.remove('active');
+    if(b){b.textContent=(t==='scanner'?'Scan my fit →':t==='tailor'?'Tailor my resume →':'Find my gaps →');b.classList.remove('active-btn');}
   });
-  // If builder/impact, open more tools section first
-  if (tool === 'builder' || tool === 'impact') {
-    const grid = document.getElementById('moreGrid');
-    if (grid) grid.classList.add('open');
-    const btn = document.querySelector('.more-btn');
-    if (btn) btn.textContent = '− Less tools';
+  ['builder','impact'].forEach(t=>{
+    const c=document.getElementById('card-'+t);
+    if(c)c.classList.remove('active');
+  });
+
+  if(tool==='builder'||tool==='impact'){
+    // Open more-tools section
+    const mg=document.getElementById('more-grid');
+    const mt=document.getElementById('more-trigger');
+    if(!mg.classList.contains('open')){mg.classList.add('open');mt.classList.add('open');}
+    const mc=document.getElementById('card-'+tool);
+    if(mc){mc.classList.add('active');setTimeout(()=>mc.scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
+    // Close main panel
+    document.getElementById('tool-panel-row').classList.remove('open');
+    ALL_TOOLS.forEach(t=>{const p=document.getElementById('pane-'+t);if(p)p.style.display='none';});
+  } else {
+    // Open main panel
+    const panel=document.getElementById('tool-panel-row');
+    const card=document.getElementById('card-'+tool);
+    const btn=document.getElementById('btn-'+tool);
+    panel.classList.add('open');
+    if(card)card.classList.add('active');
+    if(btn){btn.textContent='Currently open';btn.classList.add('active-btn');}
+    // Show correct pane
+    ['scanner','tailor','gaps'].forEach(t=>{const p=document.getElementById('pane-'+t);if(p)p.style.display=t===tool?'block':'none';});
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
   }
-  // Open target
-  const card = document.getElementById('card-'+tool);
-  const panel = document.getElementById('panel-'+tool);
-  if (card) card.classList.add('active');
-  if (panel) {
-    panel.style.display = 'block';
-    // Scroll to it
-    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
-  }
+  activeTool=tool;
   syncUsageNote(tool);
-  trackEvent('app_opened', { tool });
+  trackEvent('app_opened',{tool});
 }
 
-function toggleMore(btn) {
-  const grid = document.getElementById('moreGrid');
-  const open = grid.classList.toggle('open');
-  btn.textContent = open ? '− Less tools' : '+ More tools';
+function toggleMore(){
+  const mg=document.getElementById('more-grid');
+  const mt=document.getElementById('more-trigger');
+  const open=mg.classList.toggle('open');
+  mt.classList.toggle('open',open);
 }
 
-// ── INPUT METHODS ──
-function swBuildMethod(m) {
-  buildMethod = m;
-  ['questions','upload'].forEach(x => {
-    document.getElementById('bm-'+x).classList.toggle('active', x===m);
-    document.getElementById('build-pane-'+x).classList.toggle('active', x===m);
+// ── INPUT METHOD TOGGLES ──
+function swJd(tool,m){
+  jdMethod[tool]=m;
+  ['paste','link'].forEach(x=>{
+    document.getElementById('jdm-'+tool+'-'+x).classList.toggle('active',x===m);
+    const p=document.getElementById('jd-'+tool+'-'+x);
+    if(p)p.style.display=x===m?'block':'none';
+    if(p)p.classList.toggle('active',x===m);
   });
 }
-function swGapJd(m) {
-  gapJdMethod = m;
-  ['paste','link'].forEach(x => {
-    document.getElementById('gjdm-'+x).classList.toggle('active', x===m);
-    document.getElementById('gjd-'+x).classList.toggle('active', x===m);
-    document.getElementById('gjd-'+x).style.display = x===m ? 'block' : 'none';
+function swRes(tool,m){
+  resMethod[tool]=m;
+  ['paste','upload'].forEach(x=>{
+    document.getElementById('rm-'+tool+'-'+x).classList.toggle('active',x===m);
+    const p=document.getElementById('res-'+tool+'-'+x);
+    if(p)p.style.display=x===m?'block':'none';
+    if(p)p.classList.toggle('active',x===m);
   });
 }
-function swGapBg(m) {
-  gapBgMethod = m;
-  ['paste','upload'].forEach(x => {
-    document.getElementById('gbgm-'+x).classList.toggle('active', x===m);
-    document.getElementById('gbg-'+x).style.display = x===m ? 'block' : 'none';
+function swGapJd(m){
+  jdMethod.gaps=m;
+  ['paste','link'].forEach(x=>{
+    document.getElementById('gjdm-'+x).classList.toggle('active',x===m);
+    const p=document.getElementById('gjd-'+x);
+    if(p)p.style.display=x===m?'block':'none';
+    if(p)p.classList.toggle('active',x===m);
   });
 }
-function swJdMethod(tool, m) {
-  jdMethod[tool] = m;
-  ['paste','link'].forEach(x => {
-    document.getElementById('jdm-'+tool+'-'+x).classList.toggle('active', x===m);
-    document.getElementById('jd-'+tool+'-'+x).style.display = x===m ? 'block' : 'none';
+function swGapBg(m){
+  gapBgMethod=m;
+  ['paste','upload'].forEach(x=>{
+    document.getElementById('gbgm-'+x).classList.toggle('active',x===m);
+    const p=document.getElementById('gbg-'+x);
+    if(p)p.style.display=x===m?'block':'none';
+    if(p)p.classList.toggle('active',x===m);
   });
 }
-function swResMethod(tool, m) {
-  resMethod[tool] = m;
-  ['paste','upload'].forEach(x => {
-    document.getElementById('rm-'+tool+'-'+x).classList.toggle('active', x===m);
-    document.getElementById('res-'+tool+'-'+x).style.display = x===m ? 'block' : 'none';
+function swBuild(m){
+  buildMethod=m;
+  ['questions','upload'].forEach(x=>{
+    document.getElementById('bm-'+x).classList.toggle('active',x===m);
+    const p=document.getElementById('build-pane-'+x);
+    if(p)p.classList.toggle('active',x===m);
   });
 }
 
-// ── FILES ──
+// ── FILE HANDLING ──
 function trigUp(t){document.getElementById('file-'+t).click();}
 function onDrag(e,id){e.preventDefault();document.getElementById(id).classList.add('dragover');}
 function offDrag(id){document.getElementById(id).classList.remove('dragover');}
 function onDrop(e,id,t){e.preventDefault();offDrag(id);if(e.dataTransfer.files[0])readF(e.dataTransfer.files[0],t,id);}
 function onFile(e,t){if(e.target.files[0])readF(e.target.files[0],t,'dz-'+t);}
-async function readF(file,t,dzId) {
+async function readF(file,t,dzId){
   const dz=document.getElementById(dzId);
   const ext=file.name.split('.').pop().toLowerCase();
   const isParsed=['pdf','doc','docx','rtf'].includes(ext)||file.type.includes('pdf')||file.type.includes('word')||file.type.includes('officedocument');
   if(dz){dz.classList.add('has-file');const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>Reading '+file.name+'…</strong>';if(ps[1])ps[1].textContent='Extracting text';}
-  if (isParsed) {
-    try {
+  if(isParsed){
+    try{
       const base64=await fileToBase64(file);
       const resp=await fetch('/api/parse-file',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:base64,mimeType:file.type,fileName:file.name})});
       const data=await resp.json();
       if(data.error)throw new Error(data.error);
       fileData[t]=data.text||'';
       if(dz){const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent=Math.round(fileData[t].length/5)+' words extracted';}
-    } catch(err) {
+    }catch(err){
       fileData[t]='';
       if(dz){dz.classList.remove('has-file');const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>⚠ Could not read file</strong>';if(ps[1])ps[1].textContent=err.message||'Please paste your resume text instead';}
     }
-  } else {
+  }else{
     const r=new FileReader();
     r.onload=ev=>{fileData[t]=ev.target.result||'';if(dz){const ps=dz.querySelectorAll('p');if(ps[0])ps[0].innerHTML='<strong>✓ '+file.name+'</strong>';if(ps[1])ps[1].textContent='Ready';}};
     r.readAsText(file);
@@ -923,140 +903,369 @@ async function readF(file,t,dzId) {
 function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=ev=>res(ev.target.result.split(',')[1]);r.onerror=()=>rej(new Error('Could not read file'));r.readAsDataURL(file);});}
 
 // ── USAGE LIMITS ──
-const TOOL_MAX=3, DL_MAX=3;
 function getFingerprint(){let fp=localStorage.getItem('_ldlfp');if(!fp){fp=Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('_ldlfp',fp);}return fp;}
-const _usageCache={tools:{},downloads:DL_MAX,loaded:false,resetsInSeconds:86400};
-async function loadUsage(){try{const res=await fetch('/api/usage?fp='+encodeURIComponent(getFingerprint()));if(!res.ok)return;const data=await res.json();if(data.unlimited)return;Object.assign(_usageCache.tools,data.tools||{});_usageCache.downloads=DL_MAX-(data.downloads||0);_usageCache.resetsInSeconds=data.resetsInSeconds||86400;_usageCache.loaded=true;}catch{}}
-function toolLeft(t){if(!_usageCache.loaded)return TOOL_MAX;return Math.max(0,TOOL_MAX-(_usageCache.tools[t]||0));}
-function dlLeft(){return Math.max(0,_usageCache.downloads);}
-async function incToolCount(tool){try{const res=await fetch('/api/usage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'tool',tool,fp:getFingerprint()})});const data=await res.json();if(data.ok!==false)_usageCache.tools[tool]=(_usageCache.tools[tool]||0)+1;return data;}catch{return{ok:true,remaining:1};}}
-async function incDl(){try{const res=await fetch('/api/usage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'download',fp:getFingerprint()})});const data=await res.json();if(data.ok!==false)_usageCache.downloads=Math.max(0,_usageCache.downloads-1);return data;}catch{return{ok:true,remaining:1};}}
-function fmtResetTime(){const secs=_usageCache.resetsInSeconds||86400;const h=Math.floor(secs/3600),m=Math.floor((secs%3600)/60);return h>0?h+'h '+(m>0?m+'m':''):m+'m';}
-function syncUsageNote(tool){const el=document.getElementById('usage-'+tool);if(!el)return;const n=toolLeft(tool);if(n>=TOOL_MAX){el.textContent='';el.className='tool-usage-note';return;}if(n===0){el.textContent='Daily limit reached — resets in '+fmtResetTime()+'.';el.className='tool-usage-note out';const btn=document.getElementById('run-'+tool);if(btn)btn.disabled=true;}else{el.textContent=n+' run'+(n===1?'':'s')+' left today — resets every 24h';el.className='tool-usage-note warn';}}
+const _uc={tools:{},downloads:DL_MAX,loaded:false,resetsInSeconds:86400};
+async function loadUsage(){try{const res=await fetch('/api/usage?fp='+encodeURIComponent(getFingerprint()));if(!res.ok)return;const d=await res.json();if(d.unlimited)return;Object.assign(_uc.tools,d.tools||{});_uc.downloads=DL_MAX-(d.downloads||0);_uc.resetsInSeconds=d.resetsInSeconds||86400;_uc.loaded=true;}catch{}}
+function toolLeft(t){if(!_uc.loaded)return TOOL_MAX;return Math.max(0,TOOL_MAX-(_uc.tools[t]||0));}
+function dlLeft(){return Math.max(0,_uc.downloads);}
+async function incTool(tool){try{const res=await fetch('/api/usage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'tool',tool,fp:getFingerprint()})});const d=await res.json();if(d.ok!==false)_uc.tools[tool]=(_uc.tools[tool]||0)+1;return d;}catch{return{ok:true,remaining:1};}}
+async function incDl(){try{const res=await fetch('/api/usage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'download',fp:getFingerprint()})});const d=await res.json();if(d.ok!==false)_uc.downloads=Math.max(0,_uc.downloads-1);return d;}catch{return{ok:true,remaining:1};}}
+function fmtReset(){const s=_uc.resetsInSeconds||86400;const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h>0?h+'h '+(m>0?m+'m':''):m+'m';}
+function syncUsageNote(tool){
+  const el=document.getElementById('usage-'+tool);if(!el)return;
+  const n=toolLeft(tool);
+  if(n>=TOOL_MAX){el.textContent='';el.className='tool-usage-note';return;}
+  if(n===0){el.textContent='Daily limit reached — resets in '+fmtReset()+'.';el.className='tool-usage-note out';const btn=document.getElementById('run-'+tool);if(btn)btn.disabled=true;}
+  else{el.textContent=n+' run'+(n===1?'':'s')+' left today';el.className='tool-usage-note warn';}
+}
 function syncDlBadge(){const n=dlLeft();const el=document.getElementById('dl-badge');if(!el)return;el.textContent=n>0?n+' download'+(n===1?'':'s')+' left':'Limit reached';el.className='dl-badge'+(n===0?' out':n===1?' warn':'');['rp-docx-btn','rp-gdocs-btn'].forEach(id=>{const b=document.getElementById(id);if(b)b.disabled=n===0;});}
 
 // ── WTP ──
-let _totalRuns=parseInt(localStorage.getItem('_ldRuns')||'0');
+let _runs=parseInt(localStorage.getItem('_ldRuns')||'0');
 let _wtpShown=localStorage.getItem('_ldWtpShown')==='1';
-function checkWtpTrigger(){_totalRuns++;localStorage.setItem('_ldRuns',_totalRuns);if(_totalRuns===3&&!_wtpShown)setTimeout(()=>showWtp(),2500);}
-function showWtp(){document.getElementById('wtpOverlay').classList.add('show');trackEvent('pricing_screen_viewed',{trigger:'post_3rd_run'});}
+function checkWtp(){_runs++;localStorage.setItem('_ldRuns',_runs);if(_runs===3&&!_wtpShown)setTimeout(()=>{document.getElementById('wtpOverlay').classList.add('show');trackEvent('pricing_screen_viewed',{trigger:'post_3rd_run'});},2500);}
 function closeWtp(){document.getElementById('wtpOverlay').classList.remove('show');_wtpShown=true;localStorage.setItem('_ldWtpShown','1');}
 function selectWtp(tier){document.querySelectorAll('.wtp-opt').forEach(b=>b.classList.remove('selected'));event.target.closest('.wtp-opt').classList.add('selected');document.getElementById('wtpOpts').style.opacity='0.4';document.getElementById('wtpOpts').style.pointerEvents='none';document.getElementById('wtpThanks').style.display='block';trackEvent('wtp_response',{tier});_wtpShown=true;localStorage.setItem('_ldWtpShown','1');setTimeout(()=>closeWtp(),2200);}
 
 // ── RATING ──
-function rateOutput(tool,rating){const bar=document.getElementById('rating-'+tool);if(!bar)return;bar.querySelectorAll('.rate-btn').forEach(b=>b.classList.remove('rated-pos','rated-neg'));event.target.classList.add(rating==='positive'?'rated-pos':'rated-neg');setTimeout(()=>{bar.innerHTML='<div class="rating-thanks">Thanks for the feedback!</div>';},600);trackEvent('ai_output_rated',{tool,rating});}
-function showAnalysisRating(tool){const w=document.getElementById('rating-'+tool+'-wrap');if(w)w.style.display='block';}
+function rateOutput(tool,rating){
+  const bar=document.getElementById('rating-bar-'+tool);if(!bar)return;
+  bar.querySelectorAll('.rate-btn').forEach(b=>b.classList.remove('rated-pos','rated-neg'));
+  event.target.classList.add(rating==='positive'?'rated-pos':'rated-neg');
+  setTimeout(()=>{bar.innerHTML='<div class="rating-thanks">Thanks for the feedback!</div>';},600);
+  trackEvent('ai_output_rated',{tool,rating});
+}
 
-// ── VALIDATION ──
+// ── INJECTION DEFENSE ──
 function looksLikeInjection(text){if(!text||text.trim().length<8)return false;const t=text.trim();return /^(ignore|forget|disregard|override|bypass).{0,40}(above|previous|instruction|rule|prompt)/i.test(t)||/^(you are|act as|pretend|roleplay|from now on|imagine you)/i.test(t)||(/(reveal|show|print|output|dump).{0,20}(prompt|instruction|system|secret|token|key)/i.test(t));}
 function validateField(text,fieldName){if(!text||!text.trim())return;if(looksLikeInjection(text.trim()))throw new Error('That field expects your actual '+fieldName.toLowerCase()+', not instructions.');}
 
-// ── FETCH JD ──
-async function fetchUrl(url){const r=await fetch('/api/fetch-url',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});const d=await r.json();if(d.error)throw new Error(d.error);const text=d.text||'';if(text.length<200)throw new Error("We couldn't read that page — it may require a login. Please paste the job description text directly.");const lo=text.toLowerCase();const signals=['responsibilit','qualif','require','experience','skill','bachelor','year','salary','apply','candidate','team','position'];if(signals.filter(s=>lo.includes(s)).length<2)throw new Error("The page loaded but doesn't appear to contain a job description. Please paste the text directly.");return text;}
-async function getJdText(tool){if(jdMethod[tool]==='link'){const url=document.getElementById(tool==='tailor'?'t-jd-url':'s-jd-url')?.value;if(!url)throw new Error('Please paste a job posting URL.');return await fetchUrl(url);}const val=document.getElementById(tool==='tailor'?'t-jd':'s-jd')?.value||'';validateField(val,'job description');return val;}
-function getResText(tool){if(resMethod[tool]==='upload')return fileData[tool]||'';const val=document.getElementById(tool==='tailor'?'t-res':'s-res')?.value||'';validateField(val,'resume');return val;}
-async function getGapJdText(){if(gapJdMethod==='link'){const url=document.getElementById('gap-jd-url')?.value;if(!url)throw new Error('Please paste a job posting URL.');return await fetchUrl(url);}const val=document.getElementById('gap-jd')?.value||'';validateField(val,'job description');return val;}
-function getGapBgText(){if(gapBgMethod==='upload')return fileData['gap']||'';const val=document.getElementById('gap-bg')?.value||'';validateField(val,'background');return val;}
-async function getBuilderBg(){if(buildMethod==='upload'){if(!fileData['builder'])throw new Error("Drop your resume file in first — then we're good to go.");const role=document.getElementById('b-role-up')?.value||'';const jobUrl=(document.getElementById('b-job-url-up')?.value||'').trim();let jobPosting='';if(jobUrl){try{jobPosting=await fetchUrl(jobUrl);}catch(e){}}let bg='Target role: '+role+'\nResume:\n'+fileData['builder'];if(jobPosting)bg+='\n\nTarget job posting:\n'+jobPosting;return bg;}const role=document.getElementById('b-role')?.value||'';const skills=document.getElementById('b-skills')?.value||'';const exp=document.getElementById('b-exp')?.value||'';const edu=document.getElementById('b-edu')?.value||'';const extras=document.getElementById('b-extras')?.value||'';validateField(exp,'experience');validateField(skills,'skills');if(!role&&!exp)throw new Error("We need at least your target role and some experience. Fill those in and let's go!");const jobUrl=(document.getElementById('b-job-url')?.value||'').trim();let jobPosting='';if(jobUrl){try{jobPosting=await fetchUrl(jobUrl);}catch(e){}}let bg='Target role: '+role+'\nSkills: '+skills+'\nExperience: '+exp+'\nEducation: '+edu+'\nLanguages/Certs/Achievements: '+extras;if(jobPosting)bg+='\n\nTarget job posting:\n'+jobPosting;return bg;}
+// ── URL FETCHING (improved) ──
+// Known blocked domains — many major job boards block server-side scraping
+const BLOCKED_DOMAINS=['linkedin.com','glassdoor.com','indeed.com','monster.com','ziprecruiter.com','careerbuilder.com','simplyhired.com'];
+function isLikelyBlocked(url){try{const h=new URL(url).hostname.replace('www.','');return BLOCKED_DOMAINS.some(d=>h===d||h.endsWith('.'+d));}catch{return false;}}
 
+async function fetchUrl(url){
+  if(isLikelyBlocked(url)){
+    throw new Error('That site blocks automated access (most major job boards do). Please copy and paste the job description text directly — it takes 30 seconds and works perfectly.');
+  }
+  const r=await fetch('/api/fetch-url',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+  const d=await r.json();
+  if(d.error){
+    // If blocked or failed, give helpful guidance
+    throw new Error(d.error+' Try copying the job description text and pasting it instead.');
+  }
+  const text=d.text||'';
+  if(text.length<200)throw new Error("We couldn't read enough text from that page. Please paste the job description directly.");
+  const lo=text.toLowerCase();
+  const signals=['responsibilit','qualif','require','experience','skill','bachelor','year','apply','candidate','team','position'];
+  if(signals.filter(s=>lo.includes(s)).length<2)throw new Error("That page doesn't appear to contain a job description. Please paste the text directly.");
+  return text;
+}
+
+async function getJdText(tool){
+  const method=jdMethod[tool]||'paste';
+  if(method==='link'){
+    const urlEl=document.getElementById(tool==='tailor'?'t-jd-url':tool==='gaps'?'gap-jd-url':'s-jd-url');
+    const url=(urlEl?.value||'').trim();
+    if(!url)throw new Error('Please paste a job posting URL, or switch to "Paste text" and paste the job description directly.');
+    return await fetchUrl(url);
+  }
+  const id=tool==='tailor'?'t-jd':tool==='gaps'?'gap-jd':'s-jd';
+  const val=document.getElementById(id)?.value||'';
+  validateField(val,'job description');
+  return val;
+}
+function getResText(tool){
+  if(resMethod[tool]==='upload')return fileData[tool]||'';
+  const id=tool==='tailor'?'t-res':'s-res';
+  const val=document.getElementById(id)?.value||'';
+  validateField(val,'resume');
+  return val;
+}
+function getGapBgText(){
+  if(gapBgMethod==='upload')return fileData['gap']||'';
+  const val=document.getElementById('gap-bg')?.value||'';
+  validateField(val,'background');
+  return val;
+}
+async function getBuilderBg(){
+  if(buildMethod==='upload'){
+    if(!fileData['builder'])throw new Error("Drop your resume file in first.");
+    const role=document.getElementById('b-role-up')?.value||'';
+    const jobUrl=(document.getElementById('b-job-url-up')?.value||'').trim();
+    let jp='';if(jobUrl&&!isLikelyBlocked(jobUrl)){try{jp=await fetchUrl(jobUrl);}catch(e){}}
+    let bg='Target role: '+role+'\nResume:\n'+fileData['builder'];
+    if(jp)bg+='\n\nTarget job posting:\n'+jp;
+    return bg;
+  }
+  const role=document.getElementById('b-role')?.value||'';
+  const skills=document.getElementById('b-skills')?.value||'';
+  const exp=document.getElementById('b-exp')?.value||'';
+  const edu=document.getElementById('b-edu')?.value||'';
+  const extras=document.getElementById('b-extras')?.value||'';
+  validateField(exp,'experience');validateField(skills,'skills');
+  if(!role&&!exp)throw new Error("We need at least your target role and some experience.");
+  const jobUrl=(document.getElementById('b-job-url')?.value||'').trim();
+  let jp='';if(jobUrl&&!isLikelyBlocked(jobUrl)){try{jp=await fetchUrl(jobUrl);}catch(e){}}
+  let bg='Target role: '+role+'\nSkills: '+skills+'\nExperience: '+exp+'\nEducation: '+edu+'\nLanguages/Certs/Achievements: '+extras;
+  if(jp)bg+='\n\nTarget job posting:\n'+jp;
+  return bg;
+}
+
+// ── PROMPTS ──
 const RESUME_RULES=`CRITICAL RULES:
-1. Use ONLY information the candidate provided. No invented jobs, companies, dates, metrics, or achievements.
-2. Format: Name + contact (email and phone only). Then Education. Then Experience (reverse chronological — most recent FIRST). Then Core Skills/Certs. Skip Professional Summary. Keep Core Skills short.
-3. CHRONOLOGICAL ORDER IS NON-NEGOTIABLE: most-recent-first always.
-4. Dates on education: include graduation year ONLY for new grads (last 2 years or in progress). Omit for older grads.
-5. One page. ATS-friendly. No graphics.
-6. ALWAYS close with "Suggestions to make this even stronger:" with 2-3 specific improvements.`;
+1. Use ONLY information the candidate provided. Never invent jobs, companies, dates, metrics, or achievements.
+2. Format: Name + contact (email and phone only). Education. Experience (reverse chronological — most recent FIRST). Core Skills/Certs. Skip Professional Summary.
+3. CHRONOLOGICAL ORDER: most-recent-first always.
+4. One page. ATS-friendly. No graphics.
+5. ALWAYS close with "Suggestions to make this even stronger:" with 2-3 specific improvements.`;
 
 async function getPrompt(tool){
   if(tool==='builder'){const bg=await getBuilderBg();const hasJob=bg.includes('Target job posting:');return 'You are an expert resume writer and senior recruiter with 10+ years at Fortune 500 companies. Build a complete, polished resume.\n'+RESUME_RULES+(hasJob?'\nIMPORTANT: A specific job posting was provided. Mirror its keywords and language.':'')+'\n\nBackground:\n'+bg+'\n\nReturn ONLY the formatted resume followed by the suggestions section.';}
-  if(tool==='gaps'){const jd=await getGapJdText();const bg=getGapBgText();if(!jd)throw new Error("We need the job description — paste it or drop the link.");if(!bg)throw new Error("Your background is missing — paste it in or upload your resume.");return 'You are a senior talent acquisition manager doing a precise, honest gap analysis. Return ONLY valid JSON — no markdown, no commentary.\n\nJob description:\n'+jd+'\n\nCandidate background:\n'+bg+'\n\nReturn this exact JSON shape:\n{"score":<integer 0-100>,"verdict":"<4-8 word punchy verdict>","summary":"<2 sentences: honest and warm>","strengths":["<strength 1>","<strength 2>"],"gaps":[{"text":"<gap>","priority":"high|medium|low"}],"actions":["<action 1>","<action 2>","<action 3>"],"improvements":["<improvement 1>","<improvement 2>"],"recruiter_take":"<1 honest paragraph>"}\n\nBase everything strictly on what was provided.';}
-  if(tool==='impact'){const rows=document.querySelectorAll('.exprow');if(!rows.length)throw new Error("Add at least one experience and we'll make it shine.");let expText='';rows.forEach((row,i)=>{const id=row.id.replace('exp-','');const t2=document.getElementById('et-'+id)?.value||'';const c=document.getElementById('ec-'+id)?.value||'';const dt=document.getElementById('edt-'+id)?.value||'';const d=document.getElementById('ed-'+id)?.value||'';validateField(d,'experience notes');if(t2||d)expText+='\nRole '+(i+1)+': '+t2+' at '+c+(dt?' ('+dt+')':'')+'\nNotes: '+d+'\n';});if(!expText.trim())throw new Error("Fill in at least one experience — title, company, and what you did.");return 'You are an expert resume writer. Transform rough notes into achievement-first bullets.\nCRITICAL: Use ONLY what\'s provided. 3-5 bullets per role. Strong action verb. Show impact.\nAt the end add: "---\n💡 Tips to make these even stronger:" with 2 specific suggestions.\nTarget role: '+(document.getElementById('imp-role')?.value||'')+'\nIndustry: '+(document.getElementById('imp-ind')?.value||'')+'\nExperiences:'+expText+'\nReturn ONLY the formatted bullets grouped by role, followed by the tips section.';}
-  if(tool==='tailor'){const jd=await getJdText('tailor');const resume=getResText('tailor');if(!jd)throw new Error("We need the job description — paste it or drop the link.");if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");return 'You are a senior TA manager rewriting a resume to be laser-targeted to this role.\n'+RESUME_RULES+'\nMirror exact keywords from the JD. Reorder so most relevant experience comes first within each role.\n\nJob description:\n'+jd+'\n\nCurrent resume:\n'+resume+'\n\nReturn ONLY the tailored resume followed by the suggestions section.';}
-  if(tool==='scanner'){const jd=await getJdText('scanner');const resume=getResText('scanner');if(!jd)throw new Error("We need the job description — paste it or drop the link.");if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");return 'You are acting as both an ATS system and a senior recruiter. Return ONLY valid JSON.\n\nJob description:\n'+jd+'\n\nResume:\n'+resume+'\n\nReturn this exact JSON shape:\n{"score":<integer 0-100>,"verdict":"<4-8 word punchy verdict>","summary":"<2 sentences>","keywords_present":["<keyword1>"],"keywords_missing":["<keyword1>"],"edits":[{"label":"<what to change>","before":"<phrase>","after":"<improved>"}],"improvements":["<improvement 1>","<improvement 2>"],"recruiter_take":"<1 honest paragraph>"}';}
+  if(tool==='gaps'){
+    const jd=await getJdText('gaps');const bg=getGapBgText();
+    if(!jd)throw new Error("We need the job description — paste it or drop the link.");
+    if(!bg)throw new Error("Your background is missing — paste it or upload your resume.");
+    return 'You are a senior talent acquisition manager doing a precise, honest gap analysis. Return ONLY valid JSON — no markdown, no commentary.\n\nJob description:\n'+jd+'\n\nCandidate background:\n'+bg+'\n\nReturn this exact JSON shape:\n{"score":<integer 0-100>,"verdict":"<4-8 word punchy verdict>","summary":"<2 sentences: honest and warm>","strengths":["<strength 1>","<strength 2>"],"gaps":[{"text":"<gap>","priority":"high|medium|low"}],"actions":["<action 1>","<action 2>","<action 3>"],"improvements":["<improvement 1>","<improvement 2>"],"recruiter_take":"<1 honest paragraph>"}\n\nBase everything strictly on what was provided.';
+  }
+  if(tool==='impact'){
+    const rows=document.querySelectorAll('.exprow');
+    if(!rows.length)throw new Error("Add at least one experience first.");
+    let expText='';
+    rows.forEach((row,i)=>{const id=row.id.replace('exp-','');const t2=document.getElementById('et-'+id)?.value||'';const c=document.getElementById('ec-'+id)?.value||'';const dt=document.getElementById('edt-'+id)?.value||'';const d=document.getElementById('ed-'+id)?.value||'';validateField(d,'experience notes');if(t2||d)expText+='\nRole '+(i+1)+': '+t2+' at '+c+(dt?' ('+dt+')':'')+'\nNotes: '+d+'\n';});
+    if(!expText.trim())throw new Error("Fill in at least one experience.");
+    return 'You are an expert resume writer. Transform rough notes into achievement-first bullets.\nCRITICAL: Use ONLY what\'s provided. 3-5 bullets per role. Strong action verb. Show impact.\nAt the end add: "---\n💡 Tips to make these even stronger:" with 2 specific suggestions.\nTarget role: '+(document.getElementById('imp-role')?.value||'')+'\nIndustry: '+(document.getElementById('imp-ind')?.value||'')+'\nExperiences:'+expText+'\nReturn ONLY the formatted bullets grouped by role, followed by the tips section.';
+  }
+  if(tool==='tailor'){
+    const jd=await getJdText('tailor');const resume=getResText('tailor');
+    if(!jd)throw new Error("We need the job description — paste it or drop the link.");
+    if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");
+    return 'You are a senior TA manager rewriting a resume to be laser-targeted to this role.\n'+RESUME_RULES+'\nMirror exact keywords from the JD. Reorder so most relevant experience comes first within each role.\n\nJob description:\n'+jd+'\n\nCurrent resume:\n'+resume+'\n\nReturn ONLY the tailored resume followed by the suggestions section.';
+  }
+  if(tool==='scanner'){
+    const jd=await getJdText('scanner');const resume=getResText('scanner');
+    if(!jd)throw new Error("We need the job description — paste it or drop the link.");
+    if(!resume)throw new Error("Your resume is missing — paste it or upload a file.");
+    return 'You are acting as both an ATS system and a senior recruiter. Return ONLY valid JSON.\n\nJob description:\n'+jd+'\n\nResume:\n'+resume+'\n\nReturn this exact JSON shape:\n{"score":<integer 0-100>,"verdict":"<4-8 word punchy verdict>","summary":"<2 sentences>","keywords_present":["<keyword1>"],"keywords_missing":["<keyword1>"],"edits":[{"label":"<what to change>","before":"<phrase>","after":"<improved>"}],"improvements":["<improvement 1>","<improvement 2>"],"recruiter_take":"<1 honest paragraph>"}';
+  }
   throw new Error('Unknown tool');
 }
 
-async function run(tool){
-  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent='Daily limit reached — resets in '+fmtResetTime()+'.';err.style.display='block';return;}
-  const btn=document.getElementById('run-'+tool);const btnSpan=btn.querySelector('span');
-  const resId=(tool==='tailor')?'res-'+tool+'-result':'res-'+tool;
-  const resDiv=document.getElementById(resId);const outDiv=document.getElementById('out-'+tool);const errDiv=document.getElementById('err-'+tool);
+// ── API CALL ──
+async function callClaude(prompt){
+  const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
+  const data=await resp.json();
+  if(!resp.ok||data.error)throw new Error(data.error||'API error '+resp.status);
+  const text=data.content?.[0]?.text;
+  if(!text)throw new Error('Empty response. Please try again.');
+  return text;
+}
+
+// ── RUN TEXT TOOL (builder, tailor, impact) ──
+async function runText(tool){
+  if(toolLeft(tool)<=0){showErr(tool,'Daily limit reached — resets in '+fmtReset()+'.');return;}
+  const btn=document.getElementById('run-'+tool);
+  const lbl=document.getElementById('run-'+tool+'-label');
+  const resDiv=document.getElementById('res-'+tool);
+  const errDiv=document.getElementById('err-'+tool);
   errDiv.style.display='none';
-  let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
-  btn.disabled=true;btnSpan.textContent='Analyzing — hang tight (~15 sec)…';
-  resDiv.classList.add('show');outDiv.classList.add('loading');outDiv.textContent='Building your resume…';
+  let prompt;try{prompt=await getPrompt(tool);}catch(e){showErr(tool,e.message);return;}
+  btn.disabled=true;
+  if(lbl)lbl.textContent='Working — ~20 seconds…';
+  resDiv.classList.remove('show');
   trackEvent('ai_output_generated',{feature:tool});
   try{
-    const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
-    const data=await resp.json();
-    if(!resp.ok||data.error)throw new Error(data.error||'API error '+resp.status);
-    const text=data.content?.[0]?.text;if(!text)throw new Error('Empty response. Please try again.');
-    outDiv.classList.remove('loading');outDiv.textContent=text;
+    const text=await callClaude(prompt);
+    resDiv.innerHTML=renderTextResult(tool,text);
+    resDiv.classList.add('show');
     resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
-    await incToolCount(tool);syncUsageNote(tool);checkWtpTrigger();
-  }catch(e){
-    outDiv.classList.remove('loading');resDiv.classList.remove('show');
-    errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';
-  }finally{
-    btn.disabled=toolLeft(tool)<=0;
-    const labels={builder:'Build my resume',impact:'Generate impact bullets',tailor:'Tailor my resume'};
-    btnSpan.textContent=labels[tool]||'Run';
-  }
+    await incTool(tool);syncUsageNote(tool);checkWtp();
+  }catch(e){showErr(tool,e.message);}
+  finally{btn.disabled=toolLeft(tool)<=0;if(lbl)lbl.textContent=(tool==='builder'?'Build my resume':tool==='tailor'?'Tailor my resume':'Generate impact bullets');}
 }
 
+// ── RUN ANALYSIS TOOL (scanner, gaps) ──
 async function runAnalysis(tool){
-  if(toolLeft(tool)<=0){const err=document.getElementById('err-'+tool);err.textContent='Daily limit reached — resets in '+fmtResetTime()+'.';err.style.display='block';return;}
-  const btn=document.getElementById('run-'+tool);const btnSpan=btn.querySelector('span');
-  const resDiv=document.getElementById('res-'+tool);const errDiv=document.getElementById('err-'+tool);
+  if(toolLeft(tool)<=0){showErr(tool,'Daily limit reached — resets in '+fmtReset()+'.');return;}
+  const btn=document.getElementById('run-'+tool);
+  const lbl=document.getElementById('run-'+tool+'-label');
+  const resDiv=document.getElementById('res-'+tool);
+  const errDiv=document.getElementById('err-'+tool);
   errDiv.style.display='none';
-  let prompt;try{prompt=await getPrompt(tool);}catch(e){errDiv.textContent=e.message;errDiv.style.display='block';return;}
-  btn.disabled=true;btnSpan.textContent=tool==='gaps'?'Analyzing your gaps…':'Scanning your fit…';
-  resDiv.style.display='none';resDiv.innerHTML='';
+  let prompt;try{prompt=await getPrompt(tool);}catch(e){showErr(tool,e.message);return;}
+  btn.disabled=true;
+  if(lbl)lbl.textContent='Analyzing — ~20 seconds…';
+  resDiv.classList.remove('show');resDiv.innerHTML='';
   trackEvent('ai_output_generated',{feature:tool});
   try{
-    const resp=await fetch('/api/claude',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:2000})});
-    const data=await resp.json();
-    if(!resp.ok||data.error)throw new Error(data.error||'API error '+resp.status);
-    let raw=data.content?.[0]?.text||'';raw=raw.replace(/```json|```/g,'').trim();
-    let parsed;try{parsed=JSON.parse(raw);}catch{throw new Error('Could not parse result. Please try again.');}
-    if(tool==='gaps')resDiv.innerHTML=renderGaps(parsed);else resDiv.innerHTML=renderScanner(parsed);
-    resDiv.style.display='block';resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
-    showAnalysisRating(tool);
-    await incToolCount(tool);syncUsageNote(tool);checkWtpTrigger();
-  }catch(e){errDiv.textContent='⚠ '+(e.message||'Something went wrong. Please try again.');errDiv.style.display='block';}
-  finally{btn.disabled=toolLeft(tool)<=0;btnSpan.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';}
+    const raw=await callClaude(prompt);
+    const clean=raw.replace(/```json|```/g,'').trim();
+    let parsed;try{parsed=JSON.parse(clean);}catch{throw new Error('Could not parse result. Please try again.');}
+    resDiv.innerHTML=tool==='gaps'?renderGaps(parsed):renderScanner(parsed);
+    resDiv.classList.add('show');
+    resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
+    await incTool(tool);syncUsageNote(tool);checkWtp();
+  }catch(e){showErr(tool,e.message);}
+  finally{btn.disabled=toolLeft(tool)<=0;if(lbl)lbl.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';}
 }
 
+function showErr(tool,msg){const e=document.getElementById('err-'+tool);if(e){e.textContent='⚠ '+msg;e.style.display='block';}}
+
+// ── RENDER TEXT RESULT ──
+function renderTextResult(tool,text){
+  const titles={builder:'Your Resume',impact:'Your Impact Bullets',tailor:'Your Tailored Resume'};
+  return `<div>
+    <div class="resume-result-header">
+      <div class="rr-title">${titles[tool]||'Your Result'}</div>
+      <div class="rr-actions">
+        <button class="btn-act btn-copy" id="copy-${tool}" onclick="copyText('${tool}')">Copy</button>
+        <button class="btn-act btn-view" onclick="openResumePage('${tool}')">📄 View &amp; Download</button>
+      </div>
+    </div>
+    <div class="resume-body" id="out-${tool}">${esc(text)}</div>
+    <div class="rating-row">
+      <span>Was this helpful?</span>
+      <div class="rating-btns" id="rating-bar-${tool}">
+        <button class="rate-btn" onclick="rateOutput('${tool}','positive')">👍 Yes</button>
+        <button class="rate-btn" onclick="rateOutput('${tool}','negative')">👎 No</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── RENDER ANALYSIS ──
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function scoreClass(n){return n>=70?'high':n>=45?'mid':'low';}
-function buildScoreRing(score){const r=34,cx=40,cy=40,circ=2*Math.PI*r,pct=Math.max(0,Math.min(100,score))/100;const dash=circ*pct,gap=circ*(1-pct),cls=scoreClass(score);return '<svg class="score-ring-svg" viewBox="0 0 80 80"><circle class="score-ring-bg" cx="'+cx+'" cy="'+cy+'" r="'+r+'"/><circle class="score-ring-fg '+cls+'" cx="'+cx+'" cy="'+cy+'" r="'+r+'" stroke-dasharray="'+dash.toFixed(1)+' '+gap.toFixed(1)+'" stroke-dashoffset="0"/><text class="score-ring-text" x="'+cx+'" y="'+(cy-3)+'">'+score+'</text><text class="score-ring-sub" x="'+cx+'" y="'+(cy+11)+'">/ 100</text></svg>';}
+function buildRing(score){
+  const r=36,cx=44,cy=44,circ=2*Math.PI*r,pct=Math.max(0,Math.min(100,score))/100;
+  const dash=circ*pct,gap=circ*(1-pct),cls=scoreClass(score);
+  return `<svg class="score-ring-svg" viewBox="0 0 88 88"><circle class="score-ring-bg" cx="${cx}" cy="${cy}" r="${r}"/><circle class="score-ring-fg ${cls}" cx="${cx}" cy="${cy}" r="${r}" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-dashoffset="0"/><text class="score-ring-text" x="${cx}" y="${cy-3}">${score}</text><text class="score-ring-sub" x="${cx}" y="${cy+11}">/ 100</text></svg>`;
+}
 
-function renderGaps(d){const sc=d.score||0,cls=scoreClass(sc),vd=d.verdict||'';let html='<div>';html+='<div class="score-hero"><div class="score-ring-wrap">'+buildScoreRing(sc)+'</div><div class="score-hero-right"><div class="score-verdict '+cls+'">'+esc(vd)+'</div><div class="score-summary">'+esc(d.summary||'')+'</div></div></div>';if(d.strengths?.length)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">What\'s working</span></div><div class="an-section-body">'+d.strengths.map(s=>'<div class="strength-item"><div class="strength-dot"></div><div>'+esc(s)+'</div></div>').join('')+'</div></div>';if(d.gaps?.length){const items=d.gaps.map(g=>{const p=(g.priority||'medium').toLowerCase();return '<div class="gap-item"><span class="gap-priority '+(p==='high'?'high':p==='low'?'low':'mid')+'">'+(p==='high'?'High':p==='low'?'Low':'Medium')+'</span><div class="gap-text">'+esc(g.text||g)+'</div></div>';}).join('');html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">!</div><span class="an-section-title">Gaps to close</span></div><div class="an-section-body">'+items+'</div></div>';}if(d.actions?.length)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon blue">→</div><span class="an-section-title">3 moves to make now</span></div><div class="an-section-body">'+d.actions.map((a,i)=>'<div class="action-item"><div class="action-num">'+(i+1)+'</div><div class="action-text">'+esc(a)+'</div></div>').join('')+'</div></div>';if(d.improvements?.length)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">✦</div><span class="an-section-title">Suggestions</span></div><div class="an-section-body">'+d.improvements.map(s=>'<div class="strength-item"><div class="strength-dot" style="background:#d97706"></div><div>'+esc(s)+'</div></div>').join('')+'</div></div>';if(d.recruiter_take)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter\'s honest take</span></div><div class="an-section-body"><div class="recruiter-take">'+esc(d.recruiter_take)+'</div></div></div>';const plain='MATCH SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.strengths?.length?'STRENGTHS\n'+d.strengths.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.gaps?.length?'GAPS\n'+d.gaps.map(g=>'['+((g.priority||'').toUpperCase())+'] '+(g.text||g)).join('\n')+'\n\n':'')+(d.actions?.length?'3 MOVES\n'+d.actions.map((a,i)=>(i+1)+'. '+a).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');html+='<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,\''+btoa(encodeURIComponent(plain))+'\')">Copy results</button></div></div>';return html;}
+function renderGaps(d){
+  const sc=d.score||0,cls=scoreClass(sc),vd=d.verdict||'';
+  let html=`<div>
+    <div class="score-hero">${buildRing(sc)}<div class="score-right"><div class="score-verdict ${cls}">${esc(vd)}</div><div class="score-summary">${esc(d.summary||'')}</div></div></div>
+    <div class="an-blocks">`;
+  if(d.strengths?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">✓</div><span class="an-block-title">What's working</span></div><div class="an-block-body">${d.strengths.map(s=>`<div class="strength-row"><div class="s-dot"></div><div>${esc(s)}</div></div>`).join('')}</div></div>`;
+  if(d.gaps?.length){const items=d.gaps.map(g=>{const p=(g.priority||'medium').toLowerCase();return `<div class="gap-row"><span class="gap-badge ${p==='high'?'gb-high':p==='low'?'gb-low':'gb-mid'}">${p==='high'?'High':p==='low'?'Low':'Medium'}</span><div class="gap-text">${esc(g.text||g)}</div></div>`;}).join('');html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-amber">!</div><span class="an-block-title">Gaps to close</span></div><div class="an-block-body">${items}</div></div>`;}
+  if(d.actions?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-blue">→</div><span class="an-block-title">3 moves to make now</span></div><div class="an-block-body">${d.actions.map((a,i)=>`<div class="action-row"><div class="action-num">${i+1}</div><div class="action-text">${esc(a)}</div></div>`).join('')}</div></div>`;
+  if(d.improvements?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-amber">✦</div><span class="an-block-title">Suggestions</span></div><div class="an-block-body">${d.improvements.map(s=>`<div class="strength-row"><div class="s-dot" style="background:#d97706"></div><div>${esc(s)}</div></div>`).join('')}</div></div>`;
+  if(d.recruiter_take)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">💬</div><span class="an-block-title">Recruiter's honest take</span></div><div class="an-block-body"><div class="rec-take">${esc(d.recruiter_take)}</div></div></div>`;
+  const plain='MATCH SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.strengths?.length?'STRENGTHS\n'+d.strengths.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.gaps?.length?'GAPS\n'+d.gaps.map(g=>'['+((g.priority||'').toUpperCase())+'] '+(g.text||g)).join('\n')+'\n\n':'')+(d.actions?.length?'3 MOVES\n'+d.actions.map((a,i)=>(i+1)+'. '+a).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
+  html+=`</div><div class="copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,'${btoa(encodeURIComponent(plain))}')">Copy results</button></div>`;
+  html+=`<div class="rating-row"><span>Was this analysis helpful?</span><div class="rating-btns" id="rating-bar-gaps"><button class="rate-btn" onclick="rateOutput('gaps','positive')">👍 Yes</button><button class="rate-btn" onclick="rateOutput('gaps','negative')">👎 No</button></div></div>`;
+  return html+'</div>';
+}
 
-function renderScanner(d){const sc=d.score||0,cls=scoreClass(sc),vd=d.verdict||'';let html='<div>';html+='<div class="score-hero"><div class="score-ring-wrap">'+buildScoreRing(sc)+'</div><div class="score-hero-right"><div class="score-verdict '+cls+'">'+esc(vd)+'</div><div class="score-summary">'+esc(d.summary||'')+'</div></div></div>';if(d.keywords_present?.length)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">✓</div><span class="an-section-title">Keywords found</span></div><div class="an-section-body"><div class="chip-wrap">'+d.keywords_present.map(k=>'<span class="chip present">'+esc(k)+'</span>').join('')+'</div></div></div>';if(d.keywords_missing?.length)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon red">✗</div><span class="an-section-title">Missing keywords</span></div><div class="an-section-body"><div class="chip-wrap">'+d.keywords_missing.map(k=>'<span class="chip missing">'+esc(k)+'</span>').join('')+'</div></div></div>';if(d.edits?.length)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon blue">✏</div><span class="an-section-title">Exact edits to make</span></div><div class="an-section-body">'+d.edits.map(e=>'<div class="edit-item"><div class="edit-label">'+esc(e.label||'Change')+'</div><div class="edit-before">'+esc(e.before||'')+'</div><div class="edit-after">→ '+esc(e.after||'')+'</div></div>').join('')+'</div></div>';if(d.improvements?.length)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon amber">✦</div><span class="an-section-title">Suggestions</span></div><div class="an-section-body">'+d.improvements.map(s=>'<div class="strength-item"><div class="strength-dot" style="background:#d97706"></div><div>'+esc(s)+'</div></div>').join('')+'</div></div>';if(d.recruiter_take)html+='<div class="an-section"><div class="an-section-hdr"><div class="an-section-icon green">💬</div><span class="an-section-title">Recruiter\'s take</span></div><div class="an-section-body"><div class="recruiter-take">'+esc(d.recruiter_take)+'</div></div></div>';const plain='ATS SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.keywords_present?.length?'FOUND: '+d.keywords_present.join(', ')+'\n\n':'')+(d.keywords_missing?.length?'MISSING: '+d.keywords_missing.join(', ')+'\n\n':'')+(d.edits?.length?'EDITS:\n'+d.edits.map(e=>e.label+': "'+e.before+'" → "'+e.after+'"').join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');html+='<div class="an-copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,\''+btoa(encodeURIComponent(plain))+'\')">Copy results</button></div></div>';return html;}
+function renderScanner(d){
+  const sc=d.score||0,cls=scoreClass(sc),vd=d.verdict||'';
+  let html=`<div>
+    <div class="score-hero">${buildRing(sc)}<div class="score-right"><div class="score-verdict ${cls}">${esc(vd)}</div><div class="score-summary">${esc(d.summary||'')}</div></div></div>
+    <div class="an-blocks">`;
+  if(d.keywords_present?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">✓</div><span class="an-block-title">Keywords found</span></div><div class="an-block-body"><div class="chip-cloud">${d.keywords_present.map(k=>`<span class="chip ch-green">${esc(k)}</span>`).join('')}</div></div></div>`;
+  if(d.keywords_missing?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-red">✗</div><span class="an-block-title">Missing keywords</span></div><div class="an-block-body"><div class="chip-cloud">${d.keywords_missing.map(k=>`<span class="chip ch-red">${esc(k)}</span>`).join('')}</div></div></div>`;
+  if(d.edits?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-blue">✏</div><span class="an-block-title">Exact edits to make</span></div><div class="an-block-body">${d.edits.map(e=>`<div class="edit-row"><div class="edit-lbl">${esc(e.label||'Change')}</div><div class="edit-before">${esc(e.before||'')}</div><div class="edit-after">→ ${esc(e.after||'')}</div></div>`).join('')}</div></div>`;
+  if(d.improvements?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-amber">✦</div><span class="an-block-title">Suggestions</span></div><div class="an-block-body">${d.improvements.map(s=>`<div class="strength-row"><div class="s-dot" style="background:#d97706"></div><div>${esc(s)}</div></div>`).join('')}</div></div>`;
+  if(d.recruiter_take)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">💬</div><span class="an-block-title">Recruiter's take</span></div><div class="an-block-body"><div class="rec-take">${esc(d.recruiter_take)}</div></div></div>`;
+  const plain='ATS SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.keywords_present?.length?'FOUND: '+d.keywords_present.join(', ')+'\n\n':'')+(d.keywords_missing?.length?'MISSING: '+d.keywords_missing.join(', ')+'\n\n':'')+(d.edits?.length?'EDITS:\n'+d.edits.map(e=>e.label+': "'+e.before+'" → "'+e.after+'"').join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
+  html+=`</div><div class="copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,'${btoa(encodeURIComponent(plain))}')">Copy results</button></div>`;
+  html+=`<div class="rating-row"><span>Was this scan helpful?</span><div class="rating-btns" id="rating-bar-scanner"><button class="rate-btn" onclick="rateOutput('scanner','positive')">👍 Yes</button><button class="rate-btn" onclick="rateOutput('scanner','negative')">👎 No</button></div></div>`;
+  return html+'</div>';
+}
 
-function copyAnalysis(btn,encoded){const text=decodeURIComponent(atob(encoded));navigator.clipboard.writeText(text).then(()=>{const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});}
-function copyRes(tool){const text=document.getElementById('out-'+tool)?.textContent||'';navigator.clipboard.writeText(text).then(()=>{const btn=document.getElementById('copy-'+tool);if(!btn)return;const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});}
+function copyAnalysis(btn,encoded){navigator.clipboard.writeText(decodeURIComponent(atob(encoded))).then(()=>{const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});}
+function copyText(tool){const text=document.getElementById('out-'+tool)?.textContent||'';navigator.clipboard.writeText(text).then(()=>{const btn=document.getElementById('copy-'+tool);if(!btn)return;const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});}
 
-function openResumePage(tool){const text=document.getElementById('out-'+tool)?.textContent||'';if(!text||text.includes('Building'))return;rpTool=tool;const titles={builder:'Your Resume',impact:'Your Impact Bullets',tailor:'Your Tailored Resume'};document.getElementById('rp-title').textContent=titles[tool]||'Your Result';document.getElementById('letterSheet').innerHTML=renderLetter(text);syncDlBadge();document.getElementById('resumePage').classList.add('show');document.body.style.overflow='hidden';}
+// ── RESUME PAGE ──
+function openResumePage(tool){
+  const text=document.getElementById('out-'+tool)?.textContent||'';if(!text||text.includes('Working'))return;
+  rpTool=tool;
+  const titles={builder:'Your Resume',impact:'Your Impact Bullets',tailor:'Your Tailored Resume'};
+  document.getElementById('rp-title').textContent=titles[tool]||'Your Result';
+  document.getElementById('letterSheet').innerHTML=renderLetter(text);
+  syncDlBadge();document.getElementById('resumePage').classList.add('show');document.body.style.overflow='hidden';
+}
 function closeResumePage(){document.getElementById('resumePage').classList.remove('show');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeResumePage();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeResumePage();}});
 
 function esc2(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function renderLetter(text){const lines=text.split('\n');let html='';let firstDone=false;let contactDone=false;for(let i=0;i<lines.length;i++){const raw=lines[i];const line=raw.trim();if(!line){html+='<div style="height:6px"></div>';continue;}const clean=line.replace(/\*\*/g,'');if(!firstDone&&clean.length<70&&!clean.includes('@')){html+='<div style="text-align:center;font-size:15pt;font-weight:bold;margin-bottom:2px;font-family:\'Times New Roman\',serif">'+esc2(clean)+'</div>';firstDone=true;continue;}if(firstDone&&!contactDone&&i<6&&(clean.includes('@')||/\d{3}[-.\s]\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){html+='<div style="text-align:center;font-size:10pt;color:#444;margin-bottom:14px;font-family:\'Times New Roman\',serif">'+esc2(clean)+'</div>';continue;}if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){contactDone=true;html+='<div style="font-size:11pt;font-weight:bold;font-family:\'Times New Roman\',serif;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #333;padding-bottom:2px;margin:16px 0 6px">'+esc2(clean.replace(/\*\*/g,''))+'</div>';continue;}if(clean.startsWith('- ')||clean.startsWith('• ')){html+='<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">• '+esc2(clean.replace(/^[-•]\s*/,''))+'</div>';continue;}html+='<div style="margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">'+esc2(clean)+'</div>';}return html;}
+function renderLetter(text){
+  const lines=text.split('\n');let html='';let firstDone=false;let contactDone=false;
+  for(let i=0;i<lines.length;i++){
+    const raw=lines[i];const line=raw.trim();if(!line){html+='<div style="height:6px"></div>';continue;}
+    const clean=line.replace(/\*\*/g,'');
+    if(!firstDone&&clean.length<70&&!clean.includes('@')){html+='<div style="text-align:center;font-size:15pt;font-weight:bold;margin-bottom:2px;font-family:\'Times New Roman\',serif">'+esc2(clean)+'</div>';firstDone=true;continue;}
+    if(firstDone&&!contactDone&&i<6&&(clean.includes('@')||/\d{3}[-.\s]\d{3}/.test(clean)||clean.toLowerCase().includes('linkedin'))){html+='<div style="text-align:center;font-size:10pt;color:#444;margin-bottom:14px;font-family:\'Times New Roman\',serif">'+esc2(clean)+'</div>';continue;}
+    if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){contactDone=true;html+='<div style="font-size:11pt;font-weight:bold;font-family:\'Times New Roman\',serif;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #333;padding-bottom:2px;margin:16px 0 6px">'+esc2(clean.replace(/\*\*/g,''))+'</div>';continue;}
+    if(clean.startsWith('- ')||clean.startsWith('• ')){html+='<div style="margin-left:16px;margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">• '+esc2(clean.replace(/^[-•]\s*/,''))+'</div>';continue;}
+    html+='<div style="margin-bottom:3px;font-size:11pt;font-family:\'Times New Roman\',serif">'+esc2(clean)+'</div>';
+  }
+  return html;
+}
 
-async function rpDownloadDocx(){if(dlLeft()<=0){alert("Daily download limit reached.");return;}const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;trackEvent('resume_downloaded_or_saved',{format:'docx',tool:rpTool});try{const{Document,Packer,Paragraph,TextRun,HeadingLevel,AlignmentType}=docx;const lines=text.split('\n');const children=[];for(let i=0;i<lines.length;i++){const t=lines[i].trim();if(!t){children.push(new Paragraph({text:''}));continue;}const clean=t.replace(/\*\*/g,'');if(i===0&&clean.length<70&&!clean.includes('@')){children.push(new Paragraph({children:[new TextRun({text:clean,bold:true,size:32,font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:60}}));continue;}if(i<5&&(clean.includes('@')||/\d{3}/.test(clean))){children.push(new Paragraph({children:[new TextRun({text:clean,size:20,color:'444444',font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:80}}));continue;}if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){children.push(new Paragraph({text:clean.replace(/\*\*/g,'').toUpperCase(),heading:HeadingLevel.HEADING_2,spacing:{before:200,after:60}}));continue;}if(clean.startsWith('- ')||clean.startsWith('• ')){children.push(new Paragraph({bullet:{level:0},children:[new TextRun({text:clean.replace(/^[-•]\s*/,''),size:22,font:'Times New Roman'})]}));continue;}children.push(new Paragraph({children:[new TextRun({text:clean,size:22,font:'Times New Roman'})],spacing:{after:40}}));}const doc=new Document({sections:[{properties:{page:{margin:{top:1080,bottom:1080,left:1080,right:1080}}},children}]});const blob=await Packer.toBlob(doc);const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='resume-landedd.docx';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);await incDl();syncDlBadge();}catch(e){alert('Download failed — use "Copy text" and paste into Word or Google Docs.');}}
-async function rpOpenGdocs(){if(dlLeft()<=0){alert("Daily download limit reached.");return;}const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;trackEvent('resume_downloaded_or_saved',{format:'gdocs',tool:rpTool});try{await navigator.clipboard.writeText(text);}catch(e){}const btn=document.getElementById('rp-gdocs-btn');if(btn){const orig=btn.textContent;btn.textContent='Copied! Now paste in Google Docs';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},3000);}window.open('https://docs.google.com/document/create','_blank');await incDl();syncDlBadge();}
 function rpCopy(){const text=document.getElementById('out-'+rpTool)?.textContent||'';navigator.clipboard.writeText(text).then(()=>{const btn=document.getElementById('rp-copy-btn');if(!btn)return;const orig=btn.textContent;btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},2000);});}
 
-// ── EXPERIENCE rows (impact coach) ──
+async function rpDownloadDocx(){
+  if(dlLeft()<=0){alert("Daily download limit reached.");return;}
+  const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
+  trackEvent('resume_downloaded_or_saved',{format:'docx',tool:rpTool});
+  try{
+    const{Document,Packer,Paragraph,TextRun,HeadingLevel,AlignmentType}=docx;
+    const lines=text.split('\n');const children=[];
+    for(let i=0;i<lines.length;i++){
+      const t=lines[i].trim();if(!t){children.push(new Paragraph({text:''}));continue;}
+      const clean=t.replace(/\*\*/g,'');
+      if(i===0&&clean.length<70&&!clean.includes('@')){children.push(new Paragraph({children:[new TextRun({text:clean,bold:true,size:32,font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:60}}));continue;}
+      if(i<5&&(clean.includes('@')||/\d{3}/.test(clean))){children.push(new Paragraph({children:[new TextRun({text:clean,size:20,color:'444444',font:'Times New Roman'})],alignment:AlignmentType.CENTER,spacing:{after:80}}));continue;}
+      if(clean.match(/^[A-Z][A-Z &\/]{3,}$|^\*\*[A-Z][^*]+\*\*$/)){children.push(new Paragraph({text:clean.replace(/\*\*/g,'').toUpperCase(),heading:HeadingLevel.HEADING_2,spacing:{before:200,after:60}}));continue;}
+      if(clean.startsWith('- ')||clean.startsWith('• ')){children.push(new Paragraph({bullet:{level:0},children:[new TextRun({text:clean.replace(/^[-•]\s*/,''),size:22,font:'Times New Roman'})]}));continue;}
+      children.push(new Paragraph({children:[new TextRun({text:clean,size:22,font:'Times New Roman'})],spacing:{after:40}}));
+    }
+    const doc=new Document({sections:[{properties:{page:{margin:{top:1080,bottom:1080,left:1080,right:1080}}},children}]});
+    const blob=await Packer.toBlob(doc);
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='resume-landedd.docx';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+    await incDl();syncDlBadge();
+  }catch(e){alert('Download failed — use "Copy text" and paste into Word or Google Docs.');}
+}
+
+async function rpOpenGdocs(){
+  if(dlLeft()<=0){alert("Daily download limit reached.");return;}
+  const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
+  trackEvent('resume_downloaded_or_saved',{format:'gdocs',tool:rpTool});
+  try{await navigator.clipboard.writeText(text);}catch(e){}
+  const btn=document.getElementById('rp-gdocs-btn');
+  if(btn){const orig=btn.textContent;btn.textContent='Copied! Now paste in Google Docs';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},3000);}
+  window.open('https://docs.google.com/document/create','_blank');
+  await incDl();syncDlBadge();
+}
+
+// ── EXPERIENCE ROWS ──
 function addExp(){expCount++;const id=expCount;const div=document.createElement('div');div.className='exprow';div.id='exp-'+id;div.innerHTML='<div class="exprow-hdr"><span class="exprow-lbl">Experience '+id+'</span><button class="exprow-rm" onclick="rmExp('+id+')">✕</button></div><div class="fld"><label>Job title / Role</label><input type="text" id="et-'+id+'" placeholder="e.g. Sales Associate"/></div><div class="fld"><label>Company / Organization</label><input type="text" id="ec-'+id+'" placeholder="e.g. Target, Google"/></div><div class="fld"><label>Dates</label><input type="text" id="edt-'+id+'" placeholder="e.g. Jun 2022 – Aug 2023"/></div><div class="fld"><label>What you did (rough notes ok)</label><textarea id="ed-'+id+'" placeholder="e.g. handled customer complaints, trained new staff, exceeded monthly targets..."></textarea></div>';document.getElementById('expRows').appendChild(div);}
 function rmExp(id){const el=document.getElementById('exp-'+id);if(el)el.remove();}
 
 // ── FEEDBACK ──
 let fbRating=0;
-function setStar(v){fbRating=v;document.querySelectorAll('.star-btn').forEach(function(b){const val=parseInt(b.dataset.v);if(val<=v){b.classList.add('sel');b.textContent='★';}else{b.classList.remove('sel');b.textContent=b.dataset.v;}});}
-async function submitFeedback(){const msg=(document.getElementById('fb-msg').value||'').trim();const email=(document.getElementById('fb-email').value||'').trim();const tool=document.getElementById('fb-tool').value;const btn=document.getElementById('fbBtn');const okDiv=document.getElementById('fb-ok');if(!msg){alert('Please write some feedback before sending.');return;}btn.disabled=true;btn.textContent='Sending…';try{const resp=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'feedback',message:msg,email,rating:fbRating||null,tool,source:'feedback-section'})});const data=await resp.json();if(!resp.ok||data.error)throw new Error(data.error||'Server error '+resp.status);okDiv.style.display='block';btn.style.display='none';trackEvent('feedback_submitted',{rating:fbRating,tool});}catch(err){btn.disabled=false;btn.textContent='Send feedback';alert('Could not send right now — '+(err.message||'please try again')+'. You can also email us at hello@landedd.com');}}
+function setStar(v){fbRating=v;document.querySelectorAll('.star-btn').forEach(b=>{const val=parseInt(b.dataset.v);if(val<=v){b.classList.add('sel');b.textContent='★';}else{b.classList.remove('sel');b.textContent=b.dataset.v;}});}
+async function submitFeedback(){
+  const msg=(document.getElementById('fb-msg').value||'').trim();
+  const email=(document.getElementById('fb-email').value||'').trim();
+  const tool=document.getElementById('fb-tool').value;
+  const btn=document.getElementById('fbBtn');const okDiv=document.getElementById('fb-ok');
+  if(!msg){alert('Please write some feedback before sending.');return;}
+  btn.disabled=true;btn.textContent='Sending…';
+  try{
+    const resp=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'feedback',message:msg,email,rating:fbRating||null,tool,source:'feedback-section'})});
+    const data=await resp.json();
+    if(!resp.ok||data.error)throw new Error(data.error||'Server error '+resp.status);
+    okDiv.style.display='block';btn.style.display='none';
+    trackEvent('feedback_submitted',{rating:fbRating,tool});
+  }catch(err){
+    btn.disabled=false;btn.textContent='Send feedback';
+    alert('Could not send right now — '+(err.message||'please try again')+'. You can also email us at hello@landedd.com');
+  }
+}
 
 // ── INIT ──
 loadUsage().then(()=>{syncDlBadge();ALL_TOOLS.forEach(syncUsageNote);});
