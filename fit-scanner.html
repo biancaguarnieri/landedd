@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.svg">
+  <meta name="theme-color" content="#2d6a4f">
+  <title>Free ATS Resume Checker — Fit Scanner by Landedd</title>
+  <meta name="description" content="See exactly how your resume scores against any job description. Get your ATS match score, missing keywords, and specific edits to make — free, no sign-up." />
+  <link rel="canonical" href="https://www.landedd.com/fit-scanner" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free ATS Resume Checker — Fit Scanner by Landedd" />
+  <meta property="og:description" content="See exactly how your resume scores against any job description. Free ATS match score, missing keywords, and specific edits — no sign-up." />
+  <meta property="og:url" content="https://www.landedd.com/fit-scanner" />
+  <meta property="og:type" content="website" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Landedd Fit Scanner",
+    "description": "Free ATS resume checker. Get your match score against any job description, identify missing keywords, and receive specific edits to improve your application.",
+    "url": "https://www.landedd.com/fit-scanner",
+    "applicationCategory": "BusinessApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "operatingSystem": "Any"
+  }
+  </script>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --green:#2d6a4f;--green-mid:#40916c;--green-light:#74c69d;
+      --green-pale:#d8f3dc;--green-bg:#f0faf4;
+      --gray:#f4f4f4;--gray2:#e8e8e8;--gray3:#c0c0c0;
+      --text:#1a1a1a;--text2:#4a4a4a;--text3:#888;--white:#ffffff;
+      --radius:10px;--rsm:7px;--shadow:0 2px 16px rgba(45,106,79,.08);--shadow-lg:0 6px 32px rgba(45,106,79,.13);
+    }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--text);background:var(--white);line-height:1.6}
+    nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--gray2);padding:0 6%;display:flex;align-items:center;justify-content:space-between;height:62px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-mark{width:36px;height:36px;flex-shrink:0}
+    .logo-mark svg{width:36px;height:36px;display:block}
+    .logo-text{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-.4px}
+    .nav-cta{background:var(--green);color:#fff;padding:8px 22px;border-radius:20px;border:none;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s}
+    .nav-cta:hover{background:var(--green-mid)}
+
+    /* Breadcrumb */
+    .breadcrumb{padding:12px 6%;font-size:.78rem;color:var(--text3)}
+    .breadcrumb a{color:var(--text3);text-decoration:none}
+    .breadcrumb a:hover{color:var(--green)}
+    .breadcrumb span{margin:0 6px}
+
+    /* Hero */
+    .hero{padding:56px 6% 48px;max-width:860px;margin:0 auto}
+    .tool-eyebrow{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--green-mid);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .eyebrow-badge{background:var(--green-pale);color:var(--green);padding:2px 9px;border-radius:10px;font-size:.68rem}
+    .hero h1{font-size:clamp(2rem,4.5vw,3rem);font-weight:900;line-height:1.1;letter-spacing:-1.5px;color:var(--text);margin-bottom:16px}
+    .hero h1 em{color:var(--green);font-style:normal}
+    .hero-intro{font-size:1.05rem;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:32px}
+    .hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+    .btn-primary{background:var(--green);color:#fff;border:none;padding:13px 30px;border-radius:24px;font-size:.98rem;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-primary:hover{background:var(--green-mid);transform:translateY(-1px)}
+
+    /* Stats strip */
+    .stats-strip{display:flex;gap:32px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--gray2);border-bottom:1px solid var(--gray2);margin-bottom:48px}
+    .stat{display:flex;flex-direction:column}
+    .stat-num{font-size:1.5rem;font-weight:900;color:var(--green);letter-spacing:-1px}
+    .stat-label{font-size:.78rem;color:var(--text3);line-height:1.3}
+
+    /* What it does */
+    .what-sec{padding:0 6% 64px;max-width:860px;margin:0 auto}
+    .what-sec h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:var(--text);letter-spacing:-1px;margin-bottom:8px}
+    .what-sec .intro{font-size:.95rem;color:var(--text2);line-height:1.7;margin-bottom:32px;max-width:600px}
+    .output-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:48px}
+    .output-card{background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--radius);padding:20px}
+    .output-card-icon{font-size:1.3rem;margin-bottom:10px}
+    .output-card h3{font-size:.92rem;font-weight:800;color:var(--text);margin-bottom:6px}
+    .output-card p{font-size:.82rem;color:var(--text2);line-height:1.55}
+
+    /* Score example */
+    .score-demo{background:var(--gray);border:1px solid var(--gray2);border-radius:var(--radius);padding:24px;margin-bottom:48px;display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap}
+    .score-ring-demo{flex-shrink:0}
+    .score-ring-demo svg{width:88px;height:88px}
+    .score-demo-right{flex:1;min-width:200px}
+    .score-demo-title{font-size:1rem;font-weight:800;color:#2d6a4f;margin-bottom:4px}
+    .score-demo-sub{font-size:.84rem;color:var(--text2);line-height:1.55;margin-bottom:14px}
+    .keyword-chips{display:flex;flex-wrap:wrap;gap:6px}
+    .chip-green{font-size:.74rem;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--green-pale);color:var(--green)}
+    .chip-red{font-size:.74rem;font-weight:600;padding:3px 10px;border-radius:12px;background:#fee2e2;color:#991b1b}
+
+    /* How it works */
+    .how-sec{padding:64px 6%;background:var(--green-bg);border-top:1px solid var(--green-pale)}
+    .how-inner{max-width:800px;margin:0 auto}
+    .how-sec h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:900;color:var(--text);letter-spacing:-1px;margin-bottom:32px}
+    .steps{display:flex;flex-direction:column;gap:20px}
+    .step{display:flex;gap:18px;align-items:flex-start}
+    .step-num{width:36px;height:36px;border-radius:50%;background:var(--green);color:#fff;font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .step-body h3{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .step-body p{font-size:.85rem;color:var(--text2);line-height:1.55}
+
+    /* FAQ / SEO content */
+    .content-sec{padding:64px 6%;max-width:860px;margin:0 auto}
+    .content-sec h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:900;color:var(--text);letter-spacing:-1px;margin-bottom:24px}
+    .content-sec h3{font-size:1.05rem;font-weight:800;color:var(--text);margin:28px 0 8px}
+    .content-sec p{font-size:.92rem;color:var(--text2);line-height:1.75;margin-bottom:14px}
+    .content-sec ul{padding-left:20px;margin-bottom:16px}
+    .content-sec ul li{font-size:.92rem;color:var(--text2);line-height:1.75;margin-bottom:6px}
+
+    /* CTA bottom */
+    .cta-sec{background:var(--green);padding:56px 6%;text-align:center}
+    .cta-sec h2{font-size:clamp(1.6rem,3.5vw,2.3rem);font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:12px}
+    .cta-sec p{font-size:.92rem;color:var(--green-pale);margin-bottom:26px}
+    .btn-white{background:#fff;color:var(--green);border:none;padding:13px 32px;border-radius:24px;font-size:.98rem;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-white:hover{background:var(--green-pale);transform:translateY(-1px)}
+
+    /* Related tools */
+    .related-sec{padding:56px 6%;background:var(--gray)}
+    .related-inner{max-width:860px;margin:0 auto}
+    .related-sec h2{font-size:1.3rem;font-weight:900;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .related-card{background:#fff;border:1px solid var(--gray2);border-radius:var(--rsm);padding:18px;text-decoration:none;transition:all .2s}
+    .related-card:hover{border-color:var(--green-light);transform:translateY(-1px)}
+    .related-card h3{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:4px}
+    .related-card p{font-size:.79rem;color:var(--text3);line-height:1.4}
+
+    footer{background:#fff;border-top:1px solid var(--gray2);padding:28px 6%;text-align:center;font-size:.83rem;color:var(--text3)}
+    footer a{color:var(--text3);text-decoration:none;margin:0 10px}
+    footer a:hover{color:var(--green)}
+    .footer-logo{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:14px}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">
+    <div class="logo-mark"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
+    <span class="logo-text">Landedd</span>
+  </a>
+  <button class="nav-cta" onclick="location.href='/?tool=scanner'">Try it free</button>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/">Landedd</a><span>›</span>Fit Scanner
+</div>
+
+<section class="hero">
+  <div class="tool-eyebrow">
+    <span>Fit Scanner</span>
+    <span class="eyebrow-badge">Free · No sign-up</span>
+  </div>
+  <h1>Know your ATS score<br>before you <em>apply.</em></h1>
+  <p class="hero-intro">Most applications never reach a recruiter. They're filtered by software first. The Fit Scanner tells you exactly how your resume scores against any job description — and what to fix before you hit send.</p>
+  <div class="hero-cta-row">
+    <button class="btn-primary" onclick="location.href='/?tool=scanner'">Scan my resume free →</button>
+  </div>
+  <div class="stats-strip">
+    <div class="stat"><div class="stat-num">75%</div><div class="stat-label">of applications filtered<br>before a recruiter sees them</div></div>
+    <div class="stat"><div class="stat-num">30s</div><div class="stat-label">to get your<br>full match report</div></div>
+    <div class="stat"><div class="stat-num">$0</div><div class="stat-label">No credit card,<br>no account needed</div></div>
+  </div>
+</section>
+
+<section class="what-sec">
+  <h2>What the Fit Scanner gives you</h2>
+  <p class="intro">Paste the job description and your resume. In about 30 seconds you get a complete, recruiter-grade analysis — built from 10 years of experience on both sides of the hiring process.</p>
+  <div class="output-cards">
+    <div class="output-card">
+      <div class="output-card-icon">🎯</div>
+      <h3>ATS match score</h3>
+      <p>A 0–100 score showing how well your resume aligns with this specific role, the way software systems evaluate it.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">🔑</div>
+      <h3>Keywords found vs. missing</h3>
+      <p>Every keyword the job description emphasizes, marked present or missing in your resume. No guessing.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">✏️</div>
+      <h3>Exact edits to make</h3>
+      <p>Specific before/after rewrites — not vague advice, but the actual language changes that will improve your score.</p>
+    </div>
+    <div class="output-card">
+      <div class="output-card-icon">💬</div>
+      <h3>Recruiter's honest take</h3>
+      <p>A plain-language summary of how a real recruiter would read your resume against this job. Unfiltered.</p>
+    </div>
+  </div>
+
+  <!-- Score example -->
+  <div class="score-demo">
+    <div class="score-ring-demo">
+      <svg viewBox="0 0 88 88">
+        <circle cx="44" cy="44" r="36" fill="none" stroke="#e8e8e8" stroke-width="8"/>
+        <circle cx="44" cy="44" r="36" fill="none" stroke="#2d6a4f" stroke-width="8" stroke-linecap="round" stroke-dasharray="169 226" transform="rotate(-90 44 44)"/>
+        <text x="44" y="40" text-anchor="middle" font-size="22" font-weight="800" fill="#1a1a1a" font-family="-apple-system,sans-serif">75</text>
+        <text x="44" y="56" text-anchor="middle" font-size="9" fill="#888" font-family="-apple-system,sans-serif">/ 100</text>
+      </svg>
+    </div>
+    <div class="score-demo-right">
+      <div class="score-demo-title">Strong match — 2 quick fixes away from 90+</div>
+      <div class="score-demo-sub">Your experience aligns well. You're missing two high-priority keywords and one framing issue in your most recent role is costing you points.</div>
+      <div style="margin-bottom:8px;font-size:.75rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Keywords found</div>
+      <div class="keyword-chips" style="margin-bottom:12px">
+        <span class="chip-green">stakeholder management</span>
+        <span class="chip-green">cross-functional</span>
+        <span class="chip-green">Salesforce</span>
+        <span class="chip-green">budget ownership</span>
+      </div>
+      <div style="margin-bottom:8px;font-size:.75rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Missing keywords</div>
+      <div class="keyword-chips">
+        <span class="chip-red">pipeline management</span>
+        <span class="chip-red">quota attainment</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-sec">
+  <div class="how-inner">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Paste the job description</h3>
+          <p>Copy the full job posting — responsibilities, requirements, everything. Or paste the URL directly from LinkedIn, Indeed, or any major job board.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Add your resume</h3>
+          <p>Paste your resume text or upload a PDF or Word file. No account required — your content is processed in memory and never stored.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Get your full report</h3>
+          <p>In about 30 seconds: your match score, every keyword found and missing, specific edits to make, and a recruiter's honest read of your application.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Apply with confidence</h3>
+          <p>Make the recommended changes, re-scan if you want, and apply knowing exactly where you stand. No more guessing why you're not hearing back.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-sec">
+  <h2>Why your resume keeps getting filtered</h2>
+
+  <h3>What ATS systems actually look for</h3>
+  <p>Applicant Tracking Systems aren't reading your resume the way a human does. They're scanning for specific keywords, phrases, and formatting patterns that match what's in the job description. A resume that doesn't surface those signals gets scored poorly — regardless of how qualified the person is.</p>
+  <p>The problem isn't your experience. It's that your resume isn't speaking the same language as the job posting. The Fit Scanner analyzes both and shows you exactly where the gaps are.</p>
+
+  <h3>The difference between a generic resume and a targeted one</h3>
+  <p>A generic resume summarizes your career. A targeted resume is a direct response to a specific job description — it uses the employer's language, surfaces the skills they're prioritizing, and frames your experience in terms of what they're solving for.</p>
+  <p>The Fit Scanner shows you what a targeted resume looks like for each specific role you're applying to. Once you see your keyword gaps and the suggested edits, you can make changes in minutes — not hours.</p>
+
+  <h3>Does it work for all industries?</h3>
+  <p>Yes. The Fit Scanner works for any role in any industry — from technology and finance to healthcare, education, and non-profit. The underlying logic is the same: how well does this resume's language align with this posting's requirements?</p>
+  <p>Whether you're applying for an entry-level position or an executive role, the analysis gives you the same level of specificity. The keywords and phrasing differ by industry, but the approach is universal.</p>
+
+  <h3>How many times should I run it?</h3>
+  <p>Once per application. The scan is specific to the job posting you provide — results for a marketing manager role will look completely different from results for a sales manager role, even with the same resume. Run it for each new application to get the most accurate picture.</p>
+  <p>If you make changes based on the recommendations and want to verify your score improved, run it a second time. The free tier gives you 3 runs per day.</p>
+
+  <h3>Is this the same as keyword stuffing?</h3>
+  <p>No. Keyword stuffing — cramming a resume with every possible keyword regardless of context — actually hurts you. It reads as inauthentic to both software and humans, and experienced recruiters flag it immediately.</p>
+  <p>The Fit Scanner identifies keywords that should appear naturally in your resume given your actual experience. The edits it suggests are about framing your real work in the language the employer uses — not fabricating qualifications you don't have.</p>
+</section>
+
+<section class="cta-sec">
+  <h2>Stop applying blind.</h2>
+  <p>Know your score before you hit send. Free, no sign-up, results in 30 seconds.</p>
+  <button class="btn-white" onclick="location.href='/?tool=scanner'">Scan my resume now →</button>
+</section>
+
+<section class="related-sec">
+  <div class="related-inner">
+    <h2>Other free tools</h2>
+    <div class="related-grid">
+      <a href="/resume-tailor" class="related-card">
+        <h3>Resume tailor</h3>
+        <p>Rewrite your resume to match a specific job description — keywords aligned, impact shown.</p>
+      </a>
+      <a href="/gap-finder" class="related-card">
+        <h3>Gap finder</h3>
+        <p>Find exactly where you fall short and get a prioritized action plan to close the gaps.</p>
+      </a>
+      <a href="/" class="related-card">
+        <h3>All tools</h3>
+        <p>Resume builder, impact coach, and more — all free, no sign-up required.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <div style="width:26px;height:26px"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="#2d6a4f"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#2d6a4f"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#74c69d"/></svg></div>
+    <span style="font-weight:700;font-size:.9rem">Landedd</span>
+    <span style="color:var(--gray3);font-size:.8rem">Beta</span>
+  </div>
+  <a href="/">Home</a><a href="/resume-tailor">Resume Tailor</a><a href="/gap-finder">Gap Finder</a><a href="/privacy.html">Privacy</a><a href="/contact.html">Contact</a>
+  <br><br>© 2026 Landedd · Free AI-powered job search tools built with real hiring intelligence.
+</footer>
+</body>
+</html>
