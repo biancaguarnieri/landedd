@@ -17,7 +17,7 @@
     gtag('config', 'G-YHXZXVKHZE', { send_page_view: true });
     function trackEvent(eventName, params) {
       if (typeof gtag === 'function') { gtag('event', eventName, params || {}); }
-      const pilotEvents = ['ai_output_generated','ai_output_rated','user_signed_up','app_opened','wtp_response','resume_downloaded_or_saved','feedback_submitted'];
+      const pilotEvents = ['ai_output_generated','ai_output_rated','user_signed_up','app_opened','wtp_response','resume_downloaded_or_saved','feedback_submitted','email_capture_shown','email_capture_submitted','email_capture_dismissed'];
       if (pilotEvents.includes(eventName)) {
         fetch('/api/metrics', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: eventName, ...(params || {}) }) }).catch(() => {});
       }
@@ -88,7 +88,7 @@
     .card-btn:hover{background:var(--gm)}
     .card-btn.active-btn{background:var(--ink)}
 
-    /* INLINE TOOL PANEL — full width below cards */
+    /* INLINE TOOL PANEL */
     .tool-panel-row{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--g);border-radius:0 0 16px 16px;display:none;animation:slideIn .22s ease}
     .tool-panel-row.open{display:block}
     @keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
@@ -97,12 +97,9 @@
     .panel-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--ink);margin-bottom:6px}
     .panel-sub{font-size:.84rem;color:var(--ink3);margin-bottom:28px;line-height:1.5}
 
-    /* Two-column input layout */
     .input-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px}
     @media(max-width:620px){.input-cols{grid-template-columns:1fr}}
-    .input-col{}
 
-    /* Form fields */
     .fld{margin-bottom:12px}
     .fld label{display:block;font-size:.69rem;font-weight:700;color:var(--ink2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
     .fld textarea,.fld input[type=text],.fld input[type=url],.fld input[type=email]{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:var(--rs);font-family:var(--sans);font-size:.87rem;color:var(--ink);background:var(--white);transition:border-color .2s;resize:vertical}
@@ -124,7 +121,6 @@
     .dz p{font-size:.78rem;color:var(--ink3)}
     .dz input[type=file]{display:none}
 
-    /* Run button */
     .run-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .btn-run{padding:13px 28px;border-radius:24px;border:none;background:var(--g);color:#fff;font-family:var(--sans);font-size:.94rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
     .btn-run:hover:not(:disabled){background:var(--gm);transform:translateY(-1px)}
@@ -134,12 +130,10 @@
     .tool-usage-note.out{color:#991b1b;font-weight:600}
     .err-box{background:#fff5f5;border:1px solid #fca5a5;border-radius:var(--rs);padding:10px 14px;margin-top:14px;font-size:.83rem;color:#b91c1c;display:none}
 
-    /* ═══════════ RESULTS — full width coaching session ═══════════ */
     .result-section{display:none;margin-top:32px;border-top:1px solid var(--line);padding-top:32px}
     .result-section.show{display:block;animation:fadeUp .3s ease}
     @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    /* Text resume result */
     .resume-result-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
     .rr-title{font-family:var(--serif);font-size:1.25rem;color:var(--ink)}
     .rr-actions{display:flex;gap:8px;flex-wrap:wrap}
@@ -150,7 +144,6 @@
     .resume-body{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:28px 32px;font-family:Georgia,'Times New Roman',serif;font-size:.9rem;line-height:1.75;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;max-height:480px;overflow-y:auto}
     .resume-body.loading{color:var(--ink3);font-style:italic;font-family:var(--sans)}
 
-    /* Rating bar */
     .rating-row{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px 0;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink2)}
     .rating-row span{flex:1}
     .rating-btns{display:flex;gap:6px}
@@ -160,7 +153,6 @@
     .rate-btn.rated-neg{background:#fee2e2;border-color:#f09595;color:#991b1b}
     .rating-thanks{font-size:.78rem;color:var(--g);padding:8px 0}
 
-    /* Score hero */
     .score-hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:var(--white);border:1.5px solid var(--line);border-left:4px solid var(--g);border-radius:var(--r);padding:24px 28px;margin-bottom:20px}
     @media(max-width:480px){.score-hero{grid-template-columns:1fr}}
     .score-ring-svg{width:88px;height:88px}
@@ -169,12 +161,10 @@
     .score-ring-fg.high{stroke:#2d6a4f}.score-ring-fg.mid{stroke:#d97706}.score-ring-fg.low{stroke:#dc2626}
     .score-ring-text{font-size:22px;font-weight:700;fill:var(--ink);font-family:var(--sans);dominant-baseline:central;text-anchor:middle}
     .score-ring-sub{font-size:9px;fill:var(--ink3);font-family:var(--sans);dominant-baseline:central;text-anchor:middle}
-    .score-right{}
     .score-verdict{font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:6px}
     .score-verdict.high{color:#2d6a4f}.score-verdict.mid{color:#d97706}.score-verdict.low{color:#dc2626}
     .score-summary{font-size:.86rem;color:var(--ink2);line-height:1.6}
 
-    /* Analysis blocks */
     .an-blocks{display:flex;flex-direction:column;gap:12px}
     .an-block{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
     .an-block-hdr{display:flex;align-items:center;gap:10px;padding:12px 18px;background:var(--sand);border-bottom:1px solid var(--line)}
@@ -226,7 +216,6 @@
     .mini-panel{display:none;background:var(--gbg);border-top:2px solid var(--g);padding:28px 28px 24px;animation:slideIn .2s ease}
     .mini-card.active .mini-panel{display:block}
 
-    /* BUILDER */
     .exprow{background:var(--white);border:1px solid var(--line);border-radius:var(--rs);padding:14px;margin-bottom:8px}
     .exprow-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
     .exprow-lbl{font-size:.7rem;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}
@@ -239,7 +228,6 @@
     .job-url-opt .opt-lbl{font-size:.68rem;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
     .job-url-opt p{font-size:.73rem;color:var(--ink3);margin-top:4px;line-height:1.4}
 
-    /* EXAMPLES */
     .examples-sec{background:var(--sand);border-top:1px solid var(--line);padding:64px 6% 80px}
     .sec-hdr{text-align:center;margin-bottom:40px}
     .sec-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:10px}
@@ -262,7 +250,6 @@
     .eg-high{background:#fee2e2;color:#991b1b}.eg-mid{background:#fef3c7;color:#92400e}.eg-low{background:#dbeafe;color:#1e40af}
     .ex-caption{font-size:.76rem;color:var(--ink3);line-height:1.5;border-top:1px solid var(--line);padding-top:10px}
 
-    /* CTA */
     .cta-sec{background:var(--ink);padding:72px 6%;text-align:center}
     .cta-sec h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.1}
     .cta-sec h2 em{color:var(--gl);font-style:italic}
@@ -270,7 +257,6 @@
     .btn-cta-inv{background:var(--white);color:var(--ink);border:none;padding:14px 32px;border-radius:24px;font-family:var(--sans);font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.01em}
     .btn-cta-inv:hover{background:var(--gp);color:var(--g)}
 
-    /* PRIVACY */
     .privacy-sec{background:var(--cream);padding:64px 6%;border-top:1px solid var(--line)}
     .pillar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:900px;margin:0 auto 18px}
     .pillar{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
@@ -281,7 +267,6 @@
     .priv-cta{text-align:center;font-size:.82rem;color:var(--ink3)}
     .priv-cta a{color:var(--g);font-weight:600;text-decoration:none}
 
-    /* FEEDBACK */
     .feedback-sec{background:var(--sand);padding:64px 6%;border-top:1px solid var(--line)}
     .feedback-inner{max-width:560px;margin:0 auto}
     .feedback-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px;margin-top:24px}
@@ -297,7 +282,6 @@
     .btn-fb:disabled{opacity:.6;cursor:not-allowed}
     .fb-ok{background:var(--gbg);border:1px solid var(--gp);border-radius:var(--rs);padding:13px;font-size:.85rem;color:var(--g);display:none;margin-top:10px}
 
-    /* FOOTER */
     footer{background:var(--ink);padding:26px 6%;text-align:center;font-size:.8rem;color:rgba(255,255,255,.5)}
     footer a{color:rgba(255,255,255,.5);text-decoration:none;margin:0 10px}
     footer a:hover{color:var(--gl)}
@@ -306,7 +290,6 @@
     .fb-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;background:var(--g);color:#fff;writing-mode:vertical-lr;padding:13px 8px;border-radius:8px 0 0 8px;font-family:var(--sans);font-size:.72rem;font-weight:700;cursor:pointer;border:none;letter-spacing:.06em;transition:all .2s}
     .fb-tab:hover{background:var(--gm)}
 
-    /* RESUME PAGE OVERLAY */
     .rp-overlay{display:none;position:fixed;inset:0;z-index:300;background:#eae8e3;overflow-y:auto}
     .rp-overlay.show{display:block}
     .rp-bar{background:var(--white);border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10}
@@ -327,7 +310,6 @@
     .letter-sheet{background:var(--white);padding:72px 80px;min-height:1056px;box-shadow:0 2px 24px rgba(0,0,0,.1);font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.65;color:#1a1a1a}
     @media(max-width:700px){.letter-sheet{padding:32px 20px;min-height:auto}}
 
-    /* WTP */
     .wtp-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(26,26,26,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center}
     .wtp-overlay.show{display:flex}
     .wtp-card{background:var(--white);border-radius:16px;padding:28px;max-width:420px;width:90%;animation:slideIn .25s ease}
@@ -342,10 +324,54 @@
     .wtp-skip:hover{color:var(--g)}
     .wtp-thanks{text-align:center;padding:8px 0;font-size:.88rem;color:var(--g);font-weight:600}
 
+    /* ── EMAIL CAPTURE MODAL ── */
+    .ec-overlay{display:none;position:fixed;inset:0;z-index:450;background:rgba(26,26,26,.42);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:24px}
+    .ec-overlay.show{display:flex}
+    .ec-card{background:var(--white);border-radius:18px;border:1px solid var(--line);width:100%;max-width:420px;padding:36px 32px 28px;position:relative;animation:ecIn .35s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes ecIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .ec-close{position:absolute;top:14px;right:14px;width:26px;height:26px;border:none;background:var(--sand);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:15px;line-height:1;transition:background .15s}
+    .ec-close:hover{background:var(--line);color:var(--ink)}
+    .ec-badge{display:inline-flex;align-items:center;gap:7px;background:var(--gbg);border:1px solid #b7dfc9;border-radius:100px;padding:5px 13px 5px 9px;margin-bottom:18px}
+    .ec-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--g);flex-shrink:0}
+    .ec-badge-text{font-size:.72rem;font-weight:600;color:#1b4332;letter-spacing:.01em}
+    .ec-heading{font-family:var(--serif);font-size:1.5rem;line-height:1.2;color:var(--ink);margin-bottom:8px}
+    .ec-heading em{color:var(--g);font-style:italic}
+    .ec-sub{font-size:.83rem;color:var(--ink2);line-height:1.6;margin-bottom:18px}
+    .ec-perks{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+    .ec-perks li{display:flex;align-items:flex-start;gap:9px;font-size:.8rem;color:var(--ink2);line-height:1.45}
+    .ec-perks li::before{content:'';width:15px;height:15px;border-radius:50%;background:var(--gbg);border:1.5px solid #b7dfc9;flex-shrink:0;margin-top:1px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 9 9'%3E%3Cpath d='M1.5 4.5l2 2L7.5 2' stroke='%232d6a4f' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+    .ec-input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rs);font-family:var(--sans);font-size:.87rem;color:var(--ink);background:var(--sand);outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:8px}
+    .ec-input::placeholder{color:var(--ink3)}
+    .ec-input:focus{border-color:var(--gl);box-shadow:0 0 0 3px rgba(116,198,157,.18);background:var(--white)}
+    .ec-input.ec-err{border-color:#f09595}
+    .ec-errmsg{font-size:.72rem;color:#b91c1c;display:none;margin-bottom:6px}
+    .ec-errmsg.show{display:block}
+    .ec-submit{width:100%;padding:13px;border:none;border-radius:var(--rs);background:var(--g);color:#fff;font-family:var(--sans);font-size:.9rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s;position:relative;overflow:hidden}
+    .ec-submit:hover{background:var(--gm)}
+    .ec-submit:active{transform:scale(.99)}
+    .ec-submit.loading{pointer-events:none}
+    .ec-submit .ec-btn-text{transition:opacity .2s}
+    .ec-submit.loading .ec-btn-text{opacity:0}
+    .ec-submit .ec-spin{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+    .ec-submit.loading .ec-spin{opacity:1}
+    .ec-spin svg{animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .ec-privacy{font-size:.69rem;color:var(--ink3);text-align:center;margin-top:8px;line-height:1.5}
+    .ec-skip{display:block;width:100%;text-align:center;font-size:.76rem;color:var(--ink3);margin-top:12px;cursor:pointer;background:none;border:none;font-family:var(--sans);text-decoration:underline;text-underline-offset:2px;transition:color .15s}
+    .ec-skip:hover{color:var(--ink2)}
+    .ec-success{display:none;flex-direction:column;align-items:center;text-align:center;padding:8px 0}
+    .ec-success.show{display:flex}
+    .ec-success-icon{width:48px;height:48px;border-radius:50%;background:var(--gbg);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+    .ec-success-heading{font-family:var(--serif);font-size:1.3rem;color:var(--ink);margin-bottom:6px}
+    .ec-success-sub{font-size:.82rem;color:var(--ink2);line-height:1.6;max-width:280px}
+    .ec-success-close{margin-top:20px;font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--g);background:var(--gbg);border:none;border-radius:var(--rs);padding:9px 22px;cursor:pointer;transition:background .15s}
+    .ec-success-close:hover{background:var(--gp)}
+
     @media(max-width:640px){
       .hero{padding:56px 5% 24px}
       .tools-wrap{padding:0 4% 50px}
       .tool-panel-inner{padding:22px 18px}
+      .ec-card{padding:28px 20px 22px}
     }
   </style>
 </head>
@@ -376,7 +402,6 @@
 <div class="tools-wrap">
   <div class="tools-label">Pick a tool → start immediately</div>
 
-  <!-- PRIMARY TOOL CARDS -->
   <div class="tool-grid">
     <div class="tool-card" id="card-scanner">
       <span class="card-icon">🔍</span>
@@ -398,7 +423,6 @@
     </div>
   </div>
 
-  <!-- FULL-WIDTH TOOL PANEL (below cards) -->
   <div class="tool-panel-row" id="tool-panel-row">
     <div class="tool-panel-inner">
 
@@ -545,7 +569,6 @@
     </button>
     <div class="more-grid" id="more-grid">
 
-      <!-- BUILDER -->
       <div class="mini-card" id="card-builder">
         <div class="mini-title">✦ Resume builder</div>
         <div class="mini-desc">Starting from scratch? Answer a few questions and we'll build a clean, polished resume.</div>
@@ -583,7 +606,6 @@
         </div>
       </div>
 
-      <!-- IMPACT -->
       <div class="mini-card" id="card-impact">
         <div class="mini-title">⚡ Impact coach</div>
         <div class="mini-desc">Transform rough job notes into achievement-first bullets that show what you actually accomplished.</div>
@@ -763,6 +785,48 @@
   </div>
 </div>
 
+<!-- EMAIL CAPTURE MODAL -->
+<div class="ec-overlay" id="ecOverlay" onclick="ecHandleOverlay(event)">
+  <div class="ec-card" id="ecCard">
+    <button class="ec-close" onclick="ecClose()" aria-label="Close">×</button>
+
+    <!-- Form state -->
+    <div id="ecFormState">
+      <div class="ec-badge">
+        <div class="ec-badge-dot"></div>
+        <span class="ec-badge-text" id="ecBadgeText">Your results are ready</span>
+      </div>
+      <h2 class="ec-heading">Want to <em>keep</em> this?</h2>
+      <p class="ec-sub">We'll send your results straight to your inbox — one email, no spam, no account created.</p>
+      <ul class="ec-perks">
+        <li>Your full analysis, saved and easy to reference</li>
+        <li>Tips on what to fix first for this role</li>
+        <li>One email only — we won't follow up unless you ask</li>
+      </ul>
+      <input type="email" class="ec-input" id="ecEmailInput" placeholder="your@email.com" autocomplete="email" oninput="ecClearErr()" onkeydown="if(event.key==='Enter')ecSubmit()" />
+      <div class="ec-errmsg" id="ecErrMsg">Please enter a valid email address.</div>
+      <button class="ec-submit" id="ecSubmitBtn" onclick="ecSubmit()">
+        <span class="ec-btn-text">Email me my results</span>
+        <span class="ec-spin">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="rgba(255,255,255,0.3)" stroke-width="2"/><path d="M9 2a7 7 0 0 1 7 7" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+      <p class="ec-privacy">No account created · No data stored · Unsubscribe anytime</p>
+      <button class="ec-skip" onclick="ecClose()">No thanks, I'll screenshot it</button>
+    </div>
+
+    <!-- Success state -->
+    <div class="ec-success" id="ecSuccess">
+      <div class="ec-success-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11l4.5 4.5L18 6" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="ec-success-heading">On its way</div>
+      <p class="ec-success-sub">Check your inbox in a moment. Check your spam folder if it doesn't arrive.</p>
+      <button class="ec-success-close" onclick="ecClose()">Back to Landedd</button>
+    </div>
+  </div>
+</div>
+
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
 
 <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
@@ -779,7 +843,6 @@ let gapBgMethod='paste',buildMethod='questions',rpTool='scanner';
 // ── OPEN TOOL ──
 let activeTool=null;
 function openTool(tool){
-  // Reset any previous active state
   ['scanner','tailor','gaps'].forEach(t=>{
     const c=document.getElementById('card-'+t);
     const b=document.getElementById('btn-'+t);
@@ -792,24 +855,20 @@ function openTool(tool){
   });
 
   if(tool==='builder'||tool==='impact'){
-    // Open more-tools section
     const mg=document.getElementById('more-grid');
     const mt=document.getElementById('more-trigger');
     if(!mg.classList.contains('open')){mg.classList.add('open');mt.classList.add('open');}
     const mc=document.getElementById('card-'+tool);
     if(mc){mc.classList.add('active');setTimeout(()=>mc.scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
-    // Close main panel
     document.getElementById('tool-panel-row').classList.remove('open');
     ALL_TOOLS.forEach(t=>{const p=document.getElementById('pane-'+t);if(p)p.style.display='none';});
   } else {
-    // Open main panel
     const panel=document.getElementById('tool-panel-row');
     const card=document.getElementById('card-'+tool);
     const btn=document.getElementById('btn-'+tool);
     panel.classList.add('open');
     if(card)card.classList.add('active');
     if(btn){btn.textContent='Currently open';btn.classList.add('active-btn');}
-    // Show correct pane
     ['scanner','tailor','gaps'].forEach(t=>{const p=document.getElementById('pane-'+t);if(p)p.style.display=t===tool?'block':'none';});
     setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
   }
@@ -927,6 +986,90 @@ function checkWtp(){_runs++;localStorage.setItem('_ldRuns',_runs);if(_runs===3&&
 function closeWtp(){document.getElementById('wtpOverlay').classList.remove('show');_wtpShown=true;localStorage.setItem('_ldWtpShown','1');}
 function selectWtp(tier){document.querySelectorAll('.wtp-opt').forEach(b=>b.classList.remove('selected'));event.target.closest('.wtp-opt').classList.add('selected');document.getElementById('wtpOpts').style.opacity='0.4';document.getElementById('wtpOpts').style.pointerEvents='none';document.getElementById('wtpThanks').style.display='block';trackEvent('wtp_response',{tier});_wtpShown=true;localStorage.setItem('_ldWtpShown','1');setTimeout(()=>closeWtp(),2200);}
 
+// ── EMAIL CAPTURE ──
+let _ecShown=localStorage.getItem('_ldEcShown')==='1';
+let _ecTool='';
+let _ecTimer=null;
+
+function showEmailCapture(tool){
+  // Only show once per session, and not if already submitted
+  if(_ecShown)return;
+  // Don't conflict with WTP overlay
+  if(document.getElementById('wtpOverlay').classList.contains('show'))return;
+  _ecTool=tool;
+  // Set badge text based on tool
+  const badges={scanner:'Your ATS scan is ready',tailor:'Your tailored resume is ready',gaps:'Your gap analysis is ready',builder:'Your resume is ready',impact:'Your impact bullets are ready'};
+  const el=document.getElementById('ecBadgeText');
+  if(el)el.textContent=badges[tool]||'Your results are ready';
+  // Show after 3s delay so user reads their result first
+  _ecTimer=setTimeout(()=>{
+    // Re-check WTP hasn't appeared in the meantime
+    if(document.getElementById('wtpOverlay').classList.contains('show'))return;
+    document.getElementById('ecOverlay').classList.add('show');
+    document.getElementById('ecEmailInput').focus();
+    trackEvent('email_capture_shown',{tool});
+  },3000);
+}
+
+function ecClose(){
+  clearTimeout(_ecTimer);
+  document.getElementById('ecOverlay').classList.remove('show');
+  trackEvent('email_capture_dismissed',{tool:_ecTool});
+  // Mark shown so it doesn't fire again this session
+  _ecShown=true;
+  localStorage.setItem('_ldEcShown','1');
+  setTimeout(ecReset,400);
+}
+
+function ecHandleOverlay(e){
+  if(e.target===document.getElementById('ecOverlay'))ecClose();
+}
+
+function ecClearErr(){
+  document.getElementById('ecEmailInput').classList.remove('ec-err');
+  document.getElementById('ecErrMsg').classList.remove('show');
+}
+
+function ecIsValidEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+
+async function ecSubmit(){
+  const input=document.getElementById('ecEmailInput');
+  const btn=document.getElementById('ecSubmitBtn');
+  const email=input.value.trim();
+  if(!ecIsValidEmail(email)){
+    input.classList.add('ec-err');
+    document.getElementById('ecErrMsg').classList.add('show');
+    input.focus();
+    return;
+  }
+  btn.classList.add('loading');
+  try{
+    await fetch('/api/feedback',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({type:'email_capture',email,tool:_ecTool,source:'post_result_modal'})
+    });
+    trackEvent('email_capture_submitted',{tool:_ecTool});
+    document.getElementById('ecFormState').style.display='none';
+    document.getElementById('ecSuccess').classList.add('show');
+    _ecShown=true;
+    localStorage.setItem('_ldEcShown','1');
+  }catch(err){
+    btn.classList.remove('loading');
+    input.classList.add('ec-err');
+    document.getElementById('ecErrMsg').textContent='Something went wrong — please try again.';
+    document.getElementById('ecErrMsg').classList.add('show');
+  }
+}
+
+function ecReset(){
+  document.getElementById('ecFormState').style.display='';
+  document.getElementById('ecSuccess').classList.remove('show');
+  document.getElementById('ecEmailInput').value='';
+  document.getElementById('ecSubmitBtn').classList.remove('loading');
+  ecClearErr();
+}
+
 // ── RATING ──
 function rateOutput(tool,rating){
   const bar=document.getElementById('rating-bar-'+tool);if(!bar)return;
@@ -940,21 +1083,15 @@ function rateOutput(tool,rating){
 function looksLikeInjection(text){if(!text||text.trim().length<8)return false;const t=text.trim();return /^(ignore|forget|disregard|override|bypass).{0,40}(above|previous|instruction|rule|prompt)/i.test(t)||/^(you are|act as|pretend|roleplay|from now on|imagine you)/i.test(t)||(/(reveal|show|print|output|dump).{0,20}(prompt|instruction|system|secret|token|key)/i.test(t));}
 function validateField(text,fieldName){if(!text||!text.trim())return;if(looksLikeInjection(text.trim()))throw new Error('That field expects your actual '+fieldName.toLowerCase()+', not instructions.');}
 
-// ── URL FETCHING (improved) ──
-// Known blocked domains — many major job boards block server-side scraping
+// ── URL FETCHING ──
 const BLOCKED_DOMAINS=['linkedin.com','glassdoor.com','indeed.com','monster.com','ziprecruiter.com','careerbuilder.com','simplyhired.com'];
 function isLikelyBlocked(url){try{const h=new URL(url).hostname.replace('www.','');return BLOCKED_DOMAINS.some(d=>h===d||h.endsWith('.'+d));}catch{return false;}}
 
 async function fetchUrl(url){
-  if(isLikelyBlocked(url)){
-    throw new Error('That site blocks automated access (most major job boards do). Please copy and paste the job description text directly — it takes 30 seconds and works perfectly.');
-  }
+  if(isLikelyBlocked(url)){throw new Error('That site blocks automated access (most major job boards do). Please copy and paste the job description text directly — it takes 30 seconds and works perfectly.');}
   const r=await fetch('/api/fetch-url',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
   const d=await r.json();
-  if(d.error){
-    // If blocked or failed, give helpful guidance
-    throw new Error(d.error+' Try copying the job description text and pasting it instead.');
-  }
+  if(d.error){throw new Error(d.error+' Try copying the job description text and pasting it instead.');}
   const text=d.text||'';
   if(text.length<200)throw new Error("We couldn't read enough text from that page. Please paste the job description directly.");
   const lo=text.toLowerCase();
@@ -1062,7 +1199,7 @@ async function callClaude(prompt){
   return text;
 }
 
-// ── RUN TEXT TOOL (builder, tailor, impact) ──
+// ── RUN TEXT TOOL ──
 async function runText(tool){
   if(toolLeft(tool)<=0){showErr(tool,'Daily limit reached — resets in '+fmtReset()+'.');return;}
   const btn=document.getElementById('run-'+tool);
@@ -1081,11 +1218,12 @@ async function runText(tool){
     resDiv.classList.add('show');
     resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
     await incTool(tool);syncUsageNote(tool);checkWtp();
+    showEmailCapture(tool);
   }catch(e){showErr(tool,e.message);}
   finally{btn.disabled=toolLeft(tool)<=0;if(lbl)lbl.textContent=(tool==='builder'?'Build my resume':tool==='tailor'?'Tailor my resume':'Generate impact bullets');}
 }
 
-// ── RUN ANALYSIS TOOL (scanner, gaps) ──
+// ── RUN ANALYSIS TOOL ──
 async function runAnalysis(tool){
   if(toolLeft(tool)<=0){showErr(tool,'Daily limit reached — resets in '+fmtReset()+'.');return;}
   const btn=document.getElementById('run-'+tool);
@@ -1106,6 +1244,7 @@ async function runAnalysis(tool){
     resDiv.classList.add('show');
     resDiv.scrollIntoView({behavior:'smooth',block:'nearest'});
     await incTool(tool);syncUsageNote(tool);checkWtp();
+    showEmailCapture(tool);
   }catch(e){showErr(tool,e.message);}
   finally{btn.disabled=toolLeft(tool)<=0;if(lbl)lbl.textContent=tool==='gaps'?'Find my gaps':'Scan my fit';}
 }
@@ -1188,7 +1327,7 @@ function openResumePage(tool){
   syncDlBadge();document.getElementById('resumePage').classList.add('show');document.body.style.overflow='hidden';
 }
 function closeResumePage(){document.getElementById('resumePage').classList.remove('show');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeResumePage();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeResumePage();ecClose();}});
 
 function esc2(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function renderLetter(text){
