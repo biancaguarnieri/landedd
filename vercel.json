@@ -1,5 +1,8 @@
 {
   "rewrites": [
-    { "source": "/dashboard", "destination": "/dashboard.html" }
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/fit-scanner", "destination": "/fit-scanner.html" },
+    { "source": "/resume-tailor", "destination": "/resume-tailor.html" },
+    { "source": "/gap-finder", "destination": "/gap-finder.html" }
   ]
 }
