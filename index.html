@@ -15,11 +15,14 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-YHXZXVKHZE', { send_page_view: true });
+    // PATCH 1: UTM source capture — persists across page views in same session
+    (function(){const p=new URLSearchParams(window.location.search);const s=p.get('utm_source')||p.get('utm')||p.get('ref')||sessionStorage.getItem('_ldSrc')||'direct';if(s!=='direct')sessionStorage.setItem('_ldSrc',s);window._ldSrc=s;})();
     function trackEvent(eventName, params) {
       if (typeof gtag === 'function') { gtag('event', eventName, params || {}); }
       const pilotEvents = ['ai_output_generated','ai_output_rated','user_signed_up','app_opened','wtp_response','resume_downloaded_or_saved','feedback_submitted','email_capture_shown','email_capture_submitted','email_capture_dismissed'];
       if (pilotEvents.includes(eventName)) {
-        fetch('/api/metrics', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: eventName, ...(params || {}) }) }).catch(() => {});
+        // PATCH 2: utm_source included in every metrics POST
+        fetch('/api/metrics', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: eventName, utm_source: window._ldSrc||'direct', ...(params || {}) }) }).catch(() => {});
       }
     }
   </script>
@@ -48,34 +51,24 @@
     }
     html{scroll-behavior:smooth}
     body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
-
-    /* NAV */
     nav{position:sticky;top:0;z-index:200;background:rgba(250,249,246,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:0 6%;display:flex;align-items:center;justify-content:space-between;height:60px}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .logo-mark svg{width:32px;height:32px;display:block}
     .logo-text{font-family:var(--sans);font-size:1.15rem;font-weight:700;color:var(--ink);letter-spacing:-.3px}
     .nav-cta{background:var(--g);color:#fff;padding:8px 20px;border-radius:20px;border:none;font-family:var(--sans);font-size:.84rem;font-weight:600;cursor:pointer;transition:background .2s;letter-spacing:.01em}
     .nav-cta:hover{background:var(--gm)}
-
-    /* PROOF BAR */
     .proof-bar{background:var(--g);padding:9px 6%;display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
     .proof-item{display:flex;align-items:center;gap:6px;font-size:.74rem;color:rgba(255,255,255,.82);white-space:nowrap}
     .proof-dot{width:5px;height:5px;border-radius:50%;background:var(--gl);flex-shrink:0}
     .proof-item strong{color:#fff;font-weight:600}
-
-    /* HERO */
     .hero{padding:88px 6% 36px;text-align:center;max-width:860px;margin:0 auto}
     .hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:18px}
     .hero h1{font-family:var(--serif);font-size:clamp(2.6rem,6vw,4.2rem);font-weight:400;line-height:1.08;letter-spacing:-.5px;color:var(--ink);margin-bottom:20px}
     .hero h1 em{color:var(--g);font-style:italic}
     .hero p{font-size:1.05rem;color:var(--ink2);max-width:500px;margin:0 auto 10px;line-height:1.7}
     .hero-sub{font-size:.78rem;color:var(--ink3);margin-bottom:44px;letter-spacing:.02em}
-
-    /* TOOLS SECTION */
     .tools-wrap{max-width:1080px;margin:0 auto;padding:0 5% 60px}
     .tools-label{text-align:center;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:26px}
-
-    /* CARD GRID */
     .tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:1px}
     @media(max-width:720px){.tool-grid{grid-template-columns:1fr}}
     .tool-card{background:var(--white);padding:28px 26px 22px;cursor:pointer;transition:background .18s;position:relative;display:flex;flex-direction:column;gap:0}
@@ -87,8 +80,6 @@
     .card-btn{display:inline-flex;align-items:center;gap:6px;background:var(--g);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-family:var(--sans);font-size:.82rem;font-weight:600;cursor:pointer;transition:background .18s;width:100%;justify-content:center}
     .card-btn:hover{background:var(--gm)}
     .card-btn.active-btn{background:var(--ink)}
-
-    /* INLINE TOOL PANEL */
     .tool-panel-row{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--g);border-radius:0 0 16px 16px;display:none;animation:slideIn .22s ease}
     .tool-panel-row.open{display:block}
     @keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
@@ -96,10 +87,8 @@
     @media(max-width:640px){.tool-panel-inner{padding:24px 20px 28px}}
     .panel-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;color:var(--ink);margin-bottom:6px}
     .panel-sub{font-size:.84rem;color:var(--ink3);margin-bottom:28px;line-height:1.5}
-
     .input-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px}
     @media(max-width:620px){.input-cols{grid-template-columns:1fr}}
-
     .fld{margin-bottom:12px}
     .fld label{display:block;font-size:.69rem;font-weight:700;color:var(--ink2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
     .fld textarea,.fld input[type=text],.fld input[type=url],.fld input[type=email]{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:var(--rs);font-family:var(--sans);font-size:.87rem;color:var(--ink);background:var(--white);transition:border-color .2s;resize:vertical}
@@ -120,7 +109,6 @@
     .dz .dzic{font-size:1.3rem;margin-bottom:4px}
     .dz p{font-size:.78rem;color:var(--ink3)}
     .dz input[type=file]{display:none}
-
     .run-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .btn-run{padding:13px 28px;border-radius:24px;border:none;background:var(--g);color:#fff;font-family:var(--sans);font-size:.94rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
     .btn-run:hover:not(:disabled){background:var(--gm);transform:translateY(-1px)}
@@ -129,11 +117,9 @@
     .tool-usage-note.warn{color:#b45309}
     .tool-usage-note.out{color:#991b1b;font-weight:600}
     .err-box{background:#fff5f5;border:1px solid #fca5a5;border-radius:var(--rs);padding:10px 14px;margin-top:14px;font-size:.83rem;color:#b91c1c;display:none}
-
     .result-section{display:none;margin-top:32px;border-top:1px solid var(--line);padding-top:32px}
     .result-section.show{display:block;animation:fadeUp .3s ease}
     @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
     .resume-result-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
     .rr-title{font-family:var(--serif);font-size:1.25rem;color:var(--ink)}
     .rr-actions{display:flex;gap:8px;flex-wrap:wrap}
@@ -143,7 +129,6 @@
     .btn-view{background:var(--g);color:#fff}.btn-view:hover{background:var(--gm)}
     .resume-body{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:28px 32px;font-family:Georgia,'Times New Roman',serif;font-size:.9rem;line-height:1.75;color:var(--ink);white-space:pre-wrap;word-wrap:break-word;max-height:480px;overflow-y:auto}
     .resume-body.loading{color:var(--ink3);font-style:italic;font-family:var(--sans)}
-
     .rating-row{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px 0;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink2)}
     .rating-row span{flex:1}
     .rating-btns{display:flex;gap:6px}
@@ -152,7 +137,6 @@
     .rate-btn.rated-pos{background:var(--gp);border-color:var(--g);color:var(--g)}
     .rate-btn.rated-neg{background:#fee2e2;border-color:#f09595;color:#991b1b}
     .rating-thanks{font-size:.78rem;color:var(--g);padding:8px 0}
-
     .score-hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:var(--white);border:1.5px solid var(--line);border-left:4px solid var(--g);border-radius:var(--r);padding:24px 28px;margin-bottom:20px}
     @media(max-width:480px){.score-hero{grid-template-columns:1fr}}
     .score-ring-svg{width:88px;height:88px}
@@ -164,7 +148,6 @@
     .score-verdict{font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:6px}
     .score-verdict.high{color:#2d6a4f}.score-verdict.mid{color:#d97706}.score-verdict.low{color:#dc2626}
     .score-summary{font-size:.86rem;color:var(--ink2);line-height:1.6}
-
     .an-blocks{display:flex;flex-direction:column;gap:12px}
     .an-block{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
     .an-block-hdr{display:flex;align-items:center;gap:10px;padding:12px 18px;background:var(--sand);border-bottom:1px solid var(--line)}
@@ -196,8 +179,6 @@
     .an-copy-btn{font-size:.73rem;font-weight:600;color:var(--ink3);background:none;border:1px solid var(--line);padding:5px 13px;border-radius:12px;cursor:pointer;font-family:var(--sans);transition:all .15s}
     .an-copy-btn:hover{border-color:var(--g);color:var(--g)}
     .an-copy-btn.copied{color:var(--g);border-color:var(--gl);background:var(--gbg)}
-
-    /* MORE TOOLS */
     .more-wrap{background:var(--sand);border:1px solid var(--line);border-radius:12px;margin-top:1px;overflow:hidden}
     .more-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;font-family:var(--sans);font-size:.84rem;font-weight:600;color:var(--ink2);background:none;border:none;cursor:pointer;transition:color .18s}
     .more-trigger:hover{color:var(--g)}
@@ -215,7 +196,6 @@
     .mini-btn:hover{background:var(--gm)}
     .mini-panel{display:none;background:var(--gbg);border-top:2px solid var(--g);padding:28px 28px 24px;animation:slideIn .2s ease}
     .mini-card.active .mini-panel{display:block}
-
     .exprow{background:var(--white);border:1px solid var(--line);border-radius:var(--rs);padding:14px;margin-bottom:8px}
     .exprow-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
     .exprow-lbl{font-size:.7rem;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}
@@ -227,7 +207,6 @@
     .job-url-opt{background:var(--gbg);border:1px solid var(--gp);border-radius:var(--rs);padding:11px 13px;margin-top:10px}
     .job-url-opt .opt-lbl{font-size:.68rem;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
     .job-url-opt p{font-size:.73rem;color:var(--ink3);margin-top:4px;line-height:1.4}
-
     .examples-sec{background:var(--sand);border-top:1px solid var(--line);padding:64px 6% 80px}
     .sec-hdr{text-align:center;margin-bottom:40px}
     .sec-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:10px}
@@ -249,14 +228,12 @@
     .ex-gap{font-size:.72rem;padding:4px 9px;border-radius:6px;line-height:1.4}
     .eg-high{background:#fee2e2;color:#991b1b}.eg-mid{background:#fef3c7;color:#92400e}.eg-low{background:#dbeafe;color:#1e40af}
     .ex-caption{font-size:.76rem;color:var(--ink3);line-height:1.5;border-top:1px solid var(--line);padding-top:10px}
-
     .cta-sec{background:var(--ink);padding:72px 6%;text-align:center}
     .cta-sec h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;color:var(--white);margin-bottom:12px;line-height:1.1}
     .cta-sec h2 em{color:var(--gl);font-style:italic}
     .cta-sec p{font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:28px}
     .btn-cta-inv{background:var(--white);color:var(--ink);border:none;padding:14px 32px;border-radius:24px;font-family:var(--sans);font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.01em}
     .btn-cta-inv:hover{background:var(--gp);color:var(--g)}
-
     .privacy-sec{background:var(--cream);padding:64px 6%;border-top:1px solid var(--line)}
     .pillar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:900px;margin:0 auto 18px}
     .pillar{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
@@ -266,7 +243,6 @@
     .pillar p{font-size:.78rem;color:var(--ink2);line-height:1.5}
     .priv-cta{text-align:center;font-size:.82rem;color:var(--ink3)}
     .priv-cta a{color:var(--g);font-weight:600;text-decoration:none}
-
     .feedback-sec{background:var(--sand);padding:64px 6%;border-top:1px solid var(--line)}
     .feedback-inner{max-width:560px;margin:0 auto}
     .feedback-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px;margin-top:24px}
@@ -281,7 +257,6 @@
     .btn-fb:hover:not(:disabled){background:var(--gm)}
     .btn-fb:disabled{opacity:.6;cursor:not-allowed}
     .fb-ok{background:var(--gbg);border:1px solid var(--gp);border-radius:var(--rs);padding:13px;font-size:.85rem;color:var(--g);display:none;margin-top:10px}
-
     footer{background:var(--ink);padding:26px 6%;text-align:center;font-size:.8rem;color:rgba(255,255,255,.5)}
     footer a{color:rgba(255,255,255,.5);text-decoration:none;margin:0 10px}
     footer a:hover{color:var(--gl)}
@@ -289,7 +264,6 @@
     .footer-logo-text{font-weight:700;font-size:.88rem;color:rgba(255,255,255,.8)}
     .fb-tab{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:150;background:var(--g);color:#fff;writing-mode:vertical-lr;padding:13px 8px;border-radius:8px 0 0 8px;font-family:var(--sans);font-size:.72rem;font-weight:700;cursor:pointer;border:none;letter-spacing:.06em;transition:all .2s}
     .fb-tab:hover{background:var(--gm)}
-
     .rp-overlay{display:none;position:fixed;inset:0;z-index:300;background:#eae8e3;overflow-y:auto}
     .rp-overlay.show{display:block}
     .rp-bar{background:var(--white);border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10}
@@ -301,6 +275,8 @@
     .rp-btn{padding:7px 15px;border-radius:20px;font-family:var(--sans);font-size:.76rem;font-weight:700;border:none;cursor:pointer;transition:all .2s}
     .rp-copy{background:var(--sand);color:var(--ink)}.rp-copy:hover{background:var(--line)}
     .rp-copy.copied{background:var(--gp);color:var(--g)}
+    /* PATCH 4a: PDF button style */
+    .rp-pdf{background:var(--g);color:#fff}.rp-pdf:hover{background:var(--gm)}
     .rp-docx{background:var(--ink);color:#fff}.rp-docx:hover{background:#333}
     .rp-gdocs{background:#4285f4;color:#fff}.rp-gdocs:hover{background:#2c6fdb}
     .rp-btn:disabled{opacity:.4;cursor:not-allowed}
@@ -309,7 +285,6 @@
     .letter-wrap{max-width:870px;margin:28px auto;padding:0 16px 60px}
     .letter-sheet{background:var(--white);padding:72px 80px;min-height:1056px;box-shadow:0 2px 24px rgba(0,0,0,.1);font-family:'Times New Roman',Times,serif;font-size:12pt;line-height:1.65;color:#1a1a1a}
     @media(max-width:700px){.letter-sheet{padding:32px 20px;min-height:auto}}
-
     .wtp-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(26,26,26,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center}
     .wtp-overlay.show{display:flex}
     .wtp-card{background:var(--white);border-radius:16px;padding:28px;max-width:420px;width:90%;animation:slideIn .25s ease}
@@ -323,8 +298,6 @@
     .wtp-skip{font-size:.74rem;color:var(--ink3);cursor:pointer;text-decoration:underline;text-align:center}
     .wtp-skip:hover{color:var(--g)}
     .wtp-thanks{text-align:center;padding:8px 0;font-size:.88rem;color:var(--g);font-weight:600}
-
-    /* ── EMAIL CAPTURE MODAL ── */
     .ec-overlay{display:none;position:fixed;inset:0;z-index:450;background:rgba(26,26,26,.42);backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:24px}
     .ec-overlay.show{display:flex}
     .ec-card{background:var(--white);border-radius:18px;border:1px solid var(--line);width:100%;max-width:420px;padding:36px 32px 28px;position:relative;animation:ecIn .35s cubic-bezier(.34,1.56,.64,1)}
@@ -366,13 +339,14 @@
     .ec-success-sub{font-size:.82rem;color:var(--ink2);line-height:1.6;max-width:280px}
     .ec-success-close{margin-top:20px;font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--g);background:var(--gbg);border:none;border-radius:var(--rs);padding:9px 22px;cursor:pointer;transition:background .15s}
     .ec-success-close:hover{background:var(--gp)}
-
     @media(max-width:640px){
       .hero{padding:56px 5% 24px}
       .tools-wrap{padding:0 4% 50px}
       .tool-panel-inner{padding:22px 18px}
       .ec-card{padding:28px 20px 22px}
     }
+    /* PATCH 4b: Print styles for PDF download */
+    @media print{body>*{display:none!important}#resumePage{display:block!important;position:static!important;background:#fff!important;overflow:visible!important}.rp-bar{display:none!important}.letter-wrap{margin:0!important;padding:0!important}.letter-sheet{box-shadow:none!important;padding:54px 60px!important;min-height:auto!important}}
   </style>
 </head>
 <body>
@@ -759,13 +733,15 @@
     <div class="rp-actions">
       <span class="dl-badge" id="dl-badge">3 downloads left</span>
       <button class="rp-btn rp-copy" id="rp-copy-btn" onclick="rpCopy()">Copy text</button>
+      <!-- PATCH 4c: PDF button added -->
+      <button class="rp-btn rp-pdf" id="rp-pdf-btn" onclick="rpDownloadPdf()">⬇ PDF</button>
       <button class="rp-btn rp-docx" id="rp-docx-btn" onclick="rpDownloadDocx()">⬇ Word (.docx)</button>
       <button class="rp-btn rp-gdocs" id="rp-gdocs-btn" onclick="rpOpenGdocs()">Open in Google Docs</button>
     </div>
   </div>
   <div class="letter-wrap">
     <div class="letter-sheet" id="letterSheet"></div>
-    <p style="text-align:center;font-size:.75rem;color:#aaa;margin-top:12px">Tip: Ctrl+P (Cmd+P) → Save as PDF for a print-ready copy.</p>
+    <p style="text-align:center;font-size:.75rem;color:#aaa;margin-top:12px">Tip: Use the ⬇ PDF button above for a print-ready copy.</p>
   </div>
 </div>
 
@@ -789,8 +765,6 @@
 <div class="ec-overlay" id="ecOverlay" onclick="ecHandleOverlay(event)">
   <div class="ec-card" id="ecCard">
     <button class="ec-close" onclick="ecClose()" aria-label="Close">×</button>
-
-    <!-- Form state -->
     <div id="ecFormState">
       <div class="ec-badge">
         <div class="ec-badge-dot"></div>
@@ -814,8 +788,6 @@
       <p class="ec-privacy">No account created · No data stored · Unsubscribe anytime</p>
       <button class="ec-skip" onclick="ecClose()">No thanks, I'll screenshot it</button>
     </div>
-
-    <!-- Success state -->
     <div class="ec-success" id="ecSuccess">
       <div class="ec-success-icon">
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11l4.5 4.5L18 6" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -829,7 +801,8 @@
 
 <button class="fb-tab" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Feedback</button>
 
-<script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+<!-- PATCH 5: docx@7.5.1 — confirmed UMD browser support (8.5.0 broke window.docx) -->
+<script src="https://unpkg.com/docx@7.5.1/build/index.js"></script>
 <script>
 // ── CONSTANTS ──
 const TOOL_MAX=3,DL_MAX=3;
@@ -977,7 +950,7 @@ function syncUsageNote(tool){
   if(n===0){el.textContent='Daily limit reached — resets in '+fmtReset()+'.';el.className='tool-usage-note out';const btn=document.getElementById('run-'+tool);if(btn)btn.disabled=true;}
   else{el.textContent=n+' run'+(n===1?'':'s')+' left today';el.className='tool-usage-note warn';}
 }
-function syncDlBadge(){const n=dlLeft();const el=document.getElementById('dl-badge');if(!el)return;el.textContent=n>0?n+' download'+(n===1?'':'s')+' left':'Limit reached';el.className='dl-badge'+(n===0?' out':n===1?' warn':'');['rp-docx-btn','rp-gdocs-btn'].forEach(id=>{const b=document.getElementById(id);if(b)b.disabled=n===0;});}
+function syncDlBadge(){const n=dlLeft();const el=document.getElementById('dl-badge');if(!el)return;el.textContent=n>0?n+' download'+(n===1?'':'s')+' left':'Limit reached';el.className='dl-badge'+(n===0?' out':n===1?' warn':'');['rp-docx-btn','rp-gdocs-btn','rp-pdf-btn'].forEach(id=>{const b=document.getElementById(id);if(b)b.disabled=n===0;});}
 
 // ── WTP ──
 let _runs=parseInt(localStorage.getItem('_ldRuns')||'0');
@@ -987,23 +960,19 @@ function closeWtp(){document.getElementById('wtpOverlay').classList.remove('show
 function selectWtp(tier){document.querySelectorAll('.wtp-opt').forEach(b=>b.classList.remove('selected'));event.target.closest('.wtp-opt').classList.add('selected');document.getElementById('wtpOpts').style.opacity='0.4';document.getElementById('wtpOpts').style.pointerEvents='none';document.getElementById('wtpThanks').style.display='block';trackEvent('wtp_response',{tier});_wtpShown=true;localStorage.setItem('_ldWtpShown','1');setTimeout(()=>closeWtp(),2200);}
 
 // ── EMAIL CAPTURE ──
-let _ecShown=localStorage.getItem('_ldEcShown')==='1';
+// PATCH 3a: sessionStorage so the modal resets each browser session (was localStorage — permanently blocked for all returning users)
+let _ecShown=sessionStorage.getItem('_ldEcShown')==='1';
 let _ecTool='';
 let _ecTimer=null;
 
 function showEmailCapture(tool){
-  // Only show once per session, and not if already submitted
   if(_ecShown)return;
-  // Don't conflict with WTP overlay
   if(document.getElementById('wtpOverlay').classList.contains('show'))return;
   _ecTool=tool;
-  // Set badge text based on tool
   const badges={scanner:'Your ATS scan is ready',tailor:'Your tailored resume is ready',gaps:'Your gap analysis is ready',builder:'Your resume is ready',impact:'Your impact bullets are ready'};
   const el=document.getElementById('ecBadgeText');
   if(el)el.textContent=badges[tool]||'Your results are ready';
-  // Show after 3s delay so user reads their result first
   _ecTimer=setTimeout(()=>{
-    // Re-check WTP hasn't appeared in the meantime
     if(document.getElementById('wtpOverlay').classList.contains('show'))return;
     document.getElementById('ecOverlay').classList.add('show');
     document.getElementById('ecEmailInput').focus();
@@ -1015,9 +984,9 @@ function ecClose(){
   clearTimeout(_ecTimer);
   document.getElementById('ecOverlay').classList.remove('show');
   trackEvent('email_capture_dismissed',{tool:_ecTool});
-  // Mark shown so it doesn't fire again this session
   _ecShown=true;
-  localStorage.setItem('_ldEcShown','1');
+  // PATCH 3b: sessionStorage
+  sessionStorage.setItem('_ldEcShown','1');
   setTimeout(ecReset,400);
 }
 
@@ -1053,7 +1022,8 @@ async function ecSubmit(){
     document.getElementById('ecFormState').style.display='none';
     document.getElementById('ecSuccess').classList.add('show');
     _ecShown=true;
-    localStorage.setItem('_ldEcShown','1');
+    // PATCH 3c: sessionStorage
+    sessionStorage.setItem('_ldEcShown','1');
   }catch(err){
     btn.classList.remove('loading');
     input.classList.add('ec-err');
@@ -1159,7 +1129,7 @@ const RESUME_RULES=`CRITICAL RULES:
 5. ALWAYS close with "Suggestions to make this even stronger:" with 2-3 specific improvements.`;
 
 async function getPrompt(tool){
-  if(tool==='builder'){const bg=await getBuilderBg();const hasJob=bg.includes('Target job posting:');return 'You are an expert resume writer and senior recruiter with 10+ years at Fortune 500 companies. Build a complete, polished resume.\n'+RESUME_RULES+(hasJob?'\nIMPORTANT: A specific job posting was provided. Mirror its keywords and language.':'')+'\n\nBackground:\n'+bg+'\n\nReturn ONLY the formatted resume followed by the suggestions section.';}
+  if(tool==='builder'){const bg=await getBuilderBg();const hasJob=bg.includes('Target job posting:');return 'You are an expert resume writer and senior recruiter with 10+ years at Fortune 500 companies. Build a complete, polished resume.\n'+RESUME_RULES+(hasJob?'\nIMPORTANT: A specific job posting was provided. Mirror its keywords and language.':'')+'\\n\nBackground:\n'+bg+'\n\nReturn ONLY the formatted resume followed by the suggestions section.';}
   if(tool==='gaps'){
     const jd=await getJdText('gaps');const bg=getGapBgText();
     if(!jd)throw new Error("We need the job description — paste it or drop the link.");
@@ -1292,7 +1262,7 @@ function renderGaps(d){
   if(d.actions?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-blue">→</div><span class="an-block-title">3 moves to make now</span></div><div class="an-block-body">${d.actions.map((a,i)=>`<div class="action-row"><div class="action-num">${i+1}</div><div class="action-text">${esc(a)}</div></div>`).join('')}</div></div>`;
   if(d.improvements?.length)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-amber">✦</div><span class="an-block-title">Suggestions</span></div><div class="an-block-body">${d.improvements.map(s=>`<div class="strength-row"><div class="s-dot" style="background:#d97706"></div><div>${esc(s)}</div></div>`).join('')}</div></div>`;
   if(d.recruiter_take)html+=`<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">💬</div><span class="an-block-title">Recruiter's honest take</span></div><div class="an-block-body"><div class="rec-take">${esc(d.recruiter_take)}</div></div></div>`;
-  const plain='MATCH SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.strengths?.length?'STRENGTHS\n'+d.strengths.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.gaps?.length?'GAPS\n'+d.gaps.map(g=>'['+((g.priority||'').toUpperCase())+'] '+(g.text||g)).join('\n')+'\n\n':'')+(d.actions?.length?'3 MOVES\n'+d.actions.map((a,i)=>(i+1)+'. '+a).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
+  const plain='MATCH SCORE: '+sc+'/100\n'+d.verdict+'\n\n'+d.summary+'\n\n'+(d.strengths?.length?'STRENGTHS\n'+d.strengths.map(s=>'• '+s).join('\n')+'\n\n':'')+(d.gaps?.length?'GAPS\n'+d.gaps.map(g=>'['+(( g.priority||'').toUpperCase())+'] '+(g.text||g)).join('\n')+'\n\n':'')+(d.actions?.length?'3 MOVES\n'+d.actions.map((a,i)=>(i+1)+'. '+a).join('\n')+'\n\n':'')+(d.recruiter_take?'RECRUITER\'S TAKE\n'+d.recruiter_take:'');
   html+=`</div><div class="copy-row"><button class="an-copy-btn" onclick="copyAnalysis(this,'${btoa(encodeURIComponent(plain))}')">Copy results</button></div>`;
   html+=`<div class="rating-row"><span>Was this analysis helpful?</span><div class="rating-btns" id="rating-bar-gaps"><button class="rate-btn" onclick="rateOutput('gaps','positive')">👍 Yes</button><button class="rate-btn" onclick="rateOutput('gaps','negative')">👎 No</button></div></div>`;
   return html+'</div>';
@@ -1327,6 +1297,16 @@ function openResumePage(tool){
   syncDlBadge();document.getElementById('resumePage').classList.add('show');document.body.style.overflow='hidden';
 }
 function closeResumePage(){document.getElementById('resumePage').classList.remove('show');document.body.style.overflow='';}
+// PATCH 4d: PDF download — triggers browser print-to-PDF dialog with correct print CSS
+function rpDownloadPdf(){
+  if(dlLeft()<=0){alert('Daily download limit reached.');return;}
+  trackEvent('resume_downloaded_or_saved',{format:'pdf',tool:rpTool});
+  const orig=document.title;
+  document.title='resume-landedd';
+  window.print();
+  document.title=orig;
+  incDl().then(()=>syncDlBadge());
+}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeResumePage();ecClose();}});
 
 function esc2(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -1369,14 +1349,16 @@ async function rpDownloadDocx(){
   }catch(e){alert('Download failed — use "Copy text" and paste into Word or Google Docs.');}
 }
 
+// PATCH 6: window.open moved BEFORE await — popup blockers fire after any await in async functions
 async function rpOpenGdocs(){
   if(dlLeft()<=0){alert("Daily download limit reached.");return;}
   const text=document.getElementById('out-'+rpTool)?.textContent||'';if(!text)return;
   trackEvent('resume_downloaded_or_saved',{format:'gdocs',tool:rpTool});
+  // Open window synchronously (direct user gesture) BEFORE any await
+  window.open('https://docs.google.com/document/create','_blank');
   try{await navigator.clipboard.writeText(text);}catch(e){}
   const btn=document.getElementById('rp-gdocs-btn');
   if(btn){const orig=btn.textContent;btn.textContent='Copied! Now paste in Google Docs';btn.classList.add('copied');setTimeout(()=>{btn.textContent=orig;btn.classList.remove('copied');},3000);}
-  window.open('https://docs.google.com/document/create','_blank');
   await incDl();syncDlBadge();
 }
 
