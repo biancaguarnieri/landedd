@@ -149,6 +149,15 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .legi{display:flex;align-items:center;gap:4px}
 .legsq{width:8px;height:8px;border-radius:2px;display:inline-block}
 
+/* ── SOURCE BARS ── */
+.src-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.src-label{font-size:.7rem;color:var(--t2);min-width:80px;flex-shrink:0}
+.src-icon{font-size:.75rem;margin-right:2px}
+.src-track{flex:1;height:8px;background:var(--g2);border-radius:4px;overflow:hidden}
+.src-fill{height:8px;border-radius:4px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.src-val{font-size:.7rem;color:var(--t3);min-width:32px;text-align:right;font-weight:600}
+.src-pct{font-size:.65rem;color:var(--t3);min-width:30px;text-align:right}
+
 /* ── MISC ── */
 .note{font-size:.65rem;color:var(--t3);margin-top:8px;font-style:italic}
 </style>
@@ -236,7 +245,7 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
         <div class="kc"><div class="kl">Activation rate</div><div class="kv" id="k-act">0%</div><div class="ks muted">target ≥30%</div><div class="kbar-t"><div class="kbar-f" id="kb-act" style="width:0%;background:#A32D2D"></div></div></div>
       </div>
 
-      <!-- FUNNEL + GATES -->
+      <!-- FUNNEL + WTP -->
       <div class="two">
         <div class="card">
           <div class="ct">Conversion funnel</div>
@@ -282,6 +291,67 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
               <div class="legi"><div class="legsq" style="background:#ef9f27"></div>Users</div>
             </div>
             <div style="position:relative;height:130px"><canvas id="trendChart" role="img" aria-label="Weekly trend of runs, sessions, and users over 3 weeks">Weekly trend data loading.</canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRAFFIC SOURCES -->
+      <div class="stitle">Traffic sources</div>
+      <div class="card" style="margin-bottom:16px">
+        <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap">
+          <div style="flex:2;min-width:260px">
+            <div class="ct" style="margin-bottom:12px">Visitors by channel</div>
+            <div class="src-row">
+              <div class="src-label"><span class="src-icon">🔗</span>Direct</div>
+              <div class="src-track"><div class="src-fill" id="sf-direct" style="width:0%;background:#6B8FA8"></div></div>
+              <div class="src-val" id="sv-direct">0</div>
+              <div class="src-pct" id="sp-direct">—</div>
+            </div>
+            <div class="src-row">
+              <div class="src-label"><span class="src-icon">🟠</span>Reddit</div>
+              <div class="src-track"><div class="src-fill" id="sf-reddit" style="width:0%;background:#FF6314"></div></div>
+              <div class="src-val" id="sv-reddit">0</div>
+              <div class="src-pct" id="sp-reddit">—</div>
+            </div>
+            <div class="src-row">
+              <div class="src-label"><span class="src-icon">💼</span>LinkedIn</div>
+              <div class="src-track"><div class="src-fill" id="sf-linkedin" style="width:0%;background:#0A66C2"></div></div>
+              <div class="src-val" id="sv-linkedin">0</div>
+              <div class="src-pct" id="sp-linkedin">—</div>
+            </div>
+            <div class="src-row">
+              <div class="src-label"><span class="src-icon">🔍</span>Google</div>
+              <div class="src-track"><div class="src-fill" id="sf-google" style="width:0%;background:#34A853"></div></div>
+              <div class="src-val" id="sv-google">0</div>
+              <div class="src-pct" id="sp-google">—</div>
+            </div>
+            <div class="src-row">
+              <div class="src-label"><span class="src-icon">𝕏</span>Twitter / X</div>
+              <div class="src-track"><div class="src-fill" id="sf-twitter" style="width:0%;background:#1a1a1a"></div></div>
+              <div class="src-val" id="sv-twitter">0</div>
+              <div class="src-pct" id="sp-twitter">—</div>
+            </div>
+            <div class="src-row">
+              <div class="src-label"><span class="src-icon">📋</span>Indeed</div>
+              <div class="src-track"><div class="src-fill" id="sf-indeed" style="width:0%;background:#2164f3"></div></div>
+              <div class="src-val" id="sv-indeed">0</div>
+              <div class="src-pct" id="sp-indeed">—</div>
+            </div>
+            <div class="src-row">
+              <div class="src-label"><span class="src-icon">·</span>Other</div>
+              <div class="src-track"><div class="src-fill" id="sf-other" style="width:0%;background:#74c69d"></div></div>
+              <div class="src-val" id="sv-other">0</div>
+              <div class="src-pct" id="sp-other">—</div>
+            </div>
+          </div>
+          <div style="flex:1;min-width:160px">
+            <div class="ct" style="margin-bottom:12px">Top channel</div>
+            <div style="font-size:1.4rem;font-weight:800;color:var(--g)" id="topSrcName">—</div>
+            <div style="font-size:.72rem;color:var(--t3);margin-top:3px" id="topSrcVal">No data yet</div>
+            <div style="margin-top:16px">
+              <div class="ct" style="margin-bottom:8px">Organic vs referred</div>
+              <div style="font-size:.75rem;color:var(--t2);line-height:1.7" id="srcSummary">Tracking via <code>?ref=</code> URL param.<br>Direct = no referrer.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -531,6 +601,46 @@ function render(d) {
     document.getElementById('tf-'+k).style.width = pct(tools[k], toolMax) + '%';
     document.getElementById('tv-'+k).textContent = tools[k];
   });
+
+  // ── SOURCES ──
+  var src = d.sources || {};
+  var srcKeys = ['direct','reddit','linkedin','google','twitter','indeed','other'];
+  var srcVals = srcKeys.map(function(k){ return src[k] || 0; });
+  var srcTotal = srcVals.reduce(function(a,b){ return a+b; }, 0);
+  var srcMax = Math.max.apply(null, srcVals.concat([1]));
+  var srcNames = {direct:'Direct',reddit:'Reddit',linkedin:'LinkedIn',google:'Google',twitter:'Twitter/X',indeed:'Indeed',other:'Other'};
+
+  srcKeys.forEach(function(k, i) {
+    var val = srcVals[i];
+    var elFill = document.getElementById('sf-'+k);
+    var elVal  = document.getElementById('sv-'+k);
+    var elPct  = document.getElementById('sp-'+k);
+    if (elFill) elFill.style.width = pct(val, srcMax) + '%';
+    if (elVal)  elVal.textContent = val;
+    if (elPct)  elPct.textContent = srcTotal > 0 ? pct(val, srcTotal) + '%' : '—';
+  });
+
+  // Top channel
+  var topIdx = srcVals.indexOf(Math.max.apply(null, srcVals));
+  var topKey = srcKeys[topIdx];
+  var topVal = srcVals[topIdx];
+  var topEl = document.getElementById('topSrcName');
+  var topValEl = document.getElementById('topSrcVal');
+  if (topVal > 0 && topEl) {
+    topEl.textContent = srcNames[topKey];
+    topValEl.textContent = topVal + ' visits (' + pct(topVal, srcTotal) + '%)';
+  } else if (topEl) {
+    topEl.textContent = '—';
+    topValEl.textContent = 'No data yet';
+  }
+
+  // Organic vs referred summary
+  var summaryEl = document.getElementById('srcSummary');
+  if (summaryEl && srcTotal > 0) {
+    var referred = srcTotal - (src.direct || 0);
+    summaryEl.innerHTML = 'Total tracked: <strong>' + srcTotal + '</strong><br>'
+      + 'Organic/direct: <strong>' + (src.direct||0) + '</strong> · Referred: <strong>' + referred + '</strong>';
+  }
 
   // ── WTP ──
   [['free',w.free],['basic',w.basic],['pro',w.pro],['more',w.more]].forEach(function(pair) {
