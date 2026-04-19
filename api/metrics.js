@@ -45,12 +45,6 @@ module.exports = async function handler(req, res) {
 
     // ── GET — return full metrics ──
     if (req.method === 'GET') {
-      // Skip recording dashboard visits as real traffic
-      const referer = req.headers.referer || req.headers.referrer || '';
-      if (referer.includes('/dashboard')) {
-        return res.json({ dashboard_visit: true });
-      }
-
       const [users, sessions, runs, downloads, thumbsup, thumbsdown] = await Promise.all([
         r.get('pilot:totals:users'),
         r.get('pilot:totals:sessions'),
@@ -120,6 +114,24 @@ module.exports = async function handler(req, res) {
         const keys = await r.keys('pilot:*');
         if (keys.length > 0) await Promise.all(keys.map(k => r.del(k)));
         return res.json({ ok: true, reset: true, deleted: keys.length });
+      }
+
+      // One-time seed to restore historical pilot data after metrics.js migration
+      if (body.action === 'seed' && body.password === DASHBOARD_PASSWORD) {
+        const s = body.data || {};
+        const ops = [];
+        if (s.users)     ops.push(r.set('pilot:totals:users',     String(s.users)));
+        if (s.sessions)  ops.push(r.set('pilot:totals:sessions',  String(s.sessions)));
+        if (s.runs)      ops.push(r.set('pilot:totals:runs',      String(s.runs)));
+        if (s.downloads) ops.push(r.set('pilot:totals:downloads', String(s.downloads)));
+        if (s.scanner)   ops.push(r.set('pilot:tools:scanner',    String(s.scanner)));
+        if (s.tailor)    ops.push(r.set('pilot:tools:tailor',     String(s.tailor)));
+        if (s.gaps)      ops.push(r.set('pilot:tools:gaps',       String(s.gaps)));
+        ops.push(r.set('pilot:weekly:runs:1',     String(s.week1_runs     || 0)));
+        ops.push(r.set('pilot:weekly:sessions:1', String(s.week1_sessions || 0)));
+        ops.push(r.set('pilot:weekly:users:1',    String(s.week1_users    || 0)));
+        await Promise.all(ops);
+        return res.json({ ok: true, seeded: ops.length });
       }
 
       const { event, feature, tier, rating, utm_source } = body;
