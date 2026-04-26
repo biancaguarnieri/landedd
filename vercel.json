@@ -1,9 +1,10 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": { "eq": "va.landedd.com" } }],
-      "destination": "/va/$1"
+      "source": "/",
+      "has": [{ "type": "host", "value": "va.landedd.com" }],
+      "destination": "/va"
     }
   ]
 }
