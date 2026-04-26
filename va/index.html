@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Landedd VA — Federal Resume Tools for VA Healthcare Professionals</title>
+  <meta name="description" content="Free AI tool for nurses, physicians, and clinical professionals applying to VA positions. Find out which federal hiring rules apply to your role — instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --g: #2d6a4f; --gm: #40916c; --gl: #74c69d; --gp: #d8f3dc; --gbg: #f0faf4;
+      --white: #fff; --off: #f8f9fb; --border: #e2e6ed; --border2: #cdd3dc;
+      --ink: #0f1923; --ink2: #3d4f5e; --ink3: #7a8a99;
+      --amber: #b45309; --amberbg: #fffbeb; --amberborder: #fde68a;
+      --red: #b91c1c; --redbg: #fef2f2; --redborder: #fecaca;
+      --blue: #1d4ed8; --bluebg: #eff6ff; --blueborder: #bfdbfe;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, sans-serif;
+      --r: 10px; --rs: 7px;
+      --shadow: 0 2px 8px rgba(0,0,0,.07), 0 12px 40px rgba(0,0,0,.09);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--ink); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,.97); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .logo-mark svg { width: 28px; height: 28px; display: block; }
+    .logo-text { font-size: 1rem; font-weight: 700; color: var(--ink); letter-spacing: -.2px; }
+    .logo-badge { font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--g); color: #fff; border-radius: 4px; padding: 2px 6px; }
+    .nav-cta { background: var(--g); color: #fff; padding: 8px 20px; border-radius: 20px; border: none; font-family: var(--sans); font-size: .82rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+    .nav-cta:hover { background: var(--gm); }
+
+    .hero { padding: 64px 5% 48px; max-width: 760px; margin: 0 auto; text-align: center; }
+    .hero-eyebrow { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--g); margin-bottom: 18px; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 400; line-height: 1.1; letter-spacing: -.4px; color: var(--ink); margin-bottom: 18px; }
+    .hero h1 em { color: var(--g); font-style: italic; }
+    .hero p { font-size: 1rem; color: var(--ink2); max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
+
+    .tool-wrap { max-width: 760px; margin: 0 auto; padding: 0 5% 80px; }
+    .classifier-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
+    .classifier-header { background: var(--g); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .classifier-header h3 { font-size: .95rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .classifier-header p { font-size: .74rem; color: rgba(255,255,255,.72); }
+    .free-badge { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.28); color: #fff; font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 16px; padding: 4px 12px; white-space: nowrap; }
+    .classifier-body { padding: 28px; }
+    @media (max-width: 560px) { .classifier-body { padding: 20px 16px; } }
+
+    .input-methods { display: flex; gap: 6px; margin-bottom: 12px; }
+    .imethod { padding: 5px 13px; border-radius: 18px; font-family: var(--sans); font-size: .74rem; font-weight: 600; border: 1.5px solid var(--border); cursor: pointer; background: var(--white); color: var(--ink2); transition: all .18s; }
+    .imethod.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .ipane { display: none; }
+    .ipane.active { display: block; }
+    .fld { margin-bottom: 16px; }
+    .fld label { display: block; font-size: .68rem; font-weight: 700; color: var(--ink2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .07em; }
+    .fld textarea, .fld input[type=text] { width: 100%; padding: 12px 13px; border: 1.5px solid var(--border); border-radius: var(--rs); font-family: var(--sans); font-size: .87rem; color: var(--ink); background: var(--off); transition: border-color .2s; resize: vertical; }
+    .fld textarea { min-height: 150px; }
+    .fld textarea:focus, .fld input:focus { outline: none; border-color: var(--gl); background: var(--white); box-shadow: 0 0 0 3px rgba(116,198,157,.15); }
+    .fld-note { font-size: .7rem; color: var(--ink3); margin-top: 5px; line-height: 1.4; }
+
+    .run-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-run { padding: 12px 26px; border-radius: 22px; border: none; background: var(--g); color: #fff; font-family: var(--sans); font-size: .9rem; font-weight: 700; cursor: pointer; transition: all .2s; }
+    .btn-run:hover:not(:disabled) { background: var(--gm); transform: translateY(-1px); }
+    .btn-run:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .run-note { font-size: .72rem; color: var(--ink3); }
+    .err-box { background: var(--redbg); border: 1px solid var(--redborder); border-radius: var(--rs); padding: 10px 13px; margin-top: 12px; font-size: .82rem; color: var(--red); display: none; }
+
+    .result-box { display: none; margin-top: 26px; border-top: 1px solid var(--border); padding-top: 26px; }
+    .result-box.show { display: block; animation: fadeUp .3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+
+    .tier-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tier-pill { display: inline-flex; align-items: center; gap: 7px; border-radius: 7px; padding: 9px 14px; font-size: .78rem; font-weight: 700; }
+    .tier-pill.pure38 { background: var(--gbg); border: 1.5px solid var(--gl); color: var(--g); }
+    .tier-pill.hybrid38 { background: var(--amberbg); border: 1.5px solid var(--amberborder); color: var(--amber); }
+    .tier-pill.title5 { background: var(--bluebg); border: 1.5px solid var(--blueborder); color: var(--blue); }
+    .tier-pill-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .pure38 .tier-pill-dot { background: var(--g); }
+    .hybrid38 .tier-pill-dot { background: var(--amber); }
+    .title5 .tier-pill-dot { background: var(--blue); }
+    .conf-badge { font-size: .66rem; font-weight: 600; color: var(--ink3); background: var(--off); border-radius: 16px; padding: 4px 10px; white-space: nowrap; }
+    .tier-explain { font-size: .83rem; color: var(--ink2); line-height: 1.65; padding: 11px 13px; background: var(--off); border-radius: var(--rs); border-left: 3px solid var(--g); margin-bottom: 14px; }
+
+    .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    @media (max-width: 480px) { .rules-grid { grid-template-columns: 1fr; } }
+    .rule-row { display: flex; align-items: flex-start; gap: 9px; background: var(--off); border: 1px solid var(--border); border-radius: var(--rs); padding: 11px 13px; }
+    .rule-icon { width: 19px; height: 19px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: .64rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .rule-icon.pass { background: var(--gp); color: var(--g); }
+    .rule-icon.fail { background: var(--redbg); color: var(--red); }
+    .rule-icon.warn { background: var(--amberbg); color: var(--amber); }
+    .rule-label { font-size: .74rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .rule-sub { font-size: .67rem; color: var(--ink3); margin-top: 2px; line-height: 1.4; }
+
+    .npsb-card { background: var(--gbg); border: 1.5px solid var(--gl); border-radius: var(--r); padding: 16px 18px; margin-bottom: 12px; }
+    .npsb-lbl { font-size: .63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gm); margin-bottom: 5px; }
+    .npsb-grade { font-family: var(--serif); font-size: 1.3rem; color: var(--g); margin-bottom: 3px; }
+    .npsb-sub { font-size: .78rem; color: var(--ink2); line-height: 1.5; }
+
+    .an-blocks { display: flex; flex-direction: column; gap: 8px; }
+    .an-block { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    .an-block-hdr { display: flex; align-items: center; gap: 9px; padding: 9px 14px; background: var(--off); border-bottom: 1px solid var(--border); }
+    .an-hdr-icon { width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: .62rem; font-weight: 700; flex-shrink: 0; }
+    .hi-blue { background: var(--bluebg); color: var(--blue); }
+    .hi-green { background: var(--gp); color: var(--g); }
+    .hi-amber { background: var(--amberbg); color: var(--amber); }
+    .an-block-title { font-size: .68rem; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: .07em; }
+    .an-block-body { padding: 12px 14px; }
+    .action-row { display: flex; align-items: flex-start; gap: 9px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .action-row:last-child { border-bottom: none; }
+    .action-num { width: 19px; height: 19px; border-radius: 50%; background: var(--g); color: #fff; font-size: .63rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .action-text { font-size: .82rem; color: var(--ink2); line-height: 1.5; }
+    .s-row { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; font-size: .82rem; color: var(--ink2); line-height: 1.5; }
+    .s-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--g); flex-shrink: 0; margin-top: 7px; }
+
+    .result-cta { background: var(--ink); border-radius: var(--r); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
+    .result-cta-text h4 { font-size: .9rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .result-cta-text p { font-size: .74rem; color: rgba(255,255,255,.55); line-height: 1.4; }
+    .btn-cta-white { background: #fff; color: var(--ink); border: none; padding: 10px 20px; border-radius: 20px; font-family: var(--sans); font-size: .82rem; font-weight: 700; cursor: pointer; transition: all .2s; white-space: nowrap; flex-shrink: 0; }
+    .btn-cta-white:hover { background: var(--gp); color: var(--g); }
+
+    .ec-overlay { display:none;position:fixed;inset:0;z-index:450;background:rgba(15,25,35,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px; }
+    .ec-overlay.show { display:flex; }
+    .ec-card { background:var(--white);border-radius:16px;border:1px solid var(--border);width:100%;max-width:400px;padding:32px 28px 24px;position:relative;animation:ecIn .3s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes ecIn { from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)} }
+    .ec-close { position:absolute;top:12px;right:12px;width:26px;height:26px;border:none;background:var(--off);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:15px; }
+    .ec-close:hover { background:var(--border); }
+    .ec-badge { display:inline-flex;align-items:center;gap:6px;background:var(--gbg);border:1px solid var(--gl);border-radius:100px;padding:4px 12px 4px 8px;margin-bottom:16px; }
+    .ec-badge-dot { width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0; }
+    .ec-badge-text { font-size:.7rem;font-weight:600;color:#1b4332; }
+    .ec-heading { font-family:var(--serif);font-size:1.4rem;line-height:1.2;color:var(--ink);margin-bottom:7px; }
+    .ec-heading em { color:var(--g);font-style:italic; }
+    .ec-sub { font-size:.82rem;color:var(--ink2);line-height:1.6;margin-bottom:16px; }
+    .ec-input { width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:var(--rs);font-family:var(--sans);font-size:.86rem;color:var(--ink);background:var(--off);outline:none;transition:all .2s;margin-bottom:8px; }
+    .ec-input:focus { border-color:var(--gl);background:var(--white);box-shadow:0 0 0 3px rgba(116,198,157,.15); }
+    .ec-input.ec-err { border-color:var(--red); }
+    .ec-errmsg { font-size:.7rem;color:var(--red);display:none;margin-bottom:5px; }
+    .ec-errmsg.show { display:block; }
+    .ec-submit { width:100%;padding:12px;border:none;border-radius:var(--rs);background:var(--g);color:#fff;font-family:var(--sans);font-size:.88rem;font-weight:700;cursor:pointer;transition:background .2s; }
+    .ec-submit:hover { background:var(--gm); }
+    .ec-privacy { font-size:.67rem;color:var(--ink3);text-align:center;margin-top:7px; }
+    .ec-skip { display:block;width:100%;text-align:center;font-size:.74rem;color:var(--ink3);margin-top:10px;cursor:pointer;background:none;border:none;font-family:var(--sans);text-decoration:underline; }
+    .ec-success { display:none;flex-direction:column;align-items:center;text-align:center;padding:8px 0; }
+    .ec-success.show { display:flex; }
+    .ec-success-icon { width:44px;height:44px;border-radius:50%;background:var(--gbg);display:flex;align-items:center;justify-content:center;margin-bottom:14px; }
+    .ec-success-heading { font-family:var(--serif);font-size:1.25rem;color:var(--ink);margin-bottom:5px; }
+    .ec-success-sub { font-size:.8rem;color:var(--ink2);line-height:1.6;max-width:260px; }
+    .ec-success-close { margin-top:18px;font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--g);background:var(--gbg);border:none;border-radius:var(--rs);padding:8px 20px;cursor:pointer; }
+
+    footer { border-top: 1px solid var(--border); padding: 22px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { display: flex; align-items: center; gap: 7px; }
+    .footer-logo-text { font-size: .82rem; font-weight: 700; color: var(--ink2); }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--ink3); font-size: .78rem; text-decoration: none; }
+    .footer-links a:hover { color: var(--g); }
+    .footer-copy { font-size: .72rem; color: var(--ink3); }
+    @media (max-width: 560px) { footer { flex-direction: column; text-align: center; } .footer-links { justify-content: center; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="https://www.landedd.com">
+    <div class="logo-mark">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+        <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+        <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+        <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+        <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+        <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
+      </svg>
+    </div>
+    <span class="logo-text">Landedd</span>
+    <span class="logo-badge">VA</span>
+  </a>
+  <button class="nav-cta" onclick="document.getElementById('classifier').scrollIntoView({behavior:'smooth'})">Try free →</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Free tool for VA clinical professionals</div>
+  <h1>Do you know which federal<br>hiring rules <em>apply to you?</em></h1>
+  <p>Paste your VA job posting and find out instantly — which tier you're in, what your resume needs, and what most applicants get wrong.</p>
+</section>
+
+<div class="tool-wrap" id="classifier">
+  <div class="classifier-card">
+    <div class="classifier-header">
+      <div>
+        <h3>JOA Tier Classifier</h3>
+        <p>Paste your USAJobs posting — get your tier, the rules that apply, and what to do next</p>
+      </div>
+      <div class="free-badge">Free</div>
+    </div>
+    <div class="classifier-body">
+      <div class="input-methods">
+        <button class="imethod active" onclick="swMethod('paste')" id="m-paste">✎ Paste JOA text</button>
+        <button class="imethod" onclick="swMethod('num')" id="m-num">🔢 Announcement #</button>
+      </div>
+      <div class="ipane active" id="pane-paste">
+        <div class="fld">
+          <label>Job Opportunity Announcement</label>
+          <textarea id="joa-text" placeholder="Paste the full job posting from USAJobs.gov here. Include the header with pay scale, series, and grade for best results..."></textarea>
+          <div class="fld-note">More text = more accurate detection. Copy everything from USAJobs.</div>
+        </div>
+      </div>
+      <div class="ipane" id="pane-num">
+        <div class="fld">
+          <label>USAJobs Announcement Number</label>
+          <input type="text" id="joa-num" placeholder="e.g. VHA-626-24-DH-12345678" />
+          <div class="fld-note">Found at the top of any USAJobs posting.</div>
+        </div>
+      </div>
+      <div class="run-row">
+        <button class="btn-run" id="run-btn" onclick="runClassifier()"><span id="run-label">Classify my JOA →</span></button>
+        <span class="run-note">~15 seconds · No account needed</span>
+      </div>
+      <div class="err-box" id="err-box"></div>
+      <div class="result-box" id="result-box"></div>
+    </div>
+  </div>
+</div>
+
+<div class="ec-overlay" id="ecOverlay" onclick="ecHandleOverlay(event)">
+  <div class="ec-card">
+    <button class="ec-close" onclick="ecClose()">×</button>
+    <div id="ecFormState">
+      <div class="ec-badge"><div class="ec-badge-dot"></div><span class="ec-badge-text">Your results are ready</span></div>
+      <h2 class="ec-heading">Want these<br><em>sent to you?</em></h2>
+      <p class="ec-sub">We'll email your tier classification and next steps. One email, no spam.</p>
+      <input type="email" class="ec-input" id="ecEmailInput" placeholder="your@email.com" autocomplete="email" oninput="ecClearErr()" onkeydown="if(event.key==='Enter')ecSubmit()" />
+      <div class="ec-errmsg" id="ecErrMsg">Please enter a valid email address.</div>
+      <button class="ec-submit" id="ecSubmitBtn" onclick="ecSubmit()">Send me my results</button>
+      <p class="ec-privacy">No account created · No data stored</p>
+      <button class="ec-skip" onclick="ecClose()">No thanks</button>
+    </div>
+    <div class="ec-success" id="ecSuccess">
+      <div class="ec-success-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4L16 6" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="ec-success-heading">On its way</div>
+      <p class="ec-success-sub">Check your inbox in a moment.</p>
+      <button class="ec-success-close" onclick="ecClose()">Back to Landedd VA</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="20" cy="20" r="20" fill="#74c69d"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#74c69d"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#fff"/></svg>
+    <span class="footer-logo-text">Landedd VA</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.landedd.com">Landedd.com</a>
+    <a href="https://www.landedd.com/privacy.html">Privacy</a>
+    <a href="https://www.landedd.com/terms.html">Terms</a>
+  </div>
+  <span class="footer-copy">© 2026 Landedd · Not affiliated with the U.S. Dept. of Veterans Affairs</span>
+</footer>
+
+<script>
+let activeMethod = 'paste';
+function swMethod(m) {
+  activeMethod = m;
+  ['paste','num'].forEach(x => {
+    document.getElementById('m-'+x).classList.toggle('active', x===m);
+    document.getElementById('pane-'+x).classList.toggle('active', x===m);
+  });
+}
+
+async function callClaude(prompt) {
+  const resp = await fetch('/api/claude', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: [{ role: 'user', content: prompt }], max_tokens: 2000 })
+  });
+  const data = await resp.json();
+  if (!resp.ok || data.error) throw new Error(data.error || 'API error');
+  const text = data.content?.[0]?.text;
+  if (!text) throw new Error('Empty response — please try again.');
+  return text;
+}
+
+function buildPrompt(joaText) {
+  return `You are a federal hiring expert specializing in VA Title 38 hiring rules. Analyze this Job Opportunity Announcement and return ONLY valid JSON — no markdown, no commentary.
+
+JOA content:
+${joaText}
+
+Return this exact JSON shape:
+{
+  "tier": "pure_38" | "hybrid_38" | "title_5",
+  "series": "<4-digit code>",
+  "series_name": "<occupation name>",
+  "pay_system": "<VM | GS | GL | Special>",
+  "confidence": <0.0-1.0>,
+  "two_page_rule": "exempt" | "applies" | "check_joa",
+  "essay_questions": "exempt" | "applies" | "check_joa",
+  "npsb_applies": <true if series 0610 pure Title 38, else false>,
+  "npsb_predicted_grade": "<e.g. Nurse I Level 2> or null",
+  "npsb_grade_rationale": "<1 sentence> or null",
+  "key_actions": ["<action 1>", "<action 2>", "<action 3>"],
+  "clinical_requirements": ["<required credential 1>", "<required credential 2>"],
+  "tier_explanation": "<2 sentences why this tier, plain language>",
+  "watch_out": "<single biggest mistake applicants make for this role>"
+}
+
+Rules: pure_38 = VM pay AND series in [0602,0603,0610,0660,0662,0668,0680,0683] AND VA employer. hybrid_38 = GS pay AND series in [0180,0185,0631,0633,0638,0642,0644,0647,0660,0661,0665] AND VA employer. title_5 = anything else. VHA prefix = VA Health Administration = likely Title 38 clinical. If uncertain, set confidence below 0.8.`;
+}
+
+async function runClassifier() {
+  const btn = document.getElementById('run-btn');
+  const lbl = document.getElementById('run-label');
+  const errBox = document.getElementById('err-box');
+  const resultBox = document.getElementById('result-box');
+  let joaText = activeMethod === 'paste'
+    ? (document.getElementById('joa-text').value || '').trim()
+    : 'Announcement number: ' + (document.getElementById('joa-num').value || '').trim() + '. VHA prefix = VA Health Administration, likely Title 38 clinical.';
+  if (!joaText || joaText.length < 15) { showErr('Please paste your job posting text first.'); return; }
+  errBox.style.display = 'none';
+  resultBox.classList.remove('show');
+  btn.disabled = true; lbl.textContent = 'Analyzing…';
+  try {
+    const raw = await callClaude(buildPrompt(joaText));
+    const clean = raw.replace(/```json|```/g,'').trim();
+    let d; try { d = JSON.parse(clean); } catch { throw new Error('Could not parse result — please try again.'); }
+    resultBox.innerHTML = renderResult(d);
+    resultBox.classList.add('show');
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(() => showEmailCapture(), 3500);
+  } catch(e) { showErr(e.message || 'Something went wrong — please try again.'); }
+  finally { btn.disabled = false; lbl.textContent = 'Classify my JOA →'; }
+}
+
+function showErr(msg) { const e = document.getElementById('err-box'); e.textContent = '⚠ ' + msg; e.style.display = 'block'; }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function tierLabel(t) { return t==='pure_38'?'Pure Title 38':t==='hybrid_38'?'Hybrid Title 38':'Title 5 Standard'; }
+function tierClass(t) { return t==='pure_38'?'pure38':t==='hybrid_38'?'hybrid38':'title5'; }
+function ruleBlock(val, label, subPass, subFail, subWarn) {
+  const icon = val==='exempt'?'<div class="rule-icon pass">✓</div>':val==='applies'?'<div class="rule-icon fail">!</div>':'<div class="rule-icon warn">?</div>';
+  const sub = val==='exempt'?subPass:val==='applies'?subFail:subWarn;
+  return `<div class="rule-row">${icon}<div><div class="rule-label">${label}</div><div class="rule-sub">${sub}</div></div></div>`;
+}
+
+function renderResult(d) {
+  const tc = tierClass(d.tier);
+  const conf = Math.round((d.confidence||0.8)*100);
+  let html = '';
+  html += `<div class="tier-row">
+    <div class="tier-pill ${tc}"><div class="tier-pill-dot"></div>${tierLabel(d.tier)}</div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      ${d.series?`<span style="font-size:.78rem;color:var(--ink2)">Series <strong>${esc(d.series)}</strong> · ${esc(d.series_name)}</span>`:''}
+      <span class="conf-badge">${conf>=90?'High confidence':conf>=75?'Moderate confidence':'Low confidence — verify manually'}</span>
+    </div>
+  </div>`;
+  if (d.tier_explanation) html += `<div class="tier-explain">${esc(d.tier_explanation)}</div>`;
+  html += `<div class="rules-grid">
+    ${ruleBlock(d.two_page_rule,'2-Page Resume Limit','Exempt — include full clinical detail.','Required — stay within 2 pages.','Verify in your JOA.')}
+    ${ruleBlock(d.essay_questions,'4 Federal Essay Questions','Exempt — not required for this role.','Required — four questions must be answered.','Check your specific announcement.')}
+    <div class="rule-row"><div class="rule-icon fail">!</div><div><div class="rule-label">Federal Resume Fields</div><div class="rule-sub">Required all tiers: hours/week, supervisor, salary, full employer address.</div></div></div>
+    <div class="rule-row"><div class="rule-icon ${d.npsb_applies?'fail':'pass'}">${d.npsb_applies?'!':'–'}</div><div><div class="rule-label">NPSB Grade Review</div><div class="rule-sub">${d.npsb_applies?'Applies — your starting pay grade is set by a Nurse Professional Standards Board.':'Does not apply to this role.'}</div></div></div>
+  </div>`;
+  if (d.npsb_applies && d.npsb_predicted_grade) {
+    html += `<div class="npsb-card"><div class="npsb-lbl">🩺 NPSB Grade Prediction (Series 0610)</div><div class="npsb-grade">Predicted: ${esc(d.npsb_predicted_grade)}</div>${d.npsb_grade_rationale?`<div class="npsb-sub">${esc(d.npsb_grade_rationale)}</div>`:''}<div class="npsb-sub" style="margin-top:5px;color:var(--ink3)">Full prediction requires your resume — available in the VA Fit Scanner, coming soon.</div></div>`;
+  }
+  html += `<div class="an-blocks">`;
+  if (d.key_actions?.length) html += `<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-blue">→</div><span class="an-block-title">What to do now</span></div><div class="an-block-body">${d.key_actions.map((a,i)=>`<div class="action-row"><div class="action-num">${i+1}</div><div class="action-text">${esc(a)}</div></div>`).join('')}</div></div>`;
+  if (d.clinical_requirements?.length) html += `<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">✓</div><span class="an-block-title">Required credentials for this role</span></div><div class="an-block-body">${d.clinical_requirements.map(r=>`<div class="s-row"><div class="s-dot"></div><div>${esc(r)}</div></div>`).join('')}</div></div>`;
+  if (d.watch_out) html += `<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-amber">⚠</div><span class="an-block-title">Most common mistake for this role</span></div><div class="an-block-body"><div class="s-row"><div class="s-dot" style="background:var(--amber)"></div><div>${esc(d.watch_out)}</div></div></div></div>`;
+  html += `</div>`;
+  html += `<div class="result-cta"><div class="result-cta-text"><h4>More VA tools coming soon</h4><p>VA Fit Scanner and Resume Tailor — built for your tier.</p></div><button class="btn-cta-white" onclick="showEmailCapture()">Get notified →</button></div>`;
+  return html;
+}
+
+let _ecShown = sessionStorage.getItem('_vaEc')==='1';
+function showEmailCapture() {
+  if (_ecShown) return;
+  document.getElementById('ecOverlay').classList.add('show');
+  setTimeout(()=>document.getElementById('ecEmailInput').focus(),100);
+}
+function ecClose() { document.getElementById('ecOverlay').classList.remove('show'); _ecShown=true; sessionStorage.setItem('_vaEc','1'); }
+function ecHandleOverlay(e) { if(e.target===document.getElementById('ecOverlay'))ecClose(); }
+function ecClearErr() { document.getElementById('ecEmailInput').classList.remove('ec-err'); document.getElementById('ecErrMsg').classList.remove('show'); }
+function ecIsValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+async function ecSubmit() {
+  const input=document.getElementById('ecEmailInput');
+  const btn=document.getElementById('ecSubmitBtn');
+  const email=input.value.trim();
+  if(!ecIsValidEmail(email)){input.classList.add('ec-err');document.getElementById('ecErrMsg').classList.add('show');input.focus();return;}
+  btn.textContent='Sending…';btn.disabled=true;
+  try {
+    await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'email_capture',email,tool:'va_classifier',source:'va_landing'})});
+    document.getElementById('ecFormState').style.display='none';
+    document.getElementById('ecSuccess').classList.add('show');
+    _ecShown=true;sessionStorage.setItem('_vaEc','1');
+  } catch { btn.disabled=false;btn.textContent='Send me my results';input.classList.add('ec-err');document.getElementById('ecErrMsg').textContent='Something went wrong — try again.';document.getElementById('ecErrMsg').classList.add('show'); }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')ecClose();});
+</script>
+</body>
+</html>
