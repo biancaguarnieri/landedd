@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "va.landedd.com" }],
+      "has": [{ "type": "host", "value": { "eq": "va.landedd.com" } }],
       "destination": "/va/$1"
     }
   ]
