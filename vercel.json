@@ -1,8 +1,9 @@
 {
   "rewrites": [
-    { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/fit-scanner", "destination": "/fit-scanner.html" },
-    { "source": "/resume-tailor", "destination": "/resume-tailor.html" },
-    { "source": "/gap-finder", "destination": "/gap-finder.html" }
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "va.landedd.com" }],
+      "destination": "/va/$1"
+    }
   ]
 }
