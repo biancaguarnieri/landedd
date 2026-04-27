@@ -18,6 +18,7 @@
       --amber: #b45309; --amberbg: #fffbeb; --amberborder: #fde68a;
       --red: #b91c1c; --redbg: #fef2f2; --redborder: #fecaca;
       --blue: #1d4ed8; --bluebg: #eff6ff; --blueborder: #bfdbfe;
+      --purple: #6d28d9; --purplebg: #f5f3ff; --purpleborder: #ddd6fe;
       --serif: 'DM Serif Display', Georgia, serif;
       --sans: 'DM Sans', -apple-system, sans-serif;
       --r: 10px; --rs: 7px;
@@ -26,7 +27,7 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--sans); color: var(--ink); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-    nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,.97); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    nav { position: sticky; top: 0; z-index: 150; background: rgba(255,255,255,.97); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 60px; }
     .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
     .logo-mark svg { width: 28px; height: 28px; display: block; }
     .logo-text { font-size: 1rem; font-weight: 700; color: var(--ink); letter-spacing: -.2px; }
@@ -40,6 +41,7 @@
     .hero h1 em { color: var(--g); font-style: italic; }
     .hero p { font-size: 1rem; color: var(--ink2); max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
 
+    /* CLASSIFIER */
     .tool-wrap { max-width: 760px; margin: 0 auto; padding: 0 5% 80px; }
     .classifier-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
     .classifier-header { background: var(--g); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -48,30 +50,28 @@
     .free-badge { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.28); color: #fff; font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 16px; padding: 4px 12px; white-space: nowrap; }
     .classifier-body { padding: 28px; }
     @media (max-width: 560px) { .classifier-body { padding: 20px 16px; } }
-
-    .input-methods { display: flex; gap: 6px; margin-bottom: 12px; }
+    .input-methods { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
     .imethod { padding: 5px 13px; border-radius: 18px; font-family: var(--sans); font-size: .74rem; font-weight: 600; border: 1.5px solid var(--border); cursor: pointer; background: var(--white); color: var(--ink2); transition: all .18s; }
     .imethod.active { background: var(--ink); color: #fff; border-color: var(--ink); }
     .ipane { display: none; }
     .ipane.active { display: block; }
     .fld { margin-bottom: 16px; }
     .fld label { display: block; font-size: .68rem; font-weight: 700; color: var(--ink2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .07em; }
-    .fld textarea, .fld input[type=text] { width: 100%; padding: 12px 13px; border: 1.5px solid var(--border); border-radius: var(--rs); font-family: var(--sans); font-size: .87rem; color: var(--ink); background: var(--off); transition: border-color .2s; resize: vertical; }
+    .fld textarea, .fld input[type=text], .fld input[type=url] { width: 100%; padding: 12px 13px; border: 1.5px solid var(--border); border-radius: var(--rs); font-family: var(--sans); font-size: .87rem; color: var(--ink); background: var(--off); transition: border-color .2s; resize: vertical; }
     .fld textarea { min-height: 150px; }
     .fld textarea:focus, .fld input:focus { outline: none; border-color: var(--gl); background: var(--white); box-shadow: 0 0 0 3px rgba(116,198,157,.15); }
     .fld-note { font-size: .7rem; color: var(--ink3); margin-top: 5px; line-height: 1.4; }
-
+    .fld-note a { color: var(--g); }
+    .url-warn { background: var(--amberbg); border: 1px solid var(--amberborder); border-radius: var(--rs); padding: 9px 12px; font-size: .78rem; color: var(--amber); margin-top: 10px; display: none; }
     .run-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
     .btn-run { padding: 12px 26px; border-radius: 22px; border: none; background: var(--g); color: #fff; font-family: var(--sans); font-size: .9rem; font-weight: 700; cursor: pointer; transition: all .2s; }
     .btn-run:hover:not(:disabled) { background: var(--gm); transform: translateY(-1px); }
     .btn-run:disabled { opacity: .5; cursor: not-allowed; transform: none; }
     .run-note { font-size: .72rem; color: var(--ink3); }
     .err-box { background: var(--redbg); border: 1px solid var(--redborder); border-radius: var(--rs); padding: 10px 13px; margin-top: 12px; font-size: .82rem; color: var(--red); display: none; }
-
     .result-box { display: none; margin-top: 26px; border-top: 1px solid var(--border); padding-top: 26px; }
     .result-box.show { display: block; animation: fadeUp .3s ease; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
-
     .tier-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
     .tier-pill { display: inline-flex; align-items: center; gap: 7px; border-radius: 7px; padding: 9px 14px; font-size: .78rem; font-weight: 700; }
     .tier-pill.pure38 { background: var(--gbg); border: 1.5px solid var(--gl); color: var(--g); }
@@ -83,7 +83,6 @@
     .title5 .tier-pill-dot { background: var(--blue); }
     .conf-badge { font-size: .66rem; font-weight: 600; color: var(--ink3); background: var(--off); border-radius: 16px; padding: 4px 10px; white-space: nowrap; }
     .tier-explain { font-size: .83rem; color: var(--ink2); line-height: 1.65; padding: 11px 13px; background: var(--off); border-radius: var(--rs); border-left: 3px solid var(--g); margin-bottom: 14px; }
-
     .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
     @media (max-width: 480px) { .rules-grid { grid-template-columns: 1fr; } }
     .rule-row { display: flex; align-items: flex-start; gap: 9px; background: var(--off); border: 1px solid var(--border); border-radius: var(--rs); padding: 11px 13px; }
@@ -93,12 +92,10 @@
     .rule-icon.warn { background: var(--amberbg); color: var(--amber); }
     .rule-label { font-size: .74rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
     .rule-sub { font-size: .67rem; color: var(--ink3); margin-top: 2px; line-height: 1.4; }
-
     .npsb-card { background: var(--gbg); border: 1.5px solid var(--gl); border-radius: var(--r); padding: 16px 18px; margin-bottom: 12px; }
     .npsb-lbl { font-size: .63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gm); margin-bottom: 5px; }
     .npsb-grade { font-family: var(--serif); font-size: 1.3rem; color: var(--g); margin-bottom: 3px; }
     .npsb-sub { font-size: .78rem; color: var(--ink2); line-height: 1.5; }
-
     .an-blocks { display: flex; flex-direction: column; gap: 8px; }
     .an-block { background: var(--white); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
     .an-block-hdr { display: flex; align-items: center; gap: 9px; padding: 9px 14px; background: var(--off); border-bottom: 1px solid var(--border); }
@@ -114,13 +111,80 @@
     .action-text { font-size: .82rem; color: var(--ink2); line-height: 1.5; }
     .s-row { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; font-size: .82rem; color: var(--ink2); line-height: 1.5; }
     .s-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--g); flex-shrink: 0; margin-top: 7px; }
-
     .result-cta { background: var(--ink); border-radius: var(--r); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
     .result-cta-text h4 { font-size: .9rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
     .result-cta-text p { font-size: .74rem; color: rgba(255,255,255,.55); line-height: 1.4; }
     .btn-cta-white { background: #fff; color: var(--ink); border: none; padding: 10px 20px; border-radius: 20px; font-family: var(--sans); font-size: .82rem; font-weight: 700; cursor: pointer; transition: all .2s; white-space: nowrap; flex-shrink: 0; }
     .btn-cta-white:hover { background: var(--gp); color: var(--g); }
 
+    /* TOOLTIP */
+    .term { position: relative; border-bottom: 1.5px dashed var(--g); cursor: help; display: inline; }
+    .tipbox { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; border-radius: 9px; padding: 10px 14px; font-size: .72rem; line-height: 1.55; width: 240px; z-index: 300; white-space: normal; box-shadow: 0 6px 24px rgba(0,0,0,.22); pointer-events: none; }
+    .tipbox::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--ink); }
+    .tipbox strong { color: var(--gl); display: block; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+    .term:hover .tipbox { display: block; }
+
+    /* SECTIONS */
+    .section-wrap { max-width: 940px; margin: 0 auto; padding: 0 5% 80px; }
+    .section-label { font-size: .65rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--g); margin-bottom: 12px; }
+    .section-h2 { font-family: var(--serif); font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--ink); margin-bottom: 10px; line-height: 1.2; }
+    .section-h2 em { color: var(--g); font-style: italic; }
+    .section-sub { font-size: .92rem; color: var(--ink2); max-width: 560px; line-height: 1.75; margin-bottom: 36px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 auto 80px; max-width: calc(100% - 10%); }
+
+    /* TOOLS TEASER */
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 700px) { .tools-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .tools-grid { grid-template-columns: 1fr; } }
+    .tool-card { border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px 20px; background: var(--white); position: relative; }
+    .tool-card.span2 { grid-column: span 2; }
+    @media (max-width: 480px) { .tool-card.span2 { grid-column: span 1; } }
+    .tool-card-badge { position: absolute; top: 14px; right: 14px; font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; }
+    .badge-free { background: var(--gbg); color: var(--g); border: 1px solid var(--gl); }
+    .badge-coming { background: var(--amberbg); color: var(--amber); border: 1px solid var(--amberborder); }
+    .tool-icon { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 14px; }
+    .tool-icon.green { background: var(--gbg); }
+    .tool-icon.blue { background: var(--bluebg); }
+    .tool-icon.amber { background: var(--amberbg); }
+    .tool-icon.purple { background: var(--purplebg); }
+    .tool-icon.dark { background: var(--off); }
+    .tool-card h4 { font-size: .88rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; padding-right: 70px; }
+    .tool-card p { font-size: .77rem; color: var(--ink2); line-height: 1.55; }
+    .tool-lock { margin-top: 13px; font-size: .68rem; color: var(--ink3); display: flex; align-items: center; gap: 5px; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+    @media (max-width: 720px) { .pricing-grid { grid-template-columns: 1fr; max-width: 400px; } }
+    .price-card { border: 1px solid var(--border); border-radius: 16px; padding: 26px 22px; background: var(--white); }
+    .price-card.featured { border-color: var(--g); box-shadow: 0 0 0 3px rgba(45,106,79,.07), var(--shadow); }
+    .price-card.premium-card { background: var(--ink); border-color: var(--ink); }
+    .price-tier { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; margin-bottom: 10px; }
+    .price-tier.c-green { color: var(--gm); }
+    .price-tier.c-muted { color: var(--ink3); }
+    .price-tier.c-light { color: var(--gl); }
+    .price-num { font-family: var(--serif); font-size: 2.5rem; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+    .price-card.premium-card .price-num { color: #fff; }
+    .price-period { font-size: .74rem; color: var(--ink3); margin-bottom: 18px; }
+    .price-card.premium-card .price-period { color: rgba(255,255,255,.4); }
+    .price-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 16px; }
+    .price-card.premium-card .price-divider { border-color: rgba(255,255,255,.1); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .price-features li { display: flex; align-items: flex-start; gap: 8px; font-size: .79rem; color: var(--ink2); line-height: 1.45; }
+    .price-card.premium-card .price-features li { color: rgba(255,255,255,.68); }
+    .pf-check { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .58rem; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+    .pf-green { background: var(--gp); color: var(--g); }
+    .pf-white { background: rgba(255,255,255,.12); color: rgba(255,255,255,.7); }
+    .price-btn { width: 100%; padding: 12px; border-radius: 22px; border: none; font-family: var(--sans); font-size: .86rem; font-weight: 700; cursor: pointer; transition: all .2s; display: block; text-align: center; }
+    .btn-outline-green { background: transparent; border: 2px solid var(--g); color: var(--g); }
+    .btn-outline-green:hover { background: var(--g); color: #fff; }
+    .btn-solid-green { background: var(--g); color: #fff; }
+    .btn-solid-green:hover { background: var(--gm); }
+    .btn-white { background: #fff; color: var(--ink); }
+    .btn-white:hover { background: var(--gp); color: var(--g); }
+    .price-footnote { font-size: .67rem; color: var(--ink3); text-align: center; margin-top: 9px; line-height: 1.4; }
+    .price-card.premium-card .price-footnote { color: rgba(255,255,255,.3); }
+
+    /* EMAIL CAPTURE */
     .ec-overlay { display:none;position:fixed;inset:0;z-index:450;background:rgba(15,25,35,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px; }
     .ec-overlay.show { display:flex; }
     .ec-card { background:var(--white);border-radius:16px;border:1px solid var(--border);width:100%;max-width:400px;padding:32px 28px 24px;position:relative;animation:ecIn .3s cubic-bezier(.34,1.56,.64,1); }
@@ -129,7 +193,6 @@
     .ec-close:hover { background:var(--border); }
     .ec-badge { display:inline-flex;align-items:center;gap:6px;background:var(--gbg);border:1px solid var(--gl);border-radius:100px;padding:4px 12px 4px 8px;margin-bottom:16px; }
     .ec-badge-dot { width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0; }
-    .ec-badge-text { font-size:.7rem;font-weight:600;color:#1b4332; }
     .ec-heading { font-family:var(--serif);font-size:1.4rem;line-height:1.2;color:var(--ink);margin-bottom:7px; }
     .ec-heading em { color:var(--g);font-style:italic; }
     .ec-sub { font-size:.82rem;color:var(--ink2);line-height:1.6;margin-bottom:16px; }
@@ -149,6 +212,9 @@
     .ec-success-sub { font-size:.8rem;color:var(--ink2);line-height:1.6;max-width:260px; }
     .ec-success-close { margin-top:18px;font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--g);background:var(--gbg);border:none;border-radius:var(--rs);padding:8px 20px;cursor:pointer; }
 
+    /* TOAST */
+    .toast { position:fixed;bottom:24px;right:24px;background:var(--g);color:#fff;border-radius:12px;padding:14px 20px;font-size:.84rem;font-weight:600;z-index:999;box-shadow:var(--shadow);display:none;max-width:300px;line-height:1.4; }
+
     footer { border-top: 1px solid var(--border); padding: 22px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .footer-logo { display: flex; align-items: center; gap: 7px; }
     .footer-logo-text { font-size: .82rem; font-weight: 700; color: var(--ink2); }
@@ -160,6 +226,9 @@
   </style>
 </head>
 <body>
+
+<aside id="va-nav"></aside>
+<div class="va-main">
 
 <nav>
   <a class="logo" href="https://www.landedd.com">
@@ -189,30 +258,43 @@
   <div class="classifier-card">
     <div class="classifier-header">
       <div>
-        <h3>JOA Tier Classifier</h3>
-        <p>Paste your USAJobs posting — get your tier, the rules that apply, and what to do next</p>
+        <h3><span class="term">JOA<span class="tipbox"><strong>JOA</strong>Job Opportunity Announcement — the official federal job posting on USAJobs.gov.</span></span> Tier Classifier</h3>
+        <p>Paste your <span class="term" style="color:rgba(255,255,255,.72);border-bottom-color:rgba(255,255,255,.4)">USAJobs<span class="tipbox"><strong>USAJobs</strong>The federal government's official job board (usajobs.gov). All federal positions are posted here.</span></span> posting — get your tier, the rules that apply, and what to do next</p>
       </div>
       <div class="free-badge">Free</div>
     </div>
     <div class="classifier-body">
       <div class="input-methods">
         <button class="imethod active" onclick="swMethod('paste')" id="m-paste">✎ Paste JOA text</button>
+        <button class="imethod" onclick="swMethod('url')" id="m-url">🔗 USAJobs URL</button>
         <button class="imethod" onclick="swMethod('num')" id="m-num">🔢 Announcement #</button>
       </div>
+
       <div class="ipane active" id="pane-paste">
         <div class="fld">
           <label>Job Opportunity Announcement</label>
           <textarea id="joa-text" placeholder="Paste the full job posting from USAJobs.gov here. Include the header with pay scale, series, and grade for best results..."></textarea>
-          <div class="fld-note">More text = more accurate detection. Copy everything from USAJobs.</div>
+          <div class="fld-note">Most accurate method. Copy everything from USAJobs — more text = better detection.</div>
         </div>
       </div>
+
+      <div class="ipane" id="pane-url">
+        <div class="fld">
+          <label>USAJobs Job URL</label>
+          <input type="url" id="joa-url" placeholder="https://www.usajobs.gov/job/123456789" />
+          <div class="fld-note">Paste the full URL from your browser. We use the official <a href="https://developer.usajobs.gov" target="_blank" rel="noopener">USAJobs API</a> — no scraping. Open postings only. If a posting is closed, paste the text instead.</div>
+        </div>
+        <div class="url-warn" id="url-warn"></div>
+      </div>
+
       <div class="ipane" id="pane-num">
         <div class="fld">
-          <label>USAJobs Announcement Number</label>
+          <label><span class="term">USAJobs Announcement Number<span class="tipbox"><strong>Announcement Number</strong>A unique code at the top of every federal job posting (e.g., VHA-626-24-DH-12345678). Found in the posting header.</span></span></label>
           <input type="text" id="joa-num" placeholder="e.g. VHA-626-24-DH-12345678" />
           <div class="fld-note">Found at the top of any USAJobs posting.</div>
         </div>
       </div>
+
       <div class="run-row">
         <button class="btn-run" id="run-btn" onclick="runClassifier()"><span id="run-label">Classify my JOA →</span></button>
         <span class="run-note">~15 seconds · No account needed</span>
@@ -223,13 +305,113 @@
   </div>
 </div>
 
+<!-- TOOLS TEASER -->
+<div class="section-wrap">
+  <div class="section-label">What's included</div>
+  <h2 class="section-h2">Every tool knows the difference between <em>your tier and theirs.</em></h2>
+  <p class="section-sub">Federal VA hiring has three sets of rules — <span class="term">Title 38<span class="tipbox"><strong>Title 38</strong>The law governing VA clinical hiring. No 2-page limit, no essay questions for most roles.</span></span>, <span class="term">Hybrid 38<span class="tipbox"><strong>Hybrid Title 38</strong>VA roles blending Title 38 credentials with Title 5 GS pay grades. Common for social workers and psychologists.</span></span>, and <span class="term">Title 5<span class="tipbox"><strong>Title 5</strong>Standard federal hiring. 2-page resume limit and 4 required essay questions apply.</span></span>. All four tools know which you're in. <a href="/va/roadmap.html" style="color:var(--g);font-weight:600">See how each tool fits your application journey →</a></p>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <span class="tool-card-badge badge-free">Free</span>
+      <div class="tool-icon green">🔍</div>
+      <h4>JOA Tier Classifier</h4>
+      <p>Paste your posting or URL. Get your tier, rules, NPSB grade prediction (nurses), and most common mistake — in 15 seconds.</p>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-badge badge-coming">May 9</span>
+      <div class="tool-icon blue">📊</div>
+      <h4>VA Fit Scanner</h4>
+      <p>Upload your resume. See how it scores against your VA role — line-by-line breakdown of gaps, strengths, and missing required federal fields.</p>
+      <div class="tool-lock">🔒 Included in VA Tools</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-badge badge-coming">May 9</span>
+      <div class="tool-icon amber">✏️</div>
+      <h4>VA Resume Tailor</h4>
+      <p>Your experience, rewritten to match your exact tier and <span class="term">series<span class="tipbox"><strong>Series</strong>4-digit occupation code (e.g., 0610 = Nurse). Determines which hiring rules and pay scale apply.</span></span> — with all required federal fields included.</p>
+      <div class="tool-lock">🔒 Included in VA Tools</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-badge badge-coming">May 9</span>
+      <div class="tool-icon purple">📝</div>
+      <h4>Questionnaire Strategy</h4>
+      <p>Most VA postings include a scored questionnaire. This tool shows you how to answer every question to maximize your <span class="term">rating<span class="tipbox"><strong>Rating</strong>Score (70–100) assigned after your questionnaire. Determines if you're referred to the hiring manager.</span></span>.</p>
+      <div class="tool-lock">🔒 Included in VA Tools</div>
+    </div>
+    <div class="tool-card span2">
+      <span class="tool-card-badge badge-coming">May 9</span>
+      <div class="tool-icon dark">📦</div>
+      <h4>Premium Application Package</h4>
+      <p>Fill out a short intake form. Receive a complete AI-built application package in your inbox within minutes — tailored resume, cover letter, questionnaire strategy, target JOA list, and gap analysis. Fully automated. No human in the loop.</p>
+      <div class="tool-lock">🔒 Premium only · Includes 7-day follow-up</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PRICING -->
+<div class="section-wrap" id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-h2">Start free. Go deeper <em>when you're ready.</em></h2>
+  <p class="section-sub">The JOA Classifier is always free. Full VA tools launch May 9 — get early access now and be first in.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier c-muted">Free</div>
+      <div class="price-num">$0</div>
+      <div class="price-period">Always free · No account needed</div>
+      <hr class="price-divider">
+      <ul class="price-features">
+        <li><span class="pf-check pf-green">✓</span>JOA Tier Classifier</li>
+        <li><span class="pf-check pf-green">✓</span>Hiring tier + applicable rules</li>
+        <li><span class="pf-check pf-green">✓</span><span class="term">NPSB<span class="tipbox"><strong>NPSB</strong>Nurse Professional Standards Board — sets starting pay grades for VA nurses (Series 0610).</span></span> grade prediction (Series 0610)</li>
+        <li><span class="pf-check pf-green">✓</span>Top mistakes for your role</li>
+      </ul>
+      <button class="price-btn btn-outline-green" onclick="document.getElementById('classifier').scrollIntoView({behavior:'smooth'})">Try it now →</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tier c-green">VA Tools</div>
+      <div class="price-num">$19</div>
+      <div class="price-period">per application · or $29/mo unlimited</div>
+      <hr class="price-divider">
+      <ul class="price-features">
+        <li><span class="pf-check pf-green">✓</span>Everything in Free</li>
+        <li><span class="pf-check pf-green">✓</span>VA Fit Scanner</li>
+        <li><span class="pf-check pf-green">✓</span>VA Resume Tailor</li>
+        <li><span class="pf-check pf-green">✓</span>Questionnaire Strategy</li>
+        <li><span class="pf-check pf-green">✓</span>Unlimited runs (monthly plan)</li>
+      </ul>
+      <button class="price-btn btn-solid-green" onclick="showEarlyAccess('tools')">Get early access →</button>
+      <div class="price-footnote">Launching May 9 · No charge until then</div>
+    </div>
+    <div class="price-card premium-card">
+      <div class="price-tier c-light">Premium Package</div>
+      <div class="price-num">$49</div>
+      <div class="price-period">one-time · per application</div>
+      <hr class="price-divider">
+      <ul class="price-features">
+        <li><span class="pf-check pf-white">✓</span>Everything in VA Tools</li>
+        <li><span class="pf-check pf-white">✓</span>Personalized intake form</li>
+        <li><span class="pf-check pf-white">✓</span>AI-built resume + cover letter</li>
+        <li><span class="pf-check pf-white">✓</span>Questionnaire strategy + target JOA list</li>
+        <li><span class="pf-check pf-white">✓</span>Gap analysis + document checklist</li>
+        <li><span class="pf-check pf-white">✓</span>Full package delivered in minutes</li>
+        <li><span class="pf-check pf-white">✓</span>7-day follow-up window</li>
+      </ul>
+      <button class="price-btn btn-white" onclick="showEarlyAccess('premium')">Get early access →</button>
+      <div class="price-footnote">Launching May 9 · No charge until then</div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL CAPTURE -->
 <div class="ec-overlay" id="ecOverlay" onclick="ecHandleOverlay(event)">
   <div class="ec-card">
     <button class="ec-close" onclick="ecClose()">×</button>
     <div id="ecFormState">
-      <div class="ec-badge"><div class="ec-badge-dot"></div><span class="ec-badge-text">Your results are ready</span></div>
-      <h2 class="ec-heading">Want these<br><em>sent to you?</em></h2>
-      <p class="ec-sub">We'll email your tier classification and next steps. One email, no spam.</p>
+      <div class="ec-badge"><div class="ec-badge-dot"></div><span class="ec-badge-text" id="ecBadgeText">Your results are ready</span></div>
+      <h2 class="ec-heading" id="ecHeading">Want these<br><em>sent to you?</em></h2>
+      <p class="ec-sub" id="ecSub">We'll email your tier classification and next steps. One email, no spam.</p>
       <input type="email" class="ec-input" id="ecEmailInput" placeholder="your@email.com" autocomplete="email" oninput="ecClearErr()" onkeydown="if(event.key==='Enter')ecSubmit()" />
       <div class="ec-errmsg" id="ecErrMsg">Please enter a valid email address.</div>
       <button class="ec-submit" id="ecSubmitBtn" onclick="ecSubmit()">Send me my results</button>
@@ -237,11 +419,9 @@
       <button class="ec-skip" onclick="ecClose()">No thanks</button>
     </div>
     <div class="ec-success" id="ecSuccess">
-      <div class="ec-success-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4L16 6" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="ec-success-heading">On its way</div>
-      <p class="ec-success-sub">Check your inbox in a moment.</p>
+      <div class="ec-success-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4L16 6" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="ec-success-heading" id="ecSuccessHeading">On its way</div>
+      <p class="ec-success-sub" id="ecSuccessSub">Check your inbox in a moment.</p>
       <button class="ec-success-close" onclick="ecClose()">Back to Landedd VA</button>
     </div>
   </div>
@@ -260,143 +440,193 @@
   <span class="footer-copy">© 2026 Landedd · Not affiliated with the U.S. Dept. of Veterans Affairs</span>
 </footer>
 
+<div class="toast" id="toast"></div>
+
+</div><!-- /va-main -->
+
+<script src="/va/nav.js"></script>
 <script>
-let activeMethod = 'paste';
+// ============================================================
+// INPUT METHOD SWITCHER
+// ============================================================
+var activeMethod = 'paste';
 function swMethod(m) {
   activeMethod = m;
-  ['paste','num'].forEach(x => {
+  ['paste','url','num'].forEach(function(x) {
     document.getElementById('m-'+x).classList.toggle('active', x===m);
     document.getElementById('pane-'+x).classList.toggle('active', x===m);
   });
+  document.getElementById('run-label').textContent = m === 'url' ? 'Fetch & Classify →' : 'Classify my JOA →';
 }
 
+// ============================================================
+// CLASSIFIER
+// ============================================================
 async function callClaude(prompt) {
-  const resp = await fetch('/api/claude', {
+  var resp = await fetch('/api/claude', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ messages: [{ role: 'user', content: prompt }], max_tokens: 2000 })
   });
-  const data = await resp.json();
+  var data = await resp.json();
   if (!resp.ok || data.error) throw new Error(data.error || 'API error');
-  const text = data.content?.[0]?.text;
+  var text = data.content && data.content[0] && data.content[0].text;
   if (!text) throw new Error('Empty response — please try again.');
   return text;
 }
 
 function buildPrompt(joaText) {
-  return `You are a federal hiring expert specializing in VA Title 38 hiring rules. Analyze this Job Opportunity Announcement and return ONLY valid JSON — no markdown, no commentary.
-
-JOA content:
-${joaText}
-
-Return this exact JSON shape:
-{
-  "tier": "pure_38" | "hybrid_38" | "title_5",
-  "series": "<4-digit code>",
-  "series_name": "<occupation name>",
-  "pay_system": "<VM | GS | GL | Special>",
-  "confidence": <0.0-1.0>,
-  "two_page_rule": "exempt" | "applies" | "check_joa",
-  "essay_questions": "exempt" | "applies" | "check_joa",
-  "npsb_applies": <true if series 0610 pure Title 38, else false>,
-  "npsb_predicted_grade": "<e.g. Nurse I Level 2> or null",
-  "npsb_grade_rationale": "<1 sentence> or null",
-  "key_actions": ["<action 1>", "<action 2>", "<action 3>"],
-  "clinical_requirements": ["<required credential 1>", "<required credential 2>"],
-  "tier_explanation": "<2 sentences why this tier, plain language>",
-  "watch_out": "<single biggest mistake applicants make for this role>"
+  return 'You are a federal hiring expert specializing in VA Title 38 hiring rules. Analyze this Job Opportunity Announcement and return ONLY valid JSON — no markdown, no commentary.\n\nJOA content:\n' + joaText + '\n\nReturn this exact JSON shape:\n{\n  "tier": "pure_38" | "hybrid_38" | "title_5",\n  "series": "<4-digit code>",\n  "series_name": "<occupation name>",\n  "pay_system": "<VM | GS | GL | Special>",\n  "confidence": <0.0-1.0>,\n  "two_page_rule": "exempt" | "applies" | "check_joa",\n  "essay_questions": "exempt" | "applies" | "check_joa",\n  "npsb_applies": <true if series 0610 pure Title 38, else false>,\n  "npsb_predicted_grade": "<e.g. Nurse I Level 2> or null",\n  "npsb_grade_rationale": "<1 sentence> or null",\n  "key_actions": ["<action 1>", "<action 2>", "<action 3>"],\n  "clinical_requirements": ["<required credential 1>", "<required credential 2>"],\n  "tier_explanation": "<2 sentences why this tier, plain language>",\n  "watch_out": "<single biggest mistake applicants make for this role>"\n}\n\nRules: pure_38 = VM pay AND series in [0602,0603,0610,0660,0662,0668,0680,0683] AND VA employer. hybrid_38 = GS pay AND series in [0180,0185,0631,0633,0638,0642,0644,0647,0660,0661,0665] AND VA employer. title_5 = anything else. VHA prefix = VA Health Administration = likely Title 38 clinical. If uncertain, set confidence below 0.8.';
 }
 
-Rules: pure_38 = VM pay AND series in [0602,0603,0610,0660,0662,0668,0680,0683] AND VA employer. hybrid_38 = GS pay AND series in [0180,0185,0631,0633,0638,0642,0644,0647,0660,0661,0665] AND VA employer. title_5 = anything else. VHA prefix = VA Health Administration = likely Title 38 clinical. If uncertain, set confidence below 0.8.`;
+async function getJoaText() {
+  if (activeMethod === 'paste') {
+    var t = (document.getElementById('joa-text').value || '').trim();
+    if (!t || t.length < 15) throw new Error('Please paste your job posting text first.');
+    return t;
+  }
+  if (activeMethod === 'num') {
+    var n = (document.getElementById('joa-num').value || '').trim();
+    if (!n) throw new Error('Please enter an announcement number.');
+    return 'Announcement number: ' + n + '. VHA prefix indicates VA Health Administration, likely Title 38 clinical role.';
+  }
+  if (activeMethod === 'url') {
+    var url = (document.getElementById('joa-url').value || '').trim();
+    if (!url || !url.includes('usajobs.gov')) throw new Error('Please enter a valid USAJobs.gov URL.');
+    document.getElementById('run-label').textContent = 'Fetching JOA…';
+    var res = await fetch('/api/fetch-joa', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: url })
+    });
+    var data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || 'Could not fetch job posting.');
+    if (data.warning) {
+      var w = document.getElementById('url-warn');
+      w.textContent = '⚠ ' + data.warning;
+      w.style.display = 'block';
+    }
+    return data.text;
+  }
+  throw new Error('Unknown input method.');
 }
 
 async function runClassifier() {
-  const btn = document.getElementById('run-btn');
-  const lbl = document.getElementById('run-label');
-  const errBox = document.getElementById('err-box');
-  const resultBox = document.getElementById('result-box');
-  let joaText = activeMethod === 'paste'
-    ? (document.getElementById('joa-text').value || '').trim()
-    : 'Announcement number: ' + (document.getElementById('joa-num').value || '').trim() + '. VHA prefix = VA Health Administration, likely Title 38 clinical.';
-  if (!joaText || joaText.length < 15) { showErr('Please paste your job posting text first.'); return; }
+  var btn = document.getElementById('run-btn');
+  var lbl = document.getElementById('run-label');
+  var errBox = document.getElementById('err-box');
+  var resultBox = document.getElementById('result-box');
+  var urlWarn = document.getElementById('url-warn');
+  if (urlWarn) urlWarn.style.display = 'none';
   errBox.style.display = 'none';
   resultBox.classList.remove('show');
-  btn.disabled = true; lbl.textContent = 'Analyzing…';
+  btn.disabled = true;
+  lbl.textContent = 'Analyzing…';
   try {
-    const raw = await callClaude(buildPrompt(joaText));
-    const clean = raw.replace(/```json|```/g,'').trim();
-    let d; try { d = JSON.parse(clean); } catch { throw new Error('Could not parse result — please try again.'); }
+    var joaText = await getJoaText();
+    lbl.textContent = 'Analyzing…';
+    var raw = await callClaude(buildPrompt(joaText));
+    var clean = raw.replace(/```json|```/g,'').trim();
+    var d;
+    try { d = JSON.parse(clean); } catch(e) { throw new Error('Could not parse result — please try again.'); }
     resultBox.innerHTML = renderResult(d);
     resultBox.classList.add('show');
     resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    setTimeout(() => showEmailCapture(), 3500);
+    setTimeout(function() { showEmailCapture('results'); }, 3500);
   } catch(e) { showErr(e.message || 'Something went wrong — please try again.'); }
-  finally { btn.disabled = false; lbl.textContent = 'Classify my JOA →'; }
+  finally { btn.disabled = false; lbl.textContent = activeMethod === 'url' ? 'Fetch & Classify →' : 'Classify my JOA →'; }
 }
 
-function showErr(msg) { const e = document.getElementById('err-box'); e.textContent = '⚠ ' + msg; e.style.display = 'block'; }
+function showErr(msg) { var e = document.getElementById('err-box'); e.textContent = '⚠ ' + msg; e.style.display = 'block'; }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function tierLabel(t) { return t==='pure_38'?'Pure Title 38':t==='hybrid_38'?'Hybrid Title 38':'Title 5 Standard'; }
 function tierClass(t) { return t==='pure_38'?'pure38':t==='hybrid_38'?'hybrid38':'title5'; }
 function ruleBlock(val, label, subPass, subFail, subWarn) {
-  const icon = val==='exempt'?'<div class="rule-icon pass">✓</div>':val==='applies'?'<div class="rule-icon fail">!</div>':'<div class="rule-icon warn">?</div>';
-  const sub = val==='exempt'?subPass:val==='applies'?subFail:subWarn;
-  return `<div class="rule-row">${icon}<div><div class="rule-label">${label}</div><div class="rule-sub">${sub}</div></div></div>`;
+  var icon = val==='exempt'?'<div class="rule-icon pass">✓</div>':val==='applies'?'<div class="rule-icon fail">!</div>':'<div class="rule-icon warn">?</div>';
+  var sub = val==='exempt'?subPass:val==='applies'?subFail:subWarn;
+  return '<div class="rule-row">'+icon+'<div><div class="rule-label">'+label+'</div><div class="rule-sub">'+sub+'</div></div></div>';
 }
 
 function renderResult(d) {
-  const tc = tierClass(d.tier);
-  const conf = Math.round((d.confidence||0.8)*100);
-  let html = '';
-  html += `<div class="tier-row">
-    <div class="tier-pill ${tc}"><div class="tier-pill-dot"></div>${tierLabel(d.tier)}</div>
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      ${d.series?`<span style="font-size:.78rem;color:var(--ink2)">Series <strong>${esc(d.series)}</strong> · ${esc(d.series_name)}</span>`:''}
-      <span class="conf-badge">${conf>=90?'High confidence':conf>=75?'Moderate confidence':'Low confidence — verify manually'}</span>
-    </div>
-  </div>`;
-  if (d.tier_explanation) html += `<div class="tier-explain">${esc(d.tier_explanation)}</div>`;
-  html += `<div class="rules-grid">
-    ${ruleBlock(d.two_page_rule,'2-Page Resume Limit','Exempt — include full clinical detail.','Required — stay within 2 pages.','Verify in your JOA.')}
-    ${ruleBlock(d.essay_questions,'4 Federal Essay Questions','Exempt — not required for this role.','Required — four questions must be answered.','Check your specific announcement.')}
-    <div class="rule-row"><div class="rule-icon fail">!</div><div><div class="rule-label">Federal Resume Fields</div><div class="rule-sub">Required all tiers: hours/week, supervisor, salary, full employer address.</div></div></div>
-    <div class="rule-row"><div class="rule-icon ${d.npsb_applies?'fail':'pass'}">${d.npsb_applies?'!':'–'}</div><div><div class="rule-label">NPSB Grade Review</div><div class="rule-sub">${d.npsb_applies?'Applies — your starting pay grade is set by a Nurse Professional Standards Board.':'Does not apply to this role.'}</div></div></div>
-  </div>`;
-  if (d.npsb_applies && d.npsb_predicted_grade) {
-    html += `<div class="npsb-card"><div class="npsb-lbl">🩺 NPSB Grade Prediction (Series 0610)</div><div class="npsb-grade">Predicted: ${esc(d.npsb_predicted_grade)}</div>${d.npsb_grade_rationale?`<div class="npsb-sub">${esc(d.npsb_grade_rationale)}</div>`:''}<div class="npsb-sub" style="margin-top:5px;color:var(--ink3)">Full prediction requires your resume — available in the VA Fit Scanner, coming soon.</div></div>`;
-  }
-  html += `<div class="an-blocks">`;
-  if (d.key_actions?.length) html += `<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-blue">→</div><span class="an-block-title">What to do now</span></div><div class="an-block-body">${d.key_actions.map((a,i)=>`<div class="action-row"><div class="action-num">${i+1}</div><div class="action-text">${esc(a)}</div></div>`).join('')}</div></div>`;
-  if (d.clinical_requirements?.length) html += `<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">✓</div><span class="an-block-title">Required credentials for this role</span></div><div class="an-block-body">${d.clinical_requirements.map(r=>`<div class="s-row"><div class="s-dot"></div><div>${esc(r)}</div></div>`).join('')}</div></div>`;
-  if (d.watch_out) html += `<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-amber">⚠</div><span class="an-block-title">Most common mistake for this role</span></div><div class="an-block-body"><div class="s-row"><div class="s-dot" style="background:var(--amber)"></div><div>${esc(d.watch_out)}</div></div></div></div>`;
-  html += `</div>`;
-  html += `<div class="result-cta"><div class="result-cta-text"><h4>More VA tools coming soon</h4><p>VA Fit Scanner and Resume Tailor — built for your tier.</p></div><button class="btn-cta-white" onclick="showEmailCapture()">Get notified →</button></div>`;
+  var tc = tierClass(d.tier);
+  var conf = Math.round((d.confidence||0.8)*100);
+  var html = '';
+  html += '<div class="tier-row"><div class="tier-pill '+tc+'"><div class="tier-pill-dot"></div>'+tierLabel(d.tier)+'</div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+(d.series?'<span style="font-size:.78rem;color:var(--ink2)">Series <strong>'+esc(d.series)+'</strong> · '+esc(d.series_name)+'</span>':'')+'<span class="conf-badge">'+(conf>=90?'High confidence':conf>=75?'Moderate confidence':'Low confidence — verify manually')+'</span></div></div>';
+  if (d.tier_explanation) html += '<div class="tier-explain">'+esc(d.tier_explanation)+'</div>';
+  html += '<div class="rules-grid">'+ruleBlock(d.two_page_rule,'2-Page Resume Limit','Exempt — include full clinical detail.','Required — stay within 2 pages.','Verify in your JOA.')+ruleBlock(d.essay_questions,'4 Federal Essay Questions','Exempt — not required for this role.','Required — four questions must be answered.','Check your specific announcement.')+'<div class="rule-row"><div class="rule-icon fail">!</div><div><div class="rule-label">Required Federal Resume Fields</div><div class="rule-sub">All tiers: hours/week, supervisor name, salary, full employer address.</div></div></div><div class="rule-row"><div class="rule-icon '+(d.npsb_applies?'fail':'pass')+'">'+(d.npsb_applies?'!':'–')+'</div><div><div class="rule-label">NPSB Grade Review</div><div class="rule-sub">'+(d.npsb_applies?'Applies — your starting pay grade is set by a Nurse Professional Standards Board.':'Does not apply to this role.')+'</div></div></div></div>';
+  if (d.npsb_applies && d.npsb_predicted_grade) html += '<div class="npsb-card"><div class="npsb-lbl">🩺 NPSB Grade Prediction (Series 0610)</div><div class="npsb-grade">Predicted: '+esc(d.npsb_predicted_grade)+'</div>'+(d.npsb_grade_rationale?'<div class="npsb-sub">'+esc(d.npsb_grade_rationale)+'</div>':'')+'<div class="npsb-sub" style="margin-top:5px;color:var(--ink3)">Full prediction requires your resume — available in VA Fit Scanner, launching May 9.</div></div>';
+  html += '<div class="an-blocks">';
+  if (d.key_actions && d.key_actions.length) html += '<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-blue">→</div><span class="an-block-title">What to do now</span></div><div class="an-block-body">'+d.key_actions.map(function(a,i){return '<div class="action-row"><div class="action-num">'+(i+1)+'</div><div class="action-text">'+esc(a)+'</div></div>';}).join('')+'</div></div>';
+  if (d.clinical_requirements && d.clinical_requirements.length) html += '<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-green">✓</div><span class="an-block-title">Required credentials for this role</span></div><div class="an-block-body">'+d.clinical_requirements.map(function(r){return '<div class="s-row"><div class="s-dot"></div><div>'+esc(r)+'</div></div>';}).join('')+'</div></div>';
+  if (d.watch_out) html += '<div class="an-block"><div class="an-block-hdr"><div class="an-hdr-icon hi-amber">⚠</div><span class="an-block-title">Most common mistake for this role</span></div><div class="an-block-body"><div class="s-row"><div class="s-dot" style="background:var(--amber)"></div><div>'+esc(d.watch_out)+'</div></div></div></div>';
+  html += '</div>';
+  html += '<div class="result-cta"><div class="result-cta-text"><h4>VA Tools launching May 9</h4><p>Fit Scanner, Resume Tailor, and Questionnaire Strategy — built for your tier.</p></div><button class="btn-cta-white" onclick="showEarlyAccess(\'tools\')">Get early access →</button></div>';
   return html;
 }
 
-let _ecShown = sessionStorage.getItem('_vaEc')==='1';
-function showEmailCapture() {
-  if (_ecShown) return;
+// ============================================================
+// EMAIL CAPTURE
+// ============================================================
+var _ecShown = sessionStorage.getItem('_vaEc')==='1';
+var _ecSource = 'va_classifier';
+
+function showEmailCapture(source) {
+  if (_ecShown && source === 'results') return;
+  _ecSource = source || 'va_classifier';
+  document.getElementById('ecBadgeText').textContent = 'Your results are ready';
+  document.getElementById('ecHeading').innerHTML = 'Want these<br><em>sent to you?</em>';
+  document.getElementById('ecSub').textContent = "We'll email your tier classification and next steps. One email, no spam.";
+  document.getElementById('ecSubmitBtn').textContent = 'Send me my results';
+  document.getElementById('ecFormState').style.display = 'block';
+  document.getElementById('ecSuccess').classList.remove('show');
+  document.getElementById('ecEmailInput').value = '';
+  ecClearErr();
   document.getElementById('ecOverlay').classList.add('show');
-  setTimeout(()=>document.getElementById('ecEmailInput').focus(),100);
+  setTimeout(function(){document.getElementById('ecEmailInput').focus();},100);
 }
+
+function showEarlyAccess(tier) {
+  _ecSource = 'early_access_' + tier;
+  document.getElementById('ecBadgeText').textContent = tier === 'premium' ? 'Premium Package' : 'VA Tools';
+  document.getElementById('ecHeading').innerHTML = 'Get <em>early access</em><br>when we launch.';
+  document.getElementById('ecSub').textContent = "We'll email you on May 9 when the tools go live. Be first in.";
+  document.getElementById('ecSubmitBtn').textContent = 'Notify me at launch →';
+  document.getElementById('ecFormState').style.display = 'block';
+  document.getElementById('ecSuccess').classList.remove('show');
+  document.getElementById('ecEmailInput').value = '';
+  ecClearErr();
+  document.getElementById('ecOverlay').classList.add('show');
+  setTimeout(function(){document.getElementById('ecEmailInput').focus();},100);
+}
+
 function ecClose() { document.getElementById('ecOverlay').classList.remove('show'); _ecShown=true; sessionStorage.setItem('_vaEc','1'); }
 function ecHandleOverlay(e) { if(e.target===document.getElementById('ecOverlay'))ecClose(); }
 function ecClearErr() { document.getElementById('ecEmailInput').classList.remove('ec-err'); document.getElementById('ecErrMsg').classList.remove('show'); }
 function ecIsValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
 async function ecSubmit() {
-  const input=document.getElementById('ecEmailInput');
-  const btn=document.getElementById('ecSubmitBtn');
-  const email=input.value.trim();
-  if(!ecIsValidEmail(email)){input.classList.add('ec-err');document.getElementById('ecErrMsg').classList.add('show');input.focus();return;}
-  btn.textContent='Sending…';btn.disabled=true;
+  var input = document.getElementById('ecEmailInput');
+  var btn = document.getElementById('ecSubmitBtn');
+  var email = input.value.trim();
+  if (!ecIsValidEmail(email)) { input.classList.add('ec-err'); document.getElementById('ecErrMsg').classList.add('show'); input.focus(); return; }
+  btn.textContent = 'Sending…'; btn.disabled = true;
   try {
-    await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'email_capture',email,tool:'va_classifier',source:'va_landing'})});
-    document.getElementById('ecFormState').style.display='none';
+    await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'email_capture', email: email, tool: 'va_classifier', source: _ecSource }) });
+    var isEarlyAccess = _ecSource.indexOf('early_access') === 0;
+    document.getElementById('ecSuccessHeading').textContent = isEarlyAccess ? "You're on the list" : "On its way";
+    document.getElementById('ecSuccessSub').textContent = isEarlyAccess ? "We'll reach out on May 9 when the tools go live." : "Check your inbox in a moment.";
+    document.getElementById('ecFormState').style.display = 'none';
     document.getElementById('ecSuccess').classList.add('show');
-    _ecShown=true;sessionStorage.setItem('_vaEc','1');
-  } catch { btn.disabled=false;btn.textContent='Send me my results';input.classList.add('ec-err');document.getElementById('ecErrMsg').textContent='Something went wrong — try again.';document.getElementById('ecErrMsg').classList.add('show'); }
+    _ecShown = true; sessionStorage.setItem('_vaEc','1');
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'Send me my results';
+    input.classList.add('ec-err'); document.getElementById('ecErrMsg').textContent = 'Something went wrong — try again.'; document.getElementById('ecErrMsg').classList.add('show');
+  }
 }
-document.addEventListener('keydown',e=>{if(e.key==='Escape')ecClose();});
+document.addEventListener('keydown', function(e){ if(e.key==='Escape')ecClose(); });
+
+// TOAST
+function showToast(msg, dur) { var t=document.getElementById('toast'); t.textContent=msg; t.style.display='block'; setTimeout(function(){t.style.display='none';},dur||5000); }
+var _p = new URLSearchParams(location.search);
+if (_p.get('checkout')==='success') { showToast("✓ You're registered! We'll email you at launch.", 7000); history.replaceState({},'',location.pathname); }
 </script>
 </body>
 </html>
