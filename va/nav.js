@@ -65,7 +65,7 @@
           html += '<div class="vn-item vn-coming">'
                 + '<span class="vn-ic">' + item.icon + '</span>'
                 + '<span class="vn-lbl">' + item.label + '</span>'
-                + '<span class="vn-padlock">&#128274;</span>'
+                
                 + '</div>';
         } else {
           html += '<a class="vn-item' + (active ? ' vn-active' : '') + '" href="' + item.href + '">'
@@ -89,7 +89,7 @@
   }
 
   var CSS = ''
-    + ':root{--vnw:210px}'
+    + ':root{--vnw:220px}'
     + 'body.has-sidebar{display:flex;min-height:100vh}'
     + '#va-nav{width:var(--vnw);flex-shrink:0;height:100vh;position:sticky;top:0;overflow:hidden;background:#fff;border-right:1px solid #e2e6ed;display:flex;flex-direction:column;z-index:100;transition:transform .25s cubic-bezier(.4,0,.2,1)}'
     + '.va-main{flex:1;min-width:0;overflow-x:hidden}'
@@ -112,7 +112,7 @@
     + '.vn-coming{opacity:.42;cursor:default}'
     + '.vn-ic{font-size:.82rem;flex-shrink:0;width:18px;text-align:center;line-height:1}'
     + '.vn-lbl{font-size:.76rem;font-weight:600;color:inherit;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
-    + '.vn-padlock{font-size:.62rem;flex-shrink:0;opacity:.6}'
+    
     + '.vn-foot{padding:12px 14px;border-top:1px solid #e2e6ed;flex-shrink:0}'
     + '.vn-cta{display:block;width:100%;padding:8px;background:#2d6a4f;color:#fff;border-radius:8px;font-size:.74rem;font-weight:700;text-align:center;text-decoration:none;margin-bottom:8px;transition:background .2s}'
     + '.vn-cta:hover{background:#40916c}'
@@ -120,7 +120,7 @@
     + '.vn-ext:hover{color:#2d6a4f}'
     + '.vn-copy{font-size:.57rem;color:#b0bec5;text-align:center;margin-top:7px;line-height:1.45}'
     + '@media(max-width:768px){'
-    +   ':root{--vnw:240px}'
+    +   ':root{--vnw:260px}'
     +   'body.has-sidebar{display:block}'
     +   '#va-nav{position:fixed;top:0;left:0;height:100vh;transform:translateX(-100%);z-index:200;box-shadow:4px 0 20px rgba(0,0,0,.14)}'
     +   '#va-nav.vn-open{transform:translateX(0)}'
