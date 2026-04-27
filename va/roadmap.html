@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>VA Application Roadmap — Landedd VA</title>
+  <meta name="description" content="Your step-by-step guide to landing a VA clinical role. See how to use Landedd VA tools at each stage of the federal application process." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --g: #2d6a4f; --gm: #40916c; --gl: #74c69d; --gp: #d8f3dc; --gbg: #f0faf4;
+      --white: #fff; --off: #f8f9fb; --border: #e2e6ed;
+      --ink: #0f1923; --ink2: #3d4f5e; --ink3: #7a8a99;
+      --amber: #b45309; --amberbg: #fffbeb; --amberborder: #fde68a;
+      --blue: #1d4ed8; --bluebg: #eff6ff; --blueborder: #bfdbfe;
+      --purple: #6d28d9; --purplebg: #f5f3ff;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, sans-serif;
+      --r: 10px; --rs: 7px;
+      --shadow: 0 2px 8px rgba(0,0,0,.07), 0 12px 40px rgba(0,0,0,.09);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--ink); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* TOP NAV */
+    nav { position: sticky; top: 0; z-index: 150; background: rgba(255,255,255,.97); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .logo-mark svg { width: 24px; height: 24px; display: block; }
+    .logo-text { font-size: .92rem; font-weight: 700; color: var(--ink); }
+    .logo-badge { font-size: .52rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--g); color: #fff; border-radius: 4px; padding: 2px 5px; }
+    .nav-link { font-size: .8rem; color: var(--ink3); text-decoration: none; font-weight: 500; }
+    .nav-link:hover { color: var(--g); }
+
+    /* TERM TOOLTIPS */
+    .term { position: relative; border-bottom: 1.5px dashed var(--g); cursor: help; }
+    .tipbox { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; border-radius: 9px; padding: 9px 13px; font-size: .72rem; line-height: 1.55; width: 230px; z-index: 300; white-space: normal; box-shadow: 0 6px 24px rgba(0,0,0,.22); pointer-events: none; }
+    .tipbox::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--ink); }
+    .tipbox strong { color: var(--gl); display: block; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+    .term:hover .tipbox { display: block; }
+
+    /* PAGE HEADER */
+    .page-header { padding: 52px 5% 40px; max-width: 780px; }
+    .page-eyebrow { font-size: .65rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--g); margin-bottom: 14px; }
+    .page-h1 { font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.9rem); color: var(--ink); line-height: 1.15; margin-bottom: 14px; }
+    .page-h1 em { color: var(--g); font-style: italic; }
+    .page-sub { font-size: .92rem; color: var(--ink2); line-height: 1.75; max-width: 560px; }
+
+    /* ROADMAP LAYOUT */
+    .roadmap { max-width: 780px; padding: 0 5% 80px; }
+
+    /* STEP */
+    .step { display: flex; gap: 24px; padding: 28px 0; position: relative; }
+    .step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 68px;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .step.has-tool:not(:last-child)::before { background: linear-gradient(to bottom, var(--gl), var(--border)); }
+
+    /* STEP CIRCLE */
+    .step-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+      margin-top: 4px;
+    }
+    .step-num.active { background: var(--g); color: #fff; box-shadow: 0 0 0 4px var(--gp); }
+    .step-num.muted { background: var(--off); color: var(--ink3); border: 2px solid var(--border); }
+
+    /* STEP CONTENT */
+    .step-body { flex: 1; min-width: 0; }
+    .step-label { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--ink3); margin-bottom: 4px; }
+    .step-label.green { color: var(--g); }
+    .step-title { font-family: var(--serif); font-size: 1.25rem; color: var(--ink); margin-bottom: 8px; line-height: 1.25; }
+    .step-desc { font-size: .85rem; color: var(--ink2); line-height: 1.72; }
+    .step-desc p + p { margin-top: 8px; }
+
+    /* TIPS LIST */
+    .step-tips { list-style: none; margin: 10px 0 0; display: flex; flex-direction: column; gap: 5px; }
+    .step-tips li { display: flex; align-items: flex-start; gap: 8px; font-size: .81rem; color: var(--ink2); line-height: 1.5; }
+    .tip-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--g); flex-shrink: 0; margin-top: 7px; }
+
+    /* TOOL CALLOUT */
+    .step-tool { margin-top: 14px; border: 1.5px solid var(--gl); border-radius: var(--r); padding: 14px 16px; background: var(--gbg); display: flex; align-items: flex-start; gap: 12px; }
+    .step-tool-icon { width: 34px; height: 34px; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .step-tool-content { flex: 1; min-width: 0; }
+    .step-tool-name { font-size: .8rem; font-weight: 700; color: var(--g); margin-bottom: 3px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .tool-badge { font-size: .58rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; }
+    .badge-free { background: var(--gp); color: var(--g); }
+    .badge-coming { background: var(--amberbg); color: var(--amber); border: 1px solid var(--amberborder); }
+    .badge-prem { background: var(--ink); color: #fff; }
+    .step-tool-desc { font-size: .77rem; color: var(--ink2); line-height: 1.55; }
+    .step-tool-link { display: inline-block; margin-top: 7px; font-size: .75rem; font-weight: 700; color: var(--g); text-decoration: none; }
+    .step-tool-link:hover { text-decoration: underline; }
+
+    /* PREMIUM BANNER */
+    .premium-banner { margin: 0 5% 40px; max-width: 720px; background: var(--ink); border-radius: 14px; padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .pb-text h3 { font-family: var(--serif); font-size: 1.1rem; color: #fff; margin-bottom: 4px; }
+    .pb-text p { font-size: .78rem; color: rgba(255,255,255,.55); line-height: 1.55; max-width: 460px; }
+    .pb-btn { background: #fff; color: var(--ink); padding: 10px 22px; border-radius: 22px; font-family: var(--sans); font-size: .82rem; font-weight: 700; text-decoration: none; white-space: nowrap; transition: all .2s; }
+    .pb-btn:hover { background: var(--gp); color: var(--g); }
+
+    /* GLOSSARY STRIP */
+    .gloss-strip { max-width: 780px; margin: 0 5% 80px; }
+    .gloss-strip-label { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--g); margin-bottom: 14px; }
+    .gloss-strip-h { font-family: var(--serif); font-size: 1.4rem; color: var(--ink); margin-bottom: 8px; }
+    .gloss-strip-sub { font-size: .84rem; color: var(--ink2); line-height: 1.7; margin-bottom: 22px; }
+    .gloss-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    @media (max-width: 560px) { .gloss-grid { grid-template-columns: 1fr; } }
+    .gi { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--white); }
+    .gi-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 14px; background: none; border: none; font-family: var(--sans); font-size: .8rem; font-weight: 600; color: var(--ink); cursor: pointer; text-align: left; transition: background .15s; }
+    .gi-q:hover { background: var(--off); }
+    .gi-tag { font-size: .58rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; background: var(--gbg); color: var(--g); border-radius: 10px; padding: 2px 7px; flex-shrink: 0; }
+    .gi-chev { color: var(--ink3); font-size: .72rem; transition: transform .2s; flex-shrink: 0; }
+    .gi.open .gi-chev { transform: rotate(180deg); }
+    .gi-a { display: none; padding: 10px 14px 12px; font-size: .78rem; color: var(--ink2); line-height: 1.65; border-top: 1px solid var(--border); background: var(--off); }
+    .gi.open .gi-a { display: block; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 20px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .footer-logo { display: flex; align-items: center; gap: 7px; }
+    .footer-logo-text { font-size: .8rem; font-weight: 700; color: var(--ink2); }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a { color: var(--ink3); font-size: .76rem; text-decoration: none; }
+    .footer-links a:hover { color: var(--g); }
+    .footer-copy { font-size: .7rem; color: var(--ink3); }
+    @media (max-width: 560px) { footer { flex-direction: column; text-align: center; } .footer-links { justify-content: center; } }
+  </style>
+</head>
+<body>
+
+<aside id="va-nav"></aside>
+<div class="va-main">
+
+<nav>
+  <a class="logo" href="/va/">
+    <div class="logo-mark">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+        <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+        <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+        <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+        <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+        <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
+      </svg>
+    </div>
+    <span class="logo-text">Landedd</span>
+    <span class="logo-badge">VA</span>
+  </a>
+  <a class="nav-link" href="/va/">← Back to tools</a>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">Step-by-step guide</div>
+  <h1 class="page-h1">The VA application <em>roadmap.</em></h1>
+  <p class="page-sub">Federal hiring is a defined process with predictable steps. Here's exactly what happens between finding a job and starting it — and where to use Landedd VA to maximize your chances at each stage.</p>
+</div>
+
+<div class="roadmap">
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-num muted">1</div>
+    <div class="step-body">
+      <div class="step-label">Search</div>
+      <div class="step-title">Find the right role on USAJobs</div>
+      <div class="step-desc">
+        <p>Go to <a href="https://www.usajobs.gov" target="_blank" rel="noopener" style="color:var(--g)">usajobs.gov</a> and filter by Department of Veterans Affairs. Narrow by location, occupation series, or pay grade. VA clinical roles span nursing, medicine, pharmacy, social work, psychology, and dozens more.</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>Search by <span class="term">series<span class="tipbox"><strong>Occupation Series</strong>A 4-digit code for every federal occupation. 0610 = Nurse, 0602 = Physician, 0660 = Pharmacist, 0185 = Social Worker. The series determines which hiring rules apply.</span></span> code (e.g., "0610") to find all nurse postings across every VA facility.</li>
+          <li><div class="tip-dot"></div>Filter by "Open to the public" — VA also posts internal-only roles that you won't qualify for unless you're already federal.</li>
+          <li><div class="tip-dot"></div>Note the closing date. Most VA postings close within 5–10 days of opening.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step has-tool">
+    <div class="step-num active">2</div>
+    <div class="step-body">
+      <div class="step-label green">Landedd VA step</div>
+      <div class="step-title">Decode the JOA — know your rules before you apply</div>
+      <div class="step-desc">
+        <p>A <span class="term">JOA<span class="tipbox"><strong>JOA</strong>Job Opportunity Announcement — the official federal job posting on USAJobs.gov. A legal document that defines what you must have, what you should have, and exactly how to apply.</span></span> is a legal document, not a job description. Every word matters. Before you invest time in your application, you need to know: which hiring tier applies to your role, whether you're subject to the 2-page resume rule and <span class="term">essay questions<span class="tipbox"><strong>KSAs / Essay Questions</strong>Structured narrative responses required for many Title 5 federal jobs. Most pure Title 38 VA clinical roles are exempt. Always verify in your specific JOA.</span></span>, and what <span class="term">Selective Placement Factors<span class="tipbox"><strong>Selective Placement Factor (SPF)</strong>A must-have requirement in the JOA. Missing one = automatic rejection, regardless of everything else on your application.</span></span> could screen you out.</p>
+      </div>
+      <div class="step-tool">
+        <div class="step-tool-icon">🔍</div>
+        <div class="step-tool-content">
+          <div class="step-tool-name">JOA Tier Classifier <span class="tool-badge badge-free">Free · Live now</span></div>
+          <div class="step-tool-desc">Paste your JOA or USAJobs URL. Get your hiring tier (Title 38, Hybrid, or Title 5), the rules that apply to your role, an <span class="term">NPSB<span class="tipbox"><strong>NPSB</strong>Nurse Professional Standards Board — sets starting pay grades for VA nurses (Series 0610) based on education and experience.</span></span> grade prediction for nurses, and the most common mistake for your specific role — in about 15 seconds.</div>
+          <a class="step-tool-link" href="/va/">Classify my JOA free →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-num muted">3</div>
+    <div class="step-body">
+      <div class="step-label">Eligibility</div>
+      <div class="step-title">Verify you meet the hard requirements</div>
+      <div class="step-desc">
+        <p>Before writing a single word, confirm you meet every <span class="term">SPF<span class="tipbox"><strong>Selective Placement Factor</strong>A non-negotiable requirement. Common examples: active state license, specific degree (BSN vs ADN), U.S. citizenship, no felony record. Missing one = auto-reject.</span></span> in the posting. Federal HR reviews are strict and automated — there's no "but I have equivalent experience" exception if the posting says otherwise.</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>Confirm your professional license is active and accepted in the state of the VA facility.</li>
+          <li><div class="tip-dot"></div>Check "Who May Apply" — some postings are open to all, others to current federal employees only.</li>
+          <li><div class="tip-dot"></div>Note the required degree type. The VA distinguishes between a BSN and an ADN for nurses. This affects your <span class="term">NPSB grade<span class="tipbox"><strong>NPSB Grade</strong>Your starting salary level as a VA nurse (Nurse I, II, or III), set by the Nurse Professional Standards Board based on education, experience, and certifications.</span></span>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step has-tool">
+    <div class="step-num active">4</div>
+    <div class="step-body">
+      <div class="step-label green">Landedd VA step</div>
+      <div class="step-title">Build your federal resume — not a regular one</div>
+      <div class="step-desc">
+        <p>A federal resume is fundamentally different from a private-sector resume. It must include: hours worked per week, supervisor name and phone number, full employer address, federal salary, and detailed duty descriptions. Missing any of these = automatic issues in HR review. Length and clinical detail requirements depend on your tier — <span class="term">Title 38<span class="tipbox"><strong>Title 38</strong>VA's clinical hiring law. No 2-page limit. Include full clinical detail, all credentials, and every required federal field.</span></span> vs. <span class="term">Title 5<span class="tipbox"><strong>Title 5</strong>Standard federal hiring law. 2-page resume limit. More structured format required.</span></span>.</p>
+      </div>
+      <div class="step-tool">
+        <div class="step-tool-icon">📊</div>
+        <div class="step-tool-content">
+          <div class="step-tool-name">VA Fit Scanner <span class="tool-badge badge-coming">Launching May 9</span></div>
+          <div class="step-tool-desc">Upload your resume and paste your JOA. Get a line-by-line score — which sections are strong, which are missing required federal fields, and what's likely to get flagged in HR review.</div>
+        </div>
+      </div>
+      <div class="step-tool" style="margin-top:10px">
+        <div class="step-tool-icon">✏️</div>
+        <div class="step-tool-content">
+          <div class="step-tool-name">VA Resume Tailor <span class="tool-badge badge-coming">Launching May 9</span></div>
+          <div class="step-tool-desc">Your experience, rewritten to match your exact tier and <span class="term">series<span class="tipbox"><strong>Occupation Series</strong>A 4-digit code that determines which hiring rules and pay scale apply to your federal role.</span></span> requirements. All required federal fields included. Clinical detail calibrated for Title 38, Hybrid, or Title 5.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step has-tool">
+    <div class="step-num active">5</div>
+    <div class="step-body">
+      <div class="step-label green">Landedd VA step</div>
+      <div class="step-title">Answer the questionnaire strategically</div>
+      <div class="step-desc">
+        <p>Most VA postings include a scored questionnaire — usually 20–30 questions, each tied to competencies in the JOA. Your score determines your <span class="term">rating<span class="tipbox"><strong>Rating</strong>A score (typically 70–100) assigned to your application based on questionnaire responses and minimum qualifications. Scores at or above 90–95 are typically "Best Qualified."</span></span>. Only candidates who score high enough get referred to the hiring manager. The questionnaire is the gate — most applicants don't know how to answer it to maximize their score.</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>Answer honestly, but use the JOA language. If you have the experience, say so in the same words the JOA uses.</li>
+          <li><div class="tip-dot"></div>HR can verify your questionnaire responses against your resume. If they don't match, you're disqualified.</li>
+          <li><div class="tip-dot"></div>For <span class="term">Hybrid 38<span class="tipbox"><strong>Hybrid Title 38</strong>VA roles that blend Title 38 credential requirements with Title 5 pay grades (GS). Common for social workers, psychologists, and dietitians.</span></span> and Title 5 roles, essay questions may also be required.</li>
+        </ul>
+      </div>
+      <div class="step-tool">
+        <div class="step-tool-icon">📝</div>
+        <div class="step-tool-content">
+          <div class="step-tool-name">Questionnaire Strategy <span class="tool-badge badge-coming">Launching May 9</span></div>
+          <div class="step-tool-desc">Paste your questionnaire. Get guidance on how to answer each question to maximize your rating — without overstating your experience. Calibrated to your tier and clinical background.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-num muted">6</div>
+    <div class="step-body">
+      <div class="step-label">Submit</div>
+      <div class="step-title">Submit through USAJobs before the deadline</div>
+      <div class="step-desc">
+        <p>Upload your documents through <a href="https://www.usajobs.gov" target="_blank" rel="noopener" style="color:var(--g)">USAJobs.gov</a> before the posting closes. Deadlines are strict — most close at 11:59 PM Eastern time. Late submissions are not accepted.</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>Upload: federal resume, official transcripts (if required), professional license, and veteran preference documentation if applicable.</li>
+          <li><div class="tip-dot"></div>Make sure your USAJobs profile contact info is current — HR may reach out via email or phone listed in your profile.</li>
+          <li><div class="tip-dot"></div>Check your USAJobs application status page after submitting. "Received" → "Reviewed" → "Referred" or "Not Referred."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step">
+    <div class="step-num muted">7</div>
+    <div class="step-body">
+      <div class="step-label">Rating</div>
+      <div class="step-title">Your application gets rated by HR</div>
+      <div class="step-desc">
+        <p>HR reviews your questionnaire score and verifies minimum qualifications. This is largely automated. You'll receive one of three statuses on USAJobs: <strong style="color:var(--g)">Referred</strong> (you made the list), <strong style="color:var(--amber)">Not Referred</strong> (you scored too low or didn't meet a requirement), or <strong style="color:var(--ink3)">Ineligible</strong> (you didn't meet an SPF).</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>Wait time varies — typically 2–8 weeks depending on the facility's hiring timeline and posting volume.</li>
+          <li><div class="tip-dot"></div>"Not Referred" often means your questionnaire score was below the cutoff, not that you're unqualified for the role.</li>
+          <li><div class="tip-dot"></div>For <span class="term">Series 0610<span class="tipbox"><strong>Series 0610 — Registered Nurse</strong>The federal occupation code for VA nurses. Pure Title 38. Subject to NPSB grade review, not GS pay grades.</span></span> (RNs), the <span class="term">NPSB<span class="tipbox"><strong>NPSB</strong>Nurse Professional Standards Board — reviews nurse qualifications and sets starting pay grade (Nurse I, II, or III) for VA nurses.</span></span> also reviews your application to set your starting grade.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step">
+    <div class="step-num muted">8</div>
+    <div class="step-body">
+      <div class="step-label">Hiring manager review</div>
+      <div class="step-title">Your application goes to the hiring manager</div>
+      <div class="step-desc">
+        <p>If referred, the hiring manager reviews the referred pool and selects candidates to interview. The pool is typically a "Best Qualified" list — top scorers from the rating step. Being referred doesn't guarantee an interview.</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>You can follow up after 4 weeks without news. Contact the HR point of contact listed in the JOA — not the hiring manager directly.</li>
+          <li><div class="tip-dot"></div>Hiring managers may reach out via phone. Answer unknown numbers during this window.</li>
+          <li><div class="tip-dot"></div>A posting may stay open for multiple selections — being referred keeps you in consideration even after initial interviews.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 9 -->
+  <div class="step">
+    <div class="step-num muted">9</div>
+    <div class="step-body">
+      <div class="step-label">Interview</div>
+      <div class="step-title">Interview — often a panel, sometimes includes a skills check</div>
+      <div class="step-desc">
+        <p>VA clinical interviews often involve a panel (nurse manager, charge nurses, or clinical educators). For bedside roles, you may also complete a skills demonstration or simulation. The process mirrors private-sector interviews but with a federal formality.</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>Prepare behavioral questions using the STAR method (Situation, Task, Action, Result).</li>
+          <li><div class="tip-dot"></div>Know the VA's mission and your facility's patient population. Panel interviewers notice when candidates have done their homework.</li>
+          <li><div class="tip-dot"></div>Ask about the onboarding timeline — VA credentialing takes time, and knowing the expected start date helps you plan.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 10 -->
+  <div class="step">
+    <div class="step-num muted">10</div>
+    <div class="step-body">
+      <div class="step-label">Offer + onboarding</div>
+      <div class="step-title">Tentative offer → credentialing → official start date</div>
+      <div class="step-desc">
+        <p>A tentative offer comes first — it's conditional on background check, drug screen, medical review, and credentialing (for clinical roles). The official offer follows once everything clears. VA credentialing is thorough: license verification, malpractice history, education verification. Plan for 4–10 weeks between tentative offer and your official start date.</p>
+        <ul class="step-tips">
+          <li><div class="tip-dot"></div>Respond to all HR document requests promptly — delays on your end extend the timeline.</li>
+          <li><div class="tip-dot"></div>For nurses, your <span class="term">NPSB grade<span class="tipbox"><strong>NPSB Grade</strong>Your starting salary level as a VA nurse, set by the Nurse Professional Standards Board. Nurse I Level 1 through Nurse III. Your grade determines your pay.</span></span> and salary are confirmed at offer stage. If you believe you've been graded incorrectly, you can request a review before accepting.</li>
+          <li><div class="tip-dot"></div>Your <span class="term">Entrance on Duty (EOD)<span class="tipbox"><strong>EOD — Entrance on Duty</strong>Your official first day as a federal employee. All pre-employment steps must be cleared before your EOD date is confirmed.</span></span> date is set once all clearances are complete.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /roadmap -->
+
+<!-- PREMIUM BANNER -->
+<div class="premium-banner">
+  <div class="pb-text">
+    <h3>Want steps 2–5 done for you?</h3>
+    <p>The Premium Package covers the entire application build — tier classification, resume, questionnaire strategy, cover letter, and gap analysis — in one intake form. Delivered to your inbox in minutes. Launching May 9.</p>
+  </div>
+  <a class="pb-btn" href="/va/#pricing">Get early access →</a>
+</div>
+
+<!-- GLOSSARY -->
+<div class="gloss-strip">
+  <div class="gloss-strip-label">Quick reference</div>
+  <div class="gloss-strip-h">Key terms at a glance</div>
+  <p class="gloss-strip-sub">Every acronym you'll see in the VA application process — explained in plain English.</p>
+  <div class="gloss-grid">
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>What is a JOA?</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Acronym</span><span class="gi-chev">▼</span></span></button><div class="gi-a">A <strong>Job Opportunity Announcement</strong> is the official federal job posting on USAJobs.gov — a legal document that defines exact requirements, pay, and how to apply. Read the entire posting before applying. Missing one requirement = automatic rejection.</div></div>
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>Title 38 vs. Title 5</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Hiring rule</span><span class="gi-chev">▼</span></span></button><div class="gi-a"><strong>Title 38</strong> governs VA clinical hiring (nurses, physicians, pharmacists). No 2-page limit, no essay questions. <strong>Title 5</strong> is standard federal hiring — 2-page limit and KSA essays required. <strong>Hybrid 38</strong> blends both.</div></div>
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>What is NPSB?</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Acronym</span><span class="gi-chev">▼</span></span></button><div class="gi-a">The <strong>Nurse Professional Standards Board</strong> sets starting pay grades for VA nurses (Series 0610). Your grade (Nurse I, II, III) is based on education, experience, and certifications — not negotiated with a recruiter.</div></div>
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>What is a GS Grade?</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Pay scale</span><span class="gi-chev">▼</span></span></button><div class="gi-a">The <strong>General Schedule (GS)</strong> is the most common federal pay scale (GS-1 to GS-15). Title 5 and some Hybrid 38 VA roles use GS grades. Pure Title 38 clinical roles use VM (Veterans Medicine) pay instead.</div></div>
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>What is a Selective Placement Factor?</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Requirement</span><span class="gi-chev">▼</span></span></button><div class="gi-a">A <strong>must-have</strong> requirement in the JOA. Missing it = automatic disqualification, no exceptions. Common SPFs: active state license, specific degree type, clinical specialty. Always identify the SPFs before applying.</div></div>
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>What are KSAs?</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Acronym</span><span class="gi-chev">▼</span></span></button><div class="gi-a"><strong>Knowledge, Skills, and Abilities</strong> — narrative essays required for many Title 5 federal jobs. Scored and used to rank candidates. Most pure Title 38 VA clinical roles are exempt. Check your JOA to confirm.</div></div>
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>What is an SF-50?</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Document</span><span class="gi-chev">▼</span></span></button><div class="gi-a">Standard Form 50 documents your federal employment history — position, grade, salary, and personnel actions. Required for current or former federal employees. Find yours through your agency's eOPF system.</div></div>
+
+    <div class="gi"><button class="gi-q" onclick="tg(this)"><span>What is VHA?</span><span style="display:flex;align-items:center;gap:7px"><span class="gi-tag">Acronym</span><span class="gi-chev">▼</span></span></button><div class="gi-a">The <strong>Veterans Health Administration</strong> delivers healthcare to veterans. Most clinical VA jobs are under VHA. A "VHA" prefix on an announcement number (e.g., VHA-626-24-DH-...) signals a clinical role and likely Title 38 hiring rules.</div></div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="18" height="18"><circle cx="20" cy="20" r="20" fill="#74c69d"/><path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/><circle cx="20" cy="15" r="3" fill="#74c69d"/><path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/><path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/><path d="M17,29 Q20,35 23,29" fill="#fff"/></svg>
+    <span class="footer-logo-text">Landedd VA</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://www.landedd.com">Landedd.com</a>
+    <a href="https://www.landedd.com/privacy.html">Privacy</a>
+    <a href="https://www.landedd.com/terms.html">Terms</a>
+  </div>
+  <span class="footer-copy">© 2026 Landedd · Not affiliated with the U.S. Dept. of Veterans Affairs</span>
+</footer>
+
+</div><!-- /va-main -->
+
+<script src="/va/nav.js"></script>
+<script>
+function tg(btn) {
+  var item = btn.closest('.gi');
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.gi.open').forEach(function(el) { el.classList.remove('open'); });
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
