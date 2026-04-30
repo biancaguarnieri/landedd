@@ -1,11 +1,16 @@
 {
   "cleanUrls": true,
-  "redirects": [
-    {
-      "source": "/",
-      "has": [{ "type": "host", "value": "va.landedd.com" }],
-      "destination": "/va",
-      "permanent": false
+  "rewrites": [
+    { "source": "/premium/intake", "destination": "/premium-intake.html" },
+    { "source": "/premium/view",   "destination": "/premium-view.html"   },
+    { "source": "/premium",        "destination": "/premium.html"        }
+  ],
+  "functions": {
+    "api/premium-intake.js": {
+      "maxDuration": 300
+    },
+    "api/premium-followup.js": {
+      "maxDuration": 60
     }
-  ]
+  }
 }
