@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOA Tier Classifier — Free VA Hiring Rules Tool — Landedd VA</title>
+<meta name="description" content="Paste a USAJobs posting and instantly know whether Title 38, Hybrid Title 38, or Title 5 rules apply, what the resume page limits are, and whether Direct Hire Authority is active. Free, no signup.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#2d6a4f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #2d6a4f; --green-mid: #40916c; --green-light: #74c69d;
+  --green-pale: #d8f3dc; --green-bg: #f0faf4;
+  --ink: #1a1a1a; --ink-2: #3d3d3d; --ink-3: #717171;
+  --border: #e0e0e0; --surface: #f8f8f6; --white: #ffffff;
+  --amber-bg: #fef3c7; --amber: #92400e; --amber-border: #fde68a;
+  --red-bg: #fee2e2; --red: #991b1b; --red-border: #fecaca;
+  --radius: 10px; --shadow: 0 2px 20px rgba(0,0,0,.07);
+}
+html { font-size: 16px; }
+body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--surface); min-height: 100vh; line-height: 1.65; }
+
+.nav {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo { display: flex; align-items: center; text-decoration: none; gap: 9px; }
+.logo-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; }
+.logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green); }
+.nav-back { font-size: 13px; color: var(--ink-3); text-decoration: none; transition: color .15s; }
+.nav-back:hover { color: var(--green); }
+
+.page-wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+.page-header { margin-bottom: 32px; }
+.page-header .badge {
+  display: inline-block; background: var(--green-pale); color: var(--green);
+  font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 100px; margin-bottom: 14px;
+}
+.page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin-bottom: 12px; }
+.page-header p { font-size: 16px; color: var(--ink-3); line-height: 1.7; max-width: 580px; }
+
+/* Form */
+.form-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+  padding: 28px 24px; box-shadow: var(--shadow); margin-bottom: 24px;
+}
+.input-group { margin-bottom: 18px; }
+.input-label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 6px; }
+.input-help { font-size: 12px; color: var(--ink-3); margin-bottom: 8px; }
+.input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.input-row input { flex: 1; min-width: 240px; }
+input[type=text], input[type=url], textarea {
+  width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 11px 14px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--ink);
+  transition: border-color .15s; line-height: 1.5;
+}
+textarea { min-height: 160px; resize: vertical; }
+input:focus, textarea:focus { outline: none; border-color: var(--green); }
+
+.divider {
+  display: flex; align-items: center; gap: 10px; margin: 14px 0; color: var(--ink-3); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.btn-classify {
+  display: block; width: 100%; background: var(--green); color: var(--white);
+  padding: 14px 20px; border-radius: 10px; font-size: 15px; font-weight: 700;
+  border: none; cursor: pointer; transition: background .15s;
+}
+.btn-classify:hover { background: var(--green-mid); }
+.btn-classify:disabled { background: var(--ink-3); cursor: not-allowed; }
+
+.spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Result */
+.result-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+  padding: 28px 24px; box-shadow: var(--shadow); display: none;
+}
+.result-card.visible { display: block; }
+.result-header { margin-bottom: 20px; }
+.tier-badge {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 10px;
+}
+.tier-t38 { background: var(--green-pale); color: var(--green); }
+.tier-h38 { background: #dbeafe; color: #1e40af; }
+.tier-t5 { background: #fef3c7; color: #92400e; }
+.tier-unknown { background: var(--surface); color: var(--ink-3); border: 1px solid var(--border); }
+
+.result-title { font-family: 'DM Serif Display', serif; font-size: 24px; line-height: 1.2; margin-bottom: 8px; }
+.result-summary { font-size: 14px; color: var(--ink-2); line-height: 1.7; }
+
+.facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+@media (max-width: 540px) { .facts-grid { grid-template-columns: 1fr; } }
+.fact-row {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px 14px;
+}
+.fact-label { font-size: 11px; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
+.fact-value { font-size: 14px; color: var(--ink); font-weight: 600; }
+.fact-value.yes { color: var(--green); }
+.fact-value.no { color: var(--ink-3); }
+
+.what-it-means {
+  background: var(--green-bg); border: 1px solid var(--green-pale); border-radius: 10px;
+  padding: 16px 18px; margin-top: 20px;
+}
+.what-it-means h4 { font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.what-it-means p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+.next-steps { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+.next-steps h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.next-list { list-style: none; }
+.next-list li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.next-list li::before { content: '→'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+.upgrade-cta {
+  background: linear-gradient(145deg, #0f2318, #1d4430); color: var(--white);
+  border-radius: 12px; padding: 22px 24px; margin-top: 24px;
+}
+.upgrade-cta h4 { font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.2; margin-bottom: 8px; }
+.upgrade-cta p { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.65; margin-bottom: 16px; }
+.btn-upgrade {
+  display: inline-block; background: var(--green-light); color: #0f2318;
+  padding: 11px 22px; border-radius: 8px; font-size: 14px; font-weight: 700;
+  text-decoration: none; transition: background .15s;
+}
+.btn-upgrade:hover { background: #8fd5b0; }
+
+/* Error */
+.error-box {
+  background: var(--red-bg); border: 1px solid var(--red-border); border-radius: 10px;
+  padding: 14px 16px; margin-top: 16px; font-size: 14px; color: var(--red); display: none;
+}
+.error-box.visible { display: block; }
+
+/* Disclaimer */
+.disclaimer { font-size: 12px; color: var(--ink-3); line-height: 1.6; margin-top: 24px; text-align: center; }
+.disclaimer a { color: var(--green); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="logo">
+    <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+      <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+      <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+      <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+      <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+      <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
+    </svg>
+    <span class="logo-text">Landedd VA</span>
+  </a>
+  <a href="/" class="nav-back">← Back to tools</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="badge">Free tool · No signup</div>
+    <h1>JOA Tier Classifier</h1>
+    <p>Paste any VA USAJobs posting (URL, announcement number, or full text). In about 15 seconds you'll know which federal hiring rules apply, the real resume page limit, and whether Direct Hire Authority is active.</p>
+  </div>
+
+  <div class="form-card">
+    <div class="input-group">
+      <label class="input-label" for="joa-url">USAJobs URL or announcement number</label>
+      <p class="input-help">Example: <code>CBSU-12345678-25-AB</code> or the full link from usajobs.gov</p>
+      <div class="input-row">
+        <input type="text" id="joa-url" placeholder="https://www.usajobs.gov/job/...">
+      </div>
+    </div>
+
+    <div class="divider">Or paste the full text</div>
+
+    <div class="input-group">
+      <label class="input-label" for="joa-text">Full JOA text (paste from USAJobs)</label>
+      <p class="input-help">Copy the whole posting — Duties, Requirements, Qualifications, How to Apply. The more we have, the more accurate the answer.</p>
+      <textarea id="joa-text" placeholder="Paste the full job announcement text here..."></textarea>
+    </div>
+
+    <button class="btn-classify" id="btn-classify" onclick="runClassifier()">
+      <span class="spinner" id="spinner"></span>
+      <span id="btn-text">Classify this JOA</span>
+    </button>
+
+    <div class="error-box" id="error-box"></div>
+  </div>
+
+  <div class="result-card" id="result-card">
+    <div class="result-header">
+      <div class="tier-badge" id="tier-badge">—</div>
+      <h2 class="result-title" id="result-title">Classification</h2>
+      <p class="result-summary" id="result-summary"></p>
+    </div>
+
+    <div class="facts-grid" id="facts-grid"></div>
+
+    <div class="what-it-means">
+      <h4>What this means for your application</h4>
+      <p id="what-it-means-text"></p>
+    </div>
+
+    <div class="next-steps">
+      <h4>Recommended next steps</h4>
+      <ul class="next-list" id="next-list"></ul>
+    </div>
+
+    <div class="upgrade-cta">
+      <h4>Want the full picture for this JOA?</h4>
+      <p>The Premium Analysis pulls the Specialized Experience paragraph verbatim, predicts your NPSB grade, identifies every gap in your resume, and writes a tailored federal resume — for $49.</p>
+      <a href="/premium" class="btn-upgrade">See Premium Analysis →</a>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    AI-generated guidance, not official federal employment advice. Landedd VA is independent and not affiliated with the VA, OPM, or any federal agency. Always verify rules in the JOA itself before applying. <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a>
+  </p>
+
+</div>
+
+<script>
+async function runClassifier() {
+  const url = document.getElementById('joa-url').value.trim();
+  const text = document.getElementById('joa-text').value.trim();
+  const btn = document.getElementById('btn-classify');
+  const spinner = document.getElementById('spinner');
+  const btnText = document.getElementById('btn-text');
+  const errorBox = document.getElementById('error-box');
+  const resultCard = document.getElementById('result-card');
+
+  errorBox.classList.remove('visible');
+  resultCard.classList.remove('visible');
+
+  if (!url && !text) {
+    errorBox.textContent = 'Please paste a USAJobs URL or the full text of the announcement.';
+    errorBox.classList.add('visible');
+    return;
+  }
+
+  btn.disabled = true;
+  spinner.style.display = 'inline-block';
+  btnText.textContent = 'Analyzing JOA…';
+
+  try {
+    const res = await fetch('/api/joa-classifier', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, text }),
+    });
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      throw new Error(data.error || `Server returned ${res.status}`);
+    }
+
+    renderResult(data);
+  } catch (err) {
+    errorBox.textContent = err.message || 'Something went wrong. Please try again.';
+    errorBox.classList.add('visible');
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    btnText.textContent = 'Classify this JOA';
+  }
+}
+
+function renderResult(d) {
+  const tierBadge = document.getElementById('tier-badge');
+  const tierMap = {
+    'pure_title_38': { label: 'Pure Title 38', cls: 'tier-t38' },
+    'hybrid_title_38': { label: 'Hybrid Title 38', cls: 'tier-h38' },
+    'title_5': { label: 'Title 5', cls: 'tier-t5' },
+    'unknown': { label: 'Unable to classify', cls: 'tier-unknown' }
+  };
+  const tier = tierMap[d.tier] || tierMap['unknown'];
+  tierBadge.textContent = tier.label;
+  tierBadge.className = 'tier-badge ' + tier.cls;
+
+  document.getElementById('result-title').textContent = d.title || 'JOA Classification Result';
+  document.getElementById('result-summary').textContent = d.summary || '';
+
+  const factsGrid = document.getElementById('facts-grid');
+  factsGrid.innerHTML = '';
+  const facts = [
+    { label: 'Resume page limit', value: d.resume_page_limit || 'Not specified' },
+    { label: 'Direct Hire Authority', value: d.dha_active === true ? 'Yes — apply quickly' : (d.dha_active === false ? 'No' : 'Not specified'), cls: d.dha_active === true ? 'yes' : 'no' },
+    { label: 'Open to public', value: d.open_to_public === true ? 'Yes' : (d.open_to_public === false ? 'No (current feds only or limited)' : 'Not specified'), cls: d.open_to_public === true ? 'yes' : 'no' },
+    { label: 'Specialized experience required', value: d.specialized_experience_required === true ? 'Yes' : 'No / not specified', cls: d.specialized_experience_required === true ? 'yes' : 'no' }
+  ];
+  facts.forEach(f => {
+    const row = document.createElement('div');
+    row.className = 'fact-row';
+    row.innerHTML = `<div class="fact-label">${f.label}</div><div class="fact-value ${f.cls || ''}">${f.value}</div>`;
+    factsGrid.appendChild(row);
+  });
+
+  document.getElementById('what-it-means-text').textContent = d.what_it_means || '';
+
+  const nextList = document.getElementById('next-list');
+  nextList.innerHTML = '';
+  (d.next_steps || []).forEach(step => {
+    const li = document.createElement('li');
+    li.textContent = step;
+    nextList.appendChild(li);
+  });
+
+  document.getElementById('result-card').classList.add('visible');
+  document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
