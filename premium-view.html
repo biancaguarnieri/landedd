@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your VA Premium Analysis — Landedd VA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<style>
+
+/* ═══════════════════════════════════════════════════════════
+   SCREEN STYLES
+═══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green: #2d6a4f;
+  --green-mid: #40916c;
+  --green-light: #74c69d;
+  --green-pale: #d8f3dc;
+  --green-bg: #f0faf4;
+  --ink: #1a1a1a;
+  --ink-2: #3d3d3d;
+  --ink-3: #717171;
+  --border: #e0e0e0;
+  --surface: #f8f8f6;
+  --white: #ffffff;
+  --radius: 10px;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--surface);
+  min-height: 100vh;
+  line-height: 1.65;
+}
+
+/* ── Nav ── */
+.nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 200;
+  gap: 12px;
+}
+.logo { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green); text-decoration: none; flex-shrink: 0; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+
+.btn-print {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--green); color: var(--white);
+  border: none; border-radius: 8px;
+  padding: 8px 16px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s; white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-print:hover { background: var(--green-mid); }
+
+.btn-followup-nav {
+  background: none; border: 1.5px solid var(--border);
+  border-radius: 8px; padding: 7px 14px;
+  font-size: 13px; font-weight: 500; color: var(--ink-2);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-followup-nav:hover { border-color: var(--green); color: var(--green); }
+
+/* ── Loading state ── */
+#loading {
+  max-width: 480px; margin: 80px auto; text-align: center; padding: 0 24px;
+}
+.spinner { width: 36px; height: 36px; border: 3px solid var(--green-pale); border-top-color: var(--green); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+#loading h2 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px; }
+#loading p { color: var(--ink-3); font-size: 14px; }
+
+/* ── Error state ── */
+#error-state { max-width: 480px; margin: 80px auto; text-align: center; padding: 0 24px; display: none; }
+#error-state h2 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 10px; }
+#error-state p { color: var(--ink-2); font-size: 15px; line-height: 1.7; }
+#error-state a { color: var(--green); }
+
+/* ── Layout ── */
+#main { display: none; }
+
+.layout {
+  max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px;
+  display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start;
+}
+@media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky; top: 80px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+@media (max-width: 860px) { .sidebar { display: none; } }
+
+.sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px; }
+
+.toc-item {
+  display: block; font-size: 12px; color: var(--ink-3); text-decoration: none;
+  padding: 6px 0; border-left: 2px solid transparent;
+  padding-left: 10px; margin-left: -10px;
+  line-height: 1.4; transition: all 0.15s;
+}
+.toc-item:hover { color: var(--green); border-left-color: var(--green-light); }
+.toc-item.active { color: var(--green); font-weight: 600; border-left-color: var(--green); }
+
+/* ── Content area ── */
+.content-col { min-width: 0; }
+
+/* ── Cover card ── */
+.cover-card {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+  color: var(--white); border-radius: 16px; padding: 36px 36px 32px;
+  margin-bottom: 28px; position: relative; overflow: hidden;
+}
+.cover-card::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.cover-badge {
+  display: inline-block; background: rgba(255,255,255,0.18); font-size: 11px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 14px;
+}
+.cover-card h1 { font-family: 'DM Serif Display', serif; font-size: 26px; line-height: 1.2; margin-bottom: 10px; font-weight: 400; }
+.cover-meta { font-size: 13px; opacity: 0.75; margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px; }
+.cover-meta span { display: flex; align-items: center; gap: 5px; }
+
+/* ── Analysis content card ── */
+.analysis-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 40px 44px; margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+@media (max-width: 600px) { .analysis-card { padding: 24px 20px; } }
+
+/* ── Markdown rendering ── */
+.analysis-card h1, .analysis-card h2 {
+  font-family: 'DM Serif Display', serif; font-weight: 400;
+  color: var(--ink); margin-top: 36px; margin-bottom: 14px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--green-pale);
+  scroll-margin-top: 80px;
+}
+.analysis-card h1 { font-size: 24px; }
+.analysis-card h2 { font-size: 20px; }
+.analysis-card h3 { font-size: 16px; font-weight: 600; margin-top: 24px; margin-bottom: 10px; color: var(--green); }
+.analysis-card h4 { font-size: 14px; font-weight: 600; margin-top: 16px; margin-bottom: 8px; color: var(--ink-2); }
+
+.analysis-card p { margin-bottom: 14px; font-size: 15px; color: var(--ink-2); }
+
+.analysis-card ul, .analysis-card ol {
+  padding-left: 20px; margin-bottom: 16px;
+}
+.analysis-card li { margin-bottom: 6px; font-size: 15px; color: var(--ink-2); }
+.analysis-card li strong { color: var(--ink); }
+
+.analysis-card table {
+  width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px;
+  border-radius: 8px; overflow: hidden; border: 1px solid var(--border);
+}
+.analysis-card th {
+  background: var(--green-bg); color: var(--green);
+  font-weight: 600; text-align: left; padding: 10px 14px; font-size: 12px;
+  letter-spacing: .03em; text-transform: uppercase;
+}
+.analysis-card td { padding: 10px 14px; border-top: 1px solid var(--border); vertical-align: top; }
+.analysis-card tr:nth-child(even) td { background: #fafafa; }
+
+.analysis-card blockquote {
+  border-left: 3px solid var(--green-light); padding: 12px 16px;
+  margin: 16px 0; background: var(--green-bg); border-radius: 0 8px 8px 0;
+  font-style: italic; color: var(--ink-2);
+}
+
+.analysis-card code {
+  background: var(--surface); padding: 2px 6px; border-radius: 4px;
+  font-size: 13px; font-family: 'Courier New', monospace; color: var(--green);
+}
+.analysis-card pre {
+  background: #1a1a1a; color: #e8e8e8; padding: 16px; border-radius: 8px;
+  overflow-x: auto; margin: 16px 0;
+}
+.analysis-card pre code { background: none; color: inherit; padding: 0; }
+
+/* Section numbers in analysis */
+.analysis-card h2:first-child { margin-top: 0; }
+
+/* ── Follow-up section ── */
+#followup-section {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 36px 44px; margin-bottom: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+@media (max-width: 600px) { #followup-section { padding: 24px 20px; } }
+
+.followup-header { margin-bottom: 20px; }
+.followup-header h2 { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 6px; }
+.followup-header p { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+
+.followup-badge {
+  display: inline-block; background: var(--green-pale); color: var(--green);
+  font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px; margin-bottom: 10px;
+}
+
+.followup-used {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 20px; text-align: center;
+  display: none;
+}
+.followup-used p { font-size: 14px; color: var(--ink-3); }
+.followup-used a { color: var(--green); }
+
+textarea.followup-input {
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px;
+  color: var(--ink); resize: vertical; min-height: 100px; line-height: 1.5;
+  transition: border-color 0.2s; margin-bottom: 12px;
+}
+textarea.followup-input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(45,106,79,0.1); }
+
+.btn-ask {
+  background: var(--green); color: var(--white); border: none;
+  border-radius: var(--radius); padding: 12px 24px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.btn-ask:hover { background: var(--green-mid); }
+.btn-ask:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.followup-answer {
+  margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--green-pale);
+  display: none;
+}
+.followup-answer h3 { font-family: 'DM Serif Display', serif; font-size: 16px; margin-bottom: 12px; color: var(--green); }
+.followup-answer-body { font-size: 14px; color: var(--ink-2); line-height: 1.7; }
+.followup-answer-body p { margin-bottom: 10px; }
+
+/* ── Footer ── */
+.analysis-footer {
+  text-align: center; padding: 20px 24px;
+  font-size: 12px; color: var(--ink-3); line-height: 1.6;
+}
+.analysis-footer a { color: var(--green); }
+
+/* ═══════════════════════════════════════════════════════════
+   PRINT STYLES — clean single-column PDF output
+═══════════════════════════════════════════════════════════ */
+@media print {
+  .nav, .sidebar, #followup-section, .analysis-footer, .btn-print, .btn-followup-nav { display: none !important; }
+  .layout { display: block; max-width: 100%; padding: 0; }
+  .content-col { max-width: 100%; }
+  body { background: white; font-size: 11pt; }
+  .cover-card { background: #2d6a4f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; page-break-after: avoid; margin-bottom: 16pt; border-radius: 0; }
+  .analysis-card { border: none; padding: 0; box-shadow: none; page-break-inside: avoid; }
+  .analysis-card h1, .analysis-card h2 { page-break-after: avoid; font-size: 14pt; }
+  .analysis-card h3 { page-break-after: avoid; font-size: 12pt; }
+  .analysis-card p, .analysis-card li { font-size: 10pt; }
+  .analysis-card table { page-break-inside: avoid; font-size: 9pt; }
+  .analysis-card th { background: #d8f3dc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="https://va.landedd.com" class="logo" style="display:flex;align-items:center;text-decoration:none;">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-right:7px;flex-shrink:0"><rect width="28" height="28" rx="6" fill="#2d6a4f"/><rect x="8" y="6" width="3.5" height="16" rx="1.75" fill="white"/><rect x="8" y="18.5" width="12" height="3.5" rx="1.75" fill="white"/></svg>
+    <span style="font-family:'DM Serif Display',serif;font-size:19px;color:var(--green)">Landedd VA</span>
+  </a>
+  <div class="nav-actions">
+    <button class="btn-followup-nav" onclick="scrollToFollowup()">Ask a follow-up ↓</button>
+    <button class="btn-print" onclick="window.print()">⬇ Save as PDF</button>
+  </div>
+</nav>
+
+<!-- Loading -->
+<div id="loading">
+  <div class="spinner"></div>
+  <h2>Loading your analysis…</h2>
+  <p>Just a moment.</p>
+</div>
+
+<!-- Error -->
+<div id="error-state">
+  <h2>Analysis not found</h2>
+  <p id="error-msg">This link may have expired (90 days) or the token is invalid.<br><br>If you just received this email, try refreshing. Otherwise, contact <a href="mailto:hello@landedd.com">hello@landedd.com</a> with your order details.</p>
+</div>
+
+<!-- Main content -->
+<div id="main">
+  <div class="layout">
+
+    <!-- Sidebar TOC -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Contents</div>
+      <nav id="toc"></nav>
+    </aside>
+
+    <!-- Content -->
+    <div class="content-col">
+
+      <!-- Cover card -->
+      <div class="cover-card">
+        <div class="cover-badge">Premium Analysis</div>
+        <h1 id="cover-title">Your VA Application Strategy</h1>
+        <div class="cover-meta">
+          <span>🎓 <span id="meta-credential"></span></span>
+          <span>📋 <span id="meta-joas"></span></span>
+          <span>📅 <span id="meta-date"></span></span>
+        </div>
+      </div>
+
+      <!-- Orientation banner — shown once, dismissed on click -->
+      <div id="orientation-banner" style="background:var(--green-bg);border:1.5px solid var(--green-pale);border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;gap:16px;align-items:flex-start;">
+        <div style="font-size:22px;flex-shrink:0;line-height:1">📋</div>
+        <div style="flex:1;">
+          <p style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:6px">How to use your analysis</p>
+          <p style="font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:10px">
+            <strong>1.</strong> Start with the <strong>Executive Summary</strong> (Section 1) — it tells you your highest-priority move.<br>
+            <strong>2.</strong> Go to <strong>Section 6</strong> for your tailored federal resume — copy it directly into USAJobs.<br>
+            <strong>3.</strong> Check <strong>Section 10</strong> (Watch-outs) before you hit submit.<br>
+            <strong>4.</strong> After you apply, use your <strong>included follow-up question</strong> — the button is in the nav bar above.
+          </p>
+          <button onclick="document.getElementById('orientation-banner').style.display='none'" style="font-size:12px;font-weight:600;color:var(--ink-3);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline;">Got it — dismiss</button>
+        </div>
+      </div>
+
+      <!-- Analysis content rendered here -->
+      <div class="analysis-card" id="analysis-content"></div>
+
+      <!-- Next 48 hours action box — injected after analysis renders -->
+      <div id="next-steps-box" style="display:none;background:var(--white);border:1.5px solid var(--green-pale);border-radius:14px;padding:28px 32px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+        <p style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:10px">Your next 48 hours</p>
+        <p style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:18px;color:var(--ink)">Now that you've read your analysis — here's where to start</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span style="background:var(--green);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</span><span><strong>Apply to your highest-priority JOA</strong> — use the tailored resume in Section 6. Copy it into USAJobs' resume builder or upload as a Word doc.</span></div>
+          <div style="display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span style="background:var(--green);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</span><span><strong>Save this analysis as a PDF</strong> — File → Print → Save as PDF. Keep it for reference while you complete the application.</span></div>
+          <div style="display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--ink-2)"><span style="background:var(--green);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</span><span><strong>Bookmark this page</strong> — your analysis is accessible here for 90 days. After you apply, come back to use your included follow-up question.</span></div>
+        </div>
+        <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--green-pale);">
+          <button onclick="scrollToFollowup()" style="background:var(--green);color:white;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Use your included follow-up question →</button>
+        </div>
+      </div>
+
+      <!-- Follow-up section -->
+      <div id="followup-section">
+        <div class="followup-header">
+          <div class="followup-badge">Included with Premium</div>
+          <h2>Ask a follow-up question</h2>
+          <p>You have <strong>one follow-up question</strong> included. After you've reviewed your analysis and applied, use this to get a personalized next-step response — what to do while you wait, how to prep for an interview, what to check if you're not progressing.</p>
+        </div>
+
+        <div id="followup-form">
+          <textarea
+            class="followup-input"
+            id="followup-question"
+            placeholder="Example: I submitted my application 3 weeks ago and the status shows 'Under Review'. Is that normal for this type of role? What should I be doing in the meantime?"
+            maxlength="1000"
+          ></textarea>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <button class="btn-ask" id="btn-ask" onclick="submitFollowup()">Submit my question →</button>
+            <span id="followup-char-count" style="font-size:12px;color:var(--ink-3);">0 / 1000</span>
+          </div>
+        </div>
+
+        <div class="followup-used" id="followup-used">
+          <p>Your follow-up question has been used. For additional guidance, <a href="https://va.landedd.com#premium">purchase another Premium analysis</a> for a new role, or email <a href="mailto:hello@landedd.com">hello@landedd.com</a>.</p>
+        </div>
+
+        <div class="followup-answer" id="followup-answer">
+          <h3>Your answer</h3>
+          <div class="followup-answer-body" id="followup-answer-body"></div>
+        </div>
+      </div>
+
+      <div class="analysis-footer">
+        Landedd VA · <a href="https://va.landedd.com">va.landedd.com</a> · <a href="mailto:hello@landedd.com">hello@landedd.com</a><br>
+        This analysis is AI-generated career guidance, not official federal employment advice.
+        Results are based on the information you provided and current Title 38 practices as of April 2026.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = '';
+let viewToken = null;
+let followupToken = null;
+
+// ─── Load deliverable ─────────────────────────────────────────────────────────
+async function loadAnalysis() {
+  const params = new URLSearchParams(window.location.search);
+  viewToken = params.get('token');
+
+  if (!viewToken) {
+    showError('No access token found in this URL. Check your delivery email for the correct link.');
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}/api/premium-view?token=${encodeURIComponent(viewToken)}`);
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      showError(data.error || 'Failed to load analysis.');
+      return;
+    }
+
+    followupToken = data.followup_token;
+    renderAnalysis(data);
+
+  } catch (err) {
+    showError('Failed to load your analysis. Check your internet connection or email hello@landedd.com.');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error-state').style.display = 'block';
+  document.getElementById('error-msg').innerHTML = msg;
+}
+
+// ─── Render analysis ──────────────────────────────────────────────────────────
+function renderAnalysis(data) {
+  const { markdown, metadata } = data;
+
+  // Render markdown
+  const html = marked.parse(markdown || '');
+  document.getElementById('analysis-content').innerHTML = html;
+
+  // Cover metadata
+  if (metadata) {
+    document.getElementById('meta-credential').textContent = metadata.credential_level || '—';
+    document.getElementById('meta-joas').textContent =
+      metadata.joa_titles?.length
+        ? `${metadata.joa_titles.length} position${metadata.joa_titles.length > 1 ? 's' : ''}: ${metadata.joa_titles.join(', ')}`
+        : '—';
+    document.getElementById('meta-date').textContent = metadata.created_at
+      ? new Date(metadata.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+      : '—';
+
+    // Update cover title with top JOA if available
+    if (metadata.joa_titles?.[0]) {
+      document.getElementById('cover-title').textContent = `VA Application Strategy — ${metadata.joa_titles[0]}`;
+    }
+  }
+
+  // Build TOC from H2 headings
+  buildTOC();
+
+  // Show main content
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('main').style.display = 'block';
+  document.getElementById('next-steps-box').style.display = 'block';
+
+  // Set page title
+  document.title = `Your VA Premium Analysis — Landedd VA`;
+
+  // Initialize scroll spy
+  initScrollSpy();
+}
+
+// ─── Build Table of Contents ──────────────────────────────────────────────────
+function buildTOC() {
+  const toc = document.getElementById('toc');
+  const headings = document.querySelectorAll('#analysis-content h2');
+
+  if (headings.length === 0) return;
+
+  headings.forEach((h, i) => {
+    // Give each heading an ID for anchor links
+    const id = `section-${i + 1}`;
+    h.id = id;
+
+    const link = document.createElement('a');
+    link.href = `#${id}`;
+    link.className = 'toc-item';
+
+    // Shorten long section titles for TOC
+    let title = h.textContent.trim();
+    if (title.length > 38) title = title.substring(0, 36) + '…';
+    link.textContent = title;
+    link.dataset.target = id;
+
+    toc.appendChild(link);
+  });
+}
+
+// ─── Scroll spy for TOC ───────────────────────────────────────────────────────
+function initScrollSpy() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.id;
+        const tocLink = document.querySelector(`.toc-item[data-target="${id}"]`);
+        if (tocLink) {
+          if (entry.isIntersecting) {
+            document.querySelectorAll('.toc-item').forEach(l => l.classList.remove('active'));
+            tocLink.classList.add('active');
+          }
+        }
+      });
+    },
+    { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+  );
+
+  document.querySelectorAll('#analysis-content h2').forEach(h => observer.observe(h));
+}
+
+// ─── Follow-up ────────────────────────────────────────────────────────────────
+function scrollToFollowup() {
+  document.getElementById('followup-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const textarea = document.getElementById('followup-question');
+  const counter = document.getElementById('followup-char-count');
+  if (textarea && counter) {
+    textarea.addEventListener('input', () => {
+      counter.textContent = `${textarea.value.length} / 1000`;
+    });
+  }
+});
+
+async function submitFollowup() {
+  const question = document.getElementById('followup-question').value.trim();
+
+  if (!question || question.length < 10) {
+    alert('Please enter a question (at least 10 characters).');
+    return;
+  }
+
+  const btn = document.getElementById('btn-ask');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/premium-followup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: followupToken, question }),
+    });
+
+    const data = await res.json();
+
+    if (data.quota_exceeded) {
+      document.getElementById('followup-form').style.display = 'none';
+      document.getElementById('followup-used').style.display = 'block';
+      return;
+    }
+
+    if (!data.success) {
+      throw new Error(data.error || 'Failed to submit. Please try again.');
+    }
+
+    // Show answer
+    const answerBody = document.getElementById('followup-answer-body');
+    answerBody.innerHTML = marked.parse(data.answer_markdown || '');
+    document.getElementById('followup-answer').style.display = 'block';
+    document.getElementById('followup-answer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Disable form — quota used
+    document.getElementById('followup-form').style.display = 'none';
+    document.getElementById('followup-used').style.display = 'block';
+
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Submit my question →';
+    alert(err.message || 'Something went wrong. Please try again or email hello@landedd.com.');
+  }
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+loadAnalysis();
+</script>
+</body>
+</html>

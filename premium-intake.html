@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your VA Premium Analysis — Landedd VA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #2d6a4f;
+    --green-mid: #40916c;
+    --green-light: #74c69d;
+    --green-pale: #d8f3dc;
+    --green-bg: #f0faf4;
+    --ink: #1a1a1a;
+    --ink-2: #3d3d3d;
+    --ink-3: #717171;
+    --border: #e0e0e0;
+    --surface: #fafafa;
+    --white: #ffffff;
+    --error: #c0392b;
+    --warning: #e67e22;
+    --radius: 10px;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: var(--surface);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── Nav ── */
+  .nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green); text-decoration: none; }
+  .nav-tag { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+
+  /* ── Loading / Error overlay ── */
+  #gate {
+    max-width: 540px; margin: 80px auto; padding: 0 24px; text-align: center;
+  }
+  #gate h2 { font-family: 'DM Serif Display', serif; font-size: 26px; margin-bottom: 12px; }
+  #gate p { color: var(--ink-2); font-size: 15px; line-height: 1.7; }
+  .spinner {
+    width: 36px; height: 36px; border: 3px solid var(--green-pale);
+    border-top-color: var(--green); border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Main layout ── */
+  #form-wrap { display: none; max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ── Header ── */
+  .page-header { margin-bottom: 40px; }
+  .page-header .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-pale); color: var(--green);
+    font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 100px; margin-bottom: 16px;
+  }
+  .page-header h1 { font-family: 'DM Serif Display', serif; font-size: 32px; line-height: 1.2; margin-bottom: 10px; }
+  .page-header p { color: var(--ink-2); font-size: 15px; max-width: 560px; }
+
+  /* ── Progress bar ── */
+  .progress-wrap { margin-bottom: 36px; }
+  .progress-label { font-size: 12px; font-weight: 600; color: var(--ink-3); margin-bottom: 8px; letter-spacing: .04em; text-transform: uppercase; }
+  .progress-bar { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 4px; transition: width 0.4s ease; width: 0%; }
+
+  /* ── Section card ── */
+  .section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .section-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--green); color: var(--white);
+    font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 18px; }
+
+  /* ── Field ── */
+  .field { margin-bottom: 20px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 13px; font-weight: 600; color: var(--ink-2);
+    margin-bottom: 6px; letter-spacing: .01em;
+  }
+  label .req { color: var(--green); margin-left: 2px; }
+  label .hint { font-weight: 400; color: var(--ink-3); margin-left: 6px; font-size: 12px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--white);
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(45,106,79,0.10);
+  }
+  input.error, select.error, textarea.error { border-color: var(--error); }
+
+  textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+  textarea.large { min-height: 160px; }
+  textarea.xlarge { min-height: 260px; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+
+  .field-note {
+    margin-top: 6px; font-size: 12px; color: var(--ink-3); line-height: 1.5;
+  }
+  .field-note.example { font-style: italic; }
+
+  /* ── JOA cards ── */
+  .joa-card {
+    border: 1.5px solid var(--border); border-radius: var(--radius);
+    padding: 20px; margin-bottom: 16px; position: relative;
+    background: var(--surface);
+  }
+  .joa-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .joa-card-label { font-size: 13px; font-weight: 700; color: var(--green); }
+  .joa-remove {
+    background: none; border: none; cursor: pointer; color: var(--ink-3);
+    font-size: 13px; padding: 4px 8px; border-radius: 6px; transition: background 0.15s;
+  }
+  .joa-remove:hover { background: #f0f0f0; color: var(--error); }
+
+  .btn-add-joa {
+    background: none; border: 1.5px dashed var(--green-light); color: var(--green);
+    border-radius: var(--radius); padding: 10px 18px; font-size: 13px; font-weight: 600;
+    cursor: pointer; width: 100%; transition: all 0.2s;
+  }
+  .btn-add-joa:hover { background: var(--green-bg); }
+  .btn-add-joa:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── Resume section ── */
+  .resume-tip {
+    background: var(--green-bg); border: 1px solid var(--green-pale);
+    border-radius: var(--radius); padding: 14px 16px; margin-bottom: 16px;
+    font-size: 13px; color: var(--ink-2); line-height: 1.6;
+  }
+  .resume-tip strong { color: var(--green); }
+
+  /* ── Submit area ── */
+  .submit-section { margin-top: 32px; }
+
+  .tos-notice {
+    font-size: 12px; color: var(--ink-3); line-height: 1.6; margin-bottom: 16px;
+  }
+  .tos-notice a { color: var(--green); }
+
+  .btn-submit {
+    width: 100%; padding: 16px 24px;
+    background: var(--green); color: var(--white);
+    border: none; border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; letter-spacing: .01em;
+  }
+  .btn-submit:hover { background: var(--green-mid); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,106,79,0.25); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── Processing overlay ── */
+  #processing-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(255,255,255,0.96); z-index: 999;
+    flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 24px;
+  }
+  #processing-overlay.active { display: flex; }
+  .processing-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--green); margin-bottom: 32px; }
+  .processing-spinner {
+    width: 52px; height: 52px;
+    border: 4px solid var(--green-pale); border-top-color: var(--green);
+    border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 28px;
+  }
+  #processing-overlay h2 { font-family: 'DM Serif Display', serif; font-size: 24px; margin-bottom: 10px; }
+  #processing-overlay p { color: var(--ink-2); font-size: 15px; max-width: 380px; line-height: 1.7; }
+  .processing-steps { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+  .step-item {
+    font-size: 13px; color: var(--ink-3); display: flex; align-items: center; gap: 8px;
+    transition: color 0.3s;
+  }
+  .step-item.active { color: var(--green); font-weight: 600; }
+  .step-item.done { color: var(--green-mid); }
+  .step-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); transition: background 0.3s; flex-shrink: 0;
+  }
+  .step-item.active .step-dot { background: var(--green); animation: pulse-dot 1s ease-in-out infinite; }
+  .step-item.done .step-dot { background: var(--green-mid); }
+  @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ── Error banner ── */
+  .error-banner {
+    background: #fff3f3; border: 1.5px solid #f5c6c6;
+    border-radius: var(--radius); padding: 14px 16px;
+    font-size: 13px; color: var(--error); margin-bottom: 20px; display: none;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="https://va.landedd.com" class="logo" style="display:flex;align-items:center;text-decoration:none;">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-right:8px;flex-shrink:0"><rect width="28" height="28" rx="6" fill="#2d6a4f"/><rect x="8" y="6" width="3.5" height="16" rx="1.75" fill="white"/><rect x="8" y="18.5" width="12" height="3.5" rx="1.75" fill="white"/></svg>
+    <span style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--green)">Landedd VA</span>
+  </a>
+  <span class="nav-tag">Premium Analysis</span>
+</nav>
+
+<!-- Gate: loading / error state shown before form -->
+<div id="gate">
+  <div id="gate-loading">
+    <div class="spinner"></div>
+    <h2>Verifying your purchase…</h2>
+    <p>Just a moment while we confirm your payment.</p>
+  </div>
+  <div id="gate-error" style="display:none;">
+    <h2>Payment not confirmed</h2>
+    <p id="gate-error-msg">We couldn't verify your payment. If you completed checkout, please wait a moment and refresh. Otherwise, <a href="https://va.landedd.com#premium" style="color:var(--green)">return to the purchase page</a> or email <a href="mailto:hello@landedd.com" style="color:var(--green)">hello@landedd.com</a>.</p>
+  </div>
+</div>
+
+<!-- Main form (hidden until payment verified) -->
+<div id="form-wrap">
+
+  <div class="page-header">
+    <div class="badge">⚡ Premium Analysis</div>
+    <h1>Build your VA application strategy</h1>
+    <p>Fill in your details below. The more specific you are, the stronger your analysis. This takes about 5–8 minutes and most fields can be copy-pasted from your resume or the job posting.</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">Form completion</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <div id="error-banner" class="error-banner"></div>
+
+  <!-- Delivery email confirmation — FIRST field shown -->
+  <div class="section" style="border-color:var(--green-pale);background:var(--green-bg);">
+    <div class="section-header">
+      <div class="section-num" style="background:var(--green-mid);">✉</div>
+      <div class="section-title">Confirm your delivery email</div>
+    </div>
+    <div class="field">
+      <label for="delivery_email">We'll send your analysis to this address <span class="req">*</span></label>
+      <input type="email" id="delivery_email" name="delivery_email" placeholder="jane.nurse@gmail.com" required>
+      <div class="field-note">This is where your analysis link will be sent. <strong>You can safely close this tab after submitting</strong> — your analysis will arrive by email even if you step away.</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Credentials -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Credentials</div>
+    </div>
+
+    <div class="field">
+      <label for="credential_level">Highest degree earned <span class="req">*</span></label>
+      <select id="credential_level" name="credential_level" required>
+        <option value="">Select your degree</option>
+        <option value="Diploma RN">Diploma RN</option>
+        <option value="Associate Degree (ADN)">Associate Degree (ADN)</option>
+        <option value="Bachelor's (BSN, BS, BA, etc.)">Bachelor's (BSN, BS, BA, etc.)</option>
+        <option value="Master's (MSN, MPA, MS, etc.)">Master's (MSN, MPA, MS, etc.)</option>
+        <option value="Doctorate (DNP, PhD, MD, DO, PharmD, etc.)">Doctorate (DNP, PhD, MD, DO, PharmD, etc.)</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="licenses">Active state license(s) <span class="req">*</span> <span class="hint">one per line</span></label>
+      <textarea id="licenses" name="licenses" rows="2" placeholder="California | RN-12345 | 2027-06-30&#10;Texas | RN-67890 | 2026-12-31" required></textarea>
+      <div class="field-note">Include state, license number, and expiration date. Required for all clinical roles.</div>
+    </div>
+
+    <div class="field">
+      <label for="certifications">Specialty certifications <span class="hint">optional but high-impact</span></label>
+      <input type="text" id="certifications" name="certifications" placeholder="CCRN, CEN, BLS (exp. 2026-04), ACLS (exp. 2026-04)">
+      <div class="field-note">Include the certifying body and expiration if known.</div>
+    </div>
+
+    <div class="field">
+      <label for="years_experience">Years of relevant clinical/professional experience <span class="req">*</span></label>
+      <input type="number" id="years_experience" name="years_experience" min="0" max="60" placeholder="8" required>
+    </div>
+  </div>
+
+  <!-- Section 2: Practice Profile -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Practice Profile</div>
+    </div>
+
+    <div class="field">
+      <label for="practice_setting">Primary practice setting & patient population <span class="req">*</span></label>
+      <textarea id="practice_setting" name="practice_setting" class="large" placeholder="Level 1 trauma ICU, 1:2 nurse-to-patient ratio, surgical and medical critical care. Primarily post-operative cardiac surgery, traumatic brain injury, and sepsis patients. Strong autonomy — charge RN for 3 years." required></textarea>
+      <div class="field-note" style="background:var(--green-bg);border:1px solid var(--green-pale);border-radius:6px;padding:8px 10px;margin-top:8px;">
+        <strong style="color:var(--green)">This field drives your NPSB grade prediction</strong> — worth up to 40 points on the Practice dimension. "Hospital nursing" scores low. "Level 1 trauma ICU, 1:2 ratio, charge RN 3 years" scores high. Be specific about patient population, acuity, ratio, and your level of autonomy.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="ehr_systems">EHR systems used</label>
+      <input type="text" id="ehr_systems" name="ehr_systems" placeholder="Epic, Cerner Millennium, CPRS (VA)">
+    </div>
+
+    <div class="field">
+      <label for="leadership_scholarly">Leadership roles & scholarly activity <span class="hint">optional but recommended</span></label>
+      <textarea id="leadership_scholarly" name="leadership_scholarly" rows="3" placeholder="• Charge RN, ICU, 2021–present (15-bed unit, 12 staff)&#10;• QI project: reduced CLABSI rate by 40% (2023, published in unit newsletter)&#10;• Preceptor for 8 new graduate RNs"></textarea>
+    </div>
+  </div>
+
+  <!-- Section 3: Goals & Background -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Goals & Background</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="geographic_pref">Geographic preference</label>
+        <input type="text" id="geographic_pref" name="geographic_pref" placeholder="Houston, TX or remote">
+      </div>
+      <div class="field">
+        <label for="career_goal">Career goal</label>
+        <input type="text" id="career_goal" name="career_goal" placeholder="Nurse III, ICU at Houston VAMC">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="fed_history">Prior federal employment history</label>
+      <select id="fed_history" name="fed_history">
+        <option value="No prior federal employment">No prior federal employment</option>
+        <option value="Prior federal civilian employment (non-VA)">Prior federal civilian employment (non-VA)</option>
+        <option value="Prior VA employment">Prior VA employment</option>
+        <option value="Active military or veteran">Active military or veteran</option>
+        <option value="Federal contractor (not employee)">Federal contractor (not employee)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Section 4: Target JOAs -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Target Job Announcements (JOAs)</div>
+    </div>
+
+    <p style="font-size:13px;color:var(--ink-2);margin-bottom:16px;line-height:1.6;">
+      Add 1–3 VA positions you're targeting. For each, paste the full job announcement text from USAJobs.
+    </p>
+
+    <details style="margin-bottom:20px;background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--radius);padding:12px 16px;">
+      <summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--green);list-style:none;display:flex;align-items:center;gap:6px;">
+        <span>▸</span> How to copy the full JOA text from USAJobs (click to expand)
+      </summary>
+      <div style="margin-top:12px;font-size:13px;color:var(--ink-2);line-height:1.7;">
+        <strong style="color:var(--ink)">Step 1:</strong> Find your job posting on <a href="https://www.usajobs.gov" target="_blank" style="color:var(--green)">usajobs.gov</a><br>
+        <strong style="color:var(--ink)">Step 2:</strong> Scroll past the header to the <strong>Duties</strong> section<br>
+        <strong style="color:var(--ink)">Step 3:</strong> Click at the start of "Duties" and select all text down through the <strong>How to Apply</strong> section<br>
+        <strong style="color:var(--ink)">Step 4:</strong> Copy and paste into the text box below<br><br>
+        <strong style="color:var(--green)">The most critical part:</strong> Make sure the <strong>Specialized Experience</strong> paragraph is included — it's usually under "Requirements" or "Qualifications." This is the text our AI matches your resume against verbatim.
+      </div>
+    </details>
+
+    <div id="joa-container">
+      <!-- JOA cards injected here -->
+    </div>
+
+    <button type="button" class="btn-add-joa" id="btn-add-joa" onclick="addJoa()">
+      + Add another position (max 3)
+    </button>
+  </div>
+
+  <!-- Section 5: Resume -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Your Current Resume</div>
+    </div>
+
+    <div class="resume-tip">
+      <strong>How to copy your resume text:</strong> Open your resume in Word or a PDF viewer → Select All (Ctrl/Cmd+A) → Copy (Ctrl/Cmd+C) → Paste below. Include everything: header, experience, education, certifications. Formatting will be cleaned automatically.
+    </div>
+
+    <div class="field">
+      <label for="resume_text">Full resume text <span class="req">*</span></label>
+      <textarea id="resume_text" name="resume_text" class="xlarge" placeholder="Paste your complete resume here. Include your name, contact info, all work experience with dates and duties, education, licenses, and certifications." required></textarea>
+      <div class="field-note">More detail = more accurate analysis. Don't trim it down — paste everything.</div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-section">
+    <div style="background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--radius);padding:12px 16px;margin-bottom:14px;font-size:13px;color:var(--ink-2);line-height:1.6;">
+      ✉ <strong>After you submit, you can safely close this tab.</strong> We'll send your analysis link to the email you confirmed above — usually within 15 minutes.
+    </div>
+    <div class="tos-notice">
+      By submitting, you agree to Landedd VA's <a href="https://va.landedd.com/terms" target="_blank">Terms of Service</a> and <a href="https://va.landedd.com/privacy" target="_blank">Privacy Policy</a>. Results are AI-generated guidance, not official federal employment advice. No refunds on digital deliverables.
+    </div>
+    <button type="button" class="btn-submit" id="btn-submit" onclick="submitIntake()">
+      Generate My Premium Analysis →
+    </button>
+  </div>
+
+</div>
+
+<!-- Processing overlay -->
+<div id="processing-overlay">
+  <div class="processing-logo" style="display:flex;align-items:center;gap:8px;justify-content:center;">
+    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="28" height="28" rx="6" fill="#2d6a4f"/><rect x="8" y="6" width="3.5" height="16" rx="1.75" fill="white"/><rect x="8" y="18.5" width="12" height="3.5" rx="1.75" fill="white"/></svg>
+    Landedd VA
+  </div>
+  <div class="processing-spinner"></div>
+  <h2>Generating your analysis…</h2>
+  <p>Your personalized VA application strategy is being built. This takes 1–3 minutes.</p>
+  <p style="font-size:13px;color:var(--ink-3);margin-top:8px;background:var(--green-bg);border:1px solid var(--green-pale);border-radius:8px;padding:10px 14px;max-width:340px;">
+    ✉ <strong>Safe to close this tab.</strong> Your analysis link will also be sent to your email.
+  </p>
+  <div class="processing-steps">
+    <div class="step-item active" id="step-1"><div class="step-dot"></div> Classifying your target JOAs</div>
+    <div class="step-item" id="step-2"><div class="step-dot"></div> Predicting NPSB grade</div>
+    <div class="step-item" id="step-3"><div class="step-dot"></div> Analyzing specialized experience match</div>
+    <div class="step-item" id="step-4"><div class="step-dot"></div> Building tailored federal resume</div>
+    <div class="step-item" id="step-5"><div class="step-dot"></div> Writing questionnaire strategy & 90-day plan</div>
+    <div class="step-item" id="step-6"><div class="step-dot"></div> Finalizing your deliverable</div>
+  </div>
+</div>
+
+<script>
+// ─── Config ──────────────────────────────────────────────────────────────────
+const API_BASE = '';  // Same origin — Vercel routes /api/* automatically
+const VA_BASE = window.location.origin;
+
+// ─── Payment verification ─────────────────────────────────────────────────────
+let verifiedSession = null;
+let verifiedEmail = null;
+
+async function verifyPayment() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+
+  if (!sessionId) {
+    showGateError('No payment session found. Please <a href="https://va.landedd.com#premium">return to the purchase page</a>.');
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}/api/premium-verify?session_id=${encodeURIComponent(sessionId)}`);
+    const data = await res.json();
+
+    if (data.already_submitted && data.view_token) {
+      // Already submitted — redirect to view
+      window.location.href = `${VA_BASE}/premium/view?token=${data.view_token}`;
+      return;
+    }
+
+    if (!data.paid) {
+      showGateError('Payment not confirmed yet. If you just completed checkout, wait 10 seconds and <a href="" onclick="location.reload();return false;">refresh this page</a>. Still having issues? Email <a href="mailto:hello@landedd.com">hello@landedd.com</a>.');
+      return;
+    }
+
+    // Payment verified — show form
+    verifiedSession = sessionId;
+    verifiedEmail = data.email || '';
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('form-wrap').style.display = 'block';
+    initForm(data.email);
+
+  } catch (err) {
+    showGateError('Verification failed. Please refresh or email <a href="mailto:hello@landedd.com">hello@landedd.com</a>.');
+  }
+}
+
+function showGateError(msg) {
+  document.getElementById('gate-loading').style.display = 'none';
+  document.getElementById('gate-error').style.display = 'block';
+  document.getElementById('gate-error-msg').innerHTML = msg;
+}
+
+// ─── JOA management ──────────────────────────────────────────────────────────
+let joaCount = 0;
+
+function addJoa() {
+  if (joaCount >= 3) return;
+  joaCount++;
+
+  const container = document.getElementById('joa-container');
+  const card = document.createElement('div');
+  card.className = 'joa-card';
+  card.id = `joa-card-${joaCount}`;
+  card.innerHTML = `
+    <div class="joa-card-header">
+      <span class="joa-card-label">Position ${joaCount}</span>
+      ${joaCount > 1 ? `<button class="joa-remove" onclick="removeJoa(${joaCount})">✕ Remove</button>` : ''}
+    </div>
+    <div class="field">
+      <label for="joa_title_${joaCount}">Job title / position name <span class="req">*</span></label>
+      <input type="text" id="joa_title_${joaCount}" placeholder="Registered Nurse (ICU), GS-09, San Diego VAMC">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="joa_url_${joaCount}">USAJobs URL <span class="hint">optional</span></label>
+        <input type="text" id="joa_url_${joaCount}" placeholder="https://www.usajobs.gov/job/...">
+      </div>
+      <div class="field">
+        <label for="joa_announcement_${joaCount}">Announcement number <span class="hint">optional</span></label>
+        <input type="text" id="joa_announcement_${joaCount}" placeholder="CBZU-12500631-25-AD">
+      </div>
+    </div>
+    <div class="field">
+      <label for="joa_text_${joaCount}">Full job announcement text <span class="req">*</span></label>
+      <textarea id="joa_text_${joaCount}" class="xlarge" placeholder="Paste the complete JOA text from USAJobs — from 'Duties' through 'How to Apply'. Include the Specialized Experience paragraph, qualifications, required documents, and questionnaire info." required></textarea>
+      <div class="field-note">The Specialized Experience paragraph is the most critical part. Make sure it's included.</div>
+    </div>
+  `;
+  container.appendChild(card);
+  updateAddButton();
+  updateProgress();
+}
+
+function removeJoa(n) {
+  const card = document.getElementById(`joa-card-${n}`);
+  if (card) card.remove();
+  joaCount--;
+  // Re-number remaining cards
+  const cards = document.querySelectorAll('.joa-card');
+  cards.forEach((card, i) => {
+    card.id = `joa-card-${i+1}`;
+    card.querySelector('.joa-card-label').textContent = `Position ${i+1}`;
+    // Update input IDs (simple renumber)
+  });
+  joaCount = cards.length;
+  updateAddButton();
+  updateProgress();
+}
+
+function updateAddButton() {
+  const btn = document.getElementById('btn-add-joa');
+  btn.disabled = joaCount >= 3;
+  btn.textContent = joaCount >= 3 ? '✓ Maximum 3 positions added' : '+ Add another position (max 3)';
+}
+
+// ─── Progress tracking ────────────────────────────────────────────────────────
+function updateProgress() {
+  const requiredIds = ['credential_level', 'licenses', 'years_experience', 'practice_setting', 'resume_text'];
+  let filled = 0;
+
+  requiredIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.value.trim().length > 0) filled++;
+  });
+
+  // JOA check
+  if (joaCount > 0) {
+    const joaTitleEl = document.getElementById('joa_title_1');
+    const joaTextEl = document.getElementById('joa_text_1');
+    if (joaTitleEl?.value.trim() && joaTextEl?.value.trim().length > 100) filled++;
+  }
+
+  const total = requiredIds.length + 1;
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+// ─── LocalStorage autosave ────────────────────────────────────────────────────
+const SAVE_KEY = 'landedd_va_intake_v1';
+const AUTOSAVE_FIELDS = ['delivery_email','credential_level','licenses','certifications','years_experience','practice_setting','ehr_systems','leadership_scholarly','geographic_pref','career_goal','fed_history','resume_text'];
+
+function saveProgress() {
+  try {
+    const data = {};
+    AUTOSAVE_FIELDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) data[id] = el.value;
+    });
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function restoreProgress() {
+  try {
+    const saved = localStorage.getItem(SAVE_KEY);
+    if (!saved) return false;
+    const data = JSON.parse(saved);
+    let restored = false;
+    AUTOSAVE_FIELDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && data[id]) { el.value = data[id]; restored = true; }
+    });
+    return restored;
+  } catch(e) { return false; }
+}
+
+function clearSavedProgress() {
+  try { localStorage.removeItem(SAVE_KEY); } catch(e) {}
+}
+
+// ─── Form initialization ──────────────────────────────────────────────────────
+function initForm(email) {
+  addJoa(); // Start with one JOA
+
+  // Pre-fill delivery email from Stripe session
+  if (email) {
+    const emailField = document.getElementById('delivery_email');
+    if (emailField && !emailField.value) emailField.value = email;
+  }
+
+  // Restore any saved progress
+  const wasRestored = restoreProgress();
+  if (wasRestored) {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:var(--green-bg);border:1px solid var(--green-pale);border-radius:var(--radius);padding:10px 14px;margin-bottom:16px;font-size:13px;color:var(--ink-2);';
+    banner.innerHTML = '↩ <strong>Your progress was restored.</strong> We saved your work from last time.';
+    document.getElementById('error-banner').after(banner);
+    setTimeout(() => banner.remove(), 6000);
+  }
+
+  // Autosave on input (debounced)
+  let saveTimer;
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('input', () => {
+      updateProgress();
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveProgress, 800);
+    });
+    el.addEventListener('change', updateProgress);
+  });
+}
+
+// ─── Collect JOA data ─────────────────────────────────────────────────────────
+function collectJoas() {
+  const joas = [];
+  const cards = document.querySelectorAll('.joa-card');
+
+  cards.forEach((card, i) => {
+    const n = i + 1;
+    const title = document.getElementById(`joa_title_${n}`)?.value.trim();
+    const text = document.getElementById(`joa_text_${n}`)?.value.trim();
+    const url = document.getElementById(`joa_url_${n}`)?.value.trim();
+    const announcement = document.getElementById(`joa_announcement_${n}`)?.value.trim();
+
+    if (title && text) {
+      joas.push({ title, text, url, announcement_number: announcement });
+    }
+  });
+
+  return joas;
+}
+
+// ─── Validate & submit ────────────────────────────────────────────────────────
+async function submitIntake() {
+  const errorBanner = document.getElementById('error-banner');
+  errorBanner.style.display = 'none';
+
+  // Collect form values
+  const getValue = (id) => document.getElementById(id)?.value?.trim() || '';
+
+  const intake = {
+    session_id: verifiedSession,
+    email: getValue('delivery_email') || verifiedEmail,
+    credential_level: getValue('credential_level'),
+    licenses: getValue('licenses'),
+    certifications: getValue('certifications'),
+    years_experience: parseInt(getValue('years_experience'), 10) || 0,
+    practice_setting: getValue('practice_setting'),
+    ehr_systems: getValue('ehr_systems'),
+    leadership_scholarly: getValue('leadership_scholarly'),
+    geographic_pref: getValue('geographic_pref'),
+    career_goal: getValue('career_goal'),
+    fed_history: getValue('fed_history'),
+    resume_text: getValue('resume_text'),
+    joas: collectJoas(),
+  };
+
+  // Client-side validation
+  const errors = [];
+  if (!intake.credential_level) errors.push('Select your highest degree.');
+  if (!intake.licenses) errors.push('Enter at least one active license.');
+  if (!intake.years_experience || intake.years_experience < 0) errors.push('Enter your years of experience.');
+  if (!intake.practice_setting || intake.practice_setting.length < 30) errors.push('Practice setting description is too short. Be specific.');
+  if (!intake.resume_text || intake.resume_text.length < 200) errors.push('Resume text is too short. Please paste your full resume.');
+  if (intake.joas.length === 0) errors.push('Add at least one target position with a title and full JOA text.');
+  if (intake.joas.length > 0 && intake.joas[0].text.length < 100) errors.push('JOA text is too short. Please paste the complete job announcement.');
+
+  if (errors.length > 0) {
+    errorBanner.innerHTML = '⚠️ Please fix the following before submitting:<br><br>' + errors.map(e => `• ${e}`).join('<br>');
+    errorBanner.style.display = 'block';
+    window.scrollTo({ top: errorBanner.offsetTop - 24, behavior: 'smooth' });
+    return;
+  }
+
+  // Show processing overlay
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('processing-overlay').classList.add('active');
+  animateProcessingSteps();
+
+  try {
+    const res = await fetch(`${API_BASE}/api/premium-intake`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(intake),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Submission failed. Please try again.');
+    }
+
+    // Success — clear saved data, redirect to view
+    clearSavedProgress();
+    window.location.href = `${VA_BASE}/premium/view?token=${data.view_token}`;
+
+  } catch (err) {
+    document.getElementById('processing-overlay').classList.remove('active');
+    document.getElementById('btn-submit').disabled = false;
+    errorBanner.innerHTML = `⚠️ ${err.message || 'Something went wrong. Please try again or email hello@landedd.com.'}`;
+    errorBanner.style.display = 'block';
+    window.scrollTo({ top: errorBanner.offsetTop - 24, behavior: 'smooth' });
+  }
+}
+
+// ─── Processing step animation ────────────────────────────────────────────────
+function animateProcessingSteps() {
+  const steps = [1, 2, 3, 4, 5, 6];
+  const delays = [0, 18000, 35000, 55000, 75000, 95000]; // Spread across ~2 min
+
+  steps.forEach((n, i) => {
+    setTimeout(() => {
+      // Mark previous as done
+      if (i > 0) {
+        const prev = document.getElementById(`step-${n-1}`);
+        if (prev) { prev.classList.remove('active'); prev.classList.add('done'); }
+      }
+      const el = document.getElementById(`step-${n}`);
+      if (el) el.classList.add('active');
+    }, delays[i]);
+  });
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+verifyPayment();
+</script>
+</body>
+</html>
