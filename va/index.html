@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Landedd VA — Land Your VA Healthcare Role</title>
-<meta name="description" content="Free tools and premium AI analysis for VA healthcare applicants. Built by a 10-year federal recruiter who reviewed thousands of VA applications from the inside.">
+<title>Landedd Title 38 — VA Healthcare Application Strategy</title>
+<meta name="description" content="AI-powered application strategy for VA healthcare jobs. Title 38 tier classification, NPSB grading framework, and federal resume tailoring. Built on a deeply researched federal hiring framework. Free tools + $49 Premium analysis.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#2d6a4f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -25,8 +27,8 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
   padding: 0 32px; height: 64px; display: flex; align-items: center;
   justify-content: space-between; position: sticky; top: 0; z-index: 200;
 }
-.logo { display: flex; align-items: center; text-decoration: none; gap: 0; }
-.logo-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; margin-right: 8px; }
+.logo { display: flex; align-items: center; text-decoration: none; gap: 9px; }
+.logo-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; }
 .logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green); line-height: 1; }
 .nav-links { display: flex; align-items: center; gap: 24px; }
 .nav-link { font-size: 14px; color: var(--ink-3); text-decoration: none; font-weight: 500; transition: color .15s; }
@@ -45,7 +47,7 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
   background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(116,198,157,.12) 0%, transparent 70%);
   pointer-events: none;
 }
-.hero-inner { max-width: 680px; margin: 0 auto; position: relative; }
+.hero-inner { max-width: 720px; margin: 0 auto; position: relative; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 6px;
   background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18);
@@ -59,7 +61,7 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
 .hero h1 em { font-style: italic; color: var(--green-light); }
 .hero-sub {
   font-size: clamp(15px, 2vw, 18px); color: rgba(255,255,255,.78);
-  line-height: 1.65; margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto;
+  line-height: 1.65; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto;
 }
 .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
 .btn-hero-primary {
@@ -75,7 +77,7 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
 }
 .btn-hero-ghost:hover { background: rgba(255,255,255,.18); }
 .hero-proof {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
   font-size: 13px; color: rgba(255,255,255,.55);
 }
 .hero-proof-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.3); }
@@ -91,12 +93,12 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
   font-family: 'DM Serif Display', serif; font-size: clamp(26px, 3.5vw, 38px);
   line-height: 1.2; margin-bottom: 16px; color: var(--ink);
 }
-.section-sub { font-size: 16px; color: var(--ink-3); line-height: 1.7; max-width: 540px; }
+.section-sub { font-size: 16px; color: var(--ink-3); line-height: 1.7; max-width: 600px; }
 
 /* ── Credibility bar ── */
-.cred-bar { background: var(--green-bg); border-top: 1px solid var(--green-pale); border-bottom: 1px solid var(--green-pale); padding: 20px 32px; }
+.cred-bar { background: var(--green-bg); border-top: 1px solid var(--green-pale); border-bottom: 1px solid var(--green-pale); padding: 24px 32px; }
 .cred-bar-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; }
-.cred-bar p { font-size: 14px; color: var(--ink-2); line-height: 1.6; text-align: center; }
+.cred-bar p { font-size: 14px; color: var(--ink-2); line-height: 1.7; text-align: center; max-width: 820px; }
 .cred-bar strong { color: var(--green); }
 
 /* ── How it works ── */
@@ -173,6 +175,12 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
 .btn-premium:hover { background: #8fd5b0; }
 .premium-note { font-size: 11px; color: rgba(255,255,255,.4); line-height: 1.5; }
 
+/* ── Disclaimer band ── */
+.disclaimer-band { background: var(--surface); border-top: 1px solid var(--border); padding: 32px; }
+.disclaimer-inner { max-width: 820px; margin: 0 auto; text-align: center; }
+.disclaimer-inner p { font-size: 13px; color: var(--ink-3); line-height: 1.7; }
+.disclaimer-inner strong { color: var(--ink-2); }
+
 /* ── FAQ ── */
 .faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
 .faq-item { border-bottom: 1px solid var(--border); }
@@ -191,11 +199,12 @@ footer {
   background: var(--ink); color: rgba(255,255,255,.5); padding: 40px 32px;
 }
 .footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-.footer-logo { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--white); text-decoration: none; }
+.footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.footer-logo-text { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--white); }
 .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
 .footer-link { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
 .footer-link:hover { color: var(--white); }
-.footer-copy { font-size: 11px; color: rgba(255,255,255,.25); width: 100%; margin-top: 8px; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,.25); width: 100%; margin-top: 8px; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -203,12 +212,15 @@ footer {
 <!-- Nav -->
 <nav class="nav">
   <a href="/" class="logo">
-    <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="28" height="28" rx="6" fill="#2d6a4f"/>
-      <rect x="8" y="6" width="3.5" height="16" rx="1.75" fill="white"/>
-      <rect x="8" y="18.5" width="12" height="3.5" rx="1.75" fill="white"/>
+    <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+      <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+      <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+      <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+      <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+      <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
     </svg>
-    <span class="logo-text">Landedd VA</span>
+    <span class="logo-text">Landedd Title 38</span>
   </a>
   <div class="nav-links">
     <a href="#tools" class="nav-link">Free tools</a>
@@ -221,17 +233,17 @@ footer {
 <!-- Hero -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-badge">Built for VA healthcare applicants</div>
-    <h1>Land your VA role with the strategy that comes from <em>inside the room</em></h1>
-    <p class="hero-sub">Free tools and a premium AI analysis built on 10 years of federal recruiting experience — including leading VA hiring from the recruiter's side of the desk.</p>
+    <div class="hero-badge">VA healthcare application strategy</div>
+    <h1>Land your VA healthcare role with a strategy built on the <em>rules that actually apply</em></h1>
+    <p class="hero-sub">Free tools and a $49 Premium AI analysis built on a deeply researched federal Title 38 hiring framework — and 10 years of recruiter perspective on what gets candidates from qualified to hired.</p>
     <div class="hero-cta">
       <a href="#tools" class="btn-hero-primary">Try free tools →</a>
       <a href="#premium" class="btn-hero-ghost">Premium Analysis — $49</a>
     </div>
     <div class="hero-proof">
-      <span>VA Title 38 &amp; Hybrid 38</span>
+      <span>Title 38 &amp; Hybrid 38 tier classification</span>
       <span class="hero-proof-dot"></span>
-      <span>NPSB grade prediction</span>
+      <span>NPSB grading framework</span>
       <span class="hero-proof-dot"></span>
       <span>Federal resume tailoring</span>
       <span class="hero-proof-dot"></span>
@@ -244,7 +256,7 @@ footer {
 <div class="cred-bar">
   <div class="cred-bar-inner">
     <p>
-      <strong>Built by someone in the room.</strong> Landedd VA is built on 10 years of Fortune 500-level talent acquisition experience — including leading VA clinical recruiting and reviewing thousands of federal applications. We know exactly what NPSB boards look for, why qualified applicants get screened out, and how to fix it.
+      <strong>Built on a researched Title 38 hiring framework.</strong> Landedd Title 38 combines a comprehensive knowledge base of how federal Title 38 hiring works — Pure 38, Hybrid 38, NPSB grading dimensions, federal resume requirements — with the recruiter perspective that comes from 10 years in private-sector talent acquisition: leading recruiting teams and evaluating candidates from entry-level through MBA. We're not affiliated with the VA. We've done the homework on the rules, and we know what makes the yes pile.
     </p>
   </div>
 </div>
@@ -254,22 +266,22 @@ footer {
   <div class="section-inner">
     <div class="section-label">How it works</div>
     <h2 class="section-title">From application anxiety to a clear strategy</h2>
-    <p class="section-sub">Federal VA hiring has rules most private-sector applicants don't know exist. We translate them.</p>
+    <p class="section-sub">Federal VA hiring has its own rules — separate from standard federal hiring and very different from private-sector. Most applicants don't know they exist. We translate them.</p>
     <div class="how-grid">
       <div class="how-step">
         <div class="how-num">1</div>
         <h3>Understand the rules for your role</h3>
-        <p>Pure Title 38, Hybrid Title 38, or Title 5 — each has completely different requirements. The free JOA Classifier tells you in seconds which applies to you and what it means.</p>
+        <p>Pure Title 38, Hybrid Title 38, or Title 5 — each has completely different requirements. Our free JOA Classifier tells you in seconds which set applies and what it means for your application.</p>
       </div>
       <div class="how-step">
         <div class="how-num">2</div>
-        <h3>Know your grade before you apply</h3>
-        <p>NPSB boards grade nurses on three dimensions. Most private-sector resumes only address one — costing applicants $10–30K/year in starting pay. Your Premium analysis predicts your grade and tells you exactly what to add.</p>
+        <h3>Estimate your NPSB grade before you apply</h3>
+        <p>NPSB boards grade nurses on three dimensions of evidence. Most private-sector resumes only surface one. Your Premium analysis estimates which grade your current resume supports and identifies what evidence to add to reach the next one. <em>Predicted, not official — final grades are determined by the NPSB.</em></p>
       </div>
       <div class="how-step">
         <div class="how-num">3</div>
         <h3>Apply with a tailored strategy</h3>
-        <p>A complete federal resume, self-assessment questionnaire guidance, cover letter angle, and 90-day plan — built specifically for your background and your target JOA.</p>
+        <p>A federal-format resume tailored to your priority JOA, self-assessment questionnaire guidance, cover-letter angle, and a 90-day plan — built from your background, your target role, and the rules that govern that role.</p>
       </div>
     </div>
   </div>
@@ -291,11 +303,11 @@ footer {
       <div class="tool-card">
         <div class="tool-tag free">Free</div>
         <h3>Questionnaire Strategy Guide</h3>
-        <p>The self-assessment questionnaire is where qualified applicants get eliminated. Most people deflate their own scores. This tool explains the scoring criteria for your role so you rate yourself accurately — not modestly.</p>
+        <p>The self-assessment questionnaire is where qualified applicants get screened out. Most under-rate their own evidence. This tool walks through the scoring criteria so you can rate accurately to what your resume actually supports.</p>
         <a href="/tools/questionnaire-strategy" class="tool-link">Get the strategy →</a>
       </div>
     </div>
-    <p class="tools-note">Free tools run on Landedd's AI and return instantly. No signup required.</p>
+    <p class="tools-note">Free tools run on Landedd's AI and return instantly. No signup required. No resume stored.</p>
   </div>
 </section>
 
@@ -304,20 +316,20 @@ footer {
   <div class="section-inner">
     <div class="section-label">Premium analysis</div>
     <h2 class="section-title">The complete picture — in 15 minutes</h2>
-    <p class="section-sub">For applicants who are serious about landing the role, not just submitting an application.</p>
+    <p class="section-sub">For applicants who want the full strategy, not just an analysis.</p>
 
     <div class="premium-wrap">
       <div class="premium-left">
         <div class="tag">What's included</div>
-        <h2>Everything a federal recruiter would tell you — if they were on your side</h2>
-        <p>Your Premium analysis is built on your specific background and target JOA(s). It doesn't give you generic advice — it gives you the exact strategy for your credentials, your role, and your VAMC.</p>
+        <h2>The full Title 38 application strategy — built around your specific background</h2>
+        <p>Your Premium analysis is generated from your specific intake, resume, and target JOA(s). It doesn't give you generic advice — it produces the strategy that fits your credentials, your role, and your priority postings.</p>
         <div class="includes-list">
           <div class="inc-row"><span class="inc-check">✓</span><span>JOA tier classification — which rules apply to each posting</span></div>
-          <div class="inc-row"><span class="inc-check">✓</span><span>NPSB grade prediction with dimension-by-dimension scoring rationale</span></div>
+          <div class="inc-row"><span class="inc-check">✓</span><span>NPSB grade estimation with dimension-by-dimension scoring rationale (predicted, not official)</span></div>
           <div class="inc-row"><span class="inc-check">✓</span><span>Specialized experience match analysis — verbatim gaps identified</span></div>
-          <div class="inc-row"><span class="inc-check">✓</span><span>Complete federal resume tailored to your highest-priority JOA</span></div>
-          <div class="inc-row"><span class="inc-check">✓</span><span>Self-assessment questionnaire strategy — stop deflating your score</span></div>
-          <div class="inc-row"><span class="inc-check">✓</span><span>Cover letter angle + 90-day application plan</span></div>
+          <div class="inc-row"><span class="inc-check">✓</span><span>Federal-format resume tailored to your highest-priority JOA</span></div>
+          <div class="inc-row"><span class="inc-check">✓</span><span>Self-assessment questionnaire strategy — rate accurately to your evidence</span></div>
+          <div class="inc-row"><span class="inc-check">✓</span><span>Cover-letter angle + 90-day application plan</span></div>
           <div class="inc-row"><span class="inc-check">✓</span><span>Application priority ranking for up to 3 target JOAs</span></div>
           <div class="inc-row"><span class="inc-check">✓</span><span>1 follow-up question included — ask anything after you apply</span></div>
         </div>
@@ -327,11 +339,20 @@ footer {
         <div class="premium-price">$49</div>
         <div class="premium-price-sub">Delivered in ~15 minutes</div>
         <a href="/premium" class="btn-premium">Get my Premium Analysis →</a>
-        <p class="premium-note">🔒 Secure checkout via Stripe<br>No subscription · No refunds on digital delivery</p>
+        <p class="premium-note">🔒 Secure checkout via Stripe<br>One-time fee · No subscription · No refunds on digital deliverables</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Disclaimer band -->
+<div class="disclaimer-band">
+  <div class="disclaimer-inner">
+    <p>
+      <strong>About Landedd Title 38:</strong> Landedd Title 38 is an AI-powered software tool, not a career counseling service or federal hiring agency. Outputs are AI-generated guidance based on publicly available information about federal Title 38 hiring rules. NPSB grade predictions are AI estimates — final grades are determined by the Nurse Professional Standards Board during VA review and may differ. We do not write content for the four federal essay questions, do not coach USA Hire assessments, and do not assist with security clearance documentation. Federal applications are your own work; you are responsible for the accuracy of every claim you submit. Not affiliated with the U.S. Department of Veterans Affairs, OPM, or any federal agency.
+    </p>
+  </div>
+</div>
 
 <!-- FAQ -->
 <section class="section alt" id="faq">
@@ -344,35 +365,42 @@ footer {
           Is this official VA or federal government guidance?
           <span class="faq-arrow">↓</span>
         </button>
-        <div class="faq-a">No. Landedd VA is an independent service — not affiliated with the VA, OPM, or any federal agency. Our analysis is AI-generated guidance based on publicly available information about Title 38 hiring practices and our team's recruiting experience. We make this clear in our terms of service.</div>
+        <div class="faq-a">No. Landedd Title 38 is an independent AI software tool — not affiliated with the VA, OPM, or any federal agency. Our analysis is AI-generated guidance based on publicly available information about Title 38 hiring rules and a recruiter's perspective on what makes applications competitive.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
-          Who built this, and why should I trust it?
+          Who built this, and why should I trust the output?
           <span class="faq-arrow">↓</span>
         </button>
-        <div class="faq-a">Landedd VA was built by a recruiter with 10 years of Fortune 500 and federal-level talent acquisition experience — including leading VA clinical hiring and reviewing thousands of federal applications from the hiring side. The platform translates that insider knowledge into tools applicants can actually use.</div>
+        <div class="faq-a">Landedd Title 38 was built by a recruiter with 10 years of private-sector talent acquisition experience — leading recruiting teams and evaluating candidates from entry-level through MBA. We've combined that recruiter perspective with a deeply researched knowledge base on Title 38 hiring rules — tier classifications, NPSB grading dimensions, federal resume requirements, and Direct Hire Authority. The trust mechanism isn't "we worked at the VA" — it's "we know how recruiters evaluate candidates, and we've done the research on how the federal Title 38 version of that process works."</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           What if my analysis doesn't help me get the job?
           <span class="faq-arrow">↓</span>
         </button>
-        <div class="faq-a">We can't guarantee outcomes — federal hiring is complex and many factors are outside any applicant's control. What we can guarantee is that your analysis gives you the same insider knowledge a federal recruiter would. We do not offer refunds on digital deliverables, but if you believe something in your analysis is factually wrong, email hello@landedd.com and we'll review it.</div>
+        <div class="faq-a">We can't guarantee outcomes — federal hiring is complex and many factors are outside any applicant's control. What we provide is the framework and tailoring most applicants are missing. We do not offer refunds on digital deliverables, but if you believe something in your analysis is factually wrong, email hello@landedd.com and we'll review it.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           Will you write my four federal essay questions?
           <span class="faq-arrow">↓</span>
         </button>
-        <div class="faq-a">No. Your Premium analysis explains the structure of the four federal essay questions and suggests STAR-format framing strategies, but we do not write essay content for you. These questions ask about your personal views on the Constitution, government efficiency, executive orders, and work ethic — they must be answered in your own words.</div>
+        <div class="faq-a">No. Your Premium analysis explains the structure of the four federal essay questions and suggests STAR-format framing strategies, but we do not write essay content for you. These questions ask about your personal views on the Constitution, government efficiency, executive orders, and work ethic — they must be answered in your own words and certified as your own work.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
           How does the follow-up question work?
           <span class="faq-arrow">↓</span>
         </button>
-        <div class="faq-a">Every Premium purchase includes one follow-up question, accessible directly from your analysis page. After you've applied, use it to ask anything — "my status says Under Review, is that normal?", "I got an interview — how should I prep?", or "I'm not making it to Best Qualified — why?". We respond within 24 hours.</div>
+        <div class="faq-a">Every Premium purchase includes one follow-up question, accessible directly from your analysis page. After you've applied, use it to ask anything — Title 38 status interpretation, interview prep guidance, or "I'm not making it to Best Qualified — what could I improve?" We typically respond within 1–2 business days.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is my resume stored anywhere?
+          <span class="faq-arrow">↓</span>
+        </button>
+        <div class="faq-a">No. Your resume and any job description content you paste into our tools is processed in memory and immediately discarded. Nothing is saved, stored, or used in any model training. For Premium purchases, we retain your email address and order record for legal and tax purposes only.</div>
       </div>
     </div>
   </div>
@@ -381,14 +409,24 @@ footer {
 <!-- Footer -->
 <footer>
   <div class="footer-inner">
-    <a href="/" class="footer-logo">Landedd VA</a>
+    <a href="/" class="footer-logo">
+      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="22" height="22" aria-hidden="true">
+        <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+        <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+        <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+        <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+        <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+        <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
+      </svg>
+      <span class="footer-logo-text">Landedd Title 38</span>
+    </a>
     <div class="footer-links">
       <a href="/terms" class="footer-link">Terms of Service</a>
       <a href="/privacy" class="footer-link">Privacy Policy</a>
       <a href="mailto:hello@landedd.com" class="footer-link">hello@landedd.com</a>
-      <a href="https://landedd.com" class="footer-link">Landedd.com</a>
+      <a href="https://www.landedd.com" class="footer-link">Landedd.com</a>
     </div>
-    <p class="footer-copy">© 2026 Landedd VA. AI-generated guidance, not official federal employment advice. Not affiliated with the VA or any federal agency.</p>
+    <p class="footer-copy">© 2026 Landedd Title 38, a Landedd product. AI-generated guidance based on publicly available information about federal Title 38 hiring. Not affiliated with the U.S. Department of Veterans Affairs, OPM, or any federal agency. The Premium analysis is a software product, not a career counseling service.</p>
   </div>
 </footer>
 
@@ -399,7 +437,6 @@ function toggleFaq(btn) {
   document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-a').style.display = 'none'; });
   if (!isOpen) { item.classList.add('open'); item.querySelector('.faq-a').style.display = 'block'; }
 }
-// Auto-scroll hash links with offset for sticky nav
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const target = document.querySelector(a.getAttribute('href'));
