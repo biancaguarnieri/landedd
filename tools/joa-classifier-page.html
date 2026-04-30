@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOA Tier Classifier — Landedd VA</title>
+<meta name="description" content="Paste any VA job announcement and instantly know whether Title 38, Hybrid Title 38, or Title 5 rules apply — and exactly what that means for your application.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #2d6a4f; --green-mid: #40916c; --green-light: #74c69d;
+  --green-pale: #d8f3dc; --green-bg: #f0faf4;
+  --ink: #1a1a1a; --ink-2: #3d3d3d; --ink-3: #717171;
+  --border: #e0e0e0; --surface: #f8f8f6; --white: #ffffff;
+  --radius: 10px; --shadow: 0 2px 16px rgba(0,0,0,.07);
+  --good: #2d6a4f; --good-bg: #f0faf4; --good-border: #d8f3dc;
+  --caution: #b45309; --caution-bg: #fffbeb; --caution-border: #fde68a;
+  --required: #1d4ed8; --required-bg: #eff6ff; --required-border: #bfdbfe;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--surface); min-height: 100vh; line-height: 1.65; }
+
+/* Nav */
+.nav {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 32px; height: 64px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 100;
+}
+.logo { display: flex; align-items: center; text-decoration: none; gap: 9px; }
+.logo-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; }
+.logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green); }
+.nav-back { font-size: 13px; color: var(--ink-3); text-decoration: none; transition: color .15s; }
+.nav-back:hover { color: var(--green); }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+
+.page-header { margin-bottom: 40px; }
+.tool-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-pale); color: var(--green);
+  font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 100px; margin-bottom: 16px;
+}
+.page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin-bottom: 10px; }
+.page-header h1 em { font-style: italic; color: var(--green); }
+.page-header p { font-size: 15px; color: var(--ink-2); max-width: 560px; line-height: 1.7; }
+
+/* Input card */
+.input-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px; box-shadow: var(--shadow); margin-bottom: 24px;
+}
+.input-card label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 8px; }
+.input-card .label-hint { font-weight: 400; color: var(--ink-3); margin-left: 6px; }
+
+.how-to {
+  background: var(--green-bg); border: 1px solid var(--green-pale);
+  border-radius: 8px; padding: 12px 16px; margin-bottom: 14px;
+  font-size: 13px; color: var(--ink-2); line-height: 1.6;
+}
+.how-to strong { color: var(--green); }
+
+textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px;
+  color: var(--ink); background: var(--white); resize: vertical;
+  min-height: 200px; line-height: 1.5; transition: border-color .2s;
+}
+textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(45,106,79,.1); }
+
+.btn-classify {
+  width: 100%; margin-top: 16px; padding: 14px 24px;
+  background: var(--green); color: var(--white);
+  border: none; border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: background .2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-classify:hover { background: var(--green-mid); }
+.btn-classify:disabled { opacity: .55; cursor: not-allowed; }
+
+.spinner-sm { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Results */
+#results { display: none; }
+
+.tier-banner {
+  border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;
+  display: flex; align-items: flex-start; gap: 20px;
+}
+.tier-banner.pure_38 { background: linear-gradient(135deg, #0f2318, #1a3d2b); color: var(--white); }
+.tier-banner.hybrid_38 { background: linear-gradient(135deg, #1e3a5f, #1d4ed8); color: var(--white); }
+.tier-banner.title_5 { background: linear-gradient(135deg, #374151, #1f2937); color: var(--white); }
+
+.tier-icon { font-size: 36px; flex-shrink: 0; margin-top: 2px; }
+.tier-content { flex: 1; }
+.tier-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin-bottom: 4px; }
+.tier-name { font-family: 'DM Serif Display', serif; font-size: clamp(20px, 3vw, 28px); margin-bottom: 6px; }
+.tier-role { font-size: 14px; opacity: .8; margin-bottom: 10px; }
+.tier-dha {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(116,198,157,.2); border: 1px solid rgba(116,198,157,.4);
+  color: var(--green-light); font-size: 12px; font-weight: 600;
+  padding: 4px 12px; border-radius: 100px;
+}
+
+.insight-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+  padding: 20px 24px; margin-bottom: 16px; box-shadow: var(--shadow);
+}
+.insight-card h3 { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+.insight-text { font-size: 15px; color: var(--ink-2); line-height: 1.7; }
+
+/* Rules grid */
+.rules-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.rule-item {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 18px;
+  display: flex; align-items: flex-start; gap: 14px; box-shadow: var(--shadow);
+}
+.rule-status {
+  flex-shrink: 0; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px; margin-top: 1px; white-space: nowrap;
+}
+.rule-status.good { background: var(--good-bg); color: var(--good); border: 1px solid var(--good-border); }
+.rule-status.caution { background: var(--caution-bg); color: var(--caution); border: 1px solid var(--caution-border); }
+.rule-status.required { background: var(--required-bg); color: var(--required); border: 1px solid var(--required-border); }
+.rule-content { flex: 1; }
+.rule-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.rule-detail { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+
+/* Premium CTA */
+.premium-cta {
+  background: linear-gradient(135deg, #0f2318, #1a3d2b);
+  border-radius: 14px; padding: 28px; display: flex;
+  align-items: center; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap; margin-top: 24px;
+}
+.premium-cta-left { flex: 1; min-width: 240px; }
+.premium-cta-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green-light); margin-bottom: 8px; }
+.premium-cta h3 { font-family: 'DM Serif Display', serif; font-size: clamp(18px, 2.5vw, 22px); color: var(--white); margin-bottom: 8px; font-weight: 400; }
+.premium-cta p { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; }
+.btn-premium {
+  background: var(--green-light); color: #0f2318; padding: 12px 22px;
+  border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none;
+  white-space: nowrap; transition: background .2s; flex-shrink: 0;
+}
+.btn-premium:hover { background: #8fd5b0; }
+
+/* Error */
+.error-msg {
+  background: #fff3f3; border: 1.5px solid #f5c6c6;
+  border-radius: var(--radius); padding: 14px 18px;
+  font-size: 14px; color: #c0392b; display: none; margin-top: 12px;
+}
+
+/* Confidence pill */
+.confidence-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.conf-pill { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+.conf-high { background: var(--good-bg); color: var(--good); border: 1px solid var(--good-border); }
+.conf-medium { background: var(--caution-bg); color: var(--caution); border: 1px solid var(--caution-border); }
+.conf-low { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/va/" class="logo">
+    <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+      <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+      <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+      <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+      <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+      <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
+    </svg>
+    <span class="logo-text">Landedd VA</span>
+  </a>
+  <a href="/va/" class="nav-back">← Back to tools</a>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="tool-badge">Free Tool</div>
+    <h1>JOA Tier <em>Classifier</em></h1>
+    <p>Paste any VA job announcement and instantly know whether Pure Title 38, Hybrid Title 38, or Title 5 rules apply to your application — and exactly what that means.</p>
+  </div>
+
+  <div class="input-card">
+    <label for="joa-input">
+      Job announcement text
+      <span class="label-hint">— from USAJobs</span>
+    </label>
+    <div class="how-to">
+      <strong>How to get the full text:</strong> On USAJobs, scroll to the Duties section → select all text from there through "How to Apply" → copy and paste below. The <strong>Qualifications / Specialized Experience</strong> section is the most important part — make sure it's included.
+    </div>
+    <textarea id="joa-input" placeholder="Paste the full job announcement text here. Include the Duties, Qualifications, Specialized Experience, and How to Apply sections for best results."></textarea>
+    <div class="error-msg" id="error-msg"></div>
+    <button class="btn-classify" id="btn-classify" onclick="classify()">
+      <span class="spinner-sm" id="spinner"></span>
+      <span id="btn-label">Classify this JOA →</span>
+    </button>
+  </div>
+
+  <div id="results">
+
+    <!-- Tier Banner -->
+    <div class="tier-banner" id="tier-banner">
+      <div class="tier-icon" id="tier-icon"></div>
+      <div class="tier-content">
+        <div class="tier-label" id="tier-label"></div>
+        <div class="tier-name" id="tier-name"></div>
+        <div class="tier-role" id="tier-role"></div>
+        <div class="confidence-row">
+          <span id="dha-badge" style="display:none" class="tier-dha">⚡ Direct Hire Authority Active</span>
+          <span id="npsb-badge" style="display:none" class="tier-dha">📋 NPSB Grade Review Applies</span>
+          <span id="conf-pill" class="conf-pill"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Insight -->
+    <div class="insight-card">
+      <h3>Key insight for this posting</h3>
+      <p class="insight-text" id="key-insight"></p>
+    </div>
+
+    <!-- Rules -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px;">Rules that apply to you</h3>
+    <div class="rules-grid" id="rules-grid"></div>
+
+    <!-- Premium CTA -->
+    <div class="premium-cta">
+      <div class="premium-cta-left">
+        <div class="premium-cta-label">Next step</div>
+        <h3>Know the rules. Now build the strategy.</h3>
+        <p id="premium-hook"></p>
+      </div>
+      <a href="/premium" class="btn-premium">Get Premium Analysis — $49 →</a>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+async function classify() {
+  const joaText = document.getElementById('joa-input').value.trim();
+  const errorMsg = document.getElementById('error-msg');
+  const btn = document.getElementById('btn-classify');
+  const spinner = document.getElementById('spinner');
+  const btnLabel = document.getElementById('btn-label');
+
+  errorMsg.style.display = 'none';
+
+  if (joaText.length < 100) {
+    errorMsg.textContent = 'Please paste the full job announcement text (at least a few paragraphs).';
+    errorMsg.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  spinner.style.display = 'inline-block';
+  btnLabel.textContent = 'Classifying…';
+
+  try {
+    const res = await fetch('/api/joa-classifier', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ joa_text: joaText }),
+    });
+
+    const data = await res.json();
+    if (!res.ok || !data.success) throw new Error(data.error || 'Classification failed.');
+
+    renderResults(data.result);
+
+  } catch (err) {
+    errorMsg.textContent = err.message || 'Something went wrong. Please try again.';
+    errorMsg.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    btnLabel.textContent = 'Classify this JOA →';
+  }
+}
+
+function renderResults(r) {
+  // Tier banner
+  const banner = document.getElementById('tier-banner');
+  banner.className = 'tier-banner ' + r.tier;
+
+  const icons = { pure_38: '🏥', hybrid_38: '⚕️', title_5: '🏛️' };
+  document.getElementById('tier-icon').textContent = icons[r.tier] || '📋';
+  document.getElementById('tier-label').textContent = 'Classification result';
+  document.getElementById('tier-name').textContent = r.tier_label;
+  document.getElementById('tier-role').textContent = r.role_title + (r.series ? ` · Series ${r.series}` : '') + (r.vamc ? ` · ${r.vamc}` : '');
+
+  // Badges
+  const dhaBadge = document.getElementById('dha-badge');
+  dhaBadge.style.display = r.dha_active ? 'inline-flex' : 'none';
+
+  const npsb = document.getElementById('npsb-badge');
+  npsb.style.display = r.npsb_applies ? 'inline-flex' : 'none';
+
+  const confPill = document.getElementById('conf-pill');
+  confPill.textContent = `${r.confidence === 'high' ? '✓' : r.confidence === 'medium' ? '~' : '?'} ${r.confidence} confidence`;
+  confPill.className = `conf-pill conf-${r.confidence}`;
+
+  // Key insight
+  document.getElementById('key-insight').textContent = r.key_insight;
+
+  // Rules
+  const grid = document.getElementById('rules-grid');
+  grid.innerHTML = (r.rules || []).map(rule => `
+    <div class="rule-item">
+      <span class="rule-status ${rule.status}">${rule.status === 'good' ? '✓ Good' : rule.status === 'caution' ? '⚠ Caution' : '→ Required'}</span>
+      <div class="rule-content">
+        <div class="rule-name">${rule.rule}</div>
+        <div class="rule-detail">${rule.detail}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Premium hook
+  document.getElementById('premium-hook').textContent = r.premium_hook;
+
+  // Show results + scroll
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
