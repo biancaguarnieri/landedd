@@ -1,16 +1,17 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    {
+      "source": "/((?!va/|api/|_).*)",
+      "destination": "/va/$1",
+      "has": [{ "type": "host", "value": "va.landedd.com" }]
+    },
     { "source": "/premium/intake", "destination": "/premium-intake.html" },
     { "source": "/premium/view",   "destination": "/premium-view.html"   },
     { "source": "/premium",        "destination": "/premium.html"        }
   ],
   "functions": {
-    "api/premium-intake.js": {
-      "maxDuration": 300
-    },
-    "api/premium-followup.js": {
-      "maxDuration": 60
-    }
+    "api/premium-intake.js": { "maxDuration": 300 },
+    "api/premium-followup.js": { "maxDuration": 60 }
   }
 }
