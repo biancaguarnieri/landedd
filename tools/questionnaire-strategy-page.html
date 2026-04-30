@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionnaire Strategy Guide — Landedd VA</title>
+<meta name="description" content="Stop deflating your own score. Paste a VA job announcement and get the exact questionnaire strategy for your role — what the scoring criteria really mean and how to rate yourself accurately.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #2d6a4f; --green-mid: #40916c; --green-light: #74c69d;
+  --green-pale: #d8f3dc; --green-bg: #f0faf4;
+  --ink: #1a1a1a; --ink-2: #3d3d3d; --ink-3: #717171;
+  --border: #e0e0e0; --surface: #f8f8f6; --white: #ffffff;
+  --radius: 10px; --shadow: 0 2px 16px rgba(0,0,0,.07);
+  --high: #991b1b; --high-bg: #fef2f2; --high-border: #fecaca;
+  --med: #b45309; --med-bg: #fffbeb; --med-border: #fde68a;
+  --low: #2d6a4f; --low-bg: #f0faf4; --low-border: #d8f3dc;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--surface); min-height: 100vh; line-height: 1.65; }
+
+.nav {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 32px; height: 64px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 100;
+}
+.logo { display: flex; align-items: center; text-decoration: none; gap: 9px; }
+.logo-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; }
+.logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green); }
+.nav-back { font-size: 13px; color: var(--ink-3); text-decoration: none; transition: color .15s; }
+.nav-back:hover { color: var(--green); }
+
+.page { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+
+.page-header { margin-bottom: 40px; }
+.tool-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-pale); color: var(--green);
+  font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 100px; margin-bottom: 16px;
+}
+.page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin-bottom: 10px; }
+.page-header h1 em { font-style: italic; color: var(--green); }
+.page-header p { font-size: 15px; color: var(--ink-2); max-width: 560px; line-height: 1.7; }
+
+/* Deflation callout */
+.deflation-callout {
+  background: linear-gradient(135deg, #7f1d1d, #991b1b);
+  color: var(--white); border-radius: 12px; padding: 20px 24px; margin-bottom: 28px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+.deflation-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.deflation-callout h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.deflation-callout p { font-size: 13px; opacity: .85; line-height: 1.6; }
+
+/* Input card */
+.input-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px; box-shadow: var(--shadow); margin-bottom: 24px;
+}
+.input-card label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 8px; }
+
+.how-to {
+  background: var(--green-bg); border: 1px solid var(--green-pale);
+  border-radius: 8px; padding: 12px 16px; margin-bottom: 14px;
+  font-size: 13px; color: var(--ink-2); line-height: 1.6;
+}
+.how-to strong { color: var(--green); }
+
+textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px;
+  color: var(--ink); background: var(--white); resize: vertical;
+  min-height: 200px; line-height: 1.5; transition: border-color .2s;
+}
+textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(45,106,79,.1); }
+
+.btn-analyze {
+  width: 100%; margin-top: 16px; padding: 14px 24px;
+  background: var(--green); color: var(--white);
+  border: none; border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: background .2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-analyze:hover { background: var(--green-mid); }
+.btn-analyze:disabled { opacity: .55; cursor: not-allowed; }
+
+.spinner-sm { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-msg {
+  background: #fff3f3; border: 1.5px solid #f5c6c6;
+  border-radius: var(--radius); padding: 14px 18px;
+  font-size: 14px; color: #c0392b; display: none; margin-top: 12px;
+}
+
+/* Results */
+#results { display: none; }
+
+/* Q applies / doesn't banner */
+.q-banner {
+  border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.q-banner.applies { background: var(--med-bg); border: 1.5px solid var(--med-border); }
+.q-banner.exempt { background: var(--low-bg); border: 1.5px solid var(--low-border); }
+.q-banner-icon { font-size: 22px; flex-shrink: 0; }
+.q-banner h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.q-banner.applies h3 { color: var(--med); }
+.q-banner.exempt h3 { color: var(--green); }
+.q-banner p { font-size: 13px; color: var(--ink-2); line-height: 1.6; }
+
+/* Key trap */
+.trap-card {
+  background: var(--high-bg); border: 1.5px solid var(--high-border);
+  border-radius: 12px; padding: 18px 22px; margin-bottom: 20px;
+}
+.trap-card h3 { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--high); margin-bottom: 8px; }
+.trap-card p { font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+
+/* Criteria */
+.criteria-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+.criterion-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow);
+}
+.criterion-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.criterion-ksa { font-size: 15px; font-weight: 700; }
+.risk-badge { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; flex-shrink: 0; }
+.risk-high { background: var(--high-bg); color: var(--high); border: 1px solid var(--high-border); }
+.risk-medium { background: var(--med-bg); color: var(--med); border: 1px solid var(--med-border); }
+.risk-low { background: var(--low-bg); color: var(--low); border: 1px solid var(--low-border); }
+.criterion-what { font-size: 13px; color: var(--ink-3); margin-bottom: 10px; line-height: 1.5; }
+.criterion-guidance {
+  background: var(--surface); border-radius: 8px; padding: 12px 14px;
+  font-size: 14px; color: var(--ink-2); line-height: 1.65;
+  border-left: 3px solid var(--green);
+}
+
+/* General rules */
+.general-rules {
+  background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+  padding: 22px 24px; box-shadow: var(--shadow); margin-bottom: 20px;
+}
+.general-rules h3 { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px; }
+.rule-list { display: flex; flex-direction: column; gap: 10px; }
+.gen-rule { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.gen-rule-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--green); color: var(--white); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+/* Premium CTA */
+.premium-cta {
+  background: linear-gradient(135deg, #0f2318, #1a3d2b);
+  border-radius: 14px; padding: 28px; display: flex;
+  align-items: center; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap; margin-top: 8px;
+}
+.premium-cta-left { flex: 1; min-width: 240px; }
+.premium-cta-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green-light); margin-bottom: 8px; }
+.premium-cta h3 { font-family: 'DM Serif Display', serif; font-size: clamp(18px, 2.5vw, 22px); color: var(--white); margin-bottom: 8px; font-weight: 400; }
+.premium-cta p { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; }
+.btn-premium {
+  background: var(--green-light); color: #0f2318; padding: 12px 22px;
+  border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none;
+  white-space: nowrap; transition: background .2s; flex-shrink: 0;
+}
+.btn-premium:hover { background: #8fd5b0; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/va/" class="logo">
+    <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+      <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+      <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+      <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+      <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+      <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
+    </svg>
+    <span class="logo-text">Landedd VA</span>
+  </a>
+  <a href="/va/" class="nav-back">← Back to tools</a>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="tool-badge">Free Tool</div>
+    <h1>Questionnaire <em>Strategy Guide</em></h1>
+    <p>The self-assessment questionnaire is where qualified applicants get eliminated before a human ever reads their resume. Paste your JOA and learn exactly how to rate yourself accurately — not modestly.</p>
+  </div>
+
+  <div class="deflation-callout">
+    <div class="deflation-icon">⚠️</div>
+    <div>
+      <h3>The deflation trap is real</h3>
+      <p>Most applicants systematically underrate themselves — choosing "B: Training only" when their experience clearly supports "D: Performed independently." This alone can disqualify an otherwise qualified applicant before any human sees their resume.</p>
+    </div>
+  </div>
+
+  <div class="input-card">
+    <label for="joa-input">Job announcement text</label>
+    <div class="how-to">
+      <strong>Include the Qualifications and Specialized Experience sections</strong> — these map directly to the questionnaire items. From USAJobs: scroll to Duties → select all text → paste below.
+    </div>
+    <textarea id="joa-input" placeholder="Paste the full job announcement text here — especially the Duties, Qualifications, Specialized Experience, and How to Apply sections."></textarea>
+    <div class="error-msg" id="error-msg"></div>
+    <button class="btn-analyze" id="btn-analyze" onclick="analyze()">
+      <span class="spinner-sm" id="spinner"></span>
+      <span id="btn-label">Get my questionnaire strategy →</span>
+    </button>
+  </div>
+
+  <div id="results">
+
+    <!-- Q applies banner -->
+    <div class="q-banner" id="q-banner">
+      <div class="q-banner-icon" id="q-icon"></div>
+      <div>
+        <h3 id="q-title"></h3>
+        <p id="q-note"></p>
+      </div>
+    </div>
+
+    <!-- Key trap (only if questionnaire applies) -->
+    <div class="trap-card" id="trap-card">
+      <h3>⚠ Most common deflation mistake for this role</h3>
+      <p id="key-trap"></p>
+    </div>
+
+    <!-- Criteria -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px;" id="criteria-header">Questionnaire criteria & how to rate yourself</h3>
+    <div class="criteria-list" id="criteria-list"></div>
+
+    <!-- General rules -->
+    <div class="general-rules" id="general-rules-card">
+      <h3>Ground rules for every VA questionnaire</h3>
+      <div class="rule-list" id="rules-list"></div>
+    </div>
+
+    <!-- Premium CTA -->
+    <div class="premium-cta">
+      <div class="premium-cta-left">
+        <div class="premium-cta-label">Take it further</div>
+        <h3>The questionnaire is one piece. Get the full picture.</h3>
+        <p id="premium-hook"></p>
+      </div>
+      <a href="/premium" class="btn-premium">Get Premium Analysis — $49 →</a>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+async function analyze() {
+  const joaText = document.getElementById('joa-input').value.trim();
+  const errorMsg = document.getElementById('error-msg');
+  const btn = document.getElementById('btn-analyze');
+  const spinner = document.getElementById('spinner');
+  const btnLabel = document.getElementById('btn-label');
+
+  errorMsg.style.display = 'none';
+
+  if (joaText.length < 100) {
+    errorMsg.textContent = 'Please paste the full job announcement text.';
+    errorMsg.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  spinner.style.display = 'inline-block';
+  btnLabel.textContent = 'Analyzing…';
+
+  try {
+    const res = await fetch('/api/questionnaire-strategy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ joa_text: joaText }),
+    });
+
+    const data = await res.json();
+    if (!res.ok || !data.success) throw new Error(data.error || 'Analysis failed.');
+
+    renderResults(data.result);
+
+  } catch (err) {
+    errorMsg.textContent = err.message || 'Something went wrong. Please try again.';
+    errorMsg.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    btnLabel.textContent = 'Get my questionnaire strategy →';
+  }
+}
+
+function renderResults(r) {
+  // Q applies banner
+  const banner = document.getElementById('q-banner');
+  const qApplies = r.questionnaire_applies;
+
+  banner.className = 'q-banner ' + (qApplies ? 'applies' : 'exempt');
+  document.getElementById('q-icon').textContent = qApplies ? '📋' : '✅';
+  document.getElementById('q-title').textContent = qApplies
+    ? 'Self-assessment questionnaire applies to this posting'
+    : 'Good news: questionnaire may not apply to this posting';
+  document.getElementById('q-note').textContent = r.questionnaire_note;
+
+  // Trap card (only if questionnaire applies)
+  const trapCard = document.getElementById('trap-card');
+  if (qApplies && r.key_trap) {
+    document.getElementById('key-trap').textContent = r.key_trap;
+    trapCard.style.display = 'block';
+  } else {
+    trapCard.style.display = 'none';
+  }
+
+  // Criteria
+  const criteriaHeader = document.getElementById('criteria-header');
+  const criteriaList = document.getElementById('criteria-list');
+
+  if (r.criteria && r.criteria.length > 0) {
+    criteriaHeader.style.display = 'block';
+    criteriaList.innerHTML = r.criteria.map(c => `
+      <div class="criterion-card">
+        <div class="criterion-header">
+          <span class="criterion-ksa">${c.ksa}</span>
+          <span class="risk-badge risk-${c.deflation_risk}">${c.deflation_risk === 'high' ? '⚠ High deflation risk' : c.deflation_risk === 'medium' ? '~ Medium risk' : '✓ Lower risk'}</span>
+        </div>
+        <div class="criterion-what">What they're testing: ${c.what_they_test}</div>
+        <div class="criterion-guidance">${c.rating_guidance}</div>
+      </div>
+    `).join('');
+  } else {
+    criteriaHeader.style.display = 'none';
+    criteriaList.innerHTML = '';
+  }
+
+  // General rules
+  const rulesList = document.getElementById('rules-list');
+  rulesList.innerHTML = (r.general_rules || []).map((rule, i) => `
+    <div class="gen-rule">
+      <span class="gen-rule-dot">${i + 1}</span>
+      <span>${rule}</span>
+    </div>
+  `).join('');
+
+  // Premium hook
+  document.getElementById('premium-hook').textContent = r.premium_hook;
+
+  // Show + scroll
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
