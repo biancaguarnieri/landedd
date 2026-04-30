@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premium Analysis — Landedd VA</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#2d6a4f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
@@ -23,15 +25,14 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
   padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; z-index: 100;
 }
-.logo { display: flex; align-items: center; text-decoration: none; }
-.logo-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; margin-right: 8px; }
+.logo { display: flex; align-items: center; text-decoration: none; gap: 9px; }
+.logo-mark { display: block; width: 28px; height: 28px; flex-shrink: 0; }
 .logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--green); }
 .nav-back { font-size: 13px; color: var(--ink-3); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .15s; }
 .nav-back:hover { color: var(--green); }
 
 .page-wrap { max-width: 880px; margin: 0 auto; padding: 56px 24px 80px; }
 
-/* ── Header ── */
 .page-header { text-align: center; margin-bottom: 48px; }
 .page-header .badge {
   display: inline-block; background: var(--green-pale); color: var(--green);
@@ -41,37 +42,27 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
 .page-header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; margin-bottom: 12px; }
 .page-header p { font-size: 16px; color: var(--ink-3); max-width: 480px; margin: 0 auto; line-height: 1.7; }
 
-/* ── Layout ── */
 .layout { display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start; }
 @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
 
-/* ── Includes list ── */
 .includes-card {
   background: var(--white); border: 1px solid var(--border); border-radius: 16px;
   padding: 36px 32px; box-shadow: var(--shadow);
 }
 .includes-card h2 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 24px; }
 .inc-section { margin-bottom: 24px; }
-.inc-section-label {
-  font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
-  color: var(--ink-3); margin-bottom: 12px;
-}
+.inc-section-label { font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
 .inc-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
 .inc-icon { color: var(--green); font-size: 15px; flex-shrink: 0; margin-top: 1px; font-weight: 700; }
 .inc-text h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
 .inc-text p { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 
-/* ── How long / process ── */
-.process-row {
-  background: var(--green-bg); border: 1px solid var(--green-pale);
-  border-radius: var(--radius); padding: 16px 20px; margin-top: 20px;
-}
+.process-row { background: var(--green-bg); border: 1px solid var(--green-pale); border-radius: var(--radius); padding: 16px 20px; margin-top: 20px; }
 .process-row h4 { font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 6px; }
 .process-steps { display: flex; flex-direction: column; gap: 6px; }
 .ps { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-2); }
 .ps-num { width: 20px; height: 20px; border-radius: 50%; background: var(--green); color: var(--white); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-/* ── Purchase card ── */
 .purchase-card { position: sticky; top: 84px; }
 .price-box {
   background: linear-gradient(145deg, #0f2318, #1d4430);
@@ -99,7 +90,7 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
 }
 .refund-note strong { color: #78350f; }
 
-.spinner { width: 18px; height: 18px; border: 2px solid rgba(15,35,24,.2); border-top-color: #0f2318; border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; display: none; }
+.spinner { width: 18px; height: 18px; border: 2px solid rgba(15,35,24,.2); border-top-color: #0f2318; border-radius: 50%; animation: spin .7s linear infinite; display: none; vertical-align: middle; margin-right: 6px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
@@ -107,10 +98,13 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
 
 <nav class="nav">
   <a href="/" class="logo">
-    <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="28" height="28" rx="6" fill="#2d6a4f"/>
-      <rect x="8" y="6" width="3.5" height="16" rx="1.75" fill="white"/>
-      <rect x="8" y="18.5" width="12" height="3.5" rx="1.75" fill="white"/>
+    <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="20" cy="20" r="20" fill="#2d6a4f"/>
+      <path d="M20,5 C20,5 25,10 25,17 L25,26 L20,29 L15,26 L15,17 C15,10 20,5 20,5 Z" fill="#fff"/>
+      <circle cx="20" cy="15" r="3" fill="#2d6a4f"/>
+      <path d="M15,23 L8,32 L15,29 Z" fill="#d8f3dc"/>
+      <path d="M25,23 L32,32 L25,29 Z" fill="#d8f3dc"/>
+      <path d="M17,29 Q20,35 23,29" fill="#74c69d"/>
     </svg>
     <span class="logo-text">Landedd VA</span>
   </a>
@@ -127,64 +121,33 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
 
   <div class="layout">
 
-    <!-- What's included -->
     <div class="includes-card">
       <h2>What's included</h2>
 
       <div class="inc-section">
         <div class="inc-section-label">Analysis & strategy</div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>JOA tier classification</h4><p>Pure Title 38, Hybrid Title 38, or Title 5 — for each of your target postings. The rules are completely different and most applicants get this wrong.</p></div>
-        </div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>NPSB grade prediction</h4><p>Scored on all three NPSB dimensions. We predict what grade your current resume supports and what you'd need to reach the next level. For nurses — this directly impacts your starting salary.</p></div>
-        </div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>Specialized experience match</h4><p>We pull the Specialized Experience paragraph from your JOA verbatim and score your resume against it. Every gap is identified with a suggestion for how to address it honestly.</p></div>
-        </div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>Application priority ranking</h4><p>If you're targeting 2–3 roles, we rank them by probability of being referred and tell you why. Includes estimated time to fill and whether Direct Hire Authority is active.</p></div>
-        </div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>JOA tier classification</h4><p>Pure Title 38, Hybrid Title 38, or Title 5 — for each of your target postings. The rules are completely different and most applicants get this wrong.</p></div></div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>NPSB grade prediction</h4><p>Scored on all three NPSB dimensions. We predict what grade your current resume supports and what you'd need to reach the next level. For nurses — this directly impacts your starting salary.</p></div></div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>Specialized experience match</h4><p>We pull the Specialized Experience paragraph from your JOA verbatim and score your resume against it. Every gap is identified with a suggestion for how to address it honestly.</p></div></div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>Application priority ranking</h4><p>If you're targeting 2–3 roles, we rank them by probability of being referred and tell you why. Includes estimated time to fill and whether Direct Hire Authority is active.</p></div></div>
       </div>
 
       <div class="inc-section">
         <div class="inc-section-label">Documents & templates</div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>Complete tailored federal resume</h4><p>A full federal-format resume for your highest-priority JOA — with your specialized experience language mirrored, all required federal fields, and scope-of-practice details properly documented.</p></div>
-        </div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>Cover letter angle + template</h4><p>A 3-paragraph template built around your specific VA/VAMC and your strongest experience matches. You fill in the details — we give you the structure that works.</p></div>
-        </div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>Complete tailored federal resume</h4><p>A full federal-format resume for your highest-priority JOA — with your specialized experience language mirrored, all required federal fields, and scope-of-practice details properly documented.</p></div></div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>Cover letter angle + template</h4><p>A 3-paragraph template built around your specific VA/VAMC and your strongest experience matches. You fill in the details — we give you the structure that works.</p></div></div>
       </div>
 
       <div class="inc-section">
         <div class="inc-section-label">Guidance & planning</div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>Questionnaire strategy (the deflation fix)</h4><p>The self-assessment questionnaire is where qualified applicants get eliminated. We explain the scoring criteria so you rate yourself accurately — not modestly.</p></div>
-        </div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>90-day application plan</h4><p>Week-by-week, customized to your geographic preferences and career goals. Includes search criteria for finding additional similar JOAs.</p></div>
-        </div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>Watch-outs & final checklist</h4><p>5–10 specific things to double-check before you submit — based on the most common rejection patterns for your role and tier.</p></div>
-        </div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>Questionnaire strategy (the deflation fix)</h4><p>The self-assessment questionnaire is where qualified applicants get eliminated. We explain the scoring criteria so you rate yourself accurately — not modestly.</p></div></div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>90-day application plan</h4><p>Week-by-week, customized to your geographic preferences and career goals. Includes search criteria for finding additional similar JOAs.</p></div></div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>Watch-outs & final checklist</h4><p>5–10 specific things to double-check before you submit — based on the most common rejection patterns for your role and tier.</p></div></div>
       </div>
 
       <div class="inc-section">
         <div class="inc-section-label">Follow-up support</div>
-        <div class="inc-row">
-          <span class="inc-icon">✓</span>
-          <div class="inc-text"><h4>1 follow-up question included</h4><p>After you've applied, use your included question to ask what's next — status questions, interview prep direction, or why you're not progressing. We respond within 24 hours.</p></div>
-        </div>
+        <div class="inc-row"><span class="inc-icon">✓</span><div class="inc-text"><h4>1 follow-up question included</h4><p>After you've applied, use your included question to ask what's next — status questions, interview prep direction, or why you're not progressing. We respond within 24 hours.</p></div></div>
       </div>
 
       <div class="process-row">
@@ -198,7 +161,6 @@ body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--
       </div>
     </div>
 
-    <!-- Purchase -->
     <div class="purchase-card">
       <div class="price-box">
         <div class="price-otp">One-time · No subscription</div>
