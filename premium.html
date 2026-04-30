@@ -198,23 +198,22 @@ async function startCheckout() {
   btnText.textContent = 'Redirecting to checkout…';
 
   try {
-    const res = await fetch('/api/premium-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({}),
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'Failed to create checkout session.');
-    }
-  } catch (err) {
-    btn.disabled = false;
-    spinner.style.display = 'none';
-    btnText.textContent = 'Continue to payment →';
-    alert(err.message || 'Something went wrong. Please try again or email hello@landedd.com.');
-  }
+   const res = await fetch('/api/premium-checkout', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({}),
+});
+
+if (!res.ok) {
+  throw new Error('Something went wrong. Please try again or email hello@landedd.com.');
+}
+
+const data = await res.json();
+if (data.url) {
+  window.location.href = data.url;
+} else {
+  throw new Error(data.error || 'Failed to create checkout session.');
+}
 }
 </script>
 </body>
