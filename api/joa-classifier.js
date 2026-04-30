@@ -1,43 +1,58 @@
-// Vercel Serverless Function: /api/joa-classifier
-// Classifies a VA USAJobs posting into Title 38, Hybrid Title 38, or Title 5
-// Calls Anthropic Messages API server-side. Requires env var: ANTHROPIC_API_KEY
+// api/joa-classifier.js
+// Classifies a VA job announcement into Pure Title 38, Hybrid Title 38, or Title 5
+// Returns structured JSON for the frontend to render
+// Uses Claude Haiku (cheap — this is a free tool)
 
-const ANTHROPIC_MODEL = 'claude-sonnet-4-6';
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
+const Anthropic = require('@anthropic-ai/sdk');
 
-const SYSTEM_PROMPT = `You are a federal hiring expert specializing in VA healthcare hiring. You classify USAJobs Job Opportunity Announcements (JOAs) into three buckets and return strict JSON.
+const SYSTEM_PROMPT = `You are a federal VA hiring expert. Your job is to classify a VA job announcement (JOA) and explain exactly which rules apply to the applicant.
 
-CLASSIFICATION RULES:
-- "pure_title_38": Roles authorized under 38 U.S.C. (e.g., Registered Nurse, Physician, Dentist, Podiatrist, Optometrist, Chiropractor, Physician Assistant, Expanded-function Dental Auxiliary). Independent of OPM standards. NPSB grades nurses.
-- "hybrid_title_38": Healthcare roles like Pharmacist, Psychologist, Social Worker, Audiologist, Speech-Language Pathologist, Occupational Therapist, Physical Therapist, Respiratory Therapist, Medical Technologist, Dietitian, Licensed Practical Nurse — appointed under both Title 38 and Title 5.
-- "title_5": Standard competitive service roles (administrative, IT, support, GS-graded). Subject to OPM rules and traditional federal resume formatting.
-- "unknown": Insufficient information.
+You have deep knowledge of Title 38 of the U.S. Code and VA hiring:
 
-Look for signals like: agency = "Department of Veterans Affairs" or "Veterans Health Administration", appointment authority, pay plan code (VN/VM/VP = Title 38, GS = Title 5, hybrid often noted in description), occupational series (0610 RN, 0602 MD = T38; 0660 Pharmacist, 0185 Social Worker = H38; 2210 IT, 0301 admin = T5).
+PURE TITLE 38 series (VM pay, no 2-page rule, no essay questions, NPSB/clinical board review):
+- 0602 Physicians (MD/DO), 0603 Physician Assistants, 0610 Registered Nurses (including CRNAs), 0660 Chiropractors/Optometrists, 0662 Optometrists, 0668 Podiatrists, 0680 Dentists, 0683 EFDA
 
-Detect:
-- Resume page limit (often 5 pages for federal; some VA JOAs say "no limit"; private-sector 2-page myth is FALSE for federal)
-- Direct Hire Authority (DHA) — phrases like "direct hire", "expedited hiring", "Schedule A"
-- Open to public vs internal/feds-only ("Open to: The public", "Federal employees - Competitive service")
-- Specialized Experience paragraph existence
+HYBRID TITLE 38 series (GS pay, 2-page rule MAY apply, essay questions generally apply, clinical + HR review):
+- 0180 Psychologists, 0185 Social Workers, 0631 OT, 0633 PT, 0638 Recreation Therapists, 0644 Medical Technologists, 0647 Diagnostic Radiologic Technologists, 0660 Pharmacists, 0661 Pharmacy Technicians, 0665 Speech-Language Pathologists/Audiologists, and other allied health series with GS pay
 
-Return JSON with this exact shape (no extra keys, no markdown):
+TITLE 5 (standard GS, 2-page rule applies, essay questions apply, HR specialist review):
+- All non-clinical roles, administrative roles, any GS series not in the Hybrid 38 list above
+
+DIRECT HIRE AUTHORITY (DHA): Currently active for RNs (nearly nationwide), certain physician specialties (primary care, mental health, anesthesiology, emergency), pharmacists (intermittent), PTs (intermittent), medical technologists (intermittent). DHA = resume goes directly to hiring manager, faster timeline (4-8 weeks vs. 12-20 weeks).
+
+NPSB (Nurse Professional Standards Board): Only applies to series 0610 (RNs). NPSB grades on 3 dimensions: Education & Clinical Competence, Practice, Performance. Most private-sector RN resumes only address Practice — costing applicants 1-2 grade levels and $10-30K/year in starting pay.
+
+Analyze the provided JOA text and return ONLY valid JSON in this exact structure (no markdown, no explanation outside the JSON):
+
 {
-  "tier": "pure_title_38" | "hybrid_title_38" | "title_5" | "unknown",
-  "title": "<short human title for the role, e.g., 'Registered Nurse — VA Pittsburgh Healthcare System'>",
-  "summary": "<1-2 sentence plain-English summary of what tier this is and why>",
-  "resume_page_limit": "<string like '5 pages', 'No limit specified', or 'Not specified'>",
-  "dha_active": true | false | null,
-  "open_to_public": true | false | null,
-  "specialized_experience_required": true | false | null,
-  "what_it_means": "<2-3 sentences explaining what this classification means for an applicant — what's different from private-sector hiring, what they should know>",
-  "next_steps": ["<concrete step 1>", "<concrete step 2>", "<concrete step 3>", "<concrete step 4>"]
+  "tier": "pure_38" | "hybrid_38" | "title_5",
+  "tier_label": "Pure Title 38" | "Hybrid Title 38" | "Title 5",
+  "series": "0610",
+  "series_name": "Registered Nurse",
+  "role_title": "The exact job title from the JOA",
+  "confidence": "high" | "medium" | "low",
+  "dha_active": true | false,
+  "dha_note": "string or null — brief note on DHA status",
+  "npsb_applies": true | false,
+  "two_page_rule": "exempt" | "applies" | "may_apply",
+  "essay_questions": "exempt" | "applies" | "likely_applies",
+  "pay_system": "VM" | "GS" | "Special",
+  "vamc": "string or null — name of the VA medical center if identifiable",
+  "rules": [
+    {
+      "rule": "Short rule name",
+      "status": "good" | "caution" | "required",
+      "detail": "One sentence explaining what this means for the applicant"
+    }
+  ],
+  "key_insight": "2-3 sentences. The single most important thing this applicant needs to know about this specific posting that most applicants get wrong.",
+  "premium_hook": "1 sentence. A specific, factual reason why Premium analysis would help for THIS posting — reference the tier, NPSB, DHA, or other specific detail."
 }
 
-If tier is "unknown", explain in summary what info is missing. Always include 3-5 next_steps.`;
+Rules array should include 4-6 items covering: resume length, essay questions, review body, DHA status, NPSB (if applicable), timeline.
+Keep all text concise and actionable. Never invent data not in the JOA.`;
 
-export default async function handler(req, res) {
-  // CORS for any frontend on landedd.com
+module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -45,79 +60,44 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'Server misconfigured: ANTHROPIC_API_KEY is not set.' });
+  const { joa_text } = req.body || {};
+
+  if (!joa_text || joa_text.trim().length < 100) {
+    return res.status(400).json({ error: 'Please paste the full job announcement text (at least a few paragraphs).' });
   }
 
-  let body;
-  try {
-    body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body || {};
-  } catch (e) {
-    return res.status(400).json({ error: 'Invalid JSON body.' });
+  if (joa_text.length > 30000) {
+    return res.status(400).json({ error: 'JOA text is too long. Please trim to the key sections (Duties, Qualifications, How to Apply).' });
   }
 
-  const url = (body.url || '').trim();
-  const text = (body.text || '').trim();
-
-  if (!url && !text) {
-    return res.status(400).json({ error: 'Provide either a USAJobs URL or the JOA text.' });
-  }
-
-  // Build user message
-  let userContent = '';
-  if (url) userContent += `USAJobs URL or announcement number: ${url}\n\n`;
-  if (text) userContent += `Full JOA text:\n${text.slice(0, 30000)}\n`;
-  if (!text && url) {
-    userContent += `\n(Note: Only a URL was provided — classify based on whatever the URL/announcement number reveals plus VA hiring conventions. If the announcement number doesn't reveal enough, set tier to "unknown" and ask the user to paste the full text.)`;
-  }
+  const client = new Anthropic();
 
   try {
-    const aRes = await fetch(ANTHROPIC_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: ANTHROPIC_MODEL,
-        max_tokens: 1500,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userContent }],
-      }),
+    const message = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 1000,
+      system: SYSTEM_PROMPT,
+      messages: [
+        {
+          role: 'user',
+          content: `Classify this VA job announcement:\n\n${joa_text.trim()}`,
+        },
+      ],
     });
 
-    if (!aRes.ok) {
-      const errText = await aRes.text();
-      console.error('Anthropic API error:', aRes.status, errText);
-      return res.status(502).json({ error: `AI provider error (${aRes.status}). Please try again in a moment.` });
-    }
+    const raw = message.content[0]?.text?.trim();
+    if (!raw) throw new Error('Empty response from AI');
 
-    const aData = await aRes.json();
-    const rawText = aData?.content?.[0]?.text || '';
+    // Strip markdown code fences if present
+    const cleaned = raw.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+    const result = JSON.parse(cleaned);
 
-    // Extract JSON (strip any accidental markdown fences)
-    let jsonStr = rawText.trim();
-    const fenceMatch = jsonStr.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-    if (fenceMatch) jsonStr = fenceMatch[1];
-
-    let result;
-    try {
-      result = JSON.parse(jsonStr);
-    } catch (e) {
-      console.error('Failed to parse AI response as JSON:', rawText);
-      return res.status(502).json({ error: 'AI returned an unexpected format. Please try again.' });
-    }
-
-    // Minimal validation
-    const validTiers = ['pure_title_38', 'hybrid_title_38', 'title_5', 'unknown'];
-    if (!validTiers.includes(result.tier)) result.tier = 'unknown';
-    if (!Array.isArray(result.next_steps)) result.next_steps = [];
-
-    return res.status(200).json(result);
+    return res.status(200).json({ success: true, result });
   } catch (err) {
-    console.error('JOA classifier error:', err);
-    return res.status(500).json({ error: 'Unexpected error. Please try again.' });
+    console.error('JOA classifier error:', err.message);
+    if (err instanceof SyntaxError) {
+      return res.status(500).json({ error: 'AI returned unexpected format. Please try again.' });
+    }
+    return res.status(500).json({ error: 'Classification failed. Please try again or email hello@landedd.com.' });
   }
-}
+};
