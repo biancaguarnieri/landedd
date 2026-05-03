@@ -1,3 +1,7 @@
+// api/metrics.js — Landedd unified metrics
+// Tracks events across both Landedd (main) and Landedd Title 38 sites.
+// Backward compatible: old combined keys still increment, plus new per-site keys.
+
 const { createClient } = require('redis');
 
 let redis = null;
@@ -21,7 +25,7 @@ function weekIndex() {
 
 function normalizeSource(src) {
   if (!src || src === 'direct') return 'direct';
-  const s = (src || '').toLowerCase();
+  const s = String(src || '').toLowerCase();
   if (s.includes('reddit')) return 'reddit';
   if (s.includes('linkedin')) return 'linkedin';
   if (s.includes('indeed')) return 'indeed';
@@ -30,9 +34,24 @@ function normalizeSource(src) {
   return 'other';
 }
 
+function normalizeSite(s) {
+  return s === 'title38' ? 'title38' : 'main';
+}
+
 const KNOWN_SOURCES = ['direct', 'reddit', 'linkedin', 'indeed', 'google', 'twitter', 'other'];
-const KNOWN_TOOLS   = ['builder', 'tailor', 'scanner', 'gaps', 'impact'];
+const MAIN_TOOLS    = ['builder', 'tailor', 'scanner', 'gaps', 'impact'];
+const TITLE38_TOOLS = ['joa', 'questionnaire', 'premium'];
+const ALL_TOOLS     = [...MAIN_TOOLS, ...TITLE38_TOOLS];
 const KNOWN_WTP     = ['free', 'basic', 'pro', 'more'];
+const SITES         = ['main', 'title38'];
+
+// Helper: increment both the combined key and the per-site key
+async function dualIncr(r, base, site) {
+  await Promise.all([
+    r.incr(base),
+    r.incr(base + ':' + site),
+  ]);
+}
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -43,80 +62,92 @@ module.exports = async function handler(req, res) {
   try {
     const r = await getRedis();
 
-    // ── GET — return full metrics ──
+    // ── GET: return full metrics ──────────────────────────────────────────
     if (req.method === 'GET') {
-      const [users, sessions, runs, downloads, thumbsup, thumbsdown] = await Promise.all([
-        r.get('pilot:totals:users'),
-        r.get('pilot:totals:sessions'),
-        r.get('pilot:totals:runs'),
-        r.get('pilot:totals:downloads'),
-        r.get('pilot:totals:thumbsup'),
-        r.get('pilot:totals:thumbsdown'),
-      ]);
+      // Combined totals (existing keys — preserved for backward compat)
+      const totalKeys = ['users','sessions','runs','downloads','thumbsup','thumbsdown'];
+      const totalVals = await Promise.all(totalKeys.map(k => r.get('pilot:totals:' + k)));
+      const totals = {};
+      totalKeys.forEach((k, i) => { totals[k] = parseInt(totalVals[i] || '0'); });
 
-      const toolVals = await Promise.all(KNOWN_TOOLS.map(t => r.get('pilot:tools:' + t)));
+      // Combined tools (now includes Title 38 tools too)
+      const toolVals = await Promise.all(ALL_TOOLS.map(t => r.get('pilot:tools:' + t)));
       const tools = {};
-      KNOWN_TOOLS.forEach((k, i) => { tools[k] = parseInt(toolVals[i] || '0'); });
+      ALL_TOOLS.forEach((k, i) => { tools[k] = parseInt(toolVals[i] || '0'); });
 
+      // Combined WTP
       const wtpVals = await Promise.all(KNOWN_WTP.map(k => r.get('pilot:wtp:' + k)));
       const wtp = {};
       KNOWN_WTP.forEach((k, i) => { wtp[k] = parseInt(wtpVals[i] || '0'); });
 
-      const sourceVals = await Promise.all(KNOWN_SOURCES.map(k => r.get('pilot:sources:' + k)));
+      // Combined sources
+      const srcVals = await Promise.all(KNOWN_SOURCES.map(k => r.get('pilot:sources:' + k)));
       const sources = {};
-      KNOWN_SOURCES.forEach((k, i) => {
-        const v = parseInt(sourceVals[i] || '0');
-        sources[k] = v;
-      });
+      KNOWN_SOURCES.forEach((k, i) => { sources[k] = parseInt(srcVals[i] || '0'); });
 
-      const weeklyRuns     = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:runs:'     + w)));
-      const weeklySessions = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:sessions:' + w)));
-      const weeklyUsers    = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:users:'    + w)));
-      const weeklyUp       = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:thumbsup:'  + w)));
-      const weeklyDown     = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:thumbsdown:'+ w)));
+      // Weekly (combined)
+      const weeklyRuns     = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:runs:'      + w)));
+      const weeklySessions = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:sessions:'  + w)));
+      const weeklyUsers    = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:users:'     + w)));
+      const weeklyUp       = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:thumbsup:'   + w)));
+      const weeklyDown     = await Promise.all([0,1,2].map(w => r.get('pilot:weekly:thumbsdown:' + w)));
 
-      const feedbackTotal  = parseInt(await r.get('pilot:feedback:total')      || '0');
-      const ratingSum      = parseInt(await r.get('pilot:feedback:rating_sum') || '0');
-      const avgRating      = feedbackTotal > 0 ? parseFloat((ratingSum / feedbackTotal).toFixed(1)) : null;
+      // Feedback
+      const feedbackTotal = parseInt(await r.get('pilot:feedback:total')      || '0');
+      const ratingSum     = parseInt(await r.get('pilot:feedback:rating_sum') || '0');
+      const avgRating     = feedbackTotal > 0 ? parseFloat((ratingSum / feedbackTotal).toFixed(1)) : null;
+
+      // ── Per-site breakdown ──
+      const bySite = {};
+      for (const site of SITES) {
+        const stTotalVals = await Promise.all(totalKeys.map(k => r.get('pilot:totals:' + k + ':' + site)));
+        const stTotals = {};
+        totalKeys.forEach((k, i) => { stTotals[k] = parseInt(stTotalVals[i] || '0'); });
+
+        const stToolVals = await Promise.all(ALL_TOOLS.map(t => r.get('pilot:tools:' + t + ':' + site)));
+        const stTools = {};
+        ALL_TOOLS.forEach((k, i) => { stTools[k] = parseInt(stToolVals[i] || '0'); });
+
+        const stSrcVals = await Promise.all(KNOWN_SOURCES.map(k => r.get('pilot:sources:' + k + ':' + site)));
+        const stSources = {};
+        KNOWN_SOURCES.forEach((k, i) => { stSources[k] = parseInt(stSrcVals[i] || '0'); });
+
+        const stWtpVals = await Promise.all(KNOWN_WTP.map(k => r.get('pilot:wtp:' + k + ':' + site)));
+        const stWtp = {};
+        KNOWN_WTP.forEach((k, i) => { stWtp[k] = parseInt(stWtpVals[i] || '0'); });
+
+        bySite[site] = { totals: stTotals, tools: stTools, sources: stSources, wtp: stWtp };
+      }
 
       return res.json({
-        totals: {
-          users:     parseInt(users     || '0'),
-          sessions:  parseInt(sessions  || '0'),
-          runs:      parseInt(runs      || '0'),
-          downloads: parseInt(downloads || '0'),
-          thumbsup:  parseInt(thumbsup  || '0'),
-          thumbsdown:parseInt(thumbsdown|| '0'),
-        },
-        tools,
-        wtp,
-        sources,
+        totals, tools, wtp, sources,
         feedback: { total: feedbackTotal, avgRating },
         weekly: {
-          runs:      weeklyRuns    .map(v => parseInt(v || '0')),
-          sessions:  weeklySessions.map(v => parseInt(v || '0')),
-          users:     weeklyUsers   .map(v => parseInt(v || '0')),
-          thumbsup:  weeklyUp      .map(v => parseInt(v || '0')),
-          thumbsdown:weeklyDown    .map(v => parseInt(v || '0')),
+          runs:       weeklyRuns    .map(v => parseInt(v || '0')),
+          sessions:   weeklySessions.map(v => parseInt(v || '0')),
+          users:      weeklyUsers   .map(v => parseInt(v || '0')),
+          thumbsup:   weeklyUp      .map(v => parseInt(v || '0')),
+          thumbsdown: weeklyDown    .map(v => parseInt(v || '0')),
         },
+        bySite,
         currentWeek: weekIndex(),
         demo: false,
         updatedAt: new Date().toISOString(),
       });
     }
 
-    // ── POST — record events ──
+    // ── POST: record events ───────────────────────────────────────────────
     if (req.method === 'POST') {
       const body = req.body || {};
 
-      // Password-protected reset
+      // Reset (preserved from previous version)
       if (body.action === 'reset' && body.password === DASHBOARD_PASSWORD) {
         const keys = await r.keys('pilot:*');
         if (keys.length > 0) await Promise.all(keys.map(k => r.del(k)));
         return res.json({ ok: true, reset: true, deleted: keys.length });
       }
 
-      // One-time seed to restore historical pilot data after metrics.js migration
+      // Seed (preserved)
       if (body.action === 'seed' && body.password === DASHBOARD_PASSWORD) {
         const s = body.data || {};
         const ops = [];
@@ -127,61 +158,61 @@ module.exports = async function handler(req, res) {
         if (s.scanner)   ops.push(r.set('pilot:tools:scanner',    String(s.scanner)));
         if (s.tailor)    ops.push(r.set('pilot:tools:tailor',     String(s.tailor)));
         if (s.gaps)      ops.push(r.set('pilot:tools:gaps',       String(s.gaps)));
-        ops.push(r.set('pilot:weekly:runs:1',     String(s.week1_runs     || 0)));
-        ops.push(r.set('pilot:weekly:sessions:1', String(s.week1_sessions || 0)));
-        ops.push(r.set('pilot:weekly:users:1',    String(s.week1_users    || 0)));
         await Promise.all(ops);
         return res.json({ ok: true, seeded: ops.length });
       }
 
       const { event, feature, tier, rating, utm_source } = body;
-      const wk  = weekIndex();
-      const src = normalizeSource(utm_source);
+      const site = normalizeSite(body.site);
+      const wk   = weekIndex();
+      const src  = normalizeSource(utm_source);
 
       switch (event) {
         case 'user_signed_up':
-          await r.incr('pilot:totals:users');
-          await r.incr('pilot:weekly:users:' + wk);
-          await r.incr('pilot:sources:' + src);
+          await dualIncr(r, 'pilot:totals:users', site);
+          await dualIncr(r, 'pilot:weekly:users:' + wk, site);
+          await dualIncr(r, 'pilot:sources:' + src, site);
           break;
 
         case 'app_opened':
-          await r.incr('pilot:totals:sessions');
-          await r.incr('pilot:weekly:sessions:' + wk);
+          await dualIncr(r, 'pilot:totals:sessions', site);
+          await dualIncr(r, 'pilot:weekly:sessions:' + wk, site);
           break;
 
         case 'ai_output_generated':
-          await r.incr('pilot:totals:runs');
-          await r.incr('pilot:weekly:runs:' + wk);
-          if (feature && KNOWN_TOOLS.includes(feature)) {
-            await r.incr('pilot:tools:' + feature);
+          await dualIncr(r, 'pilot:totals:runs', site);
+          await dualIncr(r, 'pilot:weekly:runs:' + wk, site);
+          if (feature && ALL_TOOLS.includes(feature)) {
+            await dualIncr(r, 'pilot:tools:' + feature, site);
           }
           break;
 
         case 'ai_output_rated':
           if (rating === 'positive') {
-            await r.incr('pilot:totals:thumbsup');
-            await r.incr('pilot:weekly:thumbsup:' + wk);
+            await dualIncr(r, 'pilot:totals:thumbsup', site);
+            await dualIncr(r, 'pilot:weekly:thumbsup:' + wk, site);
           } else if (rating === 'negative') {
-            await r.incr('pilot:totals:thumbsdown');
-            await r.incr('pilot:weekly:thumbsdown:' + wk);
+            await dualIncr(r, 'pilot:totals:thumbsdown', site);
+            await dualIncr(r, 'pilot:weekly:thumbsdown:' + wk, site);
           }
           break;
 
         case 'resume_downloaded_or_saved':
-          await r.incr('pilot:totals:downloads');
+          await dualIncr(r, 'pilot:totals:downloads', site);
           break;
 
         case 'wtp_response':
           if (tier && KNOWN_WTP.includes(tier)) {
-            await r.incr('pilot:wtp:' + tier);
+            await dualIncr(r, 'pilot:wtp:' + tier, site);
           }
           break;
 
         case 'feedback_submitted':
           await r.incr('pilot:feedback:total');
+          await r.incr('pilot:feedback:total:' + site);
           if (rating && !isNaN(Number(rating))) {
             await r.incrBy('pilot:feedback:rating_sum', parseInt(rating));
+            await r.incrBy('pilot:feedback:rating_sum:' + site, parseInt(rating));
           }
           break;
       }
