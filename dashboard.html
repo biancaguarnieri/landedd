@@ -15,7 +15,6 @@
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--tx);background:var(--bg);min-height:100vh}
 
-/* ── LOGIN ── */
 .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .login-box{background:var(--wh);border:1px solid var(--g2);border-radius:16px;padding:36px 32px;max-width:340px;width:100%;text-align:center}
 .login-logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:22px}
@@ -28,7 +27,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:va
 .pw-btn:hover{background:var(--gm)}
 .pw-err{font-size:.78rem;color:var(--red);margin-top:8px;display:none}
 
-/* ── SHELL ── */
 .db{display:none}
 header{background:var(--wh);border-bottom:1px solid var(--g2);padding:11px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .hlogo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:.92rem;cursor:pointer}
@@ -41,14 +39,20 @@ header{background:var(--wh);border-bottom:1px solid var(--g2);padding:11px 5%;di
 .hbtn:hover{background:var(--gr)}
 main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 
-/* ── TABS ── */
+/* Site filter */
+.site-filter{display:flex;gap:6px;background:var(--wh);border:1px solid var(--g2);border-radius:30px;padding:4px;margin-bottom:16px;align-items:center;width:fit-content}
+.site-lbl{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);padding:0 10px 0 12px}
+.site-btn{padding:7px 16px;border-radius:20px;border:none;background:transparent;font-size:.78rem;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
+.site-btn.active{background:var(--g);color:#fff}
+.site-btn:hover:not(.active){background:var(--gr)}
+
+/* Tabs */
 .tab-bar{display:flex;gap:0;margin-bottom:20px;border-bottom:1.5px solid var(--g2)}
 .tab-btn{padding:9px 20px;border:none;background:none;font-size:.82rem;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .15s;font-family:inherit}
 .tab-btn.active{color:var(--g);border-bottom-color:var(--g)}
 .tab-btn:hover:not(.active){color:var(--tx)}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
-/* ── ALERTS ── */
 .alert-bar{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
 .alert{padding:9px 13px;border-radius:var(--rs);font-size:.75rem;display:flex;gap:8px;align-items:flex-start;line-height:1.5}
 .alert-red{background:var(--redbg);color:var(--red)}
@@ -56,13 +60,9 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .alert-green{background:var(--grnbg);color:var(--grn)}
 .alert-icon{font-size:12px;flex-shrink:0;margin-top:1px}
 
-/* ── SECTION LABEL ── */
 .stitle{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:9px}
-
-/* ── CARDS ── */
 .card{background:var(--wh);border:1px solid var(--g2);border-radius:var(--r);padding:18px 20px;margin-bottom:16px}
 
-/* ── KPI GRID ── */
 .kgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:16px}
 @media(max-width:600px){.kgrid{grid-template-columns:repeat(2,1fr)}}
 .kc{background:var(--wh);border:1px solid var(--g2);border-radius:var(--rs);padding:13px 15px}
@@ -73,23 +73,19 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .kbar-t{height:3px;background:var(--g2);border-radius:2px;margin-top:7px}
 .kbar-f{height:3px;border-radius:2px;transition:width .8s cubic-bezier(.4,0,.2,1)}
 
-/* ── TWO COL ── */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:16px}
 @media(max-width:560px){.two{grid-template-columns:1fr}}
 .ct{font-size:.76rem;font-weight:700;color:var(--t2);margin-bottom:12px}
+.ct-sub{font-size:.62rem;font-weight:600;color:var(--t3);margin-top:14px;margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase}
 
-/* ── THERMOMETER ── */
-.thermo-wrap{margin-bottom:6px}
 .thermo-track{height:38px;background:var(--g2);border-radius:20px;overflow:hidden;position:relative;margin-bottom:6px}
 .thermo-fill{height:100%;border-radius:20px;display:flex;align-items:center;justify-content:flex-end;padding-right:14px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 .thermo-pct{font-size:.85rem;font-weight:700;color:#fff}
 .thermo-labels{display:flex;justify-content:space-between;font-size:.63rem;color:var(--t3);padding:0 4px}
 .score-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
 .score-big{font-size:2rem;font-weight:800}
-.score-cap{font-size:.78rem;color:var(--t2);margin-top:2px}
 .verdict{font-size:.9rem;font-weight:700;margin-bottom:4px}
 
-/* ── GATE ROWS ── */
 .gate-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--gr)}
 .gate-row:last-child{border-bottom:none}
 .gate-name{font-size:.78rem;color:var(--tx);font-weight:500}
@@ -99,14 +95,13 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .badge-amber{background:var(--ambbg);color:var(--amb)}
 .badge-green{background:var(--grnbg);color:var(--grn)}
 
-/* ── FUNNEL BARS ── */
 .f-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .f-label{font-size:.7rem;color:var(--t2);min-width:110px;flex-shrink:0}
 .f-track{flex:1;height:6px;background:var(--g2);border-radius:3px;overflow:hidden}
 .f-fill{height:6px;border-radius:3px;background:var(--g);transition:width .8s}
+.f-fill.t38{background:var(--gm)}
 .f-val{font-size:.7rem;color:var(--t3);min-width:28px;text-align:right}
 
-/* ── WTP BARS ── */
 .wrow{display:flex;align-items:center;gap:7px;margin-bottom:7px}
 .wl{font-size:.7rem;color:var(--t2);width:82px;flex-shrink:0}
 .wt{flex:1;height:20px;background:var(--gr);border-radius:4px;overflow:hidden}
@@ -116,16 +111,13 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .sigl{font-size:.63rem;color:var(--t3);margin-bottom:3px}
 .sigv{font-size:.9rem;font-weight:700}
 
-/* ── PILOTT ── */
 .pilott-card{background:var(--gb);border:1px solid var(--gp);border-radius:var(--r);padding:18px 20px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start}
 .pilott-avatar{flex-shrink:0;width:50px;height:50px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:22px}
-.pilott-body{}
 .pilott-name{font-size:.72rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
 .pilott-msg{font-size:.78rem;color:var(--t2);line-height:1.65}
 .pilott-tip{margin-top:10px;padding:10px 13px;background:var(--wh);border-left:3px solid var(--g);border-radius:0 var(--rs) var(--rs) 0;font-size:.75rem;color:var(--t2);line-height:1.55}
 .pilott-tip strong{color:var(--tx);font-weight:700}
 
-/* ── P&L ── */
 .pnl-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--gr)}
 .pnl-row:last-child{border-bottom:none}
 .pnl-item{font-size:.78rem;color:var(--tx)}
@@ -135,7 +127,6 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .pnl-total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0 4px;border-top:2px solid var(--g2);margin-top:4px}
 .pnl-total-lbl{font-size:.85rem;font-weight:700}
 
-/* ── PROJ CARDS ── */
 .proj-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
 @media(max-width:520px){.proj-grid{grid-template-columns:1fr}}
 .proj-card{border-radius:var(--rs);padding:14px 16px;border:1px solid var(--g2);background:var(--wh)}
@@ -144,12 +135,10 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .proj-rev{font-size:1.2rem;font-weight:800;margin-bottom:3px}
 .proj-detail{font-size:.68rem;color:var(--t2);line-height:1.5}
 
-/* ── LEGEND ── */
 .leg{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px;font-size:.68rem;color:var(--t2)}
 .legi{display:flex;align-items:center;gap:4px}
 .legsq{width:8px;height:8px;border-radius:2px;display:inline-block}
 
-/* ── SOURCE BARS ── */
 .src-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .src-label{font-size:.7rem;color:var(--t2);min-width:80px;flex-shrink:0}
 .src-icon{font-size:.75rem;margin-right:2px}
@@ -157,14 +146,10 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
 .src-fill{height:8px;border-radius:4px;transition:width .8s cubic-bezier(.4,0,.2,1)}
 .src-val{font-size:.7rem;color:var(--t3);min-width:32px;text-align:right;font-weight:600}
 .src-pct{font-size:.65rem;color:var(--t3);min-width:30px;text-align:right}
-
-/* ── MISC ── */
-.note{font-size:.65rem;color:var(--t3);margin-top:8px;font-style:italic}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <div class="login-logo">
@@ -179,7 +164,6 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
   </div>
 </div>
 
-<!-- DASHBOARD SHELL -->
 <div class="db" id="dbScreen">
   <header>
     <div class="hlogo" onclick="window.location='/'">
@@ -195,19 +179,25 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
   </header>
 
   <main>
+    <!-- SITE FILTER -->
+    <div class="site-filter">
+      <span class="site-lbl">View</span>
+      <button class="site-btn active" id="sf-all" onclick="setSite('all')">All sites</button>
+      <button class="site-btn" id="sf-main" onclick="setSite('main')">Landedd</button>
+      <button class="site-btn" id="sf-title38" onclick="setSite('title38')">Title 38</button>
+    </div>
+
     <div class="tab-bar">
       <button class="tab-btn active" id="tabBtnMon" onclick="switchTab('mon')">Monetization readiness</button>
       <button class="tab-btn" id="tabBtnPnl" onclick="switchTab('pnl')">P&amp;L &amp; growth</button>
     </div>
 
-    <!-- ════ TAB 1: MONETIZATION ════ -->
     <div class="tab-panel active" id="tab-mon">
 
       <div class="alert-bar" id="alertBar">
         <div class="alert alert-amber"><span class="alert-icon">·</span><span>Loading live data…</span></div>
       </div>
 
-      <!-- THERMOMETER -->
       <div class="stitle">Monetization readiness</div>
       <div class="card" style="margin-bottom:16px">
         <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap">
@@ -218,15 +208,13 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
             </div>
             <div class="verdict" id="verdictEl">Awaiting data…</div>
             <div style="font-size:.75rem;color:var(--t2);line-height:1.5;margin-bottom:14px" id="subEl">Data populates as users interact with Landedd.</div>
-            <div class="thermo-wrap">
-              <div class="thermo-track">
-                <div class="thermo-fill" id="thermoFill" style="width:0%;background:#A32D2D">
-                  <span class="thermo-pct" id="thermoPct">0%</span>
-                </div>
+            <div class="thermo-track">
+              <div class="thermo-fill" id="thermoFill" style="width:0%;background:#A32D2D">
+                <span class="thermo-pct" id="thermoPct">0%</span>
               </div>
-              <div class="thermo-labels">
-                <span>Not ready</span><span>Early signals</span><span>Ready to charge</span>
-              </div>
+            </div>
+            <div class="thermo-labels">
+              <span>Not ready</span><span>Early signals</span><span>Ready to charge</span>
             </div>
           </div>
           <div style="flex:1;min-width:220px">
@@ -236,7 +224,6 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
         </div>
       </div>
 
-      <!-- KPI CARDS -->
       <div class="stitle">Today's pulse</div>
       <div class="kgrid">
         <div class="kc"><div class="kl">Total visitors</div><div class="kv" id="k-users">0</div><div class="ks muted" id="ks-users">target 1,000/mo</div><div class="kbar-t"><div class="kbar-f" id="kb-users" style="width:0%;background:#A32D2D"></div></div></div>
@@ -245,7 +232,6 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
         <div class="kc"><div class="kl">Activation rate</div><div class="kv" id="k-act">0%</div><div class="ks muted">target ≥30%</div><div class="kbar-t"><div class="kbar-f" id="kb-act" style="width:0%;background:#A32D2D"></div></div></div>
       </div>
 
-      <!-- FUNNEL + WTP -->
       <div class="two">
         <div class="card">
           <div class="ct">Conversion funnel</div>
@@ -254,14 +240,18 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
           <div class="f-row"><div class="f-label">Ran AI</div><div class="f-track"><div class="f-fill" id="ff-run" style="width:0%"></div></div><div class="f-val" id="fv-run">0</div></div>
           <div class="f-row"><div class="f-label">Rated output</div><div class="f-track"><div class="f-fill" id="ff-rated" style="width:0%"></div></div><div class="f-val" id="fv-rated">0</div></div>
           <div class="f-row"><div class="f-label">WTP response</div><div class="f-track"><div class="f-fill" id="ff-wtp" style="width:0%"></div></div><div class="f-val" id="fv-wtp">0</div></div>
-          <div style="margin-top:14px">
-            <div class="ct">Tool usage</div>
-            <div class="f-row"><div class="f-label">Scanner</div><div class="f-track"><div class="f-fill" id="tf-scanner" style="width:0%"></div></div><div class="f-val" id="tv-scanner">0</div></div>
-            <div class="f-row"><div class="f-label">Builder</div><div class="f-track"><div class="f-fill" id="tf-builder" style="width:0%"></div></div><div class="f-val" id="tv-builder">0</div></div>
-            <div class="f-row"><div class="f-label">Tailor</div><div class="f-track"><div class="f-fill" id="tf-tailor" style="width:0%"></div></div><div class="f-val" id="tv-tailor">0</div></div>
-            <div class="f-row"><div class="f-label">Gap finder</div><div class="f-track"><div class="f-fill" id="tf-gaps" style="width:0%"></div></div><div class="f-val" id="tv-gaps">0</div></div>
-            <div class="f-row"><div class="f-label">Impact coach</div><div class="f-track"><div class="f-fill" id="tf-impact" style="width:0%"></div></div><div class="f-val" id="tv-impact">0</div></div>
-          </div>
+
+          <div class="ct-sub">Landedd tools</div>
+          <div class="f-row"><div class="f-label">Scanner</div><div class="f-track"><div class="f-fill" id="tf-scanner" style="width:0%"></div></div><div class="f-val" id="tv-scanner">0</div></div>
+          <div class="f-row"><div class="f-label">Tailor</div><div class="f-track"><div class="f-fill" id="tf-tailor" style="width:0%"></div></div><div class="f-val" id="tv-tailor">0</div></div>
+          <div class="f-row"><div class="f-label">Gap finder</div><div class="f-track"><div class="f-fill" id="tf-gaps" style="width:0%"></div></div><div class="f-val" id="tv-gaps">0</div></div>
+          <div class="f-row"><div class="f-label">Builder</div><div class="f-track"><div class="f-fill" id="tf-builder" style="width:0%"></div></div><div class="f-val" id="tv-builder">0</div></div>
+          <div class="f-row"><div class="f-label">Impact coach</div><div class="f-track"><div class="f-fill" id="tf-impact" style="width:0%"></div></div><div class="f-val" id="tv-impact">0</div></div>
+
+          <div class="ct-sub">Landedd Title 38 tools</div>
+          <div class="f-row"><div class="f-label">JOA Classifier</div><div class="f-track"><div class="f-fill t38" id="tf-joa" style="width:0%"></div></div><div class="f-val" id="tv-joa">0</div></div>
+          <div class="f-row"><div class="f-label">Questionnaire</div><div class="f-track"><div class="f-fill t38" id="tf-questionnaire" style="width:0%"></div></div><div class="f-val" id="tv-questionnaire">0</div></div>
+          <div class="f-row"><div class="f-label">Premium ($49)</div><div class="f-track"><div class="f-fill t38" id="tf-premium" style="width:0%"></div></div><div class="f-val" id="tv-premium">0</div></div>
         </div>
         <div class="card">
           <div class="ct">Willingness to pay</div>
@@ -273,201 +263,92 @@ main{max-width:980px;margin:0 auto;padding:20px 4% 56px}
             <div class="sigl">Profitability signal</div>
             <div class="sigv muted" id="sigEl">—</div>
           </div>
+
           <div style="margin-top:16px">
-            <div class="ct">AI satisfaction</div>
-            <div style="display:flex;align-items:center;gap:16px">
-              <div style="font-size:1.5rem;font-weight:800" id="satScore">—</div>
-              <div>
-                <div style="font-size:.7rem;color:var(--t3)" id="satDetail">No ratings yet</div>
-                <div style="font-size:.7rem;color:var(--t3)" id="fbScore">No feedback yet</div>
-              </div>
-            </div>
-          </div>
-          <div style="margin-top:16px">
-            <div class="ct">Weekly trend</div>
-            <div class="leg">
-              <div class="legi"><div class="legsq" style="background:#2d6a4f"></div>Runs</div>
-              <div class="legi"><div class="legsq" style="background:#378add"></div>Sessions</div>
-              <div class="legi"><div class="legsq" style="background:#ef9f27"></div>Users</div>
-            </div>
-            <div style="position:relative;height:130px"><canvas id="trendChart" role="img" aria-label="Weekly trend of runs, sessions, and users over 3 weeks">Weekly trend data loading.</canvas></div>
+            <div class="ct">Site split (live this view)</div>
+            <div class="f-row"><div class="f-label">Landedd</div><div class="f-track"><div class="f-fill" id="ss-main" style="width:0%"></div></div><div class="f-val" id="sv-main">0</div></div>
+            <div class="f-row"><div class="f-label">Title 38</div><div class="f-track"><div class="f-fill t38" id="ss-title38" style="width:0%"></div></div><div class="f-val" id="sv-title38">0</div></div>
+            <div style="font-size:.65rem;color:var(--t3);margin-top:6px">AI runs by site</div>
           </div>
         </div>
       </div>
 
-      <!-- TRAFFIC SOURCES -->
       <div class="stitle">Traffic sources</div>
       <div class="card" style="margin-bottom:16px">
         <div style="display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap">
           <div style="flex:2;min-width:260px">
             <div class="ct" style="margin-bottom:12px">Visitors by channel</div>
-            <div class="src-row">
-              <div class="src-label"><span class="src-icon">🔗</span>Direct</div>
-              <div class="src-track"><div class="src-fill" id="sf-direct" style="width:0%;background:#6B8FA8"></div></div>
-              <div class="src-val" id="sv-direct">0</div>
-              <div class="src-pct" id="sp-direct">—</div>
-            </div>
-            <div class="src-row">
-              <div class="src-label"><span class="src-icon">🟠</span>Reddit</div>
-              <div class="src-track"><div class="src-fill" id="sf-reddit" style="width:0%;background:#FF6314"></div></div>
-              <div class="src-val" id="sv-reddit">0</div>
-              <div class="src-pct" id="sp-reddit">—</div>
-            </div>
-            <div class="src-row">
-              <div class="src-label"><span class="src-icon">💼</span>LinkedIn</div>
-              <div class="src-track"><div class="src-fill" id="sf-linkedin" style="width:0%;background:#0A66C2"></div></div>
-              <div class="src-val" id="sv-linkedin">0</div>
-              <div class="src-pct" id="sp-linkedin">—</div>
-            </div>
-            <div class="src-row">
-              <div class="src-label"><span class="src-icon">🔍</span>Google</div>
-              <div class="src-track"><div class="src-fill" id="sf-google" style="width:0%;background:#34A853"></div></div>
-              <div class="src-val" id="sv-google">0</div>
-              <div class="src-pct" id="sp-google">—</div>
-            </div>
-            <div class="src-row">
-              <div class="src-label"><span class="src-icon">𝕏</span>Twitter / X</div>
-              <div class="src-track"><div class="src-fill" id="sf-twitter" style="width:0%;background:#1a1a1a"></div></div>
-              <div class="src-val" id="sv-twitter">0</div>
-              <div class="src-pct" id="sp-twitter">—</div>
-            </div>
-            <div class="src-row">
-              <div class="src-label"><span class="src-icon">📋</span>Indeed</div>
-              <div class="src-track"><div class="src-fill" id="sf-indeed" style="width:0%;background:#2164f3"></div></div>
-              <div class="src-val" id="sv-indeed">0</div>
-              <div class="src-pct" id="sp-indeed">—</div>
-            </div>
-            <div class="src-row">
-              <div class="src-label"><span class="src-icon">·</span>Other</div>
-              <div class="src-track"><div class="src-fill" id="sf-other" style="width:0%;background:#74c69d"></div></div>
-              <div class="src-val" id="sv-other">0</div>
-              <div class="src-pct" id="sp-other">—</div>
-            </div>
+            <div class="src-row"><div class="src-label">🔗 Direct</div><div class="src-track"><div class="src-fill" id="sf-direct" style="width:0%;background:#6B8FA8"></div></div><div class="src-val" id="sv-direct">0</div><div class="src-pct" id="sp-direct">—</div></div>
+            <div class="src-row"><div class="src-label">🟠 Reddit</div><div class="src-track"><div class="src-fill" id="sf-reddit" style="width:0%;background:#FF6314"></div></div><div class="src-val" id="sv-reddit">0</div><div class="src-pct" id="sp-reddit">—</div></div>
+            <div class="src-row"><div class="src-label">💼 LinkedIn</div><div class="src-track"><div class="src-fill" id="sf-linkedin" style="width:0%;background:#0A66C2"></div></div><div class="src-val" id="sv-linkedin">0</div><div class="src-pct" id="sp-linkedin">—</div></div>
+            <div class="src-row"><div class="src-label">🔍 Google</div><div class="src-track"><div class="src-fill" id="sf-google" style="width:0%;background:#34A853"></div></div><div class="src-val" id="sv-google">0</div><div class="src-pct" id="sp-google">—</div></div>
+            <div class="src-row"><div class="src-label">𝕏 Twitter</div><div class="src-track"><div class="src-fill" id="sf-twitter" style="width:0%;background:#1a1a1a"></div></div><div class="src-val" id="sv-twitter">0</div><div class="src-pct" id="sp-twitter">—</div></div>
+            <div class="src-row"><div class="src-label">📋 Indeed</div><div class="src-track"><div class="src-fill" id="sf-indeed" style="width:0%;background:#2164f3"></div></div><div class="src-val" id="sv-indeed">0</div><div class="src-pct" id="sp-indeed">—</div></div>
+            <div class="src-row"><div class="src-label">· Other</div><div class="src-track"><div class="src-fill" id="sf-other" style="width:0%;background:#74c69d"></div></div><div class="src-val" id="sv-other">0</div><div class="src-pct" id="sp-other">—</div></div>
           </div>
           <div style="flex:1;min-width:160px">
             <div class="ct" style="margin-bottom:12px">Top channel</div>
             <div style="font-size:1.4rem;font-weight:800;color:var(--g)" id="topSrcName">—</div>
             <div style="font-size:.72rem;color:var(--t3);margin-top:3px" id="topSrcVal">No data yet</div>
-            <div style="margin-top:16px">
-              <div class="ct" style="margin-bottom:8px">Organic vs referred</div>
-              <div style="font-size:.75rem;color:var(--t2);line-height:1.7" id="srcSummary">Tracking via <code>?ref=</code> URL param.<br>Direct = no referrer.</div>
-            </div>
           </div>
         </div>
       </div>
 
-      <!-- PILOTT — TAB 1 -->
       <div class="pilott-card">
         <div class="pilott-avatar">🧑‍🚀</div>
-        <div class="pilott-body">
+        <div>
           <div class="pilott-name">Pilott — honest assessment</div>
           <div class="pilott-msg" id="pilottMon">Loading assessment…</div>
           <div class="pilott-tip" id="pilottMonTip">Loading recommendation…</div>
         </div>
       </div>
+    </div>
 
-    </div><!-- /tab-mon -->
-
-    <!-- ════ TAB 2: P&L ════ -->
     <div class="tab-panel" id="tab-pnl">
-
-      <!-- ALERTS -->
-      <div class="alert-bar" id="pnlAlertBar">
-        <div class="alert alert-amber"><span class="alert-icon">·</span><span>Loading…</span></div>
-      </div>
-
-      <!-- CURRENT P&L -->
+      <div class="alert-bar"><div class="alert alert-amber"><span class="alert-icon">~</span><span>All revenue is $0 until monetization launch. Pre-monetization phase.</span></div></div>
       <div class="stitle">Current P&amp;L snapshot</div>
       <div class="card" style="margin-bottom:16px">
         <div class="pnl-row"><div class="pnl-item">Gross revenue</div><div class="pnl-amount pnl-pos">$0.00</div></div>
-        <div class="pnl-row"><div class="pnl-item sub">Pro subscriptions ($19/mo)</div><div class="pnl-amount pnl-neu" id="proSubs">0 subs</div></div>
-        <div class="pnl-row"><div class="pnl-item sub">Starter subscriptions ($9/mo)</div><div class="pnl-amount pnl-neu" id="starterSubs">0 subs</div></div>
+        <div class="pnl-row"><div class="pnl-item sub">Pro subscriptions ($19/mo)</div><div class="pnl-amount pnl-neu">0 subs</div></div>
+        <div class="pnl-row"><div class="pnl-item sub">Title 38 Premium ($49 one-time)</div><div class="pnl-amount pnl-neu" id="pnlPremium">0 sales</div></div>
         <div class="pnl-row" style="margin-top:6px"><div class="pnl-item">Estimated operating costs</div><div class="pnl-amount pnl-neg">~$550/mo</div></div>
-        <div class="pnl-row"><div class="pnl-item sub">Anthropic API (Haiku)</div><div class="pnl-amount pnl-neg" id="apiCost">~$0/mo</div></div>
-        <div class="pnl-row"><div class="pnl-item sub">Vercel hosting</div><div class="pnl-amount pnl-neg">~$0–20/mo</div></div>
-        <div class="pnl-row"><div class="pnl-item sub">Redis / storage</div><div class="pnl-amount pnl-neg">~$0–10/mo</div></div>
-        <div class="pnl-row"><div class="pnl-item sub">Resend email</div><div class="pnl-amount pnl-neg">~$0–5/mo</div></div>
-        <div class="pnl-total-row"><div class="pnl-total-lbl">Net margin</div><div class="pnl-amount pnl-neg" style="font-size:1rem" id="netMargin">-$550/mo</div></div>
-        <div class="note" id="apiNote">* At current usage, actual API cost is near $0. Costs scale with runs.</div>
+        <div class="pnl-row"><div class="pnl-item sub">Anthropic API</div><div class="pnl-amount pnl-neg" id="apiCost">~$0/mo</div></div>
+        <div class="pnl-row"><div class="pnl-item sub">Vercel + Redis + Resend</div><div class="pnl-amount pnl-neg">~$0–35/mo</div></div>
+        <div class="pnl-total-row"><div class="pnl-total-lbl">Net margin</div><div class="pnl-amount pnl-neg" style="font-size:1rem">-$550/mo (est.)</div></div>
       </div>
 
-      <!-- BREAK-EVEN -->
-      <div class="stitle">Break-even analysis</div>
-      <div class="kgrid" style="margin-bottom:16px">
-        <div class="kc"><div class="kl">Break-even subscribers</div><div class="kv">29</div><div class="ks muted">At $19/mo Pro tier</div></div>
-        <div class="kc"><div class="kl">Visitors needed</div><div class="kv">~2,900</div><div class="ks muted">At 1% conversion</div></div>
-        <div class="kc"><div class="kl">Est. month to break-even</div><div class="kv">Mo 6–8</div><div class="ks muted">Base case trajectory</div></div>
-        <div class="kc"><div class="kl">CAC (current)</div><div class="kv">$0</div><div class="ks ok">Organic only</div></div>
-      </div>
-
-      <!-- 12-MONTH PROJECTIONS -->
-      <div class="stitle">12-month revenue projections</div>
+      <div class="stitle">12-month revenue projections (combined)</div>
       <div class="proj-grid">
-        <div class="proj-card">
-          <div class="proj-scenario" style="color:#854F0B">Conservative</div>
-          <div class="proj-rev">$576/mo</div>
-          <div class="proj-detail">5K visitors/mo<br>48 Pro subs · 1% conv.</div>
-        </div>
-        <div class="proj-card base">
-          <div class="proj-scenario" style="color:#3B6D11">Base case</div>
-          <div class="proj-rev" style="color:#3B6D11">$1,440/mo</div>
-          <div class="proj-detail">15K visitors/mo<br>120 Pro subs · 1.5% conv.</div>
-        </div>
-        <div class="proj-card">
-          <div class="proj-scenario" style="color:#185FA5">Upside</div>
-          <div class="proj-rev">$3,600/mo</div>
-          <div class="proj-detail">40K visitors/mo<br>300 Pro subs · 2% conv.</div>
-        </div>
-      </div>
-      <div class="card" style="margin-bottom:16px">
-        <div class="leg">
-          <div class="legi"><div class="legsq" style="background:#888780"></div>Conservative</div>
-          <div class="legi"><div class="legsq" style="background:#639922"></div>Base case</div>
-          <div class="legi"><div class="legsq" style="background:#185FA5"></div>Upside</div>
-          <div class="legi"><div class="legsq" style="background:#A32D2D;opacity:.6"></div>Break-even $550</div>
-        </div>
-        <div style="position:relative;height:200px"><canvas id="projChart" role="img" aria-label="12-month revenue projection showing conservative base and upside scenarios">Revenue projections loading.</canvas></div>
+        <div class="proj-card"><div class="proj-scenario" style="color:#854F0B">Conservative</div><div class="proj-rev">$576/mo</div><div class="proj-detail">5K visitors/mo · 1% Pro conv.</div></div>
+        <div class="proj-card base"><div class="proj-scenario" style="color:#3B6D11">Base case</div><div class="proj-rev" style="color:#3B6D11">$1,440/mo</div><div class="proj-detail">15K visitors/mo · 1.5% conv.</div></div>
+        <div class="proj-card"><div class="proj-scenario" style="color:#185FA5">Upside</div><div class="proj-rev">$3,600/mo</div><div class="proj-detail">40K visitors/mo · 2% conv.</div></div>
       </div>
 
-      <!-- PILOTT — TAB 2 -->
       <div class="pilott-card">
         <div class="pilott-avatar">🧑‍🚀</div>
-        <div class="pilott-body">
+        <div>
           <div class="pilott-name">Pilott — financial read</div>
-          <div class="pilott-msg" id="pilottPnl">Loading financial assessment…</div>
-          <div class="pilott-tip" id="pilottPnlTip">Loading recommendation…</div>
+          <div class="pilott-msg" id="pilottPnl">Loading…</div>
+          <div class="pilott-tip" id="pilottPnlTip">Loading…</div>
         </div>
       </div>
-
-    </div><!-- /tab-pnl -->
+    </div>
   </main>
-</div><!-- /dbScreen -->
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 const SK = '_ldDash';
-let trendChart, projChart, chartsInited = false, timer;
+let timer, currentSite = 'all', lastData = null;
 
-// ── AUTH ──
 function doLogin() {
   const pw = document.getElementById('pwIn').value;
   const err = document.getElementById('pwErr');
   err.style.display = 'none';
-  fetch('/api/dashboard-auth', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({password: pw})
-  }).then(r => r.json()).then(d => {
-    if (d.ok) {
-      sessionStorage.setItem(SK, d.token);
-      showDash();
-    } else {
-      err.style.display = 'block';
-    }
-  }).catch(() => {
-    err.textContent = 'Could not connect. Try again.';
-    err.style.display = 'block';
-  });
+  fetch('/api/dashboard-auth', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({password:pw}) })
+    .then(r => r.json()).then(d => {
+      if (d.ok) { sessionStorage.setItem(SK, d.token); showDash(); }
+      else { err.style.display = 'block'; }
+    }).catch(() => { err.textContent='Could not connect.'; err.style.display='block'; });
 }
 
 function doLogout() {
@@ -484,300 +365,234 @@ function showDash() {
   if (!timer) timer = setInterval(loadData, 60000);
 }
 
-// ── TABS ──
 function switchTab(name) {
-  ['mon','pnl'].forEach(function(t) {
+  ['mon','pnl'].forEach(t => {
     document.getElementById('tab-'+t).classList.remove('active');
     document.getElementById('tabBtn'+t.charAt(0).toUpperCase()+t.slice(1)).classList.remove('active');
   });
   document.getElementById('tab-'+name).classList.add('active');
   document.getElementById('tabBtn'+name.charAt(0).toUpperCase()+name.slice(1)).classList.add('active');
-  if (!chartsInited) { initCharts(); chartsInited = true; }
 }
 
-// ── HELPERS ──
-function pct(n, d) { return d > 0 ? Math.round((n / d) * 100) : 0; }
-function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-function gateColor(pass, warn) {
-  if (pass) return 'badge-green';
-  if (warn) return 'badge-amber';
-  return 'badge-red';
-}
-function gateTxt(pass, warn) {
-  if (pass) return 'Met';
-  if (warn) return 'Partial';
-  return 'Failing';
+function setSite(site) {
+  currentSite = site;
+  ['all','main','title38'].forEach(s => document.getElementById('sf-'+s).classList.toggle('active', s === site));
+  if (lastData) render(lastData);
 }
 
-// ── DATA ──
+function pct(n,d){return d>0?Math.round((n/d)*100):0}
+function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v))}
+
+function pickData(d, site) {
+  if (site === 'all' || !d.bySite) {
+    return { totals: d.totals, tools: d.tools, wtp: d.wtp, sources: d.sources };
+  }
+  const s = d.bySite[site] || {};
+  return {
+    totals: s.totals || {users:0,sessions:0,runs:0,downloads:0,thumbsup:0,thumbsdown:0},
+    tools:  s.tools  || {},
+    wtp:    s.wtp    || {free:0,basic:0,pro:0,more:0},
+    sources:s.sources|| {direct:0,reddit:0,linkedin:0,indeed:0,google:0,twitter:0,other:0}
+  };
+}
+
 function loadData() {
-  fetch('/api/metrics').then(r => r.json()).then(render).catch(function() {
-    document.getElementById('updEl').textContent = 'Error loading';
-  });
+  fetch('/api/metrics').then(r => r.json()).then(d => {
+    lastData = d;
+    render(d);
+  }).catch(() => { document.getElementById('updEl').textContent = 'Error loading'; });
 }
 
 function render(d) {
-  const t = d.totals, w = d.wtp, wk = d.weekly, fb = d.feedback, tools = d.tools;
+  const view = pickData(d, currentSite);
+  const t = view.totals, w = view.wtp, tools = view.tools, srcs = view.sources;
+  const fb = d.feedback || { total:0, avgRating:null };
+  const wk = d.weekly || {};
 
-  // ── DERIVED ──
-  const activation = pct(t.runs, t.sessions);
-  const rated = t.thumbsup + t.thumbsdown;
-  const satPct = pct(t.thumbsup, rated);
-  const wtTotal = w.free + w.basic + w.pro + w.more;
-  const wtPaid = w.basic + w.pro + w.more;
+  const activation = pct(t.runs||0, t.sessions||0);
+  const rated = (t.thumbsup||0) + (t.thumbsdown||0);
+  const satPct = pct(t.thumbsup||0, rated);
+  const wtTotal = (w.free||0)+(w.basic||0)+(w.pro||0)+(w.more||0);
+  const wtPaid = (w.basic||0)+(w.pro||0)+(w.more||0);
   const wtPaidPct = pct(wtPaid, wtTotal);
 
-  // ── GATES ──
+  // Gates
   const gates = [
-    { name: 'Activation rate',    val: activation+'%',   cur: activation,     target: '≥30%',  pass: activation>=30,  warn: activation>=15 },
-    { name: 'Monthly AI runs',    val: t.runs+' runs',   cur: t.runs,         target: '≥500',  pass: t.runs>=500,     warn: t.runs>=200 },
-    { name: 'WTP responses',      val: wtTotal+' resp',  cur: wtTotal,        target: '≥30',   pass: wtTotal>=30,     warn: wtTotal>=15 },
-    { name: 'Positive ratings',   val: (rated?satPct+'%':'no data'), cur: satPct, target: '≥70%', pass: satPct>=70&&rated>0, warn: satPct>=50&&rated>0 },
-    { name: 'Monthly visitors',   val: t.users+' visits',cur: t.users,        target: '≥1,000',pass: t.users>=1000,   warn: t.users>=500 },
-    { name: 'Avg feedback rating',val: fb.avgRating?fb.avgRating.toFixed(1)+'/5':'no data', cur: fb.avgRating||0, target: '≥4.0', pass: (fb.avgRating||0)>=4, warn: (fb.avgRating||0)>=3 }
+    { name:'Activation rate',  val:activation+'%', cur:activation, target:'≥30%',  pass:activation>=30, warn:activation>=15 },
+    { name:'Monthly AI runs',  val:(t.runs||0)+' runs', cur:t.runs||0, target:'≥500',  pass:(t.runs||0)>=500, warn:(t.runs||0)>=200 },
+    { name:'WTP responses',    val:wtTotal+' resp', cur:wtTotal, target:'≥30',   pass:wtTotal>=30, warn:wtTotal>=15 },
+    { name:'Positive ratings', val:(rated?satPct+'%':'no data'), cur:satPct, target:'≥70%', pass:satPct>=70&&rated>0, warn:satPct>=50&&rated>0 },
+    { name:'Monthly visitors', val:(t.users||0)+' visits', cur:t.users||0, target:'≥1,000', pass:(t.users||0)>=1000, warn:(t.users||0)>=500 },
+    { name:'Avg feedback',     val:fb.avgRating?fb.avgRating.toFixed(1)+'/5':'no data', cur:fb.avgRating||0, target:'≥4.0', pass:(fb.avgRating||0)>=4, warn:(fb.avgRating||0)>=3 }
   ];
-  const gatesMet = gates.filter(function(g){ return g.pass; }).length;
-  const score = Math.round((gatesMet / 6) * 100);
+  const gatesMet = gates.filter(g => g.pass).length;
+  const score = Math.round((gatesMet/6)*100);
 
-  // ── THERMOMETER ──
+  // Thermo
   const fill = document.getElementById('thermoFill');
   fill.style.width = Math.max(score, 3) + '%';
-  fill.style.background = score >= 70 ? '#2d6a4f' : score >= 40 ? '#BA7517' : '#A32D2D';
-  document.getElementById('thermoPct').textContent = score + '%';
+  fill.style.background = score>=70?'#2d6a4f':score>=40?'#BA7517':'#A32D2D';
+  document.getElementById('thermoPct').textContent = score+'%';
   document.getElementById('scoreEl').textContent = score;
-  document.getElementById('gatesEl').textContent = gatesMet + ' of 6 gates met';
+  document.getElementById('gatesEl').textContent = gatesMet+' of 6 gates met';
 
   let verdict, sub;
-  if (t.users === 0) { verdict = 'Awaiting data'; sub = 'Data populates as users interact with Landedd.'; }
-  else if (score >= 75) { verdict = 'Ready to monetize'; sub = 'Strong signals across all gates. Begin paid launch planning.'; }
-  else if (score >= 50) { verdict = 'Almost there'; sub = 'Good foundation. Fix the red gates before going paid.'; }
-  else if (score >= 25) { verdict = 'Early stage'; sub = 'Mixed signals. Focus on activation and traffic before charging.'; }
-  else { verdict = 'Pre-signal'; sub = 'Too early. Diagnose the activation gap — why are visitors not running tools?'; }
+  if ((t.users||0)===0) { verdict='Awaiting data'; sub='No visitors yet on this site filter.'; }
+  else if (score>=75) { verdict='Ready to monetize'; sub='Strong signals across all gates. Begin paid launch planning.'; }
+  else if (score>=50) { verdict='Almost there'; sub='Good foundation. Fix the red gates before going paid.'; }
+  else if (score>=25) { verdict='Early stage'; sub='Mixed signals. Focus on activation and traffic.'; }
+  else { verdict='Pre-signal'; sub='Too early. Diagnose the activation gap.'; }
   document.getElementById('verdictEl').textContent = verdict;
   document.getElementById('subEl').textContent = sub;
 
-  // ── GATE LIST ──
+  // Gates list
   const gl = document.getElementById('gateList');
-  gl.innerHTML = gates.map(function(g) {
-    const cls = gateColor(g.pass, g.warn);
-    const lbl = gateTxt(g.pass, g.warn);
+  gl.innerHTML = gates.map(g => {
+    const cls = g.pass?'badge-green':g.warn?'badge-amber':'badge-red';
+    const lbl = g.pass?'Met':g.warn?'Partial':'Failing';
     return '<div class="gate-row"><div><div class="gate-name">'+g.name+'</div><div class="gate-val">'+g.val+' / target '+g.target+'</div></div><div class="badge '+cls+'">'+lbl+'</div></div>';
   }).join('');
 
-  // ── KPIs ──
-  document.getElementById('k-users').textContent = t.users;
-  document.getElementById('k-sessions').textContent = t.sessions;
-  document.getElementById('k-runs').textContent = t.runs;
-  document.getElementById('k-act').textContent = activation + '%';
+  // KPIs
+  document.getElementById('k-users').textContent = t.users||0;
+  document.getElementById('k-sessions').textContent = t.sessions||0;
+  document.getElementById('k-runs').textContent = t.runs||0;
+  document.getElementById('k-act').textContent = activation+'%';
 
-  function setKBar(id, val, max, color) {
-    var el = document.getElementById('kb-'+id);
-    el.style.width = clamp(Math.round((val/max)*100), 0, 100) + '%';
-    el.style.background = color;
-  }
-  setKBar('users', t.users, 1000, t.users>=1000?'#2d6a4f':t.users>=500?'#BA7517':'#A32D2D');
-  setKBar('sessions', t.sessions, t.users||1, '#2d6a4f');
-  setKBar('runs', t.runs, 500, t.runs>=500?'#2d6a4f':t.runs>=200?'#BA7517':'#A32D2D');
+  const setKBar = (id,v,m,c) => { const el=document.getElementById('kb-'+id); el.style.width=clamp(Math.round((v/m)*100),0,100)+'%'; el.style.background=c; };
+  setKBar('users', t.users||0, 1000, (t.users||0)>=1000?'#2d6a4f':(t.users||0)>=500?'#BA7517':'#A32D2D');
+  setKBar('sessions', t.sessions||0, t.users||1, '#2d6a4f');
+  setKBar('runs', t.runs||0, 500, (t.runs||0)>=500?'#2d6a4f':(t.runs||0)>=200?'#BA7517':'#A32D2D');
   setKBar('act', activation, 100, activation>=30?'#2d6a4f':activation>=15?'#BA7517':'#A32D2D');
 
-  var spu = t.users > 0 ? (t.sessions/t.users).toFixed(1) : 0;
-  document.getElementById('ks-sessions').textContent = spu + ' sessions/visitor';
-  document.getElementById('ks-users').textContent = t.users >= 1000 ? 'On track' : (1000-t.users)+' to target';
-  document.getElementById('ks-users').className = 'ks ' + (t.users>=1000?'ok':t.users>=500?'warn':'bad');
+  document.getElementById('ks-sessions').textContent = (t.users>0?(t.sessions/t.users).toFixed(1):0)+' sessions/visitor';
+  document.getElementById('ks-users').textContent = (t.users||0)>=1000?'On track':(1000-(t.users||0))+' to target';
+  document.getElementById('ks-users').className = 'ks ' + ((t.users||0)>=1000?'ok':(t.users||0)>=500?'warn':'bad');
 
-  // ── FUNNEL ──
-  var fMax = t.users || 1;
-  function setFunnel(id, val) {
-    document.getElementById('ff-'+id).style.width = pct(val, fMax) + '%';
-    document.getElementById('fv-'+id).textContent = val;
-  }
-  setFunnel('visit', t.users); setFunnel('open', t.sessions);
-  setFunnel('run', t.runs); setFunnel('rated', rated);
-  setFunnel('wtp', wtTotal);
+  // Funnel
+  const fMax = (t.users||1);
+  const setF = (id,v) => { document.getElementById('ff-'+id).style.width = pct(v,fMax)+'%'; document.getElementById('fv-'+id).textContent = v; };
+  setF('visit', t.users||0); setF('open', t.sessions||0); setF('run', t.runs||0); setF('rated', rated); setF('wtp', wtTotal);
 
-  // ── TOOL BARS ──
-  var toolMax = Math.max(tools.builder, tools.tailor, tools.scanner, tools.gaps, tools.impact, 1);
-  ['builder','tailor','scanner','gaps','impact'].forEach(function(k) {
-    document.getElementById('tf-'+k).style.width = pct(tools[k], toolMax) + '%';
-    document.getElementById('tv-'+k).textContent = tools[k];
+  // All 8 tools
+  const allToolKeys = ['scanner','tailor','gaps','builder','impact','joa','questionnaire','premium'];
+  const toolMax = Math.max.apply(null, allToolKeys.map(k => tools[k]||0).concat([1]));
+  allToolKeys.forEach(k => {
+    const el = document.getElementById('tf-'+k);
+    const valEl = document.getElementById('tv-'+k);
+    if (el) el.style.width = pct(tools[k]||0, toolMax)+'%';
+    if (valEl) valEl.textContent = tools[k]||0;
   });
 
-  // ── SOURCES ──
-  var src = d.sources || {};
-  var srcKeys = ['direct','reddit','linkedin','google','twitter','indeed','other'];
-  var srcVals = srcKeys.map(function(k){ return src[k] || 0; });
-  var srcTotal = srcVals.reduce(function(a,b){ return a+b; }, 0);
-  var srcMax = Math.max.apply(null, srcVals.concat([1]));
-  var srcNames = {direct:'Direct',reddit:'Reddit',linkedin:'LinkedIn',google:'Google',twitter:'Twitter/X',indeed:'Indeed',other:'Other'};
-
-  srcKeys.forEach(function(k, i) {
-    var val = srcVals[i];
-    var elFill = document.getElementById('sf-'+k);
-    var elVal  = document.getElementById('sv-'+k);
-    var elPct  = document.getElementById('sp-'+k);
-    if (elFill) elFill.style.width = pct(val, srcMax) + '%';
-    if (elVal)  elVal.textContent = val;
-    if (elPct)  elPct.textContent = srcTotal > 0 ? pct(val, srcTotal) + '%' : '—';
-  });
-
-  // Top channel
-  var topIdx = srcVals.indexOf(Math.max.apply(null, srcVals));
-  var topKey = srcKeys[topIdx];
-  var topVal = srcVals[topIdx];
-  var topEl = document.getElementById('topSrcName');
-  var topValEl = document.getElementById('topSrcVal');
-  if (topVal > 0 && topEl) {
-    topEl.textContent = srcNames[topKey];
-    topValEl.textContent = topVal + ' visits (' + pct(topVal, srcTotal) + '%)';
-  } else if (topEl) {
-    topEl.textContent = '—';
-    topValEl.textContent = 'No data yet';
+  // Site split (always uses combined data, not filtered)
+  if (d.bySite) {
+    const mainRuns = (d.bySite.main && d.bySite.main.totals && d.bySite.main.totals.runs) || 0;
+    const t38Runs  = (d.bySite.title38 && d.bySite.title38.totals && d.bySite.title38.totals.runs) || 0;
+    const ssMax = Math.max(mainRuns, t38Runs, 1);
+    document.getElementById('ss-main').style.width = pct(mainRuns, ssMax)+'%';
+    document.getElementById('ss-title38').style.width = pct(t38Runs, ssMax)+'%';
+    document.getElementById('sv-main').textContent = mainRuns;
+    document.getElementById('sv-title38').textContent = t38Runs;
   }
 
-  // Organic vs referred summary
-  var summaryEl = document.getElementById('srcSummary');
-  if (summaryEl && srcTotal > 0) {
-    var referred = srcTotal - (src.direct || 0);
-    summaryEl.innerHTML = 'Total tracked: <strong>' + srcTotal + '</strong><br>'
-      + 'Organic/direct: <strong>' + (src.direct||0) + '</strong> · Referred: <strong>' + referred + '</strong>';
+  // Sources
+  const srcKeys = ['direct','reddit','linkedin','google','twitter','indeed','other'];
+  const srcVals = srcKeys.map(k => srcs[k]||0);
+  const srcTotal = srcVals.reduce((a,b)=>a+b,0);
+  const srcMax = Math.max.apply(null, srcVals.concat([1]));
+  const srcNames = {direct:'Direct',reddit:'Reddit',linkedin:'LinkedIn',google:'Google',twitter:'Twitter',indeed:'Indeed',other:'Other'};
+  srcKeys.forEach((k,i) => {
+    const v = srcVals[i];
+    const f = document.getElementById('sf-'+k);
+    const vv = document.getElementById('sv-'+k);
+    const p = document.getElementById('sp-'+k);
+    if (f) f.style.width = pct(v, srcMax)+'%';
+    if (vv) vv.textContent = v;
+    if (p) p.textContent = srcTotal>0?pct(v,srcTotal)+'%':'—';
+  });
+  const topIdx = srcVals.indexOf(Math.max.apply(null, srcVals));
+  if (srcVals[topIdx] > 0) {
+    document.getElementById('topSrcName').textContent = srcNames[srcKeys[topIdx]];
+    document.getElementById('topSrcVal').textContent = srcVals[topIdx]+' visits ('+pct(srcVals[topIdx], srcTotal)+'%)';
+  } else {
+    document.getElementById('topSrcName').textContent = '—';
+    document.getElementById('topSrcVal').textContent = 'No attributed traffic';
   }
 
-  // ── WTP ──
-  [['free',w.free],['basic',w.basic],['pro',w.pro],['more',w.more]].forEach(function(pair) {
-    var p = pct(pair[1], wtTotal||1);
-    document.getElementById('wf-'+pair[0]).style.width = (wtTotal?p:0) + '%';
-    document.getElementById('wp-'+pair[0]).textContent = (wtTotal?p:0) + '%';
+  // WTP
+  [['free',w.free||0],['basic',w.basic||0],['pro',w.pro||0],['more',w.more||0]].forEach(p => {
+    const pp = pct(p[1], wtTotal||1);
+    document.getElementById('wf-'+p[0]).style.width = (wtTotal?pp:0)+'%';
+    document.getElementById('wp-'+p[0]).textContent = (wtTotal?pp:0)+'%';
   });
-  var sig, sigCls;
-  if (!wtTotal) { sig = '—'; sigCls = 'muted'; }
-  else if (wtPaidPct >= 40) { sig = 'Strong — launch paid now'; sigCls = 'ok'; }
-  else if (wtPaidPct >= 25) { sig = 'Promising — refine first'; sigCls = 'warn'; }
-  else if (wtPaidPct > 0)  { sig = 'Weak — consider pivot'; sigCls = 'bad'; }
-  else { sig = 'No paid interest yet'; sigCls = 'bad'; }
-  var se = document.getElementById('sigEl'); se.textContent = sig; se.className = 'sigv '+sigCls;
+  let sig, sigCls;
+  if (!wtTotal) { sig='—'; sigCls='muted'; }
+  else if (wtPaidPct>=40) { sig='Strong — launch paid now'; sigCls='ok'; }
+  else if (wtPaidPct>=25) { sig='Promising — refine first'; sigCls='warn'; }
+  else if (wtPaidPct>0) { sig='Weak — consider pivot'; sigCls='bad'; }
+  else { sig='No paid interest yet'; sigCls='bad'; }
+  document.getElementById('sigEl').textContent = sig;
+  document.getElementById('sigEl').className = 'sigv '+sigCls;
 
-  // ── SAT ──
-  document.getElementById('satScore').textContent = rated ? satPct+'%' : '—';
-  document.getElementById('satDetail').textContent = rated ? t.thumbsup+' up / '+t.thumbsdown+' down' : 'No ratings yet';
-  document.getElementById('fbScore').textContent = fb.avgRating ? 'Avg '+fb.avgRating.toFixed(1)+'/5 ('+fb.total+' responses)' : 'No feedback yet';
-
-  // ── ALERTS ──
-  var alerts = [];
-  if (t.users === 0) alerts.push(['red','No visitors recorded yet — ensure tracking is live.']);
+  // Alerts
+  const alerts = [];
+  const siteLabel = currentSite==='all'?'across both sites':(currentSite==='main'?'on Landedd':'on Title 38');
+  if ((t.users||0)===0) alerts.push(['red','No visitors recorded yet '+siteLabel+'.']);
   else {
-    if (activation < 15) alerts.push(['red','Activation rate is '+activation+'% ('+t.runs+' runs / '+t.sessions+' sessions). Users open tools but don\'t run them.']);
-    else if (activation < 30) alerts.push(['amber','Activation at '+activation+'% — improving but below the 30% gate.']);
-    if (!wtTotal) alerts.push(['red','Zero WTP responses — no monetization signal yet. Add a WTP prompt after tool runs.']);
-    if (!rated) alerts.push(['amber','No satisfaction ratings yet. Ensure thumbs up/down is visible after AI output.']);
-    if (t.runs > 0) alerts.push(['green','Infrastructure healthy. Redis connected, API serving live data.']);
-    var toolsUsed = Object.values(tools).filter(function(v){return v>0;}).length;
-    if (toolsUsed < 3) alerts.push(['amber',toolsUsed+' of 5 tools used. Surface other tools to users to broaden engagement.']);
+    if (activation < 15) alerts.push(['red','Activation '+activation+'% '+siteLabel+'. Tools opened but not run.']);
+    else if (activation < 30) alerts.push(['amber','Activation '+activation+'% '+siteLabel+'. Below 30% gate.']);
+    if (!wtTotal) alerts.push(['red','Zero WTP responses '+siteLabel+'.']);
+    if (!rated) alerts.push(['amber','No satisfaction ratings yet '+siteLabel+'.']);
+    if ((t.runs||0) > 0) alerts.push(['green','Tracking healthy '+siteLabel+'.']);
   }
-  if (!alerts.length) alerts.push(['green','All systems healthy.']);
-  function alertHTML(bar) {
-    return alerts.map(function(a){ return '<div class="alert alert-'+a[0]+'"><span class="alert-icon">'+{red:'!',amber:'~',green:'+'}[a[0]]+'</span><span>'+a[1]+'</span></div>'; }).join('');
-  }
-  document.getElementById('alertBar').innerHTML = alertHTML();
-  document.getElementById('pnlAlertBar').innerHTML = [
-    ['amber','All revenue is $0 — pre-monetization phase. Estimated baseline ops cost ~$550/mo.'],
-    t.runs<10?['amber','At current '+t.runs+' AI runs/mo, actual API cost is near $0. Will scale with usage.']:['green','API usage growing — monitor Anthropic spend as runs scale.'],
-    ['green','Infrastructure healthy. Redis connected, deployments live.']
-  ].map(function(a){ return '<div class="alert alert-'+a[0]+'"><span class="alert-icon">'+{amber:'~',green:'+'}[a[0]]+'</span><span>'+a[1]+'</span></div>'; }).join('');
+  if (!alerts.length) alerts.push(['amber','Awaiting data '+siteLabel+'.']);
+  document.getElementById('alertBar').innerHTML = alerts.map(a => '<div class="alert alert-'+a[0]+'"><span class="alert-icon">'+{red:'!',amber:'~',green:'+'}[a[0]]+'</span><span>'+a[1]+'</span></div>').join('');
 
-  // ── P&L dynamic ──
-  document.getElementById('apiCost').textContent = t.runs < 50 ? '~$0/mo' : t.runs < 500 ? '~$5–30/mo' : '~$30–80/mo';
-  document.getElementById('apiNote').textContent = '* At ' + t.runs + ' runs/mo, actual API cost is ' + (t.runs < 20 ? 'near $0' : 'starting to accumulate') + '. Costs scale with volume.';
+  // P&L API cost dynamic
+  const apiCostEl = document.getElementById('apiCost');
+  if (apiCostEl) apiCostEl.textContent = (t.runs||0)<50?'~$0/mo':(t.runs||0)<500?'~$5–30/mo':'~$30–80/mo';
 
-  // ── PILOTT MESSAGES ──
-  var monMsg, monTip, pnlMsg, pnlTip;
-  if (t.users === 0) {
-    monMsg = 'No data yet. The dashboard is live and waiting. Once users start interacting with Landedd tools, every metric here will populate automatically. Nothing to read yet — focus on driving your first real visits.';
-    monTip = '<strong>First action:</strong> Post in r/resumes or r/jobs today. Put the Landedd link in the first reply, not the post body, to avoid spam filters. Your first 10 real users will tell you more than any dashboard.';
+  // Premium sales line on P&L (combined view always)
+  const allTools = (d.tools||{});
+  const premiumSales = allTools.premium || 0;
+  const pnlPremiumEl = document.getElementById('pnlPremium');
+  if (pnlPremiumEl) pnlPremiumEl.textContent = premiumSales+' sales';
+
+  // Pilott
+  let monMsg, monTip;
+  const v = currentSite==='title38'?'Title 38':(currentSite==='main'?'Landedd':'combined');
+  if ((t.users||0) === 0) {
+    monMsg = 'No data on the '+v+' filter yet. The tracker is live and waiting for the first real visitor in this scope.';
+    monTip = '<strong>First action:</strong> Drive a single test visit with a UTM tag (e.g. ?utm_source=reddit) and confirm it shows up in the sources panel.';
   } else if (score < 25) {
-    monMsg = 'You have '+t.users+' visitors and a '+activation+'% activation rate — meaning most people who opened a tool did not run it. That gap between "opened" and "ran" is your entire business problem right now. The product may not be broken — it may just need a clearer on-ramp. You are not ready to charge anyone yet, and that is okay. You are pre-signal.';
-    monTip = '<strong>One action Pilott recommends:</strong> Watch 3 real users navigate the scanner in real time. Do not guide them — just observe where they pause. The activation gap lives between "I opened the tool" and "I hit run." That hesitation point is worth more than any metric.';
+    monMsg = 'On the '+v+' view: '+(t.users||0)+' visitors, '+activation+'% activation. The leak is between visit and first tool open. The product is reachable but not pulling people in.';
+    monTip = '<strong>Pilott recommends:</strong> Watch 3 real users navigate '+v+' in real time. The hesitation point between "landed" and "clicked" is your business problem right now.';
   } else if (score < 50) {
-    monMsg = 'Early signals are forming. You have '+gatesMet+' of 6 monetization gates passing. The foundation is real — but you have not yet collected the WTP and feedback data needed to price confidently. Keep building usage before adding a paywall.';
-    monTip = '<strong>Pilott recommends:</strong> After every AI run, actively ask for a rating and a WTP response. You need at least 30 WTP data points before pricing decisions are meaningful. Right now you are flying without instruments.';
+    monMsg = 'Early signals on '+v+': '+gatesMet+' of 6 gates passing. Foundation forming, but not enough WTP data to price.';
+    monTip = '<strong>Pilott recommends:</strong> Add a WTP prompt after every AI run. You need 30 data points before pricing decisions are real.';
   } else {
-    monMsg = 'You are at '+score+'% monetization readiness with '+gatesMet+' of 6 gates passing. This is a real signal. The product is working, users are engaging, and you have enough data to start thinking about a soft monetization test.';
-    monTip = '<strong>Pilott recommends:</strong> Run a "soft paywall" test — add a usage limit (e.g., 3 free runs) and see what percentage of users hit it and how they react. That friction data is worth more than a survey.';
+    monMsg = score+'% readiness on '+v+', '+gatesMet+' of 6 gates passing. Real signal.';
+    monTip = '<strong>Pilott recommends:</strong> Soft-paywall test. 3 free runs then a price prompt. Friction data > survey data.';
   }
-
-  if (t.runs < 10) {
-    pnlMsg = 'The P&L looks like -$550/mo but your actual cash burn is close to zero right now — at '+t.runs+' AI runs/mo, Anthropic\'s free tier absorbs the cost. The real cost you are not tracking is your time. 10 hours a week at a real opportunity cost is the resource you are spending, not cash. Do not worry about the P&L until you have consistent traffic.';
-    pnlTip = '<strong>Pilott\'s money tip:</strong> You need 29 subscribers at $19/mo to break even in cash. Before you build a paywall, find those 29 people in your pilot group and ask them directly: "Would you have paid for this?" Their answer — not a pricing page — tells you whether you have a business.';
-  } else {
-    pnlMsg = 'Revenue is $0 and costs are real but low. The base case projects $1,440/mo by month 12 — that requires roughly 15,000 monthly visitors and 120 Pro subscribers. You are currently at '+t.users+' visitors. The gap is large but not impossible. The key variable is whether your SEO pages start indexing around month 3 and whether Reddit continues driving organic visits.';
-    pnlTip = '<strong>Pilott\'s money tip:</strong> Your CAC is $0 because everything is organic. That is your single best asset right now. Every dollar you do not spend on ads is margin you will have later. Protect it. Paid acquisition should only start after you have a conversion rate you trust.';
-  }
-
   document.getElementById('pilottMon').textContent = monMsg;
   document.getElementById('pilottMonTip').innerHTML = monTip;
+
+  // Pilott P&L
+  let pnlMsg, pnlTip;
+  if ((t.runs||0) < 10) {
+    pnlMsg = 'P&L looks like -$550/mo on paper. Actual cash burn is near zero — Anthropic API cost on '+(t.runs||0)+' runs is rounding to nothing. Real cost: your time.';
+    pnlTip = '<strong>Pilott\'s money tip:</strong> Title 38 Premium at $49 each is the fastest revenue path. 12 sales/mo covers your operating costs.';
+  } else {
+    pnlMsg = 'Premium product is live. '+(allTools.premium||0)+' Title 38 Premium sales to date. Revenue is about volume now, not pricing.';
+    pnlTip = '<strong>Pilott\'s money tip:</strong> Drive Title 38 traffic specifically. The $49 conversion is more valuable than 5 Pro tier sign-ups at $19.';
+  }
   document.getElementById('pilottPnl').textContent = pnlMsg;
   document.getElementById('pilottPnlTip').innerHTML = pnlTip;
 
-  // ── TIMESTAMP ──
-  var now = new Date(d.updatedAt);
-  document.getElementById('updEl').textContent = 'Updated ' + now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-
-  // ── CHARTS ──
-  if (!chartsInited) { initCharts(); chartsInited = true; }
-  if (trendChart) {
-    trendChart.data.datasets[0].data = wk.runs;
-    trendChart.data.datasets[1].data = wk.sessions;
-    trendChart.data.datasets[2].data = wk.users;
-    trendChart.update();
-  }
+  document.getElementById('updEl').textContent = 'Updated ' + new Date(d.updatedAt).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
 }
 
-function initCharts() {
-  var baseOpts = {responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}};
-  var ax = {grid:{color:'rgba(0,0,0,0.04)'}, ticks:{font:{size:10}, color:'#888'}};
-
-  trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
-    type: 'line',
-    data: {
-      labels: ['Week 1','Week 2','Week 3'],
-      datasets: [
-        {label:'Runs',    data:[0,0,0], borderColor:'#2d6a4f', backgroundColor:'transparent', tension:.3, pointRadius:4, pointBackgroundColor:'#2d6a4f'},
-        {label:'Sessions',data:[0,0,0], borderColor:'#378add', backgroundColor:'transparent', tension:.3, pointRadius:4, pointBackgroundColor:'#378add'},
-        {label:'Users',   data:[0,0,0], borderColor:'#ef9f27', backgroundColor:'transparent', tension:.3, pointRadius:4, pointBackgroundColor:'#ef9f27'}
-      ]
-    },
-    options: Object.assign({}, baseOpts, {scales:{x:ax, y:{beginAtZero:true, grid:ax.grid, ticks:Object.assign({}, ax.ticks, {stepSize:5})}}})
-  });
-
-  function curve(end) {
-    var r = [];
-    for (var i = 0; i < 12; i++) {
-      var t = i / 11, ease = t < .5 ? 2*t*t : (4-2*t)*t-1;
-      r.push(Math.round(ease * end));
-    }
-    return r;
-  }
-  projChart = new Chart(document.getElementById('projChart').getContext('2d'), {
-    type: 'line',
-    data: {
-      labels: ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'],
-      datasets: [
-        {label:'Conservative', data:curve(576),  borderColor:'#888780', backgroundColor:'transparent', borderWidth:1.5, pointRadius:2, tension:.4},
-        {label:'Base case',    data:curve(1440), borderColor:'#639922', backgroundColor:'transparent', borderWidth:2,   pointRadius:2, tension:.4},
-        {label:'Upside',       data:curve(3600), borderColor:'#185FA5', backgroundColor:'transparent', borderWidth:1.5, pointRadius:2, tension:.4},
-        {label:'Break-even',   data:Array(12).fill(550), borderColor:'#A32D2D', backgroundColor:'transparent', borderWidth:1, borderDash:[4,3], pointRadius:0}
-      ]
-    },
-    options: Object.assign({}, baseOpts, {
-      scales: {
-        x: ax,
-        y: {beginAtZero:true, grid:ax.grid, ticks:{font:{size:10}, color:'#888', callback:function(v){return'$'+v;}}}
-      }
-    })
-  });
-}
-
-// ── BOOT ──
-if (sessionStorage.getItem(SK)) { showDash(); }
+if (sessionStorage.getItem(SK)) showDash();
 </script>
 </body>
 </html>
